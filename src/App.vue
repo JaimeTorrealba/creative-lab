@@ -1,0 +1,26 @@
+<script setup>
+import theNavbar from './components/layout/theNavbar.vue'
+
+</script>
+
+<template>
+    <theNavbar />
+    <router-view></router-view>
+</template>
+
+<style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+#app {
+  height: 100%;
+  width: 100%;
+  background-color: #000;
+  max-height: 100vh;
+  overflow: hidden;
+}
+</style>
