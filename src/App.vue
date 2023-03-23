@@ -9,12 +9,20 @@ import theNavbar from './components/layout/theNavbar.vue'
 </template>
 
 <style>
+@font-face {
+  font-family: 'CascadiaCode';
+  font-display: swap;
+  src: local('CascadiaCode'),
+      url('./assets/fonts/CascadiaCode.woff2') format('truetype');
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
+  font-family: 'CascadiaCode';
 }
 #app {
   height: 100%;
@@ -23,4 +31,5 @@ body {
   max-height: 100vh;
   overflow: hidden;
 }
+
 </style>

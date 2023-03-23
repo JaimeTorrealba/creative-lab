@@ -1,14 +1,17 @@
 <script setup>
-const props = defineProps({
+defineProps({
   sourceLink: {
+    type: String,
+    required: false
+  },
+  title: {
     type: String,
     required: false
   }
 })
-console.log('jaime ~ props:', props)
 </script>
 <template>
-  <!-- <h1>{{ myProps }}</h1> -->
+   <h1 class="title">{{ title }}</h1>
   <slot />
   <a :href="sourceLink" target="_blank" class="float-button">
     <img src="../../assets/github-logo.svg" width="32" height="32" />
@@ -29,5 +32,14 @@ console.log('jaime ~ props:', props)
   bottom: 5%;
   left: 2.5%;
   color:#c7c7c7
+}
+.title {
+  position: fixed;
+  top: 5%;
+  color:#f7f7f7;
+  z-index: 1000;
+  text-align: center;
+  width: 100vw;
+  font-family: 'CascadiaCode';
 }
 </style>
