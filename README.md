@@ -1,6 +1,8 @@
 # my-tres-playground
 
-This is a personal collection of some basic scene, you could take whatever you want for here 
+This is a personal collection of some basic scene, you could take whatever you want for here
+
+All the code is reference in the same page
 
 ## Recommended IDE Setup
 

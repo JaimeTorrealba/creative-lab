@@ -63,7 +63,7 @@ onLoop(({ elapsed }) => {
   <TresCanvas window-size clear-color="#000" class="over-hidden">
     <TresPerspectiveCamera :position="[0, 0, 4]" :fov="45" :aspect="1" :near="0.1" :far="1000" />
     <PamCameraMouse :factor="1" />
-    <Sphere ref="planeRef" :args="[1, 30, 30]" :position="[0, 0, 0]">
+    <Sphere ref="planeRef" :args="[1, 60, 60]" :position="[0, 0, 0]">
       <TresMeshStandardMaterial :map="map" :normalMap="normalMap" />
     </Sphere>
     <Sphere ref="cloudRef" :args="[1.01, 30, 30]" :position="[0, 0, 0]">
