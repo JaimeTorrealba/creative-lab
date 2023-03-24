@@ -1,6 +1,6 @@
 <script setup>
 import { watchEffect, onMounted } from 'vue'
-import { Box } from '@tresjs/cientos'
+import { Box, PamCameraMouse } from '@tresjs/cientos'
 import { TresCanvas, useTres } from '@tresjs/core'
 import { useMouse, useWindowSize } from '@vueuse/core'
 import { Vector2, Raycaster } from 'three'
@@ -59,6 +59,7 @@ const shader = {
 <template>
   <TresCanvas window-size clear-color="#333" class="over-hidden">
     <TresPerspectiveCamera :args="[45, 1, 0.1, 1000]" :position="[0, 0, 1]" />
+    <PamCameraMouse :disabled="true" />
     <TresMesh>
       <TresPlaneGeometry :args="[2, 1]" />
       <TresShaderMaterial v-bind="shader" :transparent="true" />
