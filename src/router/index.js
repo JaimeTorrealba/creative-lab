@@ -6,12 +6,11 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', name: 'Home', component: Home },
-        // {
-        //     path: "/newTask",
-        //     name: "NewTask",
-        //     component: () => import("../views/NewTaskView.vue"),
-        //     meta: { requiresAuth: true },
-        //   },
+        {
+            path: "/MouseShaderEffect",
+            name: "MouseShaderEffect",
+            component: () => import("../views/MouseShaderEffect.vue"),
+          },
         // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     ],
 })

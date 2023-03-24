@@ -35,6 +35,7 @@ onMounted(() => {
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
         <router-link to="/" class="link flex-align-center"> Home </router-link>
+        <router-link to="/MouseShaderEffect" class="link flex-align-center"> Mouse Shader Effect </router-link>
 
         <!-- <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link"> More </a>

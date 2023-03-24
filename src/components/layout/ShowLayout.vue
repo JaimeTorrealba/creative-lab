@@ -17,8 +17,8 @@ defineProps({
     <img src="../../assets/github-logo.svg" width="32" height="32" />
   </a>
   <div class="versions">
-      <p>Tres Version: <strong>2.0.0-alpha.1</strong></p>
-      <p>Cientos Version: <strong>2.0.0-alpha.1</strong></p>
+      <p>Tres Version: <strong class="text-white">2.0.0-alpha.1</strong></p>
+      <p>Cientos Version: <strong class="text-white">2.0.0-alpha.1</strong></p>
   </div>
 </template>
 <style scoped>
@@ -31,6 +31,9 @@ defineProps({
   position: fixed;
   bottom: 5%;
   left: 2.5%;
+  color:#c7c7c7
+}
+.text-white{
   color:#c7c7c7
 }
 .title {
