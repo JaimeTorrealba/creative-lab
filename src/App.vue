@@ -32,4 +32,8 @@ body {
   overflow: hidden;
 }
 
+.debug{
+  border: 1px solid red;
+}
+
 </style>

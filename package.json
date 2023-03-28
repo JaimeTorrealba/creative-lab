@@ -10,7 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@tresjs/core": "^2.0.0-alpha.1",
+    "@tresjs/core": "^2.0.0-alpha.5",
     "@vueuse/core": "^9.13.0",
     "bulma": "^0.9.4",
     "vue": "^3.2.47",

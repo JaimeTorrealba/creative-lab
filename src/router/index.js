@@ -11,6 +11,11 @@ const router = createRouter({
             name: "MouseShaderEffect",
             component: () => import("../views/MouseShaderEffect.vue"),
           },
+        {
+            path: "/DynamicTextEffect",
+            name: "DynamicTextEffect",
+            component: () => import("../views/DynamicTextEffect.vue"),
+          },
         // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     ],
 })
