@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
+// import { useTres } from '@tresjs/core'
 
 
 const router = createRouter({
@@ -16,7 +17,22 @@ const router = createRouter({
             name: "DynamicTextEffect",
             component: () => import("../views/DynamicTextEffect.vue"),
           },
+        {
+            path: "/multiCamera",
+            name: "MultiCamera",
+            component: () => import("../views/MultiCamera.vue"),
+          },
         // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     ],
 })
+
+// router.beforeEach((to, from) => {
+//   const { setState } = useTres()
+//   setState('scene', null)
+//   setState('renderer', null)
+//   setState('camera', null)
+//   setState('cameras', [])
+//   console.log(useTres().state)
+//   return true
+// })
 export default router

@@ -1,20 +1,12 @@
 <script setup>
-import { watchEffect, onMounted, shallowRef } from 'vue'
+import { watchEffect, shallowRef } from 'vue'
 import { Box, Text3D } from '@tresjs/cientos'
-import { TresCanvas, useTres, useRenderLoop } from '@tresjs/core'
+import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { useMouse, useWindowSize } from '@vueuse/core'
-import { Vector2, Raycaster } from 'three'
+import { Vector2 } from 'three'
 
 const { x, y } = useMouse()
 const { width, height } = useWindowSize()
-const raycaster = new Raycaster()
-let camera = null
-let scene = null
-
-onMounted(() => {
-  camera = useTres().state.camera
-  scene = useTres().state.scene
-})
 
 
 const fontPath = 'https://raw.githubusercontent.com/Tresjs/assets/main/fonts/FiraCodeRegular.json'
@@ -22,15 +14,6 @@ const fontPath = 'https://raw.githubusercontent.com/Tresjs/assets/main/fonts/Fir
 watchEffect(() => {
   x.value = (x.value / width.value) * 2 - 1
   y.value = -(y.value / height.value) * 2 + 1
-
-  if (camera && scene) {
-    raycaster.setFromCamera(new Vector2(x.value, y.value), camera)
-    const intersects = raycaster.intersectObjects(scene.children)
-    if (intersects.length > 0) {
-      let obj = intersects[0].object
-      obj.material.uniforms.hover.value = intersects[0].uv
-    }
-  }
 })
 
 const shader = {
@@ -59,6 +42,10 @@ const shader = {
       gl_FragColor = vec4(0.3, 0.3, 0.3, strength);
     }
   `
+}
+
+const updateUniforms = (ev) => {
+      ev.object.material.uniforms.hover.value = ev.uv
 }
 
  const { onLoop } = useRenderLoop()
@@ -100,7 +87,9 @@ const boxes = [
 <template>
   <TresCanvas window-size clear-color="#333" class="over-hidden">
     <TresPerspectiveCamera :args="[45, 1, 0.1, 1000]" :position="[0, 0, 1]" />
-    <TresMesh>
+    <TresMesh
+    @pointer-move="(ev) => updateUniforms(ev)"
+    >
       <TresPlaneGeometry :args="[2, 1]" />
       <TresShaderMaterial v-bind="shader" :transparent="true" />
     </TresMesh>
@@ -108,7 +97,7 @@ const boxes = [
       <Text3D text="Transparent" :size="0.3" :font="fontPath" :center="true" :position="[-1, 0, -3]" />
     </Suspense>
     <Box v-for="{color, position, name} in boxes" :key="name" ref="box" 
-    :color="color" 
+    :color="color"
     :position="position"
     :scale="[0.5, 0.5, 0.5]" />
   </TresCanvas>

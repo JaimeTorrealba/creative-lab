@@ -1,6 +1,7 @@
 <script setup>
 import mouseShaderEffect from '../components/mouseShaderEffect/theExperience.vue';
 import ShowLayout from '../components/layout/ShowLayout.vue';
+import loader from '../components/layout/theLoader.vue';
 
 const url = "https://github.com/JaimeTorrealba/my-trejs-playground/blob/main/src/components/mouseShaderEffect/theExperience.vue"
 const title = "Shader Mouse transparent Effect"
@@ -9,6 +10,9 @@ const title = "Shader Mouse transparent Effect"
     <show-layout :sourceLink="url" :title="title">
             <Suspense>
             <mouse-shader-effect />
+            <template #fallback>
+                <loader />
+              </template>
         </Suspense>
         </show-layout>
 </template>

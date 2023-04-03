@@ -38,7 +38,7 @@ defineProps({
 }
 .title {
   position: fixed;
-  top: 5%;
+  top: 95%;
   color:#f7f7f7;
   z-index: 1000;
   text-align: center;

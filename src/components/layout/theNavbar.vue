@@ -37,6 +37,7 @@ onMounted(() => {
         <router-link to="/" class="link flex-align-center"> Home </router-link>
         <router-link to="/MouseShaderEffect" class="link flex-align-center"> Mouse Shader Effect </router-link>
         <router-link to="/DynamicTextEffect" class="link flex-align-center"> Dynamic 3DText Effect </router-link>
+        <router-link to="/multiCamera" class="link flex-align-center"> Multi camera </router-link>
 
         <!-- <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link"> More </a>
