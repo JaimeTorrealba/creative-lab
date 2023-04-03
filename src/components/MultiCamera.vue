@@ -123,7 +123,7 @@ onLoop(() => {
   <TresCanvas window-size clear-color="#333" class="over-hidden">
     <TresArrayCamera :args="[cameras]" :position="[0, 2, 5]" />
     <TresMesh v-bind="model" />
-    <TresAmbientLight :color="0xffffff" :intensity="0.5" />
+    <TresAmbientLight :color="0xffffff" :intensity="1" />
     <TresDirectionalLight :color="0xffffff" :intensity="1" />
     <TresHemisphereLight />
   </TresCanvas>
