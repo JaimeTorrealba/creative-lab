@@ -1,9 +1,9 @@
 <script setup>
-import { watchEffect, shallowRef } from 'vue'
-import { Box, Text3D } from '@tresjs/cientos'
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
+import { watchEffect, shallowRef, onMounted } from 'vue'
+import { Box, Text3D, OrbitControls } from '@tresjs/cientos'
+import { TresCanvas, useRenderLoop, useTres } from '@tresjs/core'
 import { useMouse, useWindowSize } from '@vueuse/core'
-import { Vector2 } from 'three'
+import { Vector2, BasicShadowMap } from 'three'
 
 const { x, y } = useMouse()
 const { width, height } = useWindowSize()
@@ -39,7 +39,7 @@ const shader = {
       vec2 newVuv = vec2(vUv.x, vUv.y / 2.);
       vec2 newHover = vec2(vHover.x, vHover.y / 2.);
       float strength = distance(newVuv, newHover) * 10.;
-      gl_FragColor = vec4(0.3, 0.3, 0.3, strength);
+      gl_FragColor = vec4(0., 0., 0., strength);
     }
   `
 }
@@ -57,9 +57,14 @@ const updateUniforms = (ev) => {
        b.value.rotation.z = (index + elapsed) * 0.3
      })
    }
+    if (spotLightRef.value) {
+      spotLightRef.value.position.set(x.value, y.value, -2 )
+    }
  })
 
 const box = shallowRef(null)
+const textRef = shallowRef(null)
+const spotLightRef = shallowRef(null)
 
 const boxes = [
   {
@@ -83,22 +88,46 @@ const boxes = [
     position:[-2,-1,-3]
   },
 ]
+
+onMounted(() => {
+  
+})
 </script>
 <template>
-  <TresCanvas window-size clear-color="#333" class="over-hidden">
+  <TresCanvas window-size shadows needsUpdate clear-color="#333"
+  :shadowMapType="BasicShadowMap"
+  class="over-hidden">
     <TresPerspectiveCamera :args="[45, 1, 0.1, 1000]" :position="[0, 0, 1]" />
+    <OrbitControls />
+    <TresMesh
+    :position="[0,0, -3.5]"
+    receive-shadow
+    name="plane"
+    >
+      <TresPlaneGeometry :args="[10, 10]" />
+       <TresMeshStandardMaterial color="#C4C4C4"/>
+    </TresMesh>
+    <!-- Shader wall -->
     <TresMesh
     @pointer-move="(ev) => updateUniforms(ev)"
+    name="wall"
     >
       <TresPlaneGeometry :args="[2, 1]" />
       <TresShaderMaterial v-bind="shader" :transparent="true" />
     </TresMesh>
     <Suspense>
-      <Text3D text="Transparent" :size="0.3" :font="fontPath" :center="true" :position="[-1, 0, -3]" />
+      <Text3D text="Transparent" :size="0.3" :font="fontPath" :center="true" :position="[0, 0, -3]"
+      cast-shadow name="text" ref="textRef"
+      >
+        <TresMeshStandardMaterial />
+      </Text3D>
     </Suspense>
     <Box v-for="{color, position, name} in boxes" :key="name" ref="box" 
     :color="color"
     :position="position"
     :scale="[0.5, 0.5, 0.5]" />
+    <TresPointLight ref="spotLightRef" :args="[0xffffff, 7.5]" cast-shadow
+    name="light"
+    />
   </TresCanvas>
 </template>
