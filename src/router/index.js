@@ -22,6 +22,11 @@ const router = createRouter({
             name: "MultiCamera",
             component: () => import("../views/MultiCamera.vue"),
           },
+        {
+            path: "/glassmorphism",
+            name: "GlassMorphism",
+            component: () => import("../views/GlassMorphism.vue"),
+          },
         // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     ],
 })

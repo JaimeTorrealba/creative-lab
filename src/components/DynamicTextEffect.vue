@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch, watchEffect, onMounted } from 'vue'
-import { TresCanvas, useRenderLoop, useTres, useLoader } from '@tresjs/core'
+import { TresCanvas, useRenderLoop, useLoader } from '@tresjs/core'
 import { Mesh, MeshMatcapMaterial } from 'three'
 import { FontLoader } from 'three/addons/loaders/FontLoader.js'
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js'
@@ -12,6 +12,7 @@ const name = ref('')
 const username = ref('')
 const nameObject = ref(null)
 const usernameObject = ref(null)
+const canvas = ref(null)
 const { x, y } = useMouse()
 const { width, height } = useWindowSize()
 
@@ -44,14 +45,14 @@ meshNameText.position.set(-1, 0, -3)
 meshUsernameText.position.set(-1, -1, -3)
 welcomeText.position.set(-1, 1, -3)
 onMounted(() => {
-  useTres().scene.value.add(meshNameText, meshUsernameText, welcomeText)
-  nameObject.value = useTres().scene.value.getObjectByName('text3DName')
-  usernameObject.value = useTres().scene.value.getObjectByName('text3DUsername')
+  canvas.value.scene.add(meshNameText, meshUsernameText, welcomeText)
+  nameObject.value = canvas.value.scene.getObjectByName('text3DName')
+  usernameObject.value = canvas.value.scene.getObjectByName('text3DUsername')
 })
 
 watch(name, () => {
-  if (useTres().scene) {
-    const currentText = useTres().scene.value.getObjectByName('text3DName')
+  if (canvas.value.scene) {
+    const currentText = canvas.value.scene.getObjectByName('text3DName')
     if (currentText) {
       currentText.geometry.dispose()
       currentText.geometry = new TextGeometry(name.value, textOptions)
@@ -60,8 +61,8 @@ watch(name, () => {
   }
 })
 watch(username, () => {
-  if (useTres().scene) {
-    const currentText = useTres().scene.value.getObjectByName('text3DUsername')
+  if (canvas.value.scene) {
+    const currentText = canvas.value.scene.getObjectByName('text3DUsername')
     if (currentText) {
       currentText.geometry.dispose()
       currentText.geometry = new TextGeometry(username.value, textOptions)
@@ -126,7 +127,7 @@ onLoop(() => {
       <p class="is-size-7">Licence MIT</p>
     </div>
     <div class="column">
-      <TresCanvas clear-color="#333">
+      <TresCanvas clear-color="#333" ref="canvas">
         <TresPerspectiveCamera
           :position="[0, 0, 4]"
           :fov="45"

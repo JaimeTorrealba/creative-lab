@@ -1,4 +1,5 @@
 <script setup>
+import loader from './theLoader.vue';
 defineProps({
   sourceLink: {
     type: String,
@@ -12,13 +13,18 @@ defineProps({
 </script>
 <template>
    <h1 class="title is-size-3">{{ title }}</h1>
-  <slot />
+   <Suspense>
+     <slot />
+     <template #fallback>
+      <loader />
+    </template>
+    </Suspense>
   <a :href="sourceLink" target="_blank" class="float-button">
     <img src="../../assets/github-logo.svg" width="32" height="32" />
   </a>
   <div class="versions">
-      <p>Tres Version: <strong class="text-white">2.0.0-alpha.5</strong></p>
-      <p>Cientos Version: <strong class="text-white">2.0.0-alpha.5</strong></p>
+      <p>Tres Version: <strong class="text-white">2.0.0-beta.2</strong></p>
+      <p>Cientos Version: <strong class="text-white">2.0.0-beta.2</strong></p>
   </div>
 </template>
 <style scoped>

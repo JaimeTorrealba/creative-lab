@@ -1,12 +1,13 @@
 <script setup>
 import { shallowRef, onMounted } from 'vue'
 import { PamCameraMouse, Sphere } from '@tresjs/cientos'
-import { useTexture, TresCanvas, useRenderLoop, useLoader, useTres } from '@tresjs/core'
+import { useTexture, TresCanvas, useRenderLoop, useLoader } from '@tresjs/core'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import { NearestFilter, BufferAttribute, BufferGeometry, PointsMaterial, Points } from 'three'
 
 const planeRef = shallowRef(null)
 const cloudRef = shallowRef(null)
+const canvas = shallowRef(null)
 
 const { map, normalMap } = await useTexture({
   map: '/textures/8k_earth_daymap.jpg',
@@ -44,11 +45,9 @@ particlesMaterial.alphaTest = 0.01
 const particles = new Points(particlesGeometry, particlesMaterial)
 
 onMounted(() => {
-  const { state } = useTres()
-  state.scene.add(particles)
-})
+  canvas.value.scene.add(particles)
 
-// extend( particles )
+})
 
 const { onLoop } = useRenderLoop()
 
@@ -60,7 +59,7 @@ onLoop(({ elapsed }) => {
 })
 </script>
 <template>
-  <TresCanvas window-size clear-color="#000" class="over-hidden">
+  <TresCanvas window-size clear-color="#000" class="over-hidden" ref="canvas">
     <TresPerspectiveCamera :position="[0, 0, 3]" :fov="45" :aspect="1" :near="0.1" :far="1000" />
     <PamCameraMouse :factor="1" />
     <Sphere ref="planeRef" :args="[1, 60, 60]" :position="[0, 0, 0]">

@@ -1,7 +1,7 @@
 <script setup>
-import { watchEffect, shallowRef, onMounted } from 'vue'
+import { watchEffect, shallowRef } from 'vue'
 import { Box, Text3D, OrbitControls } from '@tresjs/cientos'
-import { TresCanvas, useRenderLoop, useTres } from '@tresjs/core'
+import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { useMouse, useWindowSize } from '@vueuse/core'
 import { Vector2, BasicShadowMap } from 'three'
 
@@ -45,7 +45,8 @@ const shader = {
 }
 
 const updateUniforms = (ev) => {
-      ev.object.material.uniforms.hover.value = ev.uv
+      console.log('jaime ~ updateUniforms ~ ev:', ev);
+      // ev.object.material.uniforms.hover.value = ev.uv
 }
 
  const { onLoop } = useRenderLoop()
@@ -89,9 +90,6 @@ const boxes = [
   },
 ]
 
-onMounted(() => {
-  
-})
 </script>
 <template>
   <TresCanvas window-size shadows needsUpdate clear-color="#333"
