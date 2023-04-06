@@ -10,7 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@tresjs/core": "^2.0.0-beta.2",
+    "@tresjs/core": "^2.0.0-beta.4",
     "@vueuse/core": "^9.13.0",
     "bulma": "^0.9.4",
     "vue": "^3.2.47",
@@ -18,10 +18,10 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
-    "@tresjs/cientos": "^2.0.0-alpha.1",
+    "@tresjs/cientos": "^2.0.0-beta.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",
-    "eslint": "^8.34.0",
+    "eslint": "^8.37.0",
     "eslint-plugin-vue": "^9.9.0",
     "prettier": "^2.8.4",
     "three": "^0.150.1",
