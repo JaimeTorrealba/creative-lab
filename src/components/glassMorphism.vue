@@ -1,54 +1,85 @@
 <script setup>
-import { shallowRef } from 'vue'
-import { OrbitControls } from '@tresjs/cientos'
-import { useTexture, TresCanvas, useRenderLoop } from '@tresjs/core'
-import { Shape, EquirectangularReflectionMapping, MeshPhysicalMaterial } from 'three'
+import { shallowRef, reactive } from 'vue'
+import { OrbitControls, useTweakPane } from '@tresjs/cientos'
+import { useTexture, TresCanvas } from '@tresjs/core'
+import { EquirectangularReflectionMapping } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 
-const { map } = await useTexture({map:'/textures/texture.jpg'})
+const { map } = await useTexture({map:'/textures/glassMorphismTexture.jpg'})
+const { map:normalMap } = await useTexture({map:'/textures/glassMorphismNormal.jpg'})
 const planeRef = shallowRef(null)
-const icoRef = shallowRef(null)
 
-const hdrEquirect = new RGBELoader().load(
+const hdrEquirect = await new RGBELoader().load(
     "/textures/empty_warehouse_01_2k.hdr",
     () => {
       hdrEquirect.mapping = EquirectangularReflectionMapping;
     }
   );
 
-  const glassMaterial = new MeshPhysicalMaterial({
+  const options = reactive({
     transmission: 1,
     thickness: 0.5,
     roughness: 0,
-    envMap: hdrEquirect
-  });
+    envMap: hdrEquirect,
+    clearcoatNormalMap: normalMap,
+    envMapIntensity: 1.5,
+    clearcoat: 1,
+    clearcoatRoughness: 0.1,
+    clearcoatNormalScale: 0.3,
+  })
 
-const { onLoop } = useRenderLoop()
+  const { pane } = useTweakPane()
 
-onLoop(({ elapsed }) => {
-  if (icoRef.value) {
-    icoRef.value.rotation.y = Math.cos(elapsed * 0.3)
-  }
+  pane.addInput(options, 'transmission', {
+  label: 'transmission',
+  min: 0,
+  max: 1,
+  step: 0.01,
+})
+pane.addInput(options, 'thickness', {
+  label: 'thickness',
+  min: 0,
+  max: 1,
+  step: 0.01,
+})
+  pane.addInput(options, 'envMapIntensity', {
+  label: 'envMapIntensity',
+  min: 0,
+  max: 3,
+  step: 0.1,
+})
+  pane.addInput(options, 'roughness', {
+  label: 'roughness',
+  min: 0,
+  max: 1,
+  step: 0.01,
+})
+  pane.addInput(options, 'clearcoat', {
+  label: 'clearcoat',
+  min: 0,
+  max: 1,
+  step: 0.01,
+})
+  pane.addInput(options, 'clearcoatRoughness', {
+  label: 'clearcoatRoughness',
+  min: 0,
+  max: 1,
+  step: 0.01,
+})
+pane.addInput(options, 'clearcoatNormalScale', {
+  label: 'clearcoatNormalScale',
+  min: 0,
+  max: 1,
+  step: 0.01,
 })
 
-const length = 1, width = 1;
 
-const shape = new Shape();
-shape.moveTo( 0,0 );
-shape.lineTo( 0, width );
-shape.lineTo( length, width );
-shape.lineTo( length, 0 );
-shape.lineTo( 0, 0 );
-
-const extrudeSettings = {
-	steps: 2,
-	depth: 1,
-	bevelEnabled: true,
-	bevelThickness: 1,
-	bevelSize: 1,
-	bevelOffset: 0,
-	bevelSegments: 1
-};
+const hdrEquiredButton = pane.addButton({
+  title: 'Set hdrEquired',
+});
+hdrEquiredButton.on('click', () => {
+    options.envMap = options.envMap ? null : hdrEquirect
+});
 
 </script>
 <template>
@@ -56,13 +87,9 @@ const extrudeSettings = {
   grid >
     <TresPerspectiveCamera :position="[0, 0, 3]" :fov="45" :aspect="1" :near="0.1" :far="1000" />
     <OrbitControls />
-    <TresMesh ref="icoRef" :scale="0.5" :position="[0.5, 0.5, 0]">
-        <TresExtrudeGeometry :args="[shape, extrudeSettings]"  />
-        <TresMeshPhysicalMaterial v-bind="glassMaterial" />
-    </TresMesh>
-    <TresMesh  :scale="0.5" :position="[-1, -0.5, 0]">
-        <TresIcosahedronGeometry :args="[1, 5]" />
-        <TresMeshPhysicalMaterial v-bind="glassMaterial" />
+    <TresMesh :position="[-0, 0, 0]">
+        <TresIcosahedronGeometry :args="[1, 10]" />
+        <TresMeshPhysicalMaterial v-bind="options" />
     </TresMesh>
     <TresMesh ref="planeRef" :position="[0,0, -1]">
         <TresPlaneGeometry :args="[5, 5]" />
