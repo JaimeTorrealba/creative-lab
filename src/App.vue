@@ -8,7 +8,7 @@ import theNavbar from './components/layout/theNavbar.vue'
     <router-view></router-view>
 </template>
 
-<style>
+<style lang="scss">
 @font-face {
   font-family: 'CascadiaCode';
   font-display: swap;
@@ -35,5 +35,8 @@ body {
 .debug{
   border: 1px solid red;
 }
+
+$navbar-item-color: #fff;
+$navbar-item-hover-color: #fff;
 
 </style>

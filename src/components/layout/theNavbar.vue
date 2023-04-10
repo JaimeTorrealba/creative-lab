@@ -33,7 +33,7 @@ onMounted(() => {
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
+      <div class="navbar-start" >
         <router-link to="/" class="link flex-align-center"> Home </router-link>
         <router-link to="/MouseShaderEffect" class="link flex-align-center"> Mouse Shader Effect </router-link>
         <router-link to="/DynamicTextEffect" class="link flex-align-center"> Dynamic 3DText Effect </router-link>
@@ -52,6 +52,12 @@ onMounted(() => {
           </div>
         </div> -->
       </div>
+      <div class="navbar-end flex-align-center mr-2">
+        <a class="button is-light">
+          <i class="fab fa-twitter mr-2"></i>
+          <strong>Twitter</strong>
+        </a>
+      </div>
     </div>
   </nav>
 </template>
@@ -62,5 +68,11 @@ onMounted(() => {
 .flex-align-center {
   display: flex;
   align-items: center;
+}
+.router-link, .router-link-active, a {
+  color: hsl(0, 0%, 100%);
+}
+a:hover{
+  color: hsl(217, 71%, 53%)
 }
 </style>

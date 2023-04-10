@@ -53,8 +53,8 @@ const { onLoop } = useRenderLoop()
 
 onLoop(({ elapsed }) => {
   if (planeRef.value) {
-    planeRef.value.value.rotation.y = elapsed * 0.3
-    cloudRef.value.value.rotation.y = elapsed * 0.25
+    planeRef.value.value.rotation.y = elapsed * 0.075
+    cloudRef.value.value.rotation.y = elapsed * 0.1
   }
 })
 </script>

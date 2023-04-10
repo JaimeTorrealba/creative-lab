@@ -23,7 +23,7 @@ const hdrEquirect = await new RGBELoader().load(
     envMap: hdrEquirect,
     clearcoatNormalMap: normalMap,
     envMapIntensity: 1.5,
-    clearcoat: 1,
+    clearcoat: 0.5,
     clearcoatRoughness: 0.1,
     clearcoatNormalScale: 0.3,
   })
@@ -87,6 +87,7 @@ hdrEquiredButton.on('click', () => {
   grid >
     <TresPerspectiveCamera :position="[0, 0, 3]" :fov="45" :aspect="1" :near="0.1" :far="1000" />
     <OrbitControls />
+    <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />
     <TresMesh :position="[-0, 0, 0]">
         <TresIcosahedronGeometry :args="[1, 10]" />
         <TresMeshPhysicalMaterial v-bind="options" />
