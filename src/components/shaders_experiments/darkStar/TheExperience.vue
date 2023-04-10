@@ -5,7 +5,7 @@ import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { PamCameraMouse } from '@tresjs/cientos'
 
 const gl = {
-  clearColor: '#F7F7F7',
+  clearColor: '#C4C4C4',
   shadows: true,
   alpha: false,
   shadowMapType: BasicShadowMap,

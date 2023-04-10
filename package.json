@@ -13,6 +13,7 @@
     "@tresjs/core": "^2.0.0-beta.4",
     "@vueuse/core": "^9.13.0",
     "bulma": "^0.9.4",
+    "shader-park-core": "^0.1.38",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },

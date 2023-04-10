@@ -1,9 +1,9 @@
 <script setup>
-import mouseShaderEffect from '../components/mouseShaderEffect/theExperience.vue'
+import mouseShaderEffect from '../components/shaders_experiments/mouseShaderEffect/theExperience.vue'
 import ShowLayout from '../components/layout/ShowLayout.vue'
 
 const url =
-  'https://github.com/JaimeTorrealba/my-trejs-playground/blob/main/src/components/mouseShaderEffect/theExperience.vue'
+  'https://github.com/JaimeTorrealba/my-trejs-playground/blob/main/src/components/shaders_experiments/mouseShaderEffect/theExperience.vue'
 const title = 'Shader Mouse transparent Effect'
 </script>
 <template>
