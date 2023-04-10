@@ -27,6 +27,11 @@ const router = createRouter({
             name: "GlassMorphism",
             component: () => import("../views/GlassMorphism.vue"),
           },
+        {
+            path: "/darkStar",
+            name: "DarkStar",
+            component: () => import("../views/DarkStarView.vue"),
+          },
         // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     ],
 })

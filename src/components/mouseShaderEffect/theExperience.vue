@@ -25,7 +25,6 @@ watchEffect(() => {
     const intersects = raycaster.intersectObjects(canvasRef.value.scene.children)
     if (intersects.length > 0) {
       let obj = intersects[0].object
-      console.log('jaime ~ watchEffect ~ obj:', obj);
       obj.material.uniforms.hover.value = intersects[0].uv
     }
   }

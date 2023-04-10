@@ -35,25 +35,20 @@ onMounted(() => {
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start" >
         <router-link to="/" class="link flex-align-center"> Home </router-link>
-        <router-link to="/MouseShaderEffect" class="link flex-align-center"> Mouse Shader Effect </router-link>
         <router-link to="/DynamicTextEffect" class="link flex-align-center"> Dynamic 3DText Effect </router-link>
         <router-link to="/multiCamera" class="link flex-align-center"> Multi camera </router-link>
         <router-link to="/glassmorphism" class="link flex-align-center"> Glass effect </router-link>
-
-        <!-- <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link"> More </a>
-
+        
+        <div class="navbar-item has-dropdown is-hoverable is-black">
+          <a class="navbar-link"> Shader experiments </a>
           <div class="navbar-dropdown">
-            <a class="navbar-item"> About </a>
-            <a class="navbar-item"> Jobs </a>
-            <a class="navbar-item"> Contact </a>
-            <hr class="navbar-divider" />
-            <a class="navbar-item"> Report an issue </a>
+            <router-link to="/MouseShaderEffect" class="link flex-align-center has-text-black"> Mouse Shader Effect </router-link>
+            <router-link to="/darkStar" class="link flex-align-center has-text-black"> Dark Star Shader </router-link>
           </div>
-        </div> -->
+        </div> 
       </div>
       <div class="navbar-end flex-align-center mr-2">
-        <a class="button is-light">
+        <a class="button is-light" href="https://twitter.com/jaimebboyjt">
           <i class="fab fa-twitter mr-2"></i>
           <strong>Twitter</strong>
         </a>
