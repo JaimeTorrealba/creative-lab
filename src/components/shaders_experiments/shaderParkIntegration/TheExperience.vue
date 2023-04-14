@@ -1,7 +1,6 @@
 <script setup>
 import { shallowRef, onMounted, watchEffect } from 'vue'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
-import { OrbitControls } from '@tresjs/cientos'
 import { useMouse, useWindowSize } from '@vueuse/core'
 import { createSculpture } from 'shader-park-core'
 import { spCode } from './spCode'
@@ -35,7 +34,6 @@ onLoop(() => {
 <template>
   <TresCanvas ref="canvas" window-size clear-color="#c4c4c4" class="over-hidden" grid>
     <TresPerspectiveCamera :position="[0, 0, 5]" :fov="45" :aspect="1" :near="0.1" :far="1000" />
-    <OrbitControls />
     <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />
     <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" cast-shadow />
     <TresAmbientLight />

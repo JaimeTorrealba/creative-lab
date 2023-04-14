@@ -21,6 +21,11 @@ const router = createRouter({
       name: 'GlassMorphism',
       component: () => import('../views/GlassMorphism.vue')
     },
+    {
+      path: '/mixHtml',
+      name: 'MixHTML',
+      component: () => import('../views/MixHTMLView.vue')
+    },
     // Shaders
     {
       path: '/MouseShaderEffect',

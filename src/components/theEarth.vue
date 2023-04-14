@@ -134,15 +134,6 @@ onLoop(({ elapsed }) => {
     default:
       break
   }
-  // if(b.value === ){
-
-  // }
-  // if(b.value === ){
-  //   markersRef.value.getObjectByName('maracay').material.color.set('red')
-  // }
-  // if(b.value === ){
-  //   markersRef.value.getObjectByName('barletta').material.color.set('red')
-  // }
 })
 </script>
 <template>
