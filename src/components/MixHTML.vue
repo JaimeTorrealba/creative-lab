@@ -2,7 +2,7 @@
 import { computed, watchEffect, shallowRef, onMounted } from 'vue'
 import { TresCanvas, useRenderLoop, useTexture } from '@tresjs/core'
 import { useFBX } from '@tresjs/cientos'
-import { Vector2, Raycaster } from 'three'
+import { Vector2 } from 'three'
 import { useWindowSize, useMouse } from '@vueuse/core'
 import { PamCameraMouse } from '@tresjs/cientos'
 
@@ -10,16 +10,14 @@ const shield = await useFBX('/models/icons/shield.fbx')
 const wallet = await useFBX('/models/icons/wallet.fbx')
 const money = await useFBX('/models/icons/money.fbx')
 const { map: imgToShader } = await useTexture({ map: '/images/imgToShader.jpg' })
+console.log('jaime ~ imgToShader:', imgToShader);
 const canvas = shallowRef(null)
 const shieldRef = shallowRef(null)
 const walletRef = shallowRef(null)
 const moneyRef = shallowRef(null)
-const imgRef = shallowRef(null)
 
 const { width, height } = useWindowSize()
 const { x, y } = useMouse()
-
-const raycaster = new Raycaster()
 
 const shader = {
   uniforms: {
@@ -50,13 +48,11 @@ const imgShader = {
     uTime: { value: 0 },
     uResolution: { value: new Vector2(width.value, height.value) },
     uHover: { value: new Vector2(0.5, 0.5) },
-    uHoverState: { value: 0 },
     uImage: { value: imgToShader }
   },
   vertexShader: `
   uniform float uTime;
   uniform vec2 uHover;
-  uniform float uHoverState;
   varying vec2 vUv;
     void main(){
       float dist = distance(uv,uHover);
@@ -88,19 +84,10 @@ watchEffect(() => {
 
   x.value = (x.value / width.value) * 2 - 1
   y.value = -(y.value / height.value) * 2 + 1
-
-  //Implementation without mouse move event on tres
-  if (canvas.value) {
-    raycaster.setFromCamera(new Vector2(x.value, y.value), canvas.value.camera)
-    const intersects = raycaster.intersectObjects(canvas.value.scene.children)
-    if (intersects.length > 0) {
-      let obj = intersects[0].object
-      if (obj.name === 'planeImg') {
-        obj.material.uniforms.uHover.value = intersects[0].uv
-      }
-    }
-  }
 })
+const updateUniforms = (ev) => {
+   ev.object.material.uniforms.uHover.value = ev.uv
+ }
 const fov = computed(() => 2 * Math.atan(height.value / 2 / 600) * (180 / Math.PI))
 
 onMounted(() => {
@@ -141,21 +128,24 @@ onLoop(({ elapsed }) => {
 })
 </script>
 <template>
-  <main class="below debug">
+  <main class="below">
     <TresCanvas window-size clear-color="transparent" ref="canvas">
       <TresPerspectiveCamera :args="[fov, width / height, 100, 2000]" :position="[0, 0, 600]" />
       <PamCameraMouse :factor="10" />
-      <TresMesh :rotation="[0, 0, -3.075]" :position="[0, height / 2, 0]">
+      <TresMesh :rotation="[0, 0, -3.075]" :position="[0, height / 2, 0]" name="topShader">
         <TresPlaneGeometry :args="[width * 2, height / 3, 10, 10]" />
         <TresShaderMaterial v-bind="shader" />
       </TresMesh>
-      <TresMesh :position="[0, -0.99 * (height / 2), 0]">
+      <TresMesh :position="[0, -0.99 * (height / 2), 0]" name="bottomPlane">
         <TresPlaneGeometry :args="[width * 2, height / 3, 10, 10]" />
         <TresMeshBasicMaterial color="#333" />
       </TresMesh>
       <!-- image -->
-      <TresMesh name="planeImg" v-if="imgRef" :position="[width / 5 + 75, 0, 0]">
-        <TresPlaneGeometry :args="[405, 532, 10, 10]" />
+      <TresMesh name="planeImg"
+      :position="[width / 5 + 75, 0, 0]"
+      @pointer-move="(ev) => updateUniforms(ev)"
+      >
+        <TresPlaneGeometry :args="[405, 532, 10, 10]"  />
         <TresShaderMaterial v-bind="imgShader" />
       </TresMesh>
       <!-- models -->
@@ -188,9 +178,8 @@ onLoop(({ elapsed }) => {
             <div class="column is-one-third has-text-left">
               <figure class="image">
                 <img
-                  ref="imgRef"
                   class="img"
-                  src="../../public/images/imgToShader.jpg"
+                  src="/images/imgToShader.jpg"
                   alt="image"
                 />
               </figure>

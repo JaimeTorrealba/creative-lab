@@ -2,6 +2,7 @@
 import { shallowRef, onMounted, reactive } from 'vue'
 import { PamCameraMouse, Sphere, useTweakPane } from '@tresjs/cientos'
 import { useTexture, TresCanvas, useRenderLoop, useLoader } from '@tresjs/core'
+import { useEventListener } from '@vueuse/core'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import {
   NearestFilter,
@@ -81,8 +82,8 @@ onMounted(() => {
 })
 
 const options = reactive({
-  rotation: true,
-  speed: 0.075
+  rotation: false,
+  speed: 0.03
 })
 
 const { pane } = useTweakPane()
@@ -92,7 +93,7 @@ pane.addInput(options, 'speed', {
   label: 'Speed',
   min: 0,
   max: 0.5,
-  step: 0.01,
+  step: 0.01
 })
 const citiList = pane.addBlade({
   view: 'list',
@@ -105,10 +106,41 @@ const citiList = pane.addBlade({
   value: 'vll'
 })
 
+// DRAG AND DROP
+
+let isDragging = false
+let xDrag = {
+  target: 0,
+  value: 0,
+  position: 0,
+  mouse: 0
+}
+
+useEventListener(document, 'mousedown', (e) => {
+  isDragging = true
+  xDrag.mouse = e.clientX
+})
+
+useEventListener(document, 'mouseup', () => {
+  isDragging = false
+})
+useEventListener(document, 'mousemove', (e) => {
+  if (!isDragging) return
+  const distance = (e.clientX - xDrag.mouse) * 0.01
+  xDrag.target = xDrag.position + distance
+})
+
+// END DRAG AND DROP
+
 const { onLoop } = useRenderLoop()
 onLoop(({ elapsed }) => {
+  xDrag.value = (xDrag.target - xDrag.value) * 0.5
   if (cloudRef.value) {
     cloudRef.value.value.rotation.y = elapsed * (options.speed + 0.025)
+  }
+  if (planeRef.value && markersRef.value && !options.rotation) {
+    planeRef.value.value.rotation.y = xDrag.value
+    markersRef.value.rotation.y = xDrag.value
   }
   if (planeRef.value && markersRef.value && options.rotation) {
     planeRef.value.value.rotation.y = elapsed * options.speed
@@ -137,9 +169,9 @@ onLoop(({ elapsed }) => {
 })
 </script>
 <template>
-  <TresCanvas window-size clear-color="#000" class="over-hidden" ref="canvas">
+  <TresCanvas window-size clear-color="#000" class="over-hidden mouse-chg" ref="canvas">
     <TresPerspectiveCamera :position="[0, 0, 3]" :fov="45" :aspect="1" :near="0.1" :far="1000" />
-    <PamCameraMouse :factor="1" />
+    <PamCameraMouse :factor="0.1" />
     <Sphere ref="planeRef" :args="[1, 60, 60]" :position="[0, 0, 0]">
       <TresMeshStandardMaterial :map="map" :normalMap="normalMap" />
     </Sphere>
@@ -157,3 +189,8 @@ onLoop(({ elapsed }) => {
     <TresAmbientLight />
   </TresCanvas>
 </template>
+<style scoped>
+.mouse-chg {
+  cursor: grab;
+}
+</style>

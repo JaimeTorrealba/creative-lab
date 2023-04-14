@@ -3,7 +3,7 @@ import { watchEffect, shallowRef } from 'vue'
 import { Box, Text3D } from '@tresjs/cientos'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { useMouse, useWindowSize } from '@vueuse/core'
-import { Vector2, BasicShadowMap, Raycaster } from 'three'
+import { Vector2, BasicShadowMap } from 'three'
 
 const { x, y } = useMouse()
 const { width, height } = useWindowSize()
@@ -12,22 +12,11 @@ const canvasRef = shallowRef(null)
 const textRef = shallowRef(null)
 const spotLightRef = shallowRef(null)
 
-const raycaster = new Raycaster()
 const fontPath = 'https://raw.githubusercontent.com/Tresjs/assets/main/fonts/FiraCodeRegular.json'
 
 watchEffect(() => {
   x.value = (x.value / width.value) * 2 - 1
   y.value = -(y.value / height.value) * 2 + 1
-
-  //Implementation without mouse move event on tres
-  if (canvasRef.value) {
-    raycaster.setFromCamera(new Vector2(x.value, y.value), canvasRef.value.camera)
-    const intersects = raycaster.intersectObjects(canvasRef.value.scene.children)
-    if (intersects.length > 0) {
-      let obj = intersects[0].object
-      obj.material.uniforms.hover.value = intersects[0].uv
-    }
-  }
 })
 
 const shader = {
@@ -36,22 +25,19 @@ const shader = {
   },
   vertexShader: `
   varying vec2 vUv;
-  varying vec2 vHover;
-  uniform vec2 hover;
   
     void main(){
       gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
       vUv = uv;
-      vHover = hover;
     }
   `,
   fragmentShader: `
   varying vec2 vUv;
-  varying vec2 vHover;
+  uniform vec2 hover;
 
     void main(){
       vec2 newVuv = vec2(vUv.x, vUv.y / 2.);
-      vec2 newHover = vec2(vHover.x, vHover.y / 2.);
+      vec2 newHover = vec2(hover.x, hover.y / 2.);
       float strength = distance(newVuv, newHover) * 10.;
       gl_FragColor = vec4(0., 0., 0., strength);
     }
@@ -59,10 +45,9 @@ const shader = {
 }
 
 // CURRENT BUG ON TRES CORE MOUSE MOVE
-// const updateUniforms = (ev) => {
-//   console.log('jaime ~ updateUniforms ~ ev:', ev)
-//   ev.object.material.uniforms.hover.value = ev.uv
-// }
+ const updateUniforms = (ev) => {
+   ev.object.material.uniforms.hover.value = ev.uv
+ }
 
 const { onLoop } = useRenderLoop()
 
