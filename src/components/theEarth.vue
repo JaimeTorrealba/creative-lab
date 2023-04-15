@@ -171,7 +171,7 @@ onLoop(({ elapsed }) => {
 <template>
   <TresCanvas window-size clear-color="#000" class="over-hidden mouse-chg" ref="canvas">
     <TresPerspectiveCamera :position="[0, 0, 3]" :fov="45" :aspect="1" :near="0.1" :far="1000" />
-    <PamCameraMouse :factor="0.1" />
+    <PamCameraMouse :factor="0.05" />
     <Sphere ref="planeRef" :args="[1, 60, 60]" :position="[0, 0, 0]">
       <TresMeshStandardMaterial :map="map" :normalMap="normalMap" />
     </Sphere>
