@@ -39,6 +39,7 @@ onMounted(() => {
         <router-link to="/multiCamera" class="link flex-align-center"> Multi camera </router-link>
         <router-link to="/glassmorphism" class="link flex-align-center"> Glass effect </router-link>
         <router-link to="/mixHtml" class="link flex-align-center"> Mix HTML + TresJs </router-link>
+        <router-link to="/destroyObject" class="link flex-align-center"> Destroy object </router-link>
         
         <div class="navbar-item has-dropdown is-hoverable is-black">
           <a class="navbar-link"> Shader experiments </a>

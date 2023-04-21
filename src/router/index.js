@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
-// import { useTres } from '@tresjs/core'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,6 +25,11 @@ const router = createRouter({
       name: 'MixHTML',
       component: () => import('../views/MixHTMLView.vue')
     },
+    {
+      path: '/destroyObject',
+      name: 'DestroyObject',
+      component: () => import('../views/DestroyObjectView.vue')
+    },
     // Shaders
     {
       path: '/MouseShaderEffect',
@@ -46,13 +50,4 @@ const router = createRouter({
   ]
 })
 
-// router.beforeEach((to, from) => {
-//   const { setState } = useTres()
-//   setState('scene', null)
-//   setState('renderer', null)
-//   setState('camera', null)
-//   setState('cameras', [])
-//   console.log(useTres().state)
-//   return true
-// })
 export default router
