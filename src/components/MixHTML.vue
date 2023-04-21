@@ -1,5 +1,5 @@
 <script setup>
-import { computed, watchEffect, shallowRef, onMounted } from 'vue'
+import { computed, watchEffect, shallowRef } from 'vue'
 import { TresCanvas, useRenderLoop, useTexture } from '@tresjs/core'
 import { useFBX } from '@tresjs/cientos'
 import { Vector2 } from 'three'
@@ -10,11 +10,8 @@ const shield = await useFBX('/models/icons/shield.fbx')
 const wallet = await useFBX('/models/icons/wallet.fbx')
 const money = await useFBX('/models/icons/money.fbx')
 const { map: imgToShader } = await useTexture({ map: '/images/imgToShader.jpg' })
-console.log('jaime ~ imgToShader:', imgToShader);
 const canvas = shallowRef(null)
-const shieldRef = shallowRef(null)
-const walletRef = shallowRef(null)
-const moneyRef = shallowRef(null)
+
 
 const { width, height } = useWindowSize()
 const { x, y } = useMouse()
@@ -90,37 +87,6 @@ const updateUniforms = (ev) => {
  }
 const fov = computed(() => 2 * Math.atan(height.value / 2 / 600) * (180 / Math.PI))
 
-onMounted(() => {
-  shieldRef.value = canvas.value.scene.getObjectByName('Shield')
-  shieldRef.value.scale.set(
-    shieldRef.value.scale.x / 2,
-    shieldRef.value.scale.y / 2,
-    shieldRef.value.scale.z / 2
-  )
-  shieldRef.value.position.x = -1 * (width.value / 2) + 350
-  shieldRef.value.position.y = height.value / 6 - 125
-  shieldRef.value.rotation.z = 1.1
-  //Wallet
-  walletRef.value = canvas.value.scene.getObjectByName('Button')
-  walletRef.value.scale.set(
-    walletRef.value.scale.x / 2,
-    walletRef.value.scale.y / 2,
-    walletRef.value.scale.z / 2
-  )
-  walletRef.value.position.x = -1 * (width.value / 2) + 350
-  walletRef.value.position.y = height.value / 6 - 240
-  walletRef.value.rotation.z = 1.1
-  //money
-  moneyRef.value = canvas.value.scene.getObjectByName('Plane006')
-  moneyRef.value.scale.set(
-    moneyRef.value.scale.x / 2,
-    moneyRef.value.scale.y / 2,
-    moneyRef.value.scale.z / 2
-  )
-  moneyRef.value.position.x = -1 * (width.value / 2) + 350
-  moneyRef.value.position.y = height.value / 6 - 325
-})
-
 const { onLoop } = useRenderLoop()
 
 onLoop(({ elapsed }) => {
@@ -149,9 +115,27 @@ onLoop(({ elapsed }) => {
         <TresShaderMaterial v-bind="imgShader" />
       </TresMesh>
       <!-- models -->
-      <TresMesh v-bind="shield" />
-      <TresMesh v-bind="wallet" />
-      <TresMesh v-bind="money" />
+      <Suspense>
+        <primitive :object="shield"
+        :scale="[0.5, 0.5, 0.5]"
+        :position="[(width * -0.5)+350, 30, 0]"
+        :rotation="[0, 1.1, 0]"
+        />
+      </Suspense>
+      <Suspense>
+        <primitive :object="wallet"
+        :scale="[0.5, 0.5, 0.5]"
+        :position="[(width * -0.5)+350, (height/6)-240, 0]"
+        :rotation="[0, 1.1, 0]"
+        />
+      </Suspense>
+      <Suspense>
+        <primitive :object="money"
+        :scale="[0.5, 0.5, 0.5]"
+        :position="[(width * -0.5)+350, (height/6)-325, 0]"
+        :rotation="[0, 0.6, 0]"
+        />
+      </Suspense>
       <TresDirectionalLight :position="[0, 2, 4]" :intensity="3" cast-shadow />
       <TresAmbientLight />
     </TresCanvas>
