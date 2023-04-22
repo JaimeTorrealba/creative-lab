@@ -36,11 +36,11 @@ const router = createRouter({
       name: 'MouseShaderEffect',
       component: () => import('../views/MouseShaderEffect.vue')
     },
-    // {
-    //   path: '/darkStar',
-    //   name: 'DarkStar',
-    //   component: () => import('../views/DarkStarView.vue')
-    // },
+    {
+      path: '/darkStar',
+      name: 'DarkStar',
+      component: () => import('../views/DarkStarView.vue')
+    },
     // {
     //   path: '/shaderParkIntegration',
     //   name: 'ShaderParkIntegration',
