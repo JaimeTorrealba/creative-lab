@@ -31,11 +31,11 @@ const router = createRouter({
     //   component: () => import('../views/DestroyGeosView.vue')
     // },
     // // Shaders
-    // {
-    //   path: '/MouseShaderEffect',
-    //   name: 'MouseShaderEffect',
-    //   component: () => import('../views/MouseShaderEffect.vue')
-    // },
+    {
+      path: '/MouseShaderEffect',
+      name: 'MouseShaderEffect',
+      component: () => import('../views/MouseShaderEffect.vue')
+    },
     // {
     //   path: '/darkStar',
     //   name: 'DarkStar',
