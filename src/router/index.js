@@ -28,7 +28,7 @@ const router = createRouter({
     {
       path: '/destroyObject',
       name: 'DestroyObject',
-      component: () => import('../views/DestroyObjectView.vue')
+      component: () => import('../views/DestroyGeosView.vue')
     },
     // Shaders
     {

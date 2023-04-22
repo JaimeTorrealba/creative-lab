@@ -39,7 +39,7 @@ onMounted(() => {
         <router-link to="/multiCamera" class="link flex-align-center"> Multi camera </router-link>
         <router-link to="/glassmorphism" class="link flex-align-center"> Glass effect </router-link>
         <router-link to="/mixHtml" class="link flex-align-center"> Mix HTML + TresJs </router-link>
-        <router-link to="/destroyObject" class="link flex-align-center"> Destroy object </router-link>
+        
         
         <div class="navbar-item has-dropdown is-hoverable is-black">
           <a class="navbar-link"> Shader experiments </a>
@@ -47,6 +47,7 @@ onMounted(() => {
             <router-link to="/MouseShaderEffect" class="link flex-align-center has-text-black"> Mouse Shader Effect </router-link>
             <router-link to="/darkStar" class="link flex-align-center has-text-black"> Dark Star Shader </router-link>
             <router-link to="/shaderParkIntegration" class="link flex-align-center has-text-black"> Shader park example </router-link>
+            <router-link to="/destroyObject" class="link flex-align-center has-text-black"> Destroy object </router-link>
           </div>
         </div> 
       </div>
@@ -70,6 +71,14 @@ onMounted(() => {
 .router-link, .router-link-active, a {
   color: hsl(0, 0%, 100%);
 }
+
+@media screen and (max-width: 1024px) {
+  .router-link, .router-link-active, a {
+    color: hsl(217, 71%, 03%);
+  }
+}
+  
+
 a:hover{
   color: hsl(217, 71%, 53%)
 }

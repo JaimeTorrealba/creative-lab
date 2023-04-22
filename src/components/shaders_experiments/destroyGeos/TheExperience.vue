@@ -78,7 +78,7 @@ const squareShader = {
     }`,
   uniforms: {
     uTime: { value: 0 },
-    uProgress: { value: 0 } // cambiar a 0
+    uProgress: { value: 0 }
   },
   transparent:true
 }
