@@ -41,11 +41,11 @@ const router = createRouter({
       name: 'DarkStar',
       component: () => import('../views/DarkStarView.vue')
     },
-    // {
-    //   path: '/shaderParkIntegration',
-    //   name: 'ShaderParkIntegration',
-    //   component: () => import('../views/ShaderParkIntegrationView.vue')
-    // }
+    {
+      path: '/shaderParkIntegration',
+      name: 'ShaderParkIntegration',
+      component: () => import('../views/ShaderParkIntegrationView.vue')
+    }
     // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ]
 })
