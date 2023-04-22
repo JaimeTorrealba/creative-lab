@@ -5,11 +5,11 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', name: 'Home', component: Home },
-    // {
-    //   path: '/DynamicTextEffect',
-    //   name: 'DynamicTextEffect',
-    //   component: () => import('../views/DynamicTextEffect.vue')
-    // },
+    {
+      path: '/DynamicTextEffect',
+      name: 'DynamicTextEffect',
+      component: () => import('../views/DynamicTextEffect.vue')
+    },
     // {
     //   path: '/multiCamera',
     //   name: 'MultiCamera',
