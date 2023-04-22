@@ -10,11 +10,11 @@ const router = createRouter({
       name: 'DynamicTextEffect',
       component: () => import('../views/DynamicTextEffect.vue')
     },
-    // {
-    //   path: '/multiCamera',
-    //   name: 'MultiCamera',
-    //   component: () => import('../views/MultiCamera.vue')
-    // },
+    {
+      path: '/multiCamera',
+      name: 'MultiCamera',
+      component: () => import('../views/MultiCamera.vue')
+    },
     // {
     //   path: '/glassmorphism',
     //   name: 'GlassMorphism',
