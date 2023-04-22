@@ -24,12 +24,7 @@ const router = createRouter({
     //   path: '/mixHtml',
     //   name: 'MixHTML',
     //   component: () => import('../views/MixHTMLView.vue')
-    // },
-    // {
-    //   path: '/destroyObject',
-    //   name: 'DestroyObject',
-    //   component: () => import('../views/DestroyGeosView.vue')
-    // },
+    // }, 
     // // Shaders
     {
       path: '/MouseShaderEffect',
@@ -45,7 +40,12 @@ const router = createRouter({
       path: '/shaderParkIntegration',
       name: 'ShaderParkIntegration',
       component: () => import('../views/ShaderParkIntegrationView.vue')
-    }
+    },
+    {
+      path: '/destroyObject',
+      name: 'DestroyObject',
+      component: () => import('../views/DestroyGeosView.vue')
+    },
     // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ]
 })
