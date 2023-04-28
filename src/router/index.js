@@ -46,6 +46,11 @@ const router = createRouter({
       name: 'DestroyObject',
       component: () => import('../views/DestroyGeosView.vue')
     },
+    {
+      path: '/wave',
+      name: 'Wave',
+      component: () => import('../views/WaveView.vue')
+    },
     // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ]
 })

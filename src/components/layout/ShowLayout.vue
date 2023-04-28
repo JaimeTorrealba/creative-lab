@@ -23,7 +23,7 @@ defineProps({
     <img src="../../assets/github-logo.svg" width="32" height="32" />
   </a>
   <div class="versions">
-      <p>Tres Version: <strong class="text-white">2.0.0-beta.4</strong></p>
+      <p>Tres Version: <strong class="text-white">2.0.0-beta.11</strong></p>
       <p>Cientos Version: <strong class="text-white">2.0.0-beta.4</strong></p>
   </div>
 </template>

@@ -48,6 +48,7 @@ onMounted(() => {
             <router-link to="/darkStar" class="link flex-align-center has-text-black"> Dark Star Shader </router-link>
             <router-link to="/shaderParkIntegration" class="link flex-align-center has-text-black"> Shader park example </router-link>
             <router-link to="/destroyObject" class="link flex-align-center has-text-black"> Destroy object </router-link>
+            <router-link to="/wave" class="link flex-align-center has-text-black"> Wave effect </router-link>
           </div>
         </div> 
       </div>

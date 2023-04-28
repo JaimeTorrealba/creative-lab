@@ -78,7 +78,6 @@ const imgShader = {
 
 watchEffect(() => {
   shader.uniforms.uResolution.value = new Vector2(width.value, height.value)
-
   x.value = (x.value / width.value) * 2 - 1
   y.value = -(y.value / height.value) * 2 + 1
 })
