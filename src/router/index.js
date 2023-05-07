@@ -16,6 +16,11 @@ const router = createRouter({
       component: () => import('../views/MultiCamera.vue')
     },
     {
+      path: '/infiniteBeam',
+      name: 'InfiniteBeam',
+      component: () => import('../views/InfiniteBeamView.vue')
+    },
+    {
       path: '/glassmorphism',
       name: 'GlassMorphism',
       component: () => import('../views/GlassMorphism.vue')

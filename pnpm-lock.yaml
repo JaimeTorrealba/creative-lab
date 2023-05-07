@@ -2,8 +2,8 @@ lockfileVersion: 5.4
 
 specifiers:
   '@rushstack/eslint-patch': ^1.2.0
-  '@tresjs/cientos': 2.0.0-beta.4
-  '@tresjs/core': 2.0.0-beta.11
+  '@tresjs/cientos': 2.0.0-beta.6
+  '@tresjs/core': 2.0.0-beta.13
   '@vitejs/plugin-vue': ^4.1.0
   '@vue/eslint-config-prettier': ^7.1.0
   '@vueuse/core': ^9.13.0
@@ -21,7 +21,7 @@ specifiers:
   vue-router: ^4.1.6
 
 dependencies:
-  '@tresjs/core': 2.0.0-beta.11_three@0.150.1+vue@3.2.47
+  '@tresjs/core': 2.0.0-beta.13_three@0.150.1+vue@3.2.47
   '@vueuse/core': 9.13.0_vue@3.2.47
   bulma: 0.9.4
   gsap: 3.11.5
@@ -31,7 +31,7 @@ dependencies:
 
 devDependencies:
   '@rushstack/eslint-patch': 1.2.0
-  '@tresjs/cientos': 2.0.0-beta.4_qct326xfdjdpjuyftgmdfhfmha
+  '@tresjs/cientos': 2.0.0-beta.6_pcam4mhufy5y6iy2jopaze5p4m
   '@vitejs/plugin-vue': 4.1.0_vite@4.3.1+vue@3.2.47
   '@vue/eslint-config-prettier': 7.1.0_ijodf5t7srrg7ozp63c3y3ifnq
   eslint: 8.39.0
@@ -399,14 +399,14 @@ packages:
     engines: {node: '>=16'}
     dev: false
 
-  /@tresjs/cientos/2.0.0-beta.4_qct326xfdjdpjuyftgmdfhfmha:
-    resolution: {integrity: sha512-axtFklWXJX3HoFE6ftsy2hCwrzL+rbrPj45pFk5o+wx5ZUEiSEnJ61ibOu+YEHyJcE1nZeefXSib/TOjZ+iqVA==}
+  /@tresjs/cientos/2.0.0-beta.6_pcam4mhufy5y6iy2jopaze5p4m:
+    resolution: {integrity: sha512-FPX3Y6ZJDTKxn2XRMbjKz8zflkpqncp5VZDAWwr9886cauagRwOfaZZf2KAcbXH82zAMBWLvKuSrCmRfiEHZAQ==}
     peerDependencies:
-      '@tresjs/core': 2.0.0-beta.10
+      '@tresjs/core': 2.0.0-beta.11
       three: latest
       vue: ^3.2.47
     dependencies:
-      '@tresjs/core': 2.0.0-beta.11_three@0.150.1+vue@3.2.47
+      '@tresjs/core': 2.0.0-beta.13_three@0.150.1+vue@3.2.47
       '@vueuse/core': 10.1.0_vue@3.2.47
       three: 0.150.1
       three-stdlib: 2.21.8_three@0.150.1
@@ -415,8 +415,8 @@ packages:
       - '@vue/composition-api'
     dev: true
 
-  /@tresjs/core/2.0.0-beta.11_three@0.150.1+vue@3.2.47:
-    resolution: {integrity: sha512-EkgZSWEAftcG6CpF1YgiGahrQGAAItyidL+Mr2wQPD4hNRNT+K9YYzyAHl7jaVbLpFLYAfhxL2i+sK+YuH9/kA==}
+  /@tresjs/core/2.0.0-beta.13_three@0.150.1+vue@3.2.47:
+    resolution: {integrity: sha512-QJ2XSwP/aExXie6LwIm/IbfH/wmRv7sknoJj1K9J03TCjmu7J4w5ug3w79S/LH6YXs7w5Zezsc74QHN/fire4A==}
     peerDependencies:
       three: latest
       vue: ^3.2.47
