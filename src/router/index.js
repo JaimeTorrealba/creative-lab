@@ -56,6 +56,12 @@ const router = createRouter({
       name: 'Wave',
       component: () => import('../views/WaveView.vue')
     },
+    // playground
+    {
+      path: '/playground',
+      name: 'Playground',
+      component: () => import('../components/Playground/index.vue')
+    }
     // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ]
 })
