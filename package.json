@@ -14,12 +14,13 @@
     "@tresjs/cientos": "^2.0.0",
     "@tresjs/core": "^2.0.0",
     "@vueuse/core": "^9.13.0",
-    "bulma": "^0.9.4",
     "gsap": "^3.11.5",
     "vue": "^3.3.2",
-    "vue-router": "^4.2.0"
+    "vue-router": "^4.2.0",
+    "vuetify": "^3.3.0"
   },
   "devDependencies": {
+    "@mdi/font": "^7.2.96",
     "@rushstack/eslint-patch": "^1.2.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vue/eslint-config-prettier": "^7.1.0",

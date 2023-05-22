@@ -1,68 +1,120 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
+import defaultLayout from '@/layouts/defaultLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', name: 'Home', component: Home },
+    {
+      path: '/',
+      name: 'Home',
+      meta:{
+        layout: defaultLayout
+      },
+      component: Home,
+    },
+    {
+      path: '/earth',
+      name: 'Earth',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/EarthView.vue'),
+    },
     {
       path: '/DynamicTextEffect',
-      name: 'DynamicTextEffect',
-      component: () => import('../views/DynamicTextEffect.vue')
+      name: 'Dynamic_Form',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/DynamicTextEffect.vue'),
     },
     {
       path: '/multiCamera',
-      name: 'MultiCamera',
-      component: () => import('../views/MultiCamera.vue')
+      name: 'Multi_Camera',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/MultiCamera.vue'),
     },
     {
       path: '/infiniteBeam',
-      name: 'InfiniteBeam',
-      component: () => import('../views/InfiniteBeamView.vue')
+      name: 'Infinite_Beam',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/InfiniteBeamView.vue'),
     },
     {
       path: '/glassmorphism',
       name: 'GlassMorphism',
-      component: () => import('../views/GlassMorphism.vue')
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/GlassMorphism.vue'),
     },
     {
       path: '/mixHtml',
-      name: 'MixHTML',
-      component: () => import('../views/MixHTMLView.vue')
-    }, 
+      name: 'Mix_HTML',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/MixHTMLView.vue'),
+    },
     // // Shaders
     {
       path: '/MouseShaderEffect',
       name: 'MouseShaderEffect',
-      component: () => import('../views/MouseShaderEffect.vue')
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/MouseShaderEffect.vue'),
     },
     {
       path: '/darkStar',
-      name: 'DarkStar',
-      component: () => import('../views/DarkStarView.vue')
+      name: 'Dark_Star',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/DarkStarView.vue'),
     },
     // {
     //   path: '/shaderParkIntegration',
     //   name: 'ShaderParkIntegration',
-    //   component: () => import('../views/ShaderParkIntegrationView.vue')
+    //   component: () => import('../views/ShaderParkIntegrationView.vue'),
+    //     meta: {
+    //   layout: 'defaultLayout'
+    // },
     // },
     {
       path: '/destroyObject',
-      name: 'DestroyObject',
-      component: () => import('../views/DestroyGeosView.vue')
+      name: 'Destroy_Objects',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/DestroyGeosView.vue'),
     },
     {
       path: '/wave',
       name: 'Wave',
-      component: () => import('../views/WaveView.vue')
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/WaveView.vue'),
     },
     // playground
     {
       path: '/playground',
       name: 'Playground',
-      component: () => import('../components/Playground/index.vue')
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../components/Playground/index.vue'),
     }
     // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+    //     meta: {
+    //   layout: 'errorLayout'
+    // },
   ]
 })
 

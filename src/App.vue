@@ -1,19 +1,31 @@
-<script setup>
-import theNavbar from './components/layout/theNavbar.vue'
-
-</script>
+<script setup></script>
 
 <template>
-    <theNavbar />
-    <router-view></router-view>
+  <!-- <theNavbar /> -->
+  <v-app>
+    <component :is="$route.meta.layout">
+      <Suspense>
+        <router-view></router-view>
+        <template #fallback>
+          <div class="center-screen">
+            <v-progress-circular
+              indeterminate
+              :size="100"
+              :width="10"
+              color="blue-darken-1"
+            ></v-progress-circular>
+          </div>
+        </template>
+      </Suspense>
+    </component>
+  </v-app>
 </template>
 
 <style lang="scss">
 @font-face {
   font-family: 'CascadiaCode';
   font-display: swap;
-  src: local('CascadiaCode'),
-      url('./assets/fonts/CascadiaCode.woff2') format('truetype');
+  src: local('CascadiaCode'), url('./assets/fonts/CascadiaCode.woff2') format('truetype');
 }
 
 html,
@@ -32,11 +44,13 @@ body {
   overflow: hidden;
 }
 
-.debug{
+.debug {
   border: 1px solid red;
 }
 
-$navbar-item-color: #fff;
-$navbar-item-hover-color: #fff;
-
+.center-screen{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
 </style>

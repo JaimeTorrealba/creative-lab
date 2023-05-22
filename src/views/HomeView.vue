@@ -1,14 +1,10 @@
 <script setup>
-import Earth from '@/components/theEarth.vue'
-import ShowLayout from '../components/layout/ShowLayout.vue'
-
-const url =
-  'https://github.com/JaimeTorrealba/my-trejs-playground/blob/main/src/components/theEarth.vue'
-const title = '3D earth, clouds paralax, markers'
 </script>
 <template>
-  <show-layout :sourceLink="url" :title="title">
-    <Earth />
-  </show-layout>
+ <h1>Home</h1>
 </template>
-<style scoped></style>
+<style scoped>
+h1{
+  color: white;
+}
+</style>
