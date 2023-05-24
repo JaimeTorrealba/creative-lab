@@ -21,6 +21,14 @@ const router = createRouter({
       },
       component: () => import('../views/EarthView.vue'),
     },
+    {
+      path: '/fire',
+      name: 'Fire',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/FireView.vue'),
+    },
     // {
     //   path: '/DynamicTextEffect',
     //   name: 'Dynamic_Form',
