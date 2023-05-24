@@ -8,7 +8,6 @@ import { Vector3, MathUtils } from 'three'
 const planeRef = shallowRef(null)
 const cloudRef = shallowRef(null)
 const markersRef = shallowRef(null)
-const canvas = shallowRef(null)
 
 const { map, normalMap, alphaMap } = await useTexture({
   map: '/textures/8k_earth_daymap.jpg',
@@ -17,7 +16,6 @@ const { map, normalMap, alphaMap } = await useTexture({
 })
 
 // markers
-
 const markers = [
   {
     name: 'maracay',
@@ -44,12 +42,11 @@ const latLngToVec3 = (radius, { lat, lng }) => {
   )
 }
 
+const { pane } = useTweakPane()
 const options = reactive({
   rotation: false,
   speed: 0.03
 })
-
-const { pane } = useTweakPane()
 
 pane.addInput(options, 'rotation')
 pane.addInput(options, 'speed', {
@@ -89,7 +86,6 @@ citiList.on('change', (value) => {
 })
 
 // DRAG AND DROP
-
 let isDragging = false
 let xDrag = {
   target: 0,
@@ -102,7 +98,6 @@ useEventListener(document, 'mousedown', (e) => {
   isDragging = true
   xDrag.mouse = e.clientX
 })
-
 useEventListener(document, 'mouseup', () => {
   isDragging = false
 })
@@ -111,10 +106,10 @@ useEventListener(document, 'mousemove', (e) => {
   const distance = (e.clientX - xDrag.mouse) * 0.01
   xDrag.target = xDrag.position + distance
 })
-
 // END DRAG AND DROP
 
 const { onLoop } = useRenderLoop()
+
 onLoop(({ elapsed }) => {
   xDrag.value = (xDrag.target - xDrag.value) * 0.5
   if (cloudRef.value) {

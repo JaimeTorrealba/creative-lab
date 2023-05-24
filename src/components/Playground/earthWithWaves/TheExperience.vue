@@ -7,7 +7,7 @@ import {
   OrbitControls
 } from '@tresjs/cientos'
 import { useTexture, TresCanvas, useRenderLoop } from '@tresjs/core'
-import { Vector3, Vector2, MathUtils } from 'three'
+import { Vector3, MathUtils } from 'three'
 import earthFrag from './shaders/earthFrag.glsl'
 import earthVex from './shaders/earthVex.glsl'
 

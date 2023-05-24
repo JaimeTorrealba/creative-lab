@@ -1,7 +1,12 @@
 <script setup>
 import { ref } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 
 const drawer = ref(false)
+
+const navigationRef = ref(null)
+
+onClickOutside(navigationRef, () => drawer.value = false)
 </script>
 <template>
   <v-card>
@@ -15,8 +20,8 @@ const drawer = ref(false)
         >
         </v-btn>
       </Transition>
-      <v-navigation-drawer class="grey-lighten-3" v-model="drawer">
-        <v-list>
+      <v-navigation-drawer class="grey-lighten-3" v-model="drawer" >
+        <v-list ref="navigationRef">
           <v-list-item
             prepend-avatar="https://avatars.githubusercontent.com/u/63722373?v=4"
             title="Jaime Torrealba"
@@ -42,7 +47,7 @@ const drawer = ref(false)
           </div>
         </template>
       </v-navigation-drawer>
-      <v-main style="min-height: 100vh; background-color: #111">
+      <v-main style="min-height: 100vh; background-color: #111" ref="navigationRef">
         <slot />
       </v-main>
     </v-layout>
