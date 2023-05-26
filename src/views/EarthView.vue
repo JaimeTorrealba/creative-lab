@@ -1,6 +1,6 @@
 <script setup>
 import { shallowRef, reactive } from 'vue'
-import { PamCameraMouse, Sphere, useTweakPane, Stars } from '@tresjs/cientos'
+import { MouseParallax, Sphere, useTweakPane, Stars } from '@tresjs/cientos'
 import { useTexture, TresCanvas, useRenderLoop } from '@tresjs/core'
 import { useEventListener } from '@vueuse/core'
 import { Vector3, MathUtils } from 'three'
@@ -128,7 +128,7 @@ onLoop(({ elapsed }) => {
 <template>
   <TresCanvas window-size clear-color="#000" class="mouse-chg" ref="canvas">
     <TresPerspectiveCamera :position="[0, 0, 3]" :fov="45" :aspect="1" :near="0.1" :far="1000" />
-    <PamCameraMouse :factor="0.05" />
+    <MouseParallax :factor="0.05" />
     <Sphere ref="planeRef" :args="[1, 60, 60]" :position="[0, 0, 0]">
       <TresMeshStandardMaterial :map="map" :normalMap="normalMap" />
     </Sphere>

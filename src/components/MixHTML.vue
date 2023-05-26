@@ -4,7 +4,7 @@ import { TresCanvas, useRenderLoop, useTexture } from '@tresjs/core'
 import { useFBX } from '@tresjs/cientos'
 import { Vector2 } from 'three'
 import { useWindowSize, useMouse } from '@vueuse/core'
-import { PamCameraMouse } from '@tresjs/cientos'
+import { MouseParallax } from '@tresjs/cientos'
 
 const shield = await useFBX('/models/icons/shield.fbx')
 const wallet = await useFBX('/models/icons/wallet.fbx')
@@ -96,7 +96,7 @@ onLoop(({ elapsed }) => {
   <main class="below">
     <TresCanvas window-size clear-color="transparent" ref="canvas">
       <TresPerspectiveCamera :args="[fov, width / height, 100, 2000]" :position="[0, 0, 600]" />
-      <PamCameraMouse :factor="10" />
+      <MouseParallax :factor="10" />
       <TresMesh :rotation="[0, 0, -3.075]" :position="[0, height / 2, 0]" name="topShader">
         <TresPlaneGeometry :args="[width * 2, height / 3, 10, 10]" />
         <TresShaderMaterial v-bind="shader" />

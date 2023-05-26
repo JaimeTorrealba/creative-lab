@@ -1,13 +1,58 @@
 <script setup>
-import Wave from '@/components/shaders_experiments/wave/TheExperience.vue'
-import ShowLayout from '../components/layout/ShowLayout.vue'
+import gsap from 'gsap'
+import { TresCanvas, useRenderLoop } from '@tresjs/core'
+import { Text3D } from '@tresjs/cientos'
+import { Vector2 } from 'three'
+import fragment from '../components/shaders/wave/fragment.glsl'
+import vertex from '../components/shaders/wave/vertex.glsl'
 
-const url =
-'https://github.com/JaimeTorrealba/my-trejs-playground/blob/main/src/components/shaders_experiments/wave/TheExperience.vue'
-const title = 'Wave Shader Animation when click'
+const fontPath = 'https://raw.githubusercontent.com/Tresjs/assets/main/fonts/FiraCodeRegular.json'
+
+const shader = {
+  vertexShader: vertex,
+  fragmentShader: fragment,
+  uniforms: {
+    uProgress: { value: 0 },
+    uOrigin: { value: new Vector2(0.5, 0.5) }
+  }
+}
+
+const showWave = (ev) => {
+  shader.uniforms.uOrigin.value = ev.uv
+  gsap.to(shader.uniforms.uProgress, {
+    value: 1,
+    duration: 0.6,
+    ease: 'power4.in',
+    onComplete: () => {
+      gsap.set(shader.uniforms.uProgress, {
+        value: 0
+      })
+    }
+  })
+}
 </script>
 <template>
-  <show-layout :sourceLink="url" :title="title">
-    <Wave />
-  </show-layout>
+  <Suspense>
+    <TresCanvas window-size clear-color="#111">
+      <TresPerspectiveCamera :position="[0, 0, 5]" />
+      <Suspense>
+        <Text3D
+          text="Click on plane"
+          :font="fontPath"
+          :size="0.2"
+          :position="[0, 2, 0]"
+          center
+          :look-at="[0,0,5]"
+        />
+      </Suspense>
+      <TresMesh @click="(ev) => showWave(ev)">
+        <TresPlaneGeometry :args="[4, 4]" />
+        <TresShaderMaterial v-bind="shader" />
+      </TresMesh>
+
+      <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />
+      <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
+      <TresAmbientLight />
+    </TresCanvas>
+  </Suspense>
 </template>

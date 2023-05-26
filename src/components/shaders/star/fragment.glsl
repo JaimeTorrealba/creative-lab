@@ -1,47 +1,4 @@
-<script setup lang="ts">
-import { BasicShadowMap, sRGBEncoding, NoToneMapping } from 'three'
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
-
-import { PamCameraMouse } from '@tresjs/cientos'
-
-const gl = {
-  clearColor: '#C4C4C4',
-  shadows: true,
-  alpha: false,
-  shadowMapType: BasicShadowMap,
-  outputEncoding: sRGBEncoding,
-  toneMapping: NoToneMapping
-}
-
-// Shaders
-
-const shader = {
-  vertexShader: `
-    varying vec2 vUv;
-    varying vec3 vPosition;
-    varying vec3 vNormal;
-    varying vec3 vRotateLayer;
-    uniform float uTime;
-
-mat2 rotate(float a) {
-    float s = sin(a);
-    float c = cos(a);
-    return mat2(c, -s, s, c);
-}
-
-void main(){
-gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    mat2 rot = rotate(uTime);
-    vec3 newPos = position;
-    newPos.xz = rot*newPos.xz;
-    vRotateLayer = newPos;
-    vUv = uv;
-    vPosition = position;
-    vNormal = normal;
-}
-  `,
-  fragmentShader: `
-  precision mediump float;
+precision mediump float;
 varying vec2 vUv;
 varying vec3 vPosition;
 varying vec3 vNormal;
@@ -154,40 +111,22 @@ for(int i=0;i<6; i++){
     scale *= 2.;
 }
 return sum;
-
 }
+
+  vec3 SunColor(float b){
+    b*= 0.25;
+    return (vec3(b, b*b, b*b*b*b)/0.25)*0.6;
+  }
   
 void main(){
-    vec3 viewDirection = normalize(cameraPosition - vPosition);
-    float fresnel =  dot(viewDirection, vNormal);
-    vec4 p = vec4(vPosition * 3., uTime * 0.1);
-    float noisy = layer(p);
-    gl_FragColor = vec4(vec3(noisy),1.);
-    gl_FragColor += vRotateLayer.r;
-    gl_FragColor += vRotateLayer.g;
-    gl_FragColor *= vec4(vec3(fresnel),1.);
+        vec3 viewDirection = normalize(cameraPosition - vPosition);
+        float fresnel =  dot(viewDirection, vNormal);
+        vec4 p = vec4(vPosition * 3., uTime * 0.1);
+        float noisy = layer(p);
+        float colx = noisy * SunColor(noisy).r * 4. +0.9;
+        float coly = noisy * SunColor(noisy).g * 4. +0.9;
+      
+        gl_FragColor = vec4(vec3(colx, coly, noisy),1.);
+        gl_FragColor += vRotateLayer.r *0.25;
+        gl_FragColor *= vec4(vec3(fresnel),1.);
 }
-  `,
-  uniforms: {
-    uTime: { value: 0 }
-  }
-}
-const { onLoop } = useRenderLoop()
-
-onLoop(() => {
-  shader.uniforms.uTime.value += 0.01
-})
-</script>
-
-<template>
-  <TresCanvas v-bind="gl">
-    <TresPerspectiveCamera :position="[0, 0, 4]" :fov="75" :near="0.1" :far="1000" />
-    <PamCameraMouse :factor="2" />
-    <TresMesh :scale="2" :position="[0.5, 0.5, 0]" cast-shadow>
-      <TresSphereGeometry :args="[1, 30, 30]" />
-      <TresShaderMaterial v-bind="shader" />
-    </TresMesh>
-    <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />
-    <TresAmbientLight :intensity="1" />
-  </TresCanvas>
-</template>

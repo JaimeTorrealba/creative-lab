@@ -86,14 +86,14 @@ const router = createRouter({
       },
       component: () => import('../views/MouseReveal.vue'),
     },
-    // {
-    //   path: '/darkStar',
-    //   name: 'Dark_Star',
-    //   meta:{
-    //     layout: defaultLayout
-    //   },
-    //   component: () => import('../views/DarkStarView.vue'),
-    // },
+    {
+      path: '/darkStar',
+      name: 'Dark_Star',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/DarkStarView.vue'),
+    },
     // {
     //   path: '/shaderParkIntegration',
     //   name: 'ShaderParkIntegration',
@@ -102,22 +102,22 @@ const router = createRouter({
     //   layout: 'defaultLayout'
     // },
     // },
-    // {
-    //   path: '/destroyObject',
-    //   name: 'Destroy_Objects',
-    //   meta:{
-    //     layout: defaultLayout
-    //   },
-    //   component: () => import('../views/DestroyGeosView.vue'),
-    // },
-    // {
-    //   path: '/wave',
-    //   name: 'Wave',
-    //   meta:{
-    //     layout: defaultLayout
-    //   },
-    //   component: () => import('../views/WaveView.vue'),
-    // },
+    {
+      path: '/destroyObject',
+      name: 'Destroy_Objects',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/DestroyGeosView.vue'),
+    },
+    {
+      path: '/wave',
+      name: 'Wave',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/WaveView.vue'),
+    },
     // playground
     // {
     //   path: '/playground',

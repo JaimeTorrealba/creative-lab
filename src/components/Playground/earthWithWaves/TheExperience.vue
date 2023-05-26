@@ -65,7 +65,7 @@ onLoop(({ elapsed }) => {
 <template>
   <TresCanvas window-size clear-color="#000" class="over-hidden mouse-chg" ref="canvas">
     <TresPerspectiveCamera :position="[0, -1, 2.5]" />
-    <!-- <PamCameraMouse :factor="0.05" /> -->
+    <!-- <MouseParallax :factor="0.05" /> -->
     <OrbitControls />
     <Sphere  ref="planeRef" :args="[1, 60, 60]">
       <TresShaderMaterial v-bind="earthShader" />
