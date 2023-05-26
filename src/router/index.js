@@ -29,6 +29,14 @@ const router = createRouter({
       },
       component: () => import('../views/FireView.vue'),
     },
+    {
+      path: '/snake',
+      name: 'Snake',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/MotionPathView.vue'),
+    },
     // {
     //   path: '/DynamicTextEffect',
     //   name: 'Dynamic_Form',
