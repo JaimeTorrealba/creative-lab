@@ -37,6 +37,14 @@ const router = createRouter({
       },
       component: () => import('../views/MotionPathView.vue'),
     },
+    {
+      path: '/nebula',
+      name: 'Nebula',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/NebulaView.vue'),
+    },
     // {
     //   path: '/DynamicTextEffect',
     //   name: 'Dynamic_Form',

@@ -1,5 +1,4 @@
 <script setup>
-
 const inspirations = [
   {
     name: 'Frontend Horse',
@@ -30,9 +29,9 @@ const inspirations = [
     link: 'https://github.com/pmndrs'
   },
   {
-    name: 'Code pen',
+    name: 'Codepen',
     link: 'https://codepen.io'
-  },
+  }
 ]
 const resources = [
   {
@@ -62,41 +61,40 @@ const resources = [
   {
     name: 'Sketchfab (models)',
     link: 'https://sketchfab.com/'
-  },
-  
+  }
 ]
 </script>
 <template>
-  <v-container class="pa-8 bg ">
+  <v-container fluid class="pa-16 bg">
     <h1 class="text-center text-h3">Jaime's lab</h1>
     <v-row class="pa-8">
       <h2 class="text-h4">Hi thank for been here, this is my personal creative lab</h2>
-      <p>All the code here is free and if you have any doubt please feel free to contact me directly</p>
+      <p>
+        All the code here is free and if you have any doubt please feel free to contact me directly
+      </p>
       <p></p>
     </v-row>
     <v-row class="pa-8">
       <v-col>
-      <h3 class="text-h5 mb-4">
-        I take several inspiration from several resource here are some of them:
-      </h3>  
-      <ul class="mb-4">
-        <li v-for="{ name, link} in inspirations" :key="name">
-          <a :href="link" target="_blank">
-            {{ name }}
-          </a>
-        </li>
-      </ul>
-      <p>To all thanks</p>
+        <h3 class="text-h5 mb-4">
+          I take several inspiration from several resource here are some of them:
+        </h3>
+          <v-list style="background-color: #222;">
+            <v-list-item v-for="{ name, link } in inspirations" :key="name">
+              <a :href="link" target="_blank">
+                <v-list-item-title v-text="name"></v-list-item-title>
+              </a>
+            </v-list-item>
+            <v-list-item style="color: #f7f7f7;">To all thanks</v-list-item>
+          </v-list>
       </v-col>
       <v-col>
         <h3 class="text-h5 mb-4">Also I use several models/code/textures</h3>
-        <ul>
-          <li v-for="{ name, link} in resources" :key="name">
-            <a :href="link" target="_blank">
-              {{ name }}
-            </a>
-          </li>
-        </ul>
+        <v-list-item v-for="{ name, link } in resources" :key="name">
+          <a :href="link" target="_blank">
+            <v-list-item-title v-text="name"></v-list-item-title>
+          </a>
+        </v-list-item>
       </v-col>
     </v-row>
     <v-row class="pa-8">
@@ -107,18 +105,24 @@ const resources = [
   </v-container>
 </template>
 <style scoped>
-h1,h2, h3, p, li, a, .router-link-active {
+h1,
+h2,
+h3,
+p,
+li,
+a,
+.router-link-active {
   color: #f7f7f7;
 }
-p{
+p {
   font-size: 1.2rem;
 }
-li{
+li {
   line-height: 1.75rem;
 }
 
-.bg{
-  background-color: #333;
+.bg {
+  background-color: #222;
   min-height: 100vh;
   min-height: 100dvh;
 }
