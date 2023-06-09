@@ -13,7 +13,6 @@
   "dependencies": {
     "@tresjs/cientos": "^2.1.2",
     "@tresjs/core": "^2.1.2",
-    "@tresjs/post-processing": "^0.1.0",
     "@vueuse/core": "^9.13.0",
     "gsap": "^3.11.5",
     "vue": "^3.3.4",

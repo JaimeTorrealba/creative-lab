@@ -11,9 +11,6 @@ dependencies:
   '@tresjs/core':
     specifier: ^2.1.2
     version: 2.1.2(three@0.150.1)(vue@3.3.4)
-  '@tresjs/post-processing':
-    specifier: ^0.1.0
-    version: 0.1.0(@tresjs/core@2.1.2)(three@0.150.1)(vue@3.3.4)
   '@vueuse/core':
     specifier: ^9.13.0
     version: 9.13.0(vue@3.3.4)
@@ -443,23 +440,6 @@ packages:
       '@alvarosabu/utils': 2.3.0
       '@vueuse/core': 10.1.2(vue@3.3.4)
       three: 0.150.1
-      vue: 3.3.4
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-    dev: false
-
-  /@tresjs/post-processing@0.1.0(@tresjs/core@2.1.2)(three@0.150.1)(vue@3.3.4):
-    resolution: {integrity: sha512-oMFReB22+olrfdd5IDkB74/AV3VD/EJpmfIpOSxitS7jN8iaKoBm6LhHxU7tQCc2KQLrvLkyxE4a5Uj2cGkigQ==}
-    peerDependencies:
-      '@tresjs/core': 2.0.0-beta.8
-      three: latest
-      vue: ^3.2.47
-    dependencies:
-      '@tresjs/core': 2.1.2(three@0.150.1)(vue@3.3.4)
-      '@vueuse/core': 10.1.2(vue@3.3.4)
-      postprocessing: 6.31.0(three@0.150.1)
-      three: 0.150.1
-      three-stdlib: 2.22.9(three@0.150.1)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -1349,15 +1329,6 @@ packages:
       nanoid: 3.3.6
       picocolors: 1.0.0
       source-map-js: 1.0.2
-
-  /postprocessing@6.31.0(three@0.150.1):
-    resolution: {integrity: sha512-h1g2KDVrTS6QB4AHP55opp8FYzq66jJHh4JIFCptaj283RUX1y/tPkv8FBB2oK4WYrdPgqvElnKrXZwgiLWeHQ==}
-    engines: {node: '>= 0.13.2'}
-    peerDependencies:
-      three: '>= 0.138.0 < 0.153.0'
-    dependencies:
-      three: 0.150.1
-    dev: false
 
   /potpack@1.0.2:
     resolution: {integrity: sha512-choctRBIV9EMT9WGAZHn3V7t0Z2pMQyl0EZE6pFc/6ml3ssw7Dlf/oAOvFwjm1HVsqfQN8GfeFyJ+d8tRzqueQ==}
