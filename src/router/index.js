@@ -45,6 +45,14 @@ const router = createRouter({
       },
       component: () => import('../views/NebulaView.vue'),
     },
+    {
+      path: '/slider',
+      name: 'Slider',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/SliderView.vue'),
+    },
     // {
     //   path: '/DynamicTextEffect',
     //   name: 'Dynamic_Form',
