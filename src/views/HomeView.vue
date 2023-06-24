@@ -69,12 +69,14 @@ const resources = [
     <h1 class="text-center text-h3">Jaime's lab</h1>
     <v-row class="pa-8">
       <h2 class="text-h4">Hi thank for been here, this is my personal creative lab</h2>
+      <!--  -->
       <p>
         All the code here is free and if you have any doubt please feel free to contact me directly
       </p>
       <p></p>
+      
     </v-row>
-    <v-row class="pa-8">
+    <!-- <v-row class="pa-8">
       <v-col>
         <h3 class="text-h5 mb-4">
           I take several inspiration from several resource here are some of them:
@@ -101,7 +103,7 @@ const resources = [
       <v-col class="d-flex justify-center">
         <v-btn to="/contactme" variant="outlined">Go to Contact me</v-btn>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
 <style scoped>

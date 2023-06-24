@@ -53,6 +53,22 @@ const router = createRouter({
       },
       component: () => import('../views/SliderView.vue'),
     },
+    {
+      path: '/image_particles',
+      name: 'Image_Particles',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/ImageParticles.vue'),
+    },
+    {
+      path: '/drop_demo',
+      name: 'Drop_Demo',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/DropDemo.vue'),
+    },
     // {
     //   path: '/DynamicTextEffect',
     //   name: 'Dynamic_Form',
