@@ -62,6 +62,14 @@ const router = createRouter({
       component: () => import('../views/ImageParticles.vue'),
     },
     {
+      path: '/grass_demo',
+      name: 'Grass_demo',
+      meta:{
+        layout: defaultLayout
+      },
+      component: () => import('../views/GrassDemo.vue'),
+    },
+    {
       path: '/drop_demo',
       name: 'Drop_Demo',
       meta:{
