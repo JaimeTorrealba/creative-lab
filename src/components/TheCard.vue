@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 const show = ref(false)
 
-const props = defineProps({
+defineProps({
   data: {
     type: Object,
     required: true
@@ -11,14 +11,30 @@ const props = defineProps({
 </script>
 <template>
   <v-card class="mx-auto" max-width="344" dark>
-    <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px" cover></v-img>
+    <v-img :src="data.meta.img" height="200px" cover></v-img>
 
-    <v-card-title> {{data.name}} </v-card-title>
+    <v-card-title> {{ data.name }} </v-card-title>
 
     <v-card-subtitle> {{ data.meta.name }} </v-card-subtitle>
+    <v-divider class="mx-4 my-1"></v-divider>
+
+    <div class="px-4">
+      <v-chip-group>
+        <a :href="data.meta.sourceCode" target="_blank">
+          <v-chip>Source code</v-chip>
+        </a>
+        <v-chip>{{ data.meta.difficulty }}</v-chip>
+        <v-chip>{{ data.meta.section }}</v-chip>
+        <a href="https://cientos.tresjs.org/" target="_blank">
+          <v-chip color="primary" variant="outlined" v-show="data.meta.isOnTres"
+            >Abstraction on cientos
+          </v-chip>
+        </a>
+      </v-chip-group>
+    </div>
 
     <v-card-actions>
-      <v-btn color="primary" variant="text" :to="data.path">Go to</v-btn>
+      <v-btn color="primary" variant="text" :to="data.path">Go to demo</v-btn>
 
       <v-spacer></v-spacer>
 
@@ -30,10 +46,7 @@ const props = defineProps({
         <v-divider></v-divider>
 
         <v-card-text>
-          I'm a thing. But, like most politicians, he promised more than he could deliver. You won't
-          have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll
-          go with that data file! Hey, you add a one and two zeros to that or we walk! You're going
-          to do his laundry? I've got to find a way to escape.
+          {{ data.meta.description }}
         </v-card-text>
       </div>
     </v-expand-transition>

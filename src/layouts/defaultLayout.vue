@@ -1,74 +1,52 @@
 <script setup>
-import { ref } from 'vue'
-import { onClickOutside } from '@vueuse/core'
+import { useRouter } from 'vue-router'
 
-const drawer = ref(false)
-
-const navigationRef = ref(null)
-
-onClickOutside(navigationRef, () => drawer.value = false)
+const router = useRouter()
+const data = router.currentRoute.value
 </script>
 <template>
-  <v-card>
-    <v-layout>
-      <Transition>
-        <v-btn
-          v-show="!drawer"
-          icon="mdi-menu"
-          @click.stop="drawer = !drawer"
-          class="floating-button-menu"
-        >
-        </v-btn>
-      </Transition>
-      <v-navigation-drawer class="grey-lighten-3" v-model="drawer" >
-        <v-list ref="navigationRef">
-          <v-list-item
-            prepend-avatar="https://avatars.githubusercontent.com/u/63722373?v=4"
-            title="Jaime Torrealba"
-            subtitle="@jaimebboyjt"
-          >
-          </v-list-item>
-        </v-list>
+  <v-layout>
+    <v-main style="min-height: 100vh; background-color: #111" ref="navigationRef">
+      <div class="floating-source">
+        <v-tooltip location="bottom">
+          <template v-slot:activator="{ props }">
+            <a :href="data.meta.sourceCode" target="_blank" >
+              <v-btn icon v-bind="props" >
+                <v-icon color="grey-lighten-1"> mdi-code-tags </v-icon>
+              </v-btn>
+            </a>
+          </template>
+          <span>Go to github</span>
+        </v-tooltip>
+      </div>
+      <slot />
+      <div class="floating-description">
+        <v-tooltip location="bottom" max-width="300">
+          <template v-slot:activator="{ props }">
+              <v-btn icon v-bind="props" >
+                <v-icon color="grey-lighten-1"> mdi-help </v-icon>
+              </v-btn>
+          </template>
+          <span>{{ data.meta.description }}</span>
+        </v-tooltip>
+      </div>
 
-        <v-divider></v-divider>
-        <v-list color="transparent">
-          <v-list-item
-            v-for="route in $router.options.routes"
-            :key="route.path"
-          >
-            <v-btn :to="route.path" block>{{ route.name }}</v-btn>
-          </v-list-item>
-          <!--  -->
-        </v-list>
-
-        <template v-slot:append>
-          <div class="pa-2">
-            <v-btn block> Contact me </v-btn>
-          </div>
-        </template>
-      </v-navigation-drawer>
-      <v-main style="min-height: 100vh; background-color: #111" ref="navigationRef">
-        <slot />
-      </v-main>
-    </v-layout>
-  </v-card>
+    </v-main>
+  </v-layout>
 </template>
 
 <style scoped>
-.floating-button-menu {
-  position: absolute;
+.floating-source {
+  position: fixed;
   top: 2%;
   left: 2%;
   z-index: 9999;
 }
-
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.2s ease;
+.floating-description {
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  z-index: 9999;
 }
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
 </style>

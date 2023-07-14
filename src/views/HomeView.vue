@@ -68,9 +68,16 @@ import Cards from '@/components/TheCard.vue'
 <template>
   <v-container class="pa-16 bg">
     <h1 class="text-center text-h3">Welcome to my creative lab</h1>
+    <v-list ref="navigationRef">
+      <v-list-item
+        prepend-avatar="https://avatars.githubusercontent.com/u/63722373?v=4"
+        title="Jaime Torrealba"
+        subtitle="@jaimebboyjt"
+      >
+      </v-list-item>
+    </v-list>
     <v-row class="pa-8" flex justify="space-around">
       <v-col cols="4" v-for="route in $router.options.routes" :key="route.path">
-
         <Cards :data="route" v-if="route.path !== '/'" />
       </v-col>
     </v-row>
