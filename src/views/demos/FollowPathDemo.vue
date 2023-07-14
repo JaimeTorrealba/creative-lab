@@ -4,7 +4,7 @@ import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { useGLTF, OrbitControls } from '@tresjs/cientos'
 import { Vector3, LineLoop, BufferGeometry, LineBasicMaterial, CatmullRomCurve3 } from 'three'
 import { Flow } from 'three/examples/jsm/modifiers/CurveModifier.js'
-import transformSVGPath from '../components/external/transformSVGPath/TSP.js'
+import transformSVGPath from '@/components/external/transformSVGPath/TSP.js'
 
 let pointsCount = 1000
 let flow
@@ -64,7 +64,7 @@ onLoop(() => {
         </svg>
   <TresCanvas window-size clear-color="#000" ref="canvasRef">
     <TresPerspectiveCamera
-      :position="[0, -15, 0]"
+      :position="[0, -25, -35]"
       :fov="45"
       :aspect="1"
       :near="0.1"

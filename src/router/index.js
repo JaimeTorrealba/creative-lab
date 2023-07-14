@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
-import defaultLayout from '@/layouts/defaultLayout.vue'
 import { demos } from './demos.js'
+import { shaders_demos } from './shaders_demos'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,7 +14,8 @@ const router = createRouter({
       },
       component: Home,
     },
-    ...demos
+    ...demos,
+    ...shaders_demos
 
     // {
     //   path: '/fire',

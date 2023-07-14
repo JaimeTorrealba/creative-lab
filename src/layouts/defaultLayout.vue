@@ -19,7 +19,7 @@ const data = router.currentRoute.value
       </div>
       <slot />
       <div class="floating-source">
-        <v-tooltip location="bottom">
+        <v-tooltip location="top">
           <template v-slot:activator="{ props }">
             <a :href="data.meta.sourceCode" target="_blank" >
               <v-btn icon v-bind="props" >
