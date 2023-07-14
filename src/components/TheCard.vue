@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 const show = ref(false)
 
 defineProps({
@@ -8,10 +9,12 @@ defineProps({
     required: true
   }
 })
+
+const router = useRouter()
 </script>
 <template>
   <v-card class="mx-auto" max-width="344" dark>
-    <v-img :src="data.meta.img" height="200px" cover></v-img>
+      <v-img :src="data.meta.img" @click="router.push(data.path)" height="200px" cover></v-img>
 
     <v-card-title> {{ data.name }} </v-card-title>
 

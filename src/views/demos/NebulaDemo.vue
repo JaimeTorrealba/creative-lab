@@ -1,7 +1,7 @@
 <script setup>
 import { shallowRef, onMounted, watchEffect } from 'vue'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
-import { Stars, MouseParallax, Smoke, useTweakPane } from '@tresjs/cientos'
+import { Stars, MouseParallax, Smoke } from '@tresjs/cientos'
 import { useWindowSize } from '@vueuse/core'
 import { FogExp2 } from 'three'
 import { EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
@@ -12,7 +12,6 @@ const canvasRef = shallowRef(null)
 const blueLightRef = shallowRef(null)
 const { onLoop } = useRenderLoop()
 const { width, height } = useWindowSize()
-const { pane } = useTweakPane()
 
 let effectComposer
 

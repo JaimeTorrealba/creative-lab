@@ -7,6 +7,17 @@ const data = router.currentRoute.value
 <template>
   <v-layout>
     <v-main style="min-height: 100vh; background-color: #111" ref="navigationRef">
+      <div class="floating-back">
+        <v-tooltip location="bottom">
+          <template v-slot:activator="{ props }">
+              <v-btn icon v-bind="props" to="/" >
+                <v-icon color="grey-lighten-1"> mdi-arrow-left-bold </v-icon>
+              </v-btn>
+          </template>
+          <span>Go to home</span>
+        </v-tooltip>
+      </div>
+      <slot />
       <div class="floating-source">
         <v-tooltip location="bottom">
           <template v-slot:activator="{ props }">
@@ -19,7 +30,6 @@ const data = router.currentRoute.value
           <span>Go to github</span>
         </v-tooltip>
       </div>
-      <slot />
       <div class="floating-description">
         <v-tooltip location="bottom" max-width="300">
           <template v-slot:activator="{ props }">
@@ -36,10 +46,16 @@ const data = router.currentRoute.value
 </template>
 
 <style scoped>
-.floating-source {
+.floating-back {
   position: fixed;
   top: 2%;
   left: 2%;
+  z-index: 9999;
+}
+.floating-source {
+  position: fixed;
+  bottom: 10%;
+  right: 2%;
   z-index: 9999;
 }
 .floating-description {

@@ -1,5 +1,13 @@
 <script setup>
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import Cards from '@/components/TheCard.vue'
+
+const router = useRouter()
+const rawData = computed(() => router.options.routes)
+
+const data = rawData.value.filter((route) => route.path !== '/')
+
 // const inspirations = [
 //   {
 //     name: 'Frontend Horse',
@@ -77,7 +85,7 @@ import Cards from '@/components/TheCard.vue'
       </v-list-item>
     </v-list>
     <v-row class="pa-8" flex justify="space-around">
-      <v-col cols="4" v-for="route in $router.options.routes" :key="route.path">
+      <v-col cols="4" v-for="route in data" :key="route.path">
         <Cards :data="route" v-if="route.path !== '/'" />
       </v-col>
     </v-row>

@@ -103,3 +103,8 @@ onLoop(() => {
     <TresHemisphereLight />
   </TresCanvas>
 </template>
+<style>
+.tp-dfwv{
+  z-index: 999;
+}
+</style>
