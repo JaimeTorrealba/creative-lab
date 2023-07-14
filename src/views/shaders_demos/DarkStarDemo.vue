@@ -2,8 +2,8 @@
 import { BasicShadowMap, sRGBEncoding, NoToneMapping } from 'three'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { MouseParallax, Stars } from '@tresjs/cientos'
-import Vertex from '../components/shaders/star/vertex.glsl'
-import Fragment from '../components/shaders/star/fragment.glsl'
+import Vertex from '@/components/shaders/star/vertex.glsl'
+import Fragment from '@/components/shaders/star/fragment.glsl'
 
 const gl = {
   clearColor: '#111',

@@ -3,7 +3,7 @@
 <template>
   <!-- <theNavbar /> -->
   <v-app>
-    <component :is="$route.meta.layout">
+    <component :is="$route.meta.layout || 'div'">
       <Suspense>
         <router-view></router-view>
         <template #fallback>
@@ -37,10 +37,8 @@ body {
   font-family: 'CascadiaCode';
 }
 #app {
-  height: 100%;
   width: 100%;
   background-color: #000;
-  max-height: 100vh;
   overflow: hidden;
 }
 

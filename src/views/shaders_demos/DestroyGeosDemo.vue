@@ -2,13 +2,12 @@
 import { shallowRef, onMounted } from 'vue'
 import { MouseParallax, Text3D } from '@tresjs/cientos'
 import gsap from 'gsap'
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
+import { TresCanvas } from '@tresjs/core'
 import { SphereGeometry, BoxGeometry, BufferAttribute, ConeGeometry } from 'three'
 import fragment from '../components/shaders/destroyGeos/fragment.glsl'
 import vertex from '../components/shaders/destroyGeos/vertex.glsl'
 
 const fontPath = 'https://raw.githubusercontent.com/Tresjs/assets/main/fonts/FiraCodeRegular.json'
-const options = {}
 
 const squareRef = shallowRef()
 const sphereRef = shallowRef()

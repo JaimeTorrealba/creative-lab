@@ -1,6 +1,6 @@
 <script setup>
 import gsap from 'gsap'
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
+import { TresCanvas } from '@tresjs/core'
 import { Text3D } from '@tresjs/cientos'
 import { Vector2 } from 'three'
 import fragment from '../components/shaders/wave/fragment.glsl'

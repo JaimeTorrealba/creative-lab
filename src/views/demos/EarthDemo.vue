@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, reactive } from 'vue'
+import { shallowRef, reactive, watch } from 'vue'
 import { MouseParallax, Sphere, useTweakPane, Stars } from '@tresjs/cientos'
 import { useTexture, TresCanvas, useRenderLoop } from '@tresjs/core'
 import { useEventListener } from '@vueuse/core'
@@ -8,6 +8,10 @@ import { Vector3, MathUtils } from 'three'
 const planeRef = shallowRef(null)
 const cloudRef = shallowRef(null)
 const markersRef = shallowRef(null)
+
+watch(markersRef, () => {
+  setActive({value: 'villarrica'})
+})
 
 const { map, normalMap, alphaMap } = await useTexture({
   map: '/textures/8k_earth_daymap.jpg',
@@ -31,6 +35,11 @@ const markers = [
     name: 'barletta',
     lat: 41.31,
     lng: 16.28
+  },
+  {
+    name: 'santiago',
+    lat: -33.45,
+    lng: -70.64
   }
 ]
 
@@ -44,11 +53,9 @@ const latLngToVec3 = (radius, { lat, lng }) => {
 
 const { pane } = useTweakPane()
 const options = reactive({
-  rotation: false,
   speed: 0.03
 })
 
-pane.addInput(options, 'rotation')
 pane.addInput(options, 'speed', {
   label: 'Speed',
   min: 0,
@@ -61,7 +68,8 @@ const citiList = pane.addBlade({
   options: [
     { text: 'maracay', value: 'maracay' },
     { text: 'villarrica', value: 'villarrica' },
-    { text: 'barletta', value: 'barletta' }
+    { text: 'barletta', value: 'barletta' },
+    { text: 'santiago', value: 'santiago' },
   ],
   value: 'villarrica'
 })
@@ -70,7 +78,8 @@ const setActive = (value) => {
   const objectMakers = {
     villarrica: markersRef.value.getObjectByName('villarrica'),
     maracay: markersRef.value.getObjectByName('maracay'),
-    barletta: markersRef.value.getObjectByName('barletta')
+    barletta: markersRef.value.getObjectByName('barletta'),
+    santiago: markersRef.value.getObjectByName('santiago')
   }
   Object.keys(objectMakers).forEach((marker) => {
     if (marker === value.value) {
@@ -85,6 +94,8 @@ citiList.on('change', (value) => {
   setActive(value)
 })
 
+// setActive({value: 'villarrica'})
+
 // DRAG AND DROP
 let isDragging = false
 let xDrag = {
@@ -95,38 +106,39 @@ let xDrag = {
 }
 
 useEventListener(document, 'mousedown', (e) => {
+  const canvas = document.getElementById('mouse-chg')
   isDragging = true
+  canvas.style.cursor = 'grabbing'
   xDrag.mouse = e.clientX
 })
 useEventListener(document, 'mouseup', () => {
+  const canvas = document.getElementById('mouse-chg')
   isDragging = false
+  canvas.style.cursor = 'grab'
 })
 useEventListener(document, 'mousemove', (e) => {
   if (!isDragging) return
   const distance = (e.clientX - xDrag.mouse) * 0.01
-  xDrag.target = xDrag.position + distance
+  xDrag.target += xDrag.position + distance
+  
 })
 // END DRAG AND DROP
 
 const { onLoop } = useRenderLoop()
 
 onLoop(({ elapsed }) => {
-  xDrag.value = (xDrag.target - xDrag.value) * 0.5
+  xDrag.value = (xDrag.target - xDrag.value) * 0.005
   if (cloudRef.value) {
     cloudRef.value.value.rotation.y = elapsed * (options.speed + 0.025)
   }
-  if (planeRef.value && markersRef.value && !options.rotation) {
+  if (planeRef.value && markersRef.value) {
     planeRef.value.value.rotation.y = xDrag.value
     markersRef.value.rotation.y = xDrag.value
-  }
-  if (planeRef.value && markersRef.value && options.rotation) {
-    planeRef.value.value.rotation.y = elapsed * options.speed
-    markersRef.value.rotation.y = elapsed * options.speed
   }
 })
 </script>
 <template>
-  <TresCanvas window-size clear-color="#000" class="mouse-chg" ref="canvas">
+  <TresCanvas window-size clear-color="#000" id="mouse-chg" ref="canvas">
     <TresPerspectiveCamera :position="[0, 0, 3]" :fov="45" :aspect="1" :near="0.1" :far="1000" />
     <MouseParallax :factor="0.05" />
     <Sphere ref="planeRef" :args="[1, 60, 60]" :position="[0, 0, 0]">
@@ -151,7 +163,7 @@ onLoop(({ elapsed }) => {
   </TresCanvas>
 </template>
 <style scoped>
-.mouse-chg {
+#mouse-chg {
   cursor: grab;
 }
 </style>
