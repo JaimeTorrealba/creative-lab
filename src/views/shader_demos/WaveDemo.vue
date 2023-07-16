@@ -3,8 +3,8 @@ import gsap from 'gsap'
 import { TresCanvas } from '@tresjs/core'
 import { Text3D } from '@tresjs/cientos'
 import { Vector2 } from 'three'
-import fragment from '../components/shaders/wave/fragment.glsl'
-import vertex from '../components/shaders/wave/vertex.glsl'
+import fragment from '@/components/shaders/wave/fragment.glsl'
+import vertex from '@/components/shaders/wave/vertex.glsl'
 
 const fontPath = 'https://raw.githubusercontent.com/Tresjs/assets/main/fonts/FiraCodeRegular.json'
 

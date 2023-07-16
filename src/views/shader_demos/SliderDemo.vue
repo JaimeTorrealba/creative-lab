@@ -4,7 +4,7 @@ import { TresCanvas, useTexture } from '@tresjs/core'
 import { Vector4 } from 'three'
 import { gsap } from 'gsap'
 import { useWindowSize, useEventListener } from '@vueuse/core'
-import fragment from '../components/shaders/slider/fragment.glsl'
+import fragment from '@/components/shaders/slider/fragment.glsl'
 
 const textures = await useTexture([
   '/images/photo_slider1.jpg',

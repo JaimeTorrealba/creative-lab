@@ -41,7 +41,7 @@ export const shaders_demos = [
         meta: {
           layout: defaultLayout,
           name: 'Realistic fire',
-          difficulty: 'Hard',
+          difficulty: 'Advanced',
           isOnTres: false,
           section: 'shader_demo',
           img: '/gifs/fire_demo.gif',
@@ -58,7 +58,7 @@ export const shaders_demos = [
         meta: {
           layout: defaultLayout,
           name: 'A star made with shaders',
-          difficulty: 'Hard',
+          difficulty: 'Advanced',
           isOnTres: false,
           section: 'shader_demo',
           img: '/gifs/shader_star.gif',
@@ -68,5 +68,73 @@ export const shaders_demos = [
             'A star made with shaders, a combination of colors and techniques like fresnel, matrix rotation, multi layer. This effect is base on: https://www.youtube.com/live/3krH52AhPqk?feature=share'
         },
         component: () => import('../views/shader_demos/StarDemo.vue')
+      },
+    {
+        path: '/image_particles_demo',
+        name: 'Image Particles Demo',
+        meta: {
+          layout: defaultLayout,
+          name: 'An img made with particles',
+          difficulty: 'medium',
+          isOnTres: false,
+          section: 'shader_demo',
+          img: '/gifs/image_particles.gif',
+          sourceCode:
+            'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/shader_demos/ImageParticles.vue',
+          description:
+            'An image transformed into particles that you can animated separately . This effect is base on: https://youtu.be/vEaAheMO0bo'
+        },
+        component: () => import('../views/shader_demos/ImageParticles.vue')
+      },
+    {
+        path: '/mouse_reveal_demo',
+        name: 'Mouse reveal Demo',
+        meta: {
+          layout: defaultLayout,
+          name: 'Mouse transparency reveal',
+          difficulty: 'medium',
+          isOnTres: false,
+          section: 'shader_demo',
+          img: '/gifs/mouse_reveal.gif',
+          sourceCode:
+            'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/shader_demos/MouseReveal.vue',
+          description:
+            'An interesting effect of how to use transparency in combination with the mouse to reveal the content behind'
+        },
+        component: () => import('../views/shader_demos/MouseReveal.vue')
+      },
+    {
+        path: '/slider_demo',
+        name: 'Slider Demo',
+        meta: {
+          layout: defaultLayout,
+          name: 'A WebGl slider',
+          difficulty: 'advanced',
+          isOnTres: false,
+          section: 'shader_demo',
+          img: '/gifs/slider_demo.gif',
+          sourceCode:
+            'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/shader_demos/SliderDemo.vue',
+          description:
+            'A WebGl slider made with shaders, using distorsión in images. This effect is base on: https://github.com/akella/webGLImageTransitions'
+        },
+        component: () => import('../views/shader_demos/SliderDemo.vue')
+      },
+    {
+        path: '/wave_demo',
+        name: 'Wave Demo',
+        meta: {
+          layout: defaultLayout,
+          name: 'A WebGl ripple effect',
+          difficulty: 'advanced',
+          isOnTres: false,
+          section: 'shader_demo',
+          img: '/gifs/waves_demo.gif',
+          sourceCode:
+            'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/shader_demos/WaveDemo.vue',
+          description:
+            'A WebGl ripple effect (like material design) but using shaders. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
+        },
+        component: () => import('../views/shader_demos/WaveDemo.vue')
       },
 ]

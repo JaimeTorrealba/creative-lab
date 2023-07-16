@@ -4,8 +4,8 @@ import { Box, Text3D } from '@tresjs/cientos'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { useMouse, useWindowSize } from '@vueuse/core'
 import { Vector2, BasicShadowMap } from 'three'
-import fragment from '../components/shaders/mouse_reveal/fragment.glsl'
-import vertex from '../components/shaders/mouse_reveal/vertex.glsl'
+import fragment from '@/components/shaders/mouse_reveal/fragment.glsl'
+import vertex from '@/components/shaders/mouse_reveal/vertex.glsl'
 
 const { x, y } = useMouse()
 const { width, height } = useWindowSize()
