@@ -15,6 +15,14 @@ const router = createRouter({
       },
       component: Home,
     },
+    {
+      path: '/edteam',
+      name: 'edteam',
+      meta:{
+        // layout: defaultLayout
+      },
+      component: () => import('../views/threejsPresentation.vue'),
+    },
     ...demos,
     ...shaders_demos,
     ...html_demos
