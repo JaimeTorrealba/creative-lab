@@ -12,7 +12,6 @@ const money = await useFBX('/models/icons/money.fbx')
 const { map: imgToShader } = await useTexture({ map: '/images/imgToShader.jpg' })
 const canvas = shallowRef(null)
 
-
 const { width, height } = useWindowSize()
 const { x, y } = useMouse()
 
@@ -82,8 +81,8 @@ watchEffect(() => {
   y.value = -(y.value / height.value) * 2 + 1
 })
 const updateUniforms = (ev) => {
-   ev.object.material.uniforms.uHover.value = ev.uv
- }
+  ev.object.material.uniforms.uHover.value = ev.uv
+}
 const fov = computed(() => 2 * Math.atan(height.value / 2 / 600) * (180 / Math.PI))
 
 const { onLoop } = useRenderLoop()
@@ -93,93 +92,100 @@ onLoop(({ elapsed }) => {
 })
 </script>
 <template>
-  <main class="below">
-    <TresCanvas window-size clear-color="transparent" ref="canvas">
-      <TresPerspectiveCamera :args="[fov, width / height, 100, 2000]" :position="[0, 0, 600]" />
-      <MouseParallax :factor="10" />
-      <TresMesh :rotation="[0, 0, -3.075]" :position="[0, height / 2, 0]" name="topShader">
-        <TresPlaneGeometry :args="[width * 2, height / 3, 10, 10]" />
-        <TresShaderMaterial v-bind="shader" />
-      </TresMesh>
-      <TresMesh :position="[0, -0.99 * (height / 2), 0]" name="bottomPlane">
-        <TresPlaneGeometry :args="[width * 2, height / 3, 10, 10]" />
-        <TresMeshBasicMaterial color="#333" />
-      </TresMesh>
-      <!-- image -->
-      <TresMesh name="planeImg"
+  <TresCanvas window-size clear-color="transparent" ref="canvas" class="canvas">
+    <TresPerspectiveCamera :args="[fov, width / height, 100, 2000]" :position="[0, 0, 600]" />
+    <MouseParallax :factor="10" />
+    <TresMesh :rotation="[0, 0, -3.075]" :position="[0, height / 2, 0]" name="topShader">
+      <TresPlaneGeometry :args="[width * 2, height / 3, 10, 10]" />
+      <TresShaderMaterial v-bind="shader" />
+    </TresMesh>
+    <TresMesh :position="[0, -0.99 * (height / 2), 0]" name="bottomPlane">
+      <TresPlaneGeometry :args="[width * 2, height / 3, 10, 10]" />
+      <TresMeshBasicMaterial color="#333" />
+    </TresMesh>
+    <!-- image -->
+    <TresMesh
+      name="planeImg"
       :position="[width / 5 + 75, 0, 0]"
       @pointer-move="(ev) => updateUniforms(ev)"
-      >
-        <TresPlaneGeometry :args="[405, 532, 10, 10]"  />
-        <TresShaderMaterial v-bind="imgShader" />
-      </TresMesh>
-      <!-- models -->
-      <Suspense>
-        <primitive :object="shield"
+    >
+      <TresPlaneGeometry :args="[405, 532, 10, 10]" />
+      <TresShaderMaterial v-bind="imgShader" />
+    </TresMesh>
+    <!-- models -->
+    <Suspense>
+      <primitive
+        :object="shield"
         :scale="[0.5, 0.5, 0.5]"
-        :position="[(width * -0.5)+350, 30, 0]"
+        :position="[width * -0.5 + 350, 30, 0]"
         :rotation="[0, 1.1, 0]"
-        />
-      </Suspense>
-      <Suspense>
-        <primitive :object="wallet"
+      />
+    </Suspense>
+    <Suspense>
+      <primitive
+        :object="wallet"
         :scale="[0.5, 0.5, 0.5]"
-        :position="[(width * -0.5)+350, (height/6)-240, 0]"
+        :position="[width * -0.5 + 350, height / 6 - 240, 0]"
         :rotation="[0, 1.1, 0]"
-        />
-      </Suspense>
-      <Suspense>
-        <primitive :object="money"
+      />
+    </Suspense>
+    <Suspense>
+      <primitive
+        :object="money"
         :scale="[0.5, 0.5, 0.5]"
-        :position="[(width * -0.5)+350, (height/6)-325, 0]"
+        :position="[width * -0.5 + 350, height / 6 - 325, 0]"
         :rotation="[0, 0.6, 0]"
-        />
-      </Suspense>
-      <TresDirectionalLight :position="[0, 2, 4]" :intensity="3" cast-shadow />
-      <TresAmbientLight />
-    </TresCanvas>
-    <section class="hero is-fullheight has-background-grey-lighter">
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <div class="columns is-8 is-variable">
-            <div class="column is-two-thirds has-text-left">
-              <h1 class="title is-1">Evolving business with technology</h1>
-              <p class="is-size-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla eligendi soluta
-                voluptate facere molestiae consequatur.
-              </p>
-              <div class="social-media">
-                <div class="icons"><p class="icon-text is-size-4">Super safe</p></div>
-                <div class="icons">
-                  <p class="icon-text is-size-4">Safe your wallet</p>
-                </div>
-                <div class="icons">
-                  <p class="icon-text is-size-4">Safe your money</p>
-                </div>
-              </div>
-            </div>
-            <div class="column is-one-third has-text-left">
-              <figure class="image">
-                <img
-                  class="img"
-                  src="/images/imgToShader.jpg"
-                  alt="image"
-                />
-              </figure>
-            </div>
+      />
+    </Suspense>
+    <TresDirectionalLight :position="[0, 2, 4]" :intensity="3" cast-shadow />
+    <TresAmbientLight />
+  </TresCanvas>
+  <section class="html-page">
+    <v-row class="row-container" align="center" no-gutters>
+      <v-col cols="2"></v-col>
+      <v-col>
+        <h1 class="text-center text-h3">Is not responsive yet</h1>
+        <p class="px-4 text-subtitle-1">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla eligendi soluta voluptate
+          facere molestiae consequatur.
+        </p>
+        <div>
+          <div class="icons"><p class="icon-text text-h4">Super safe</p></div>
+          <div class="icons">
+            <p class="icon-text text-h4">Safe your wallet</p>
+          </div>
+          <div class="icons">
+            <p class="icon-text text-h4">Safe your money</p>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </v-col>
+      <v-col class="image-container debug" cols="5">
+        <figure class="image">
+          <img class="img" src="/images/imgToShader.jpg" alt="image" />
+        </figure>
+      </v-col>
+    </v-row>
+  </section>
 </template>
-<style scoped>
+<style lang="scss" scoped>
+.image-container{
+  height: 100vh;
+  z-index: -999;
+}
+.html-page {
+  outline: 1px solid red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  color: #333;
+}
+.row-container {
+  min-height: 100vh;
+}
 .img {
   display: none;
-}
-.below {
-  background-color: transparent;
-  z-index: 1000;
 }
 .buttons {
   background-color: transparent;
@@ -190,7 +196,16 @@ onLoop(({ elapsed }) => {
   margin-bottom: 0.5rem;
 }
 .icon-text {
-  margin-left: 20%;
-  padding-top: 2.5%;
+  margin-left: 15%;
+  padding-top: 5%;
+  @media screen and (max-width: 1900px) and (min-width: 1500px) {
+    margin-left: 20%;
+  }
+  @media screen and (max-width: 1499px) and (min-width: 1300px) {
+    margin-left: 30%;
+  }
+  @media screen and (max-width: 1399px) and (min-width: 1200px) {
+    margin-left: 50%;
+  }
 }
 </style>
