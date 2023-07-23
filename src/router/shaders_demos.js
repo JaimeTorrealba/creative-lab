@@ -53,6 +53,23 @@ export const shaders_demos = [
         component: () => import('../views/shader_demos/FireDemo.vue')
       },
     {
+        path: '/fragment_template',
+        name: 'Fragment Template',
+        meta: {
+          layout: defaultLayout,
+          name: 'Fragment shader template',
+          difficulty: 'Easy',
+          isOnTres: false,
+          section: 'shader_demo',
+          img: '/gifs/fragment_template.gif',
+          sourceCode:
+            'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/shader_demos/FragmentTemplate.vue',
+          description:
+            'My personal fragment shader template.'
+        },
+        component: () => import('../views/shader_demos/FragmentTemplate.vue')
+      },
+    {
         path: '/shader_star_demo',
         name: 'Shader star Demo',
         meta: {
@@ -102,6 +119,23 @@ export const shaders_demos = [
             'An interesting effect of how to use transparency in combination with the mouse to reveal the content behind'
         },
         component: () => import('../views/shader_demos/MouseReveal.vue')
+      },
+      {
+        path: '/rinnegan_demo',
+        name: 'Rinnegan Demo',
+        meta: {
+          layout: defaultLayout,
+          name: 'Trying to replicate the Rinnegan',
+          difficulty: 'medium',
+          isOnTres: false,
+          section: 'shader_demo',
+          img: '/gifs/rinnegan_demo.png',
+          sourceCode:
+            'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/shader_demos/RinneganDemo.vue',
+          description:
+            'My personal fragment shader template.'
+        },
+        component: () => import('../views/shader_demos/RinneganDemo.vue')
       },
     {
         path: '/slider_demo',
