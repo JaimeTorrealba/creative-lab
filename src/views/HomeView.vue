@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -7,9 +7,19 @@ gsap.registerPlugin(ScrollTrigger)
 import Cards from '@/components/TheCard.vue'
 
 const router = useRouter()
-const rawData = computed(() => router.options.routes)
+const data = ref()
+const allRoutes = computed(() => router.options.routes)
+const routesWithoutHome = allRoutes.value.filter((route) => route.path !== '/')
 
-const data = rawData.value.filter((route) => route.path !== '/')
+data.value = routesWithoutHome
+
+const tags = new Set(data.value.map((route) => route.meta.section))
+
+const goAllRoutes = () => (data.value = routesWithoutHome)
+
+const filterByTag = (tag) => {
+  data.value = routesWithoutHome.filter((demo) => demo.meta.section === tag)
+}
 
 onMounted(() => {
   const scrollTriggerRef = gsap.utils.toArray('.scrollTriggerRef')
@@ -25,6 +35,19 @@ onMounted(() => {
 <template>
   <v-container class="pa-16 bg">
     <h1 class="text-center text-h3">Welcome to my creative lab</h1>
+    <v-chip-group class="d-flex justify-center mt-4">
+      <v-chip class="mx-2" color="primary" label @click="goAllRoutes()"> All </v-chip>
+      <v-chip
+        v-for="tag in tags"
+        :key="tag"
+        class="mx-2"
+        color="primary"
+        label
+        @click="filterByTag(tag)"
+      >
+        {{ tag }}
+      </v-chip>
+    </v-chip-group>
     <v-row class="pa-8" flex justify="space-around">
       <v-col cols="4" v-for="route in data" :key="route.path">
         <Cards :data="route" v-if="route.path !== '/'" class="scrollTriggerRef" />

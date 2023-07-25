@@ -3,6 +3,7 @@ import Home from '../views/HomeView.vue'
 import { demos } from './demos.js'
 import { shaders_demos } from './shaders_demos'
 import { html_demos } from './html_demos'
+import { fragment_demos } from './fragment_demos'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -16,8 +17,9 @@ const router = createRouter({
       component: Home,
     },
     ...demos,
+    ...html_demos,
     ...shaders_demos,
-    ...html_demos
+    ...fragment_demos,
     // playground
     // {
     //   path: '/playground',
