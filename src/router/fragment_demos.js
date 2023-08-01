@@ -13,8 +13,7 @@ export const fragment_demos = [
       img: '/gifs/fragment_template.gif',
       sourceCode:
         'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/fragment_demos/FragmentTemplate.vue',
-      description:
-        'My personal fragment shader template.'
+      description: 'My personal fragment shader template.'
     },
     component: () => import('../views/fragment_demos/FragmentTemplate.vue')
   },
@@ -53,6 +52,23 @@ export const fragment_demos = [
     component: () => import('../views/fragment_demos/RayMarchingOperations.vue')
   },
   {
+    path: '/ray_marching_tweaks',
+    name: 'Ray Marching Tweaks',
+    meta: {
+      layout: defaultLayout,
+      name: 'Tweaks in ray march',
+      difficulty: 'hard',
+      isOnTres: false,
+      section: 'frag_demo',
+      img: '/gifs/ray_march_demo.gif',
+      sourceCode:
+        'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/fragment_demos/RayMarchingTweaks.vue',
+      description:
+        'Basic of the ray marching, understanding the distance function and how to use it. playing with it and creating kind of a template'
+    },
+    component: () => import('../views/fragment_demos/RayMarchingTweaks.vue')
+  },
+  {
     path: '/rinnegan_demo',
     name: 'Rinnegan Demo',
     meta: {
@@ -64,9 +80,8 @@ export const fragment_demos = [
       img: '/gifs/rinnegan_demo.png',
       sourceCode:
         'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/fragment_demos/RinneganDemo.vue',
-      description:
-        'My personal fragment shader template.'
+      description: 'My personal fragment shader template.'
     },
     component: () => import('../views/fragment_demos/RinneganDemo.vue')
-  },
+  }
 ]
