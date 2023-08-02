@@ -60,7 +60,7 @@ export const fragment_demos = [
       difficulty: 'hard',
       isOnTres: false,
       section: 'frag_demo',
-      img: '/gifs/ray_march_demo.gif',
+      img: '/gifs/tweaks.gif',
       sourceCode:
         'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/fragment_demos/RayMarchingTweaks.vue',
       description:

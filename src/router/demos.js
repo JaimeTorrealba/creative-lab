@@ -146,7 +146,7 @@ export const demos = [
       difficulty: 'Easy',
       isOnTres: false,
       section: 'Demo',
-      img: '/gifs/nebula_generator_demo.gif',
+      img: '/gifs/ants.gif',
       sourceCode:
         'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/RandomAntsMovement.vue',
       description:
