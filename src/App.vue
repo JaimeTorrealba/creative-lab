@@ -27,7 +27,9 @@
   font-display: swap;
   src: local('CascadiaCode'), url('./assets/fonts/CascadiaCode.woff2') format('truetype');
 }
-
+.tp-dfwv{
+  z-index: 9999 !important;
+}
 html,
 body {
   margin: 0;

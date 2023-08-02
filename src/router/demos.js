@@ -137,4 +137,21 @@ export const demos = [
     },
     component: () => import('../views/demos/NebulaDemo.vue')
   },
+  {
+    path: '/random_movements',
+    name: 'Random Movements Ants Demo',
+    meta: {
+      layout: defaultLayout,
+      name: 'A ant colony with random movements',
+      difficulty: 'Easy',
+      isOnTres: false,
+      section: 'Demo',
+      img: '/gifs/nebula_generator_demo.gif',
+      sourceCode:
+        'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/RandomAntsMovement.vue',
+      description:
+        'A fun example using random movements to create a ant colony with gsap. Thanks to "Ant walkcycle" (https://skfb.ly/ZsMz) by Matrix Rex is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/)'
+    },
+    component: () => import('../views/demos/RandomAntsMovement.vue')
+  },
 ]

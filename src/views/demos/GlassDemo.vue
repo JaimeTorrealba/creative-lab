@@ -7,6 +7,7 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 
 const { map } = await useTexture({map:'/textures/glassMorphismTexture.jpg'})
 const { map:normalMap } = await useTexture({map:'/textures/glassMorphismNormal.jpg'})
+const { map:earthNormalMap } = await useTexture({map:'/textures/8k_earth_normal_map.jpg'})
 const planeRef = shallowRef(null)
 
 const hdrEquirect = await new RGBELoader().load(
@@ -69,7 +70,7 @@ pane.addInput(options, 'thickness', {
 pane.addInput(options, 'clearcoatNormalScale', {
   label: 'clearcoatNormalScale',
   min: 0,
-  max: 1,
+  max: 25,
   step: 0.01,
 })
 
@@ -79,6 +80,17 @@ const hdrEquiredButton = pane.addButton({
 });
 hdrEquiredButton.on('click', () => {
     options.envMap = options.envMap ? null : hdrEquirect
+});
+
+const chgNormalButton = pane.addButton({
+  title: 'Change normal',
+});
+chgNormalButton.on('click', () => {
+  // console.log('jaime ~ chgNormalButton.on ~ options.clearcoatNormalMap:', options.clearcoatNormalMap);
+    options.clearcoatNormalMap = options.clearcoatNormalMap.uuid === normalMap.uuid ? earthNormalMap : normalMap
+     console.log('jaime ~ chgNormalButton.on ~ earthNormalMap:', options.clearcoatNormalMap.uuid === normalMap.uuid);
+    console.log('jaime ~ chgNormalButton.on ~ normalMap:', normalMap.uuid);
+    console.log('jaime ~ chgNormalButton.on ~ normalMap:', options.clearcoatNormalMap.uuid);
 });
 
 </script>
