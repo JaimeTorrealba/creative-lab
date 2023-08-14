@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, reactive } from 'vue'
+import { shallowRef, reactive, watch } from 'vue'
 import { OrbitControls, useTweakPane } from '@tresjs/cientos'
 import { useTexture, TresCanvas } from '@tresjs/core'
 import { EquirectangularReflectionMapping } from 'three'
@@ -9,6 +9,11 @@ const { map } = await useTexture({map:'/textures/glassMorphismTexture.jpg'})
 const { map:normalMap } = await useTexture({map:'/textures/glassMorphismNormal.jpg'})
 const { map:earthNormalMap } = await useTexture({map:'/textures/8k_earth_normal_map.jpg'})
 const planeRef = shallowRef(null)
+const materialRef = shallowRef(null)
+
+watch(materialRef, value => {
+  console.log('jaime ~ value:', value);
+})
 
 const hdrEquirect = await new RGBELoader().load(
     "/textures/empty_warehouse_01_2k.hdr",
@@ -86,11 +91,7 @@ const chgNormalButton = pane.addButton({
   title: 'Change normal',
 });
 chgNormalButton.on('click', () => {
-  // console.log('jaime ~ chgNormalButton.on ~ options.clearcoatNormalMap:', options.clearcoatNormalMap);
     options.clearcoatNormalMap = options.clearcoatNormalMap.uuid === normalMap.uuid ? earthNormalMap : normalMap
-     console.log('jaime ~ chgNormalButton.on ~ earthNormalMap:', options.clearcoatNormalMap.uuid === normalMap.uuid);
-    console.log('jaime ~ chgNormalButton.on ~ normalMap:', normalMap.uuid);
-    console.log('jaime ~ chgNormalButton.on ~ normalMap:', options.clearcoatNormalMap.uuid);
 });
 
 </script>
@@ -102,7 +103,7 @@ chgNormalButton.on('click', () => {
     <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />
     <TresMesh :position="[-0, 0, 0]">
         <TresIcosahedronGeometry :args="[1, 10]" />
-        <TresMeshPhysicalMaterial v-bind="options" />
+        <TresMeshPhysicalMaterial v-bind="options" ref="materialRef" />
     </TresMesh>
     <TresMesh ref="planeRef" :position="[0,0, -1]">
         <TresPlaneGeometry :args="[5, 5]" />
