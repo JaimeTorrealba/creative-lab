@@ -104,6 +104,23 @@ export const demos = [
     component: () => import('../views/demos/InfiniteBeamDemo.vue')
   },
   {
+    path: '/instance_mesh_demo',
+    name: 'Instance Mesh Demo',
+    meta: {
+      layout: defaultLayout,
+      name: 'An Instance mesh test',
+      difficulty: 'Easy',
+      isOnTres: true,
+      section: 'Demo',
+      img: '/gifs/instance_mesh.gif',
+      sourceCode:
+        'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/InstanceMeshDemo.vue',
+      description:
+        'A test to try how the instance mesh works on Tresjs, also i was experiment with the OrthographicCamera (normally I just use the PerspectiveCamera).'
+    },
+    component: () => import('../views/demos/InstanceMeshDemo.vue')
+  },
+  {
     path: '/multi_camera_demo',
     name: 'Multi-camera Demo',
     meta: {
@@ -127,7 +144,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'A simple nebula generator',
       difficulty: 'Easy',
-      isOnTres: false,
+      isOnTres: true,
       section: 'Demo',
       img: '/gifs/nebula_generator_demo.gif',
       sourceCode:
@@ -154,4 +171,5 @@ export const demos = [
     },
     component: () => import('../views/demos/RandomAntsMovement.vue')
   },
+
 ]

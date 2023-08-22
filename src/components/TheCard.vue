@@ -13,7 +13,7 @@ defineProps({
 const router = useRouter()
 </script>
 <template>
-  <v-card class="mx-auto" max-width="344" dark>
+  <v-card class="mx-auto" max-width="344" min-width="342" dark>
       <v-img :src="data.meta.img" @click="router.push(data.path)" height="200px" cover></v-img>
 
     <v-card-title> {{ data.name }} </v-card-title>
