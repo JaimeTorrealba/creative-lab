@@ -171,5 +171,39 @@ export const demos = [
     },
     component: () => import('../views/demos/RandomAntsMovement.vue')
   },
+  // {
+  //   path: '/transition_demo',
+  //   name: 'Transition Vue API Demo',
+  //   meta: {
+  //     layout: defaultLayout,
+  //     name: 'A ant colony with random movements',
+  //     difficulty: 'Easy',
+  //     isOnTres: false,
+  //     section: 'Demo',
+  //     img: '/gifs/antss.gif',
+  //     sourceCode:
+  //       'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/TransitionDemo.vue',
+  //     description:
+  //       'A fun example using random movements to create a ant colony with gsap. Thanks to "Ant walkcycle" (https://skfb.ly/ZsMz) by Matrix Rex is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/)'
+  //   },
+  //   component: () => import('../views/demos/TransitionDemo.vue')
+  // },
+  {
+    path: '/six_sides_demo',
+    name: 'Six textures Demo',
+    meta: {
+      layout: defaultLayout,
+      name: 'Render a cube with different textures',
+      difficulty: 'Easy',
+      isOnTres: false,
+      section: 'Demo',
+      img: '/gifs/six_sides_demo.gif',
+      sourceCode:
+        'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/SixSidesDemo.vue',
+      description:
+        'A fun example using random movements to create a ant colony with gsap. Thanks to "Ant walkcycle" (https://skfb.ly/ZsMz) by Matrix Rex is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/)'
+    },
+    component: () => import('../views/demos/SixSidesDemo.vue')
+  },
 
 ]
