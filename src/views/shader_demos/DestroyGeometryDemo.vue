@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, onMounted } from 'vue'
+import { shallowRef, watch } from 'vue'
 import { MouseParallax, Text3D } from '@tresjs/cientos'
 import gsap from 'gsap'
 import { TresCanvas } from '@tresjs/core'
@@ -17,10 +17,10 @@ const squareGeo = new BoxGeometry(1.5, 1.5, 1, 10, 10, 10).toNonIndexed()
 const sphereGeo = new SphereGeometry(1, 20, 20).toNonIndexed()
 const triangleGeo = new ConeGeometry(0.9, 1.5, 20, 20).toNonIndexed()
 
-onMounted(() => {
-  squareRef.value.geometry.dispose()
-  squareRef.value.geometry = squareGeo
-  const lenSquare = squareRef.value.geometry.attributes.position.count
+watch(squareRef, value => {
+  value.geometry.dispose()
+  value.geometry = squareGeo
+  const lenSquare = value.geometry.attributes.position.count
   let squareRandoms = new Float32Array(lenSquare * 3)
   for (let i = 0; i < lenSquare; i += 3) {
     let r = Math.random()
@@ -28,12 +28,13 @@ onMounted(() => {
     squareRandoms[i + 1] = r
     squareRandoms[i + 2] = r
   }
-  squareRef.value.geometry.setAttribute('aRandom', new BufferAttribute(squareRandoms, 1))
+  value.geometry.setAttribute('aRandom', new BufferAttribute(squareRandoms, 1))
+})
 
-  // sphere
-  sphereRef.value.geometry.dispose()
-  sphereRef.value.geometry = sphereGeo
-  const lenSphere = sphereRef.value.geometry.attributes.position.count
+watch(sphereRef, value => {
+  value.geometry.dispose()
+  value.geometry = sphereGeo
+  const lenSphere = value.geometry.attributes.position.count
 
   let sphereRandoms = new Float32Array(lenSphere * 3)
   for (let i = 0; i < lenSphere; i += 3) {
@@ -42,12 +43,13 @@ onMounted(() => {
     sphereRandoms[i + 1] = r
     sphereRandoms[i + 2] = r
   }
-  sphereRef.value.geometry.setAttribute('aRandom', new BufferAttribute(sphereRandoms, 1))
+  value.geometry.setAttribute('aRandom', new BufferAttribute(sphereRandoms, 1))
+})
 
-  // triangle
-  triangleRef.value.geometry.dispose()
-  triangleRef.value.geometry = triangleGeo
-  const lenTriangle = triangleRef.value.geometry.attributes.position.count
+watch(triangleRef, value => {
+  value.geometry.dispose()
+  value.geometry = triangleGeo
+  const lenTriangle = value.geometry.attributes.position.count
 
   let triangleRandoms = new Float32Array(lenTriangle * 3)
   for (let i = 0; i < lenTriangle; i += 3) {
@@ -56,7 +58,7 @@ onMounted(() => {
     triangleRandoms[i + 1] = r
     triangleRandoms[i + 2] = r
   }
-  triangleRef.value.geometry.setAttribute('aRandom', new BufferAttribute(triangleRandoms, 1))
+  value.geometry.setAttribute('aRandom', new BufferAttribute(triangleRandoms, 1))
 })
 
 const squareShader = {

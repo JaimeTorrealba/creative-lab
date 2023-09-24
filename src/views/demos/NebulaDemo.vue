@@ -39,13 +39,13 @@ const blueLightRef = shallowRef(null)
     <TresPerspectiveCamera :position="[0, 0, 2.5]"  />
     <!-- <FogExp2 :color="0x03544e" :density="0.001" /> -->
     <MouseParallax :factor="1" />
-    <OrbitControls />
+    <!-- <OrbitControls /> -->
     <Stars />
     <!-- <EffectComposer>
         <Bloom :luminance-threshold="0.1" :luminance-smoothing="0.3" mipmap-blur :intensity="4.0" :radius="0.85" />
       </EffectComposer> -->
     <Suspense>
-      <Smoke texture='/textures/smoke.png' :segments="10" :width="4" :depth="1" :position="[0, 0, -7.5]" />
+      <Smoke texture='/textures/smoke.png' :segments="2" :width="4" :depth="1" :position="[0, 0, -7.5]" />
     </Suspense>
     <TresPointLight name="orange" :args="[0xcc6600, 50, 45, 1.7]" :position="[-1, -1, -2.5]" />
     <TresPointLight name="red" :args="[0xd8547e, 50, 45, 1.7]" :position="[1, 1,-2.5]" />
