@@ -8,7 +8,7 @@ export const html_demos = [
       layout: defaultLayout,
       name: 'A basic HTML-TresJs Mix',
       difficulty: 'medium',
-      isOnTres: false,
+      howTo: false,
       section: 'html_demo',
       img: '/gifs/mixhtml_demo.gif',
       sourceCode:
@@ -25,7 +25,7 @@ export const html_demos = [
       layout: defaultLayout,
       name: 'A reactive 3D text',
       difficulty: 'Easy',
-      isOnTres: true,
+      howTo: false,
       section: 'html_demo',
       img: '/gifs/reactive3Dtext.gif',
       sourceCode:

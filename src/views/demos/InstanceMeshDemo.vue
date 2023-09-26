@@ -2,7 +2,7 @@
 import { shallowRef, watch } from 'vue'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { BoxGeometry, ShaderMaterial, Object3D, InstancedBufferAttribute } from 'three'
-import { OrbitControls } from '@tresjs/cientos'
+import { MapControls } from '@tresjs/cientos'
 import { useWindowSize } from '@vueuse/core'
 
 const { width, height } = useWindowSize()
@@ -33,7 +33,7 @@ const material = new ShaderMaterial({
   `,
 })
 const geometry = new BoxGeometry(1, 1, 1)
-const rows = 10
+const rows = 100
 const count = rows * rows
 const random = new Float32Array(count)
 
@@ -63,8 +63,8 @@ onLoop(({delta}) => {
 </script>
 <template>
   <TresCanvas window-size clear-color="#82DBC5">
-    <TresOrthographicCamera :args="[width / - 2, width / 2, height / 2, height / - 2, 1, 1000 ]" :position="[0, 0, 7.0]" :zoom="32" />
-    <OrbitControls />
+    <TresOrthographicCamera :args="[width / - 2, width / 2, height / 2, height / - 2, 1, 1000 ]" :position="[0, 2, 7.0]" :zoom="32" :look-at="[0,0,0]" />
+    <MapControls />
     <TresInstancedMesh ref="instanceMeshRef" :args="[geometry, material, count]" />
   </TresCanvas>
 </template>

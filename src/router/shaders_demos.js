@@ -8,7 +8,7 @@ export const shaders_demos = [
       layout: defaultLayout,
       name: 'How to extend materials',
       difficulty: 'easy',
-      isOnTres: true,
+      howTo: false,
       section: 'shader_demo',
       img: '/gifs/CSM_demo.gif',
       sourceCode:
@@ -25,7 +25,7 @@ export const shaders_demos = [
       layout: defaultLayout,
       name: 'Destroy the vertex of a geometry',
       difficulty: 'medium',
-      isOnTres: false,
+      howTo: false,
       section: 'shader_demo',
       img: '/gifs/destroy_geometry_demo.gif',
       sourceCode:
@@ -42,7 +42,7 @@ export const shaders_demos = [
       layout: defaultLayout,
       name: 'Realistic fire',
       difficulty: 'Advanced',
-      isOnTres: false,
+      howTo: false,
       section: 'shader_demo',
       img: '/gifs/fire_demo.gif',
       sourceCode:
@@ -59,7 +59,7 @@ export const shaders_demos = [
       layout: defaultLayout,
       name: 'A star made with shaders',
       difficulty: 'Advanced',
-      isOnTres: false,
+      howTo: false,
       section: 'shader_demo',
       img: '/gifs/shader_star.gif',
       sourceCode:
@@ -76,7 +76,7 @@ export const shaders_demos = [
       layout: defaultLayout,
       name: 'An img made with particles',
       difficulty: 'medium',
-      isOnTres: false,
+      howTo: false,
       section: 'shader_demo',
       img: '/gifs/image_particles.gif',
       sourceCode:
@@ -93,7 +93,7 @@ export const shaders_demos = [
       layout: defaultLayout,
       name: 'Mouse transparency reveal',
       difficulty: 'medium',
-      isOnTres: false,
+      howTo: false,
       section: 'shader_demo',
       img: '/gifs/mouse_reveal.gif',
       sourceCode:
@@ -110,7 +110,7 @@ export const shaders_demos = [
       layout: defaultLayout,
       name: 'A WebGl slider',
       difficulty: 'advanced',
-      isOnTres: false,
+      howTo: false,
       section: 'shader_demo',
       img: '/gifs/slider_demo.gif',
       sourceCode:
@@ -127,7 +127,7 @@ export const shaders_demos = [
       layout: defaultLayout,
       name: 'A WebGl ripple effect',
       difficulty: 'advanced',
-      isOnTres: false,
+      howTo: false,
       section: 'shader_demo',
       img: '/gifs/waves_demo.gif',
       sourceCode:

@@ -28,9 +28,9 @@ const router = useRouter()
         </a>
         <v-chip>{{ data.meta.difficulty }}</v-chip>
         <v-chip>{{ data.meta.section }}</v-chip>
-        <a href="https://cientos.tresjs.org/" target="_blank">
-          <v-chip color="primary" variant="outlined" v-show="data.meta.isOnTres"
-            >Abstraction on cientos
+        <a :href="data.meta.howTo" target="_blank" v-show="data.meta.howTo">
+          <v-chip color="primary" variant="outlined"
+            >Tutorial
           </v-chip>
         </a>
       </v-chip-group>

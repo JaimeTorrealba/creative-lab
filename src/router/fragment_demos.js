@@ -8,7 +8,7 @@ export const fragment_demos = [
       layout: defaultLayout,
       name: 'Fragment shader template',
       difficulty: 'Easy',
-      isOnTres: false,
+      howTo: false,
       section: 'frag_demo',
       img: '/gifs/fragment_template.gif',
       sourceCode:
@@ -24,7 +24,7 @@ export const fragment_demos = [
       layout: defaultLayout,
       name: 'Playing with ray march technique',
       difficulty: 'hard',
-      isOnTres: false,
+      howTo: false,
       section: 'frag_demo',
       img: '/gifs/ray_march_demo.gif',
       sourceCode:
@@ -41,7 +41,7 @@ export const fragment_demos = [
       layout: defaultLayout,
       name: 'Playing with ray march operations',
       difficulty: 'hard',
-      isOnTres: false,
+      howTo: false,
       section: 'frag_demo',
       img: '/gifs/ray_march_union.gif',
       sourceCode:
@@ -58,7 +58,7 @@ export const fragment_demos = [
       layout: defaultLayout,
       name: 'Tweaks in ray march',
       difficulty: 'hard',
-      isOnTres: false,
+      howTo: false,
       section: 'frag_demo',
       img: '/gifs/tweaks.gif',
       sourceCode:
@@ -75,7 +75,7 @@ export const fragment_demos = [
       layout: defaultLayout,
       name: 'Trying to replicate the Rinnegan',
       difficulty: 'medium',
-      isOnTres: false,
+      howTo: false,
       section: 'frag_demo',
       img: '/gifs/rinnegan_demo.png',
       sourceCode:

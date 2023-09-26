@@ -8,7 +8,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'Simple 3D Avatar',
       difficulty: 'Easy',
-      isOnTres: false,
+      howTo: false,
       section: 'Demo',
       img: '/gifs/avatar_model.gif',
       sourceCode:
@@ -25,7 +25,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'Simple 3D Earth with markers',
       difficulty: 'Easy',
-      isOnTres: false,
+      howTo: false,
       section: 'Demo',
       img: '/gifs/earth_demo.gif',
       sourceCode:
@@ -42,7 +42,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'A model following a path',
       difficulty: 'Medium',
-      isOnTres: false,
+      howTo: false,
       section: 'Demo',
       img: '/gifs/snake_demo.gif',
       sourceCode:
@@ -59,7 +59,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'Glass/Plastic effect',
       difficulty: 'Medium',
-      isOnTres: false,
+      howTo: false,
       section: 'Demo',
       img: '/gifs/glass_plastic_demo.gif',
       sourceCode:
@@ -76,7 +76,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'Sampler effect like grass',
       difficulty: 'Medium',
-      isOnTres: false,
+      howTo: false,
       section: 'Demo',
       img: '/gifs/grass_demo.gif',
       sourceCode:
@@ -93,7 +93,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'An infinite flow of particles',
       difficulty: 'Medium',
-      isOnTres: true,
+      howTo: false,
       section: 'Demo',
       img: '/gifs/infinite_particles.gif',
       sourceCode:
@@ -110,7 +110,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'An Instance mesh test',
       difficulty: 'Easy',
-      isOnTres: true,
+      howTo: 'https://medium.com/@Jaimebboyjt/how-to-use-instancemesh-with-tresjs-fae8e3b48dcc',
       section: 'Demo',
       img: '/gifs/instance_mesh.gif',
       sourceCode:
@@ -127,7 +127,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'An array of cameras',
       difficulty: 'Medium',
-      isOnTres: false,
+      howTo: false,
       section: 'Demo',
       img: '/gifs/multi_camera.gif',
       sourceCode:
@@ -144,7 +144,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'A simple nebula generator',
       difficulty: 'Easy',
-      isOnTres: true,
+      howTo: false,
       section: 'Demo',
       img: '/gifs/nebula_generator_demo.gif',
       sourceCode:
@@ -161,7 +161,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'A ant colony with random movements',
       difficulty: 'Easy',
-      isOnTres: false,
+      howTo: false,
       section: 'Demo',
       img: '/gifs/ants.gif',
       sourceCode:
@@ -178,7 +178,7 @@ export const demos = [
   //     layout: defaultLayout,
   //     name: 'A ant colony with random movements',
   //     difficulty: 'Easy',
-  //     isOnTres: false,
+  //     howTo: false,
   //     section: 'Demo',
   //     img: '/gifs/antss.gif',
   //     sourceCode:
@@ -195,7 +195,7 @@ export const demos = [
       layout: defaultLayout,
       name: 'Render a cube with different textures',
       difficulty: 'Easy',
-      isOnTres: false,
+      howTo: false,
       section: 'Demo',
       img: '/gifs/six_sides_demo.gif',
       sourceCode:

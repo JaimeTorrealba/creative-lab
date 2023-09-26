@@ -33,7 +33,7 @@ onMounted(() => {
 })
 </script>
 <template>
-  <v-container class="pa-16 bg">
+  <v-container class="pa-lg-8 bg">
     <h1 class="text-center text-h3">Welcome to my creative lab</h1>
     <v-chip-group class="d-flex justify-center mt-4">
       <v-chip class="mx-2" color="primary" label @click="goAllRoutes()"> All </v-chip>
@@ -48,7 +48,7 @@ onMounted(() => {
         {{ tag }}
       </v-chip>
     </v-chip-group>
-    <v-row class="pa-8" flex justify="space-around">
+    <v-row class="pa-lg-8" flex justify="space-around">
       <v-col v-for="route in data" :key="route.path">
         <Cards :data="route" v-if="route.path !== '/'" class="scrollTriggerRef" />
       </v-col>
@@ -95,12 +95,6 @@ li,
 a,
 .router-link-active {
   color: #f7f7f7;
-}
-p {
-  font-size: 1.2rem;
-}
-li {
-  line-height: 1.75rem;
 }
 
 .bg {
