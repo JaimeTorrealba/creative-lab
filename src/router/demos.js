@@ -205,5 +205,22 @@ export const demos = [
     },
     component: () => import('../views/demos/SixSidesDemo.vue')
   },
+  {
+    path: '/infinite_tube_demo',
+    name: 'Infinite Tube Demo',
+    meta: {
+      layout: defaultLayout,
+      name: 'Illution of infinite tube',
+      difficulty: 'Easy',
+      howTo: false,
+      section: 'Demo',
+      img: '/gifs/six_sides_demo.gif',
+      sourceCode:
+        'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/InfiniteTube.vue',
+      description:
+        ''
+    },
+    component: () => import('../views/demos/InfiniteTube.vue')
+  },
 
 ]
