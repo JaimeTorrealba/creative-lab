@@ -3,30 +3,31 @@ import { computed } from 'vue'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { useAnimations, useGLTF, useTweakPane } from '@tresjs/cientos'
 import { PerspectiveCamera, Vector4, Vector3 } from 'three'
-import { useWindowSize } from '@vueuse/core'
+import { useWindowSize, useDevicePixelRatio  } from '@vueuse/core'
 
 const { width, height } = useWindowSize()
-const WIDTH = (width.value / 4) * window.devicePixelRatio
-const HEIGHT = (height.value / 4) * window.devicePixelRatio
+const { pixelRatio } = useDevicePixelRatio()
+const WIDTH = (width.value / 4) * pixelRatio.value
+const HEIGHT = (height.value / 4) * pixelRatio.value
 const ASPECT_RATIO = computed(() => width.value / height.value)
 
 const cameras = []
 
 const cameraOptions = [
   {
-    viewPort: new Vector4(Math.floor(0), Math.floor(0), Math.ceil(WIDTH * 2), Math.ceil(HEIGHT * 2)),
+    viewPort: new Vector4(0, 0, Math.ceil(WIDTH * 2), Math.ceil(HEIGHT * 2)),
     position: new Vector3(15, 0, 3),
     factor: 0.4,
     name: 'left_bottom',
   },
   {
-    viewPort: new Vector4(Math.floor(WIDTH), Math.floor(0), Math.ceil(WIDTH * 2), Math.ceil(HEIGHT * 2)),
+    viewPort: new Vector4(Math.floor(WIDTH), 0, Math.ceil(WIDTH * 2), Math.ceil(HEIGHT * 2)),
     position: new Vector3(0, 0, -3),
     factor: 2,
     name: 'center_bottom',
   },
   {
-    viewPort: new Vector4(Math.floor(WIDTH * 2), Math.floor(0), Math.ceil(WIDTH * 2), Math.ceil(HEIGHT * 2)),
+    viewPort: new Vector4(Math.floor(WIDTH * 2), 0, Math.ceil(WIDTH * 2), Math.ceil(HEIGHT * 2)),
     position: new Vector3(-15, 0, 3),
     factor: 0.4,
     name: 'right_bottom',
@@ -53,6 +54,7 @@ cameraOptions.forEach(data => {
 const { scene: model, animations } = await useGLTF('/models/footman/source/Footman_RIG.glb')
 const { actions, mixer } = useAnimations(animations, model)
 
+actions.Idle.play()
 let currentAction = actions.Idle
 
 currentAction.play()
@@ -94,12 +96,10 @@ onLoop(() => {
 <template>
   <TresCanvas window-size clear-color="#333" class="over-hidden">
     <TresArrayCamera :args="[cameras]" :position="[0, 2, 5]" />
-    <Suspense>
       <primitive :object="model" />
-    </Suspense>
-    <TresSpotLight :color="0xffffff" :intensity="100" :position="[0, 0, 5]" />
-    <TresAmbientLight :color="0xffffff" :intensity="1" />
-    <TresDirectionalLight :color="0xffffff" :intensity="5" />
+    <TresSpotLight :color="0xf7f7f7" :intensity="1" :position="[0, 0, 5]" />
+    <TresAmbientLight :color="0xf7f7f7" :intensity="0.3" />
+    <TresDirectionalLight :color="0xf7f7f7" :intensity="0.5" />
     <TresHemisphereLight />
   </TresCanvas>
 </template>
@@ -107,4 +107,4 @@ onLoop(() => {
 .tp-dfwv{
   z-index: 999;
 }
-</style>
+</style> 

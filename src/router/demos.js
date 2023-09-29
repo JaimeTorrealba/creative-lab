@@ -214,7 +214,7 @@ export const demos = [
       difficulty: 'Easy',
       howTo: false,
       section: 'Demo',
-      img: '/gifs/six_sides_demo.gif',
+      img: '/gifs/infinite_tube.gif',
       sourceCode:
         'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/InfiniteTube.vue',
       description:
