@@ -82,7 +82,7 @@ onLoop(({delta}) => {
 })
 </script>
 <template>
-  <TresCanvas window-size clear-color="#82DBC5">
+  <TresCanvas window-size clear-color="#333">
     <TresOrthographicCamera :args="[width / - 2, width / 2, height / 2, height / - 2, 1, 1000]" :position="[0, 2, 7.0]" :zoom="32" :look-at="[0,0,0]" />
     <MapControls />
     <TresInstancedMesh ref="instanceMeshRef" :args="[geometry, material, count]" />

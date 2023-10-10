@@ -171,23 +171,23 @@ export const demos = [
     },
     component: () => import('../views/demos/RandomAntsMovement.vue')
   },
-  // {
-  //   path: '/transition_demo',
-  //   name: 'Transition Vue API Demo',
-  //   meta: {
-  //     layout: defaultLayout,
-  //     name: 'A ant colony with random movements',
-  //     difficulty: 'Easy',
-  //     howTo: false,
-  //     section: 'Demo',
-  //     img: '/gifs/antss.gif',
-  //     sourceCode:
-  //       'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/TransitionDemo.vue',
-  //     description:
-  //       'A fun example using random movements to create a ant colony with gsap. Thanks to "Ant walkcycle" (https://skfb.ly/ZsMz) by Matrix Rex is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/)'
-  //   },
-  //   component: () => import('../views/demos/TransitionDemo.vue')
-  // },
+   {
+     path: '/transition_demo',
+     name: 'Transition Vue API Demo',
+     meta: {
+       layout: defaultLayout,
+       name: 'A simple use case of Vue Transition API',
+       difficulty: 'Easy',
+       howTo: false,
+       section: 'Demo',
+       img: '/gifs/transition.gif',
+       sourceCode:
+         'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/TransitionDemo.vue',
+       description:
+         'We can use the Vue Transition API to create some cool effects. Here I left you a simple example.'
+     },
+     component: () => import('../views/demos/TransitionDemo.vue')
+   },
   {
     path: '/six_sides_demo',
     name: 'Six textures Demo',
