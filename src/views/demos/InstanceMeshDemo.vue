@@ -9,7 +9,6 @@ const { width, height } = useWindowSize()
 const { matcap } = await useTexture({
   matcap: '/textures/matcap example.png',
 })
-console.log('jaime ~ matcap:', matcap);
 
 const dummy = new Object3D();
 const material = new ShaderMaterial({

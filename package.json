@@ -11,27 +11,27 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@tresjs/cientos": "^3.4.1",
-    "@tresjs/core": "^3.3.0",
+    "@tresjs/cientos": "^3.6.0",
+    "@tresjs/core": "^3.5.0",
     "@vueuse/core": "^9.13.0",
     "gsap": "^3.12.2",
     "simplex-noise": "^4.0.1",
     "three-custom-shader-material": "^5.4.0",
-    "vue": "^3.3.4",
+    "vue": "^3.3.8",
     "vue-router": "^4.2.5",
-    "vuetify": "^3.3.20"
+    "vuetify": "^3.4.0"
   },
   "devDependencies": {
     "@mdi/font": "^7.3.67",
     "@rushstack/eslint-patch": "^1.5.1",
-    "@vitejs/plugin-vue": "^4.4.0",
+    "@vitejs/plugin-vue": "^4.4.1",
     "@vue/eslint-config-prettier": "^7.1.0",
-    "eslint": "^8.51.0",
-    "eslint-plugin-vue": "^9.17.0",
+    "eslint": "^8.53.0",
+    "eslint-plugin-vue": "^9.18.1",
     "prettier": "^2.8.8",
-    "sass": "^1.69.0",
+    "sass": "^1.69.5",
     "three": "^0.150.1",
-    "vite": "^4.4.11",
+    "vite": "^4.5.0",
     "vite-plugin-glsl": "^1.1.2"
   }
 }

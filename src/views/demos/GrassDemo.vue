@@ -109,7 +109,7 @@ onLoop(({ elapsed }) => {
       <TresPointsMaterial :color="0xff0000" :size="0.1" />
     </TresPoints>
     <TresLineSegments ref="leafRef" :rotation="[rotationPlane, 0, 0]">
-      <TresLineBasicMaterial :color="0x11ff11" />
+      <TresLineBasicMaterial :color="0x11ff44" />
     </TresLineSegments>
     <TresDirectionalLight :position="[0, 2, 4]" :intensity="4" />
     <TresAmbientLight />

@@ -218,9 +218,26 @@ export const demos = [
       sourceCode:
         'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/InfiniteTube.vue',
       description:
-        ''
+        'A simple and funny way to create the illusion of an infinite tube.'
     },
     component: () => import('../views/demos/InfiniteTube.vue')
+  },
+  {
+    path: '/shooter_demo',
+    name: 'Shooter Demo',
+    meta: {
+      layout: defaultLayout,
+      name: 'Shooter game demo',
+      difficulty: 'Easy',
+      howTo: false,
+      section: 'Demo',
+      img: '/gifs/shooter_demo.gif',
+      sourceCode:
+        'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/ShooterDemo.vue',
+      description:
+        ''
+    },
+    component: () => import('../views/demos/ShooterDemo.vue')
   },
 
 ]
