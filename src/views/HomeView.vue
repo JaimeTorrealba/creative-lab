@@ -50,7 +50,7 @@ onMounted(() => {
     </v-chip-group>
     <v-row class="pa-lg-8" flex justify="space-around">
       <v-col v-for="route in data" :key="route.path">
-        <Cards :data="route" v-if="route.path !== '/'" class="scrollTriggerRef" />
+        <Cards :data="route" v-if="route.path !== '/' && !route.meta.test" class="scrollTriggerRef" />
       </v-col>
     </v-row>
     <v-footer class="text-center d-flex flex-column rounded">

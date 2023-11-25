@@ -178,7 +178,7 @@ export const demos = [
        layout: defaultLayout,
        name: 'A simple use case of Vue Transition API',
        difficulty: 'Easy',
-       howTo: false,
+       howTo: 'https://medium.com/@Jaimebboyjt/transition-threejs-component-using-vuejs-and-tresjs-d1119cb8ef6c',
        section: 'Demo',
        img: '/gifs/transition.gif',
        sourceCode:
@@ -226,6 +226,7 @@ export const demos = [
     path: '/shooter_demo',
     name: 'Shooter Demo',
     meta: {
+      test: true,
       layout: defaultLayout,
       name: 'Shooter game demo',
       difficulty: 'Easy',
@@ -238,6 +239,41 @@ export const demos = [
         ''
     },
     component: () => import('../views/demos/ShooterDemo.vue')
+  },
+  {
+    path: '/gaea_test',
+    name: 'Gaea Test',
+    meta: {
+      layout: defaultLayout,
+      name: 'Gaea software test',
+      difficulty: 'Easy',
+      howTo: false,
+      section: 'Demo',
+      img: '/gifs/gaea_test.gif',
+      sourceCode:
+        'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/GaeaTest.vue',
+      description:
+        ''
+    },
+    component: () => import('../views/demos/GaeaTest.vue')
+  },
+  {
+    path: '/playground',
+    name: 'Playground',
+    meta: {
+      test: true,
+      layout: defaultLayout,
+      name: 'Playground',
+      difficulty: 'Easy',
+      howTo: false,
+      section: 'Demo',
+      img: '',
+      sourceCode:
+        '',
+      description:
+        ''
+    },
+    component: () => import('../views/template.vue')
   },
 
 ]

@@ -13,7 +13,7 @@ defineProps({
 const router = useRouter()
 </script>
 <template>
-  <v-card class="mx-auto" max-width="344" min-width="342" dark>
+  <v-card class="mx-auto" min-width="328" dark>
       <v-img :src="data.meta.img" @click="router.push(data.path)" height="200px" cover></v-img>
 
     <v-card-title> {{ data.name }} </v-card-title>
@@ -30,7 +30,7 @@ const router = useRouter()
         <v-chip>{{ data.meta.section }}</v-chip>
         <a :href="data.meta.howTo" target="_blank" v-show="data.meta.howTo">
           <v-chip color="primary" variant="outlined"
-            >Tutorial
+            >Blog post
           </v-chip>
         </a>
       </v-chip-group>

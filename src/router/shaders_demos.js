@@ -136,5 +136,23 @@ export const shaders_demos = [
         'A WebGl ripple effect (like material design) but using shaders. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
     },
     component: () => import('../views/shader_demos/WaveDemo.vue')
+  },
+  {
+    path: '/grass_shader_demo',
+    name: 'Grass Shader Demo',
+    meta: {
+      test: true,
+      layout: defaultLayout,
+      name: 'Grass made with shaders',
+      difficulty: 'advanced',
+      howTo: false,
+      section: 'shader_demo',
+      img: '/gifs/l.gif',
+      sourceCode:
+        'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/shader_demos/GrassShaderDemo.vue',
+      description:
+        ''
+    },
+    component: () => import('../views/shader_demos/GrassShaderDemo.vue')
   }
 ]
