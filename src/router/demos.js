@@ -249,11 +249,11 @@ export const demos = [
       difficulty: 'Easy',
       howTo: false,
       section: 'Demo',
-      img: '/gifs/gaea_test.gif',
+      img: '/gifs/gaea_test.png',
       sourceCode:
         'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/GaeaTest.vue',
       description:
-        ''
+        'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.'
     },
     component: () => import('../views/demos/GaeaTest.vue')
   },
