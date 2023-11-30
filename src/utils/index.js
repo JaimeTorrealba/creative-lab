@@ -13,8 +13,8 @@ export const generateRoute = (name, section, description, howTo = false) => {
     meta: {
       layout: defaultLayout,
       howTo,
-      section: section + 's',
-      img: `/gifs${path}.gif`,
+      section,
+      img: `/gifs/${section}/${name}.gif`,
       sourceCode: `https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/${section}/${name}.vue`,
       description
     },

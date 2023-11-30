@@ -6,6 +6,6 @@ const descriptions = {
 }
 
 export const html_demos = [
-  generateRoute('HtmlMix', 'Html_demo', descriptions.htmlMix),
-  generateRoute('ReactiveText', 'Html_demo', descriptions.dynamicText),
+  generateRoute('HtmlMix', 'Html_demos', descriptions.htmlMix),
+  generateRoute('ReactiveText', 'Html_demos', descriptions.dynamicText),
 ]
