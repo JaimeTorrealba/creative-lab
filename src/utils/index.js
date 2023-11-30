@@ -16,9 +16,9 @@ export const generateRoute = (name, section, description, howTo = false, test = 
       howTo,
       section,
       img: `/gifs${path}.gif`,
-      sourceCode: `https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/demos/${name}${section}.vue`,
+      sourceCode: `https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/${section}/${name}.vue`,
       description
     },
-    component: () => import(`../views/demos/${name}${section}.vue`)
+    component: () => import(`../views/${section}/${name}.vue`)
   }
 }
