@@ -39,21 +39,17 @@ export const demos = [
   generateRoute('Transition', 'Demo', descriptions.transition),
   generateRoute('SixSides', 'Demo', descriptions.sixSides),
   generateRoute('InfiniteTube', 'Demo', descriptions.infiniteTube),
-  generateRoute('Shooter', 'Demo', '', false, true),
+  generateRoute('Shooter', 'Demo', ''),
   generateRoute('Gaea', 'Demo', descriptions.gaea),
   generateRoute(
     'Minecraft',
     'Demo',
     'Following this tutorial: https://youtu.be/tsOTCn0nROI?si=DY32m9v2Vl3jhQqy.',
-    false,
-    true
   ),
   generateRoute(
     'ThreeBvhCsg',
     'Demo',
     'Simple demo using three-bvh-csg library for basic operations.',
-    false,
-    true
   ),
-  generateRoute('Playground', 'Demo', '', false, true)
+  generateRoute('Playground', 'Demo', '')
 ]

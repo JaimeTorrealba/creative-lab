@@ -1,6 +1,6 @@
 import defaultLayout from '@/layouts/defaultLayout.vue'
 
-export const generateRoute = (name, section, description, howTo = false, test = false) => {
+export const generateRoute = (name, section, description, howTo = false) => {
   const lowerCase = name.toLocaleLowerCase()
   const splitLowerText = lowerCase.split('-')
   const path = `/${splitLowerText[0]}${
@@ -11,10 +11,9 @@ export const generateRoute = (name, section, description, howTo = false, test = 
     path,
     name: `${name} ${section}`,
     meta: {
-      test,
       layout: defaultLayout,
       howTo,
-      section,
+      section: section + 's',
       img: `/gifs${path}.gif`,
       sourceCode: `https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/${section}/${name}.vue`,
       description
