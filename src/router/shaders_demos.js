@@ -155,4 +155,10 @@ export const shaders_demos = [
     },
     component: () => import('../views/shader_demos/GrassShaderDemo.vue')
   }
+    // generateRoute(
+  //   'InstanceMesh',
+  //   'Demo',
+  //   false,
+  //   'A test to try how the instance mesh works on Tresjs, also i was experiment with the OrthographicCamera (normally I just use the PerspectiveCamera).'
+  // ),
 ]

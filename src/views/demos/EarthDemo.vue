@@ -56,7 +56,7 @@ const options = reactive({
   speed: 0.03
 })
 
-pane.addInput(options, 'speed', {
+pane.addBinding(options, 'speed', {
   label: 'Speed',
   min: 0,
   max: 0.5,

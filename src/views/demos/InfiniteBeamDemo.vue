@@ -1,5 +1,5 @@
 <script setup>
-import { watch, shallowRef } from 'vue'
+import { shallowRef } from 'vue'
 import { TresCanvas, useTexture, useRenderLoop } from '@tresjs/core'
 import { OrbitControls, Stars } from '@tresjs/cientos'
 
@@ -42,9 +42,6 @@ for (let i = 0; i < count * 2; i += 2) {
   velocityArray[i + 1] = (Math.random() / 5) * 0.1 + 0.01
 }
 
-watch(beamsGeoRef, (value) => {
-  console.log(value)
-})
 const { onLoop } = useRenderLoop()
 
 onLoop(() => {

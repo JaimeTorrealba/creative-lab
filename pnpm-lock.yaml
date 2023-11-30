@@ -11,6 +11,9 @@ dependencies:
   '@tresjs/core':
     specifier: ^3.5.0
     version: 3.5.0(three@0.150.1)(vue@3.3.8)
+  '@tresjs/post-processing':
+    specifier: ^0.7.0
+    version: 0.7.0(three@0.150.1)(vue@3.3.8)
   '@vueuse/core':
     specifier: ^9.13.0
     version: 9.13.0(vue@3.3.8)
@@ -441,6 +444,23 @@ packages:
       - '@vue/composition-api'
     dev: false
 
+  /@tresjs/post-processing@0.7.0(three@0.150.1)(vue@3.3.8):
+    resolution: {integrity: sha512-HCLZLvextKBxZBRb09cfmKSmP3GQf/meeaBQoPrawX/mQw0tQMp2SP9jdo0nBCd/xotwudteygXp2PfRzpzzSA==}
+    peerDependencies:
+      three: '>=0.133'
+      vue: '>=3.3'
+    dependencies:
+      '@tresjs/core': 3.5.0(three@0.150.1)(vue@3.3.8)
+      '@unocss/core': 0.57.7
+      '@vueuse/core': 10.6.1(vue@3.3.8)
+      postprocessing: 6.33.3(three@0.150.1)
+      three: 0.150.1
+      three-stdlib: 2.28.5(three@0.150.1)
+      vue: 3.3.8
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+    dev: false
+
   /@types/draco3d@1.4.8:
     resolution: {integrity: sha512-hdA2gODc+1X5gG+buH8gMRnQdRTa3vep8+PyGFK9xDQmbdudobP//yXLK+C/SnjGLWHiER2QL+xWjq7qkFuivA==}
     dev: false
@@ -468,6 +488,10 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
+
+  /@unocss/core@0.57.7:
+    resolution: {integrity: sha512-1d36M0CV3yC80J0pqOa5rH1BX6g2iZdtKmIb3oSBN4AWnMCSrrJEPBrUikyMq2TEQTrYWJIVDzv5A9hBUat3TA==}
+    dev: false
 
   /@vitejs/plugin-vue@4.4.1(vite@4.5.0)(vue@3.3.8):
     resolution: {integrity: sha512-HCQG8VDFDM7YDAdcj5QI5DvUi+r6xvo9LgvYdk7LSkUNwdpempdB5horkMSZsbdey9Ywsf5aaU8kEPw9M5kREA==}
@@ -1342,6 +1366,15 @@ packages:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.0.2
+
+  /postprocessing@6.33.3(three@0.150.1):
+    resolution: {integrity: sha512-zQAVvcMf7bfeggQNQeVErD/UFd1XHBi2X6+yxwIv9PjhGCLAYKue3UuzVyu95O7ZUvkDwF0TyTzKdxoaVwYi7w==}
+    engines: {node: '>= 0.13.2'}
+    peerDependencies:
+      three: '>= 0.138.0 < 0.159.0'
+    dependencies:
+      three: 0.150.1
+    dev: false
 
   /potpack@1.0.2:
     resolution: {integrity: sha512-choctRBIV9EMT9WGAZHn3V7t0Z2pMQyl0EZE6pFc/6ml3ssw7Dlf/oAOvFwjm1HVsqfQN8GfeFyJ+d8tRzqueQ==}

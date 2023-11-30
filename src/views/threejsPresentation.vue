@@ -12,19 +12,19 @@ const options = reactive({
 })
 const { pane } = useTweakPane()
 
-pane.addInput(options, 'x', {
+pane.addBinding(options, 'x', {
   label: 'Eje X',
   min: -5,
   max: 5,
   step: 1,
 })
-pane.addInput(options, 'y', {
+pane.addBinding(options, 'y', {
   label: 'Eje Y',
   min: -5,
   max: 5,
   step: 1,
 })
-pane.addInput(options, 'z', {
+pane.addBinding(options, 'z', {
   label: 'Eje Z',
   min: -5,
   max: 5,

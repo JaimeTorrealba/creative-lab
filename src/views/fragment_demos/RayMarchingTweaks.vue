@@ -52,7 +52,7 @@ onLoop(({ elapsed }) => {
 const camera = reactive({y:1})
 const { pane } = useTweakPane()
 
-pane.addInput(camera, 'y', { min: -5, max: 5 })
+pane.addBinding(camera, 'y', { min: -5, max: 5 })
 </script>
 <template>
     <TresCanvas window-size clear-color="#111">

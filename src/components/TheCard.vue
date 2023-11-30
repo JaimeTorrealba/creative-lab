@@ -14,23 +14,18 @@ const router = useRouter()
 </script>
 <template>
   <v-card class="mx-auto" min-width="328" dark>
-      <v-img :src="data.meta.img" @click="router.push(data.path)" height="200px" cover></v-img>
+    <v-img class="img" :src="data.meta.img" @click="router.push(data.path)" height="200px" cover></v-img>
 
     <v-card-title> {{ data.name }} </v-card-title>
-
-    <v-card-subtitle> {{ data.meta.name }} </v-card-subtitle>
     <v-divider class="mx-4 my-1"></v-divider>
-
     <div class="px-4">
       <v-chip-group>
         <a :href="data.meta.sourceCode" target="_blank">
           <v-chip>Source code</v-chip>
         </a>
-        <v-chip>{{ data.meta.difficulty }}</v-chip>
-        <v-chip>{{ data.meta.section }}</v-chip>
+        <v-chip @click="router.push(data.path)">{{ data.meta.section }}</v-chip>
         <a :href="data.meta.howTo" target="_blank" v-show="data.meta.howTo">
-          <v-chip color="primary" variant="outlined"
-            >Blog post
+          <v-chip color="primary" variant="outlined">Blog post
           </v-chip>
         </a>
       </v-chip-group>
@@ -55,3 +50,8 @@ const router = useRouter()
     </v-expand-transition>
   </v-card>
 </template>
+<style scoped>
+.img {
+  cursor: pointer;
+}
+</style>

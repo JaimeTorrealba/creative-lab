@@ -46,7 +46,7 @@ actions10.running.play()
 
 const { pane } = useTweakPane()
 
-pane.addInput(options, 'y', { min: -Math.PI, max: Math.PI, step: 0.01 })
+pane.addBinding(options, 'y', { min: -Math.PI, max: Math.PI, step: 0.01 })
 
 function moveMe(target) {
   const newPos = {

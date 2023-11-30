@@ -18,10 +18,10 @@ const normal = new Vector3()
 const noise4D = createNoise4D()
 
 const floorMap = await useTexture({
-  map: 'textures/floor_textures/Ground_Wet_002_basecolor.jpg',
-  aoMap: 'textures/floor_textures/Ground_Wet_002_ambientOcclusion.jpg',
-  normalMap: 'textures/floor_textures/Ground_Wet_002_normal.jpg',
-  roughnessMap: 'textures/floor_textures/Ground_Wet_002_roughness.jpg'
+  map: 'https://raw.githubusercontent.com/Tresjs/assets/main/textures/haunted-house/grass/color.jpg',
+  normalMap: 'https://raw.githubusercontent.com/Tresjs/assets/main/textures/haunted-house/grass/normal.jpg',
+  roughnessMap: 'https://raw.githubusercontent.com/Tresjs/assets/main/textures/haunted-house/grass/roughness.jpg',
+  aoMap: 'https://raw.githubusercontent.com/Tresjs/assets/main/textures/haunted-house/grass/ambientOcclusion.jpg',
 })
 
 const setDefaultTextures = (obj, repeat = [4, 4]) => {
@@ -111,8 +111,6 @@ onLoop(({ elapsed }) => {
     <TresLineSegments ref="leafRef" :rotation="[rotationPlane, 0, 0]">
       <TresLineBasicMaterial :color="0x11ff44" />
     </TresLineSegments>
-    <TresDirectionalLight :position="[0, 2, 4]" :intensity="4" />
-    <TresAmbientLight />
-  <TresHemisphereLight :args="[0xf7f7f7, 0x333, 1]" />
+    <TresDirectionalLight :position="[0, 2, 4]" />
   </TresCanvas>
 </template>

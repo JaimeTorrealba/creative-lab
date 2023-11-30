@@ -36,43 +36,43 @@ const hdrEquirect = await new RGBELoader().load(
 
   const { pane } = useTweakPane()
 
-  pane.addInput(options, 'transmission', {
+  pane.addBinding(options, 'transmission', {
   label: 'transmission',
   min: 0,
   max: 1,
   step: 0.01,
 })
-pane.addInput(options, 'thickness', {
+pane.addBinding(options, 'thickness', {
   label: 'thickness',
   min: 0,
   max: 1,
   step: 0.01,
 })
-  pane.addInput(options, 'envMapIntensity', {
+  pane.addBinding(options, 'envMapIntensity', {
   label: 'envMapIntensity',
   min: 0,
   max: 3,
   step: 0.1,
 })
-  pane.addInput(options, 'roughness', {
+  pane.addBinding(options, 'roughness', {
   label: 'roughness',
   min: 0,
   max: 1,
   step: 0.01,
 })
-  pane.addInput(options, 'clearcoat', {
+  pane.addBinding(options, 'clearcoat', {
   label: 'clearcoat',
   min: 0,
   max: 1,
   step: 0.01,
 })
-  pane.addInput(options, 'clearcoatRoughness', {
+  pane.addBinding(options, 'clearcoatRoughness', {
   label: 'clearcoatRoughness',
   min: 0,
   max: 1,
   step: 0.01,
 })
-pane.addInput(options, 'clearcoatNormalScale', {
+pane.addBinding(options, 'clearcoatNormalScale', {
   label: 'clearcoatNormalScale',
   min: 0,
   max: 25,
