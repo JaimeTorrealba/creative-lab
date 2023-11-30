@@ -39,18 +39,23 @@ export const demos = [
   generateRoute('Nebula', 'Demos', descriptions.nebula),
   generateRoute('RandomMovement', 'Demos', descriptions.randomMovement),
   generateRoute('SixSides', 'Demos', descriptions.sixSides),
-  generateRoute('Transition', 'Demos', descriptions.transition),
+  generateRoute(
+    'Transition',
+    'Demos',
+    descriptions.transition,
+    'https://medium.com/@Jaimebboyjt/transition-threejs-component-using-vuejs-and-tresjs-d1119cb8ef6c'
+  ),
   // no orden alfabetico
   generateRoute('Shooter', 'Demos', ''),
   generateRoute(
     'Minecraft',
     'Demo',
-    'Following this tutorial: https://youtu.be/tsOTCn0nROI?si=DY32m9v2Vl3jhQqy.',
+    'Following this tutorial: https://youtu.be/tsOTCn0nROI?si=DY32m9v2Vl3jhQqy.'
   ),
   generateRoute(
     'ThreeBvhCsg',
     'Demo',
-    'Simple demo using three-bvh-csg library for basic operations.',
+    'Simple demo using three-bvh-csg library for basic operations.'
   ),
   generateRoute('Playground', 'Demo', '')
 ]
