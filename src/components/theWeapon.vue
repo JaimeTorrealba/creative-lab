@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useTresContext, useRenderLoop } from '@tresjs/core'
 import { useGLTF, PointerLockControls, KeyboardControls } from '@tresjs/cientos'
+import OnFirstPersonControls from './external/OnFirstPersonControls.vue'
 import { Vector3 } from 'three'
 
 const { camera } = useTresContext()
@@ -36,7 +37,6 @@ onLoop(() => {
 
 </script>
 <template>
-    <PointerLockControls make-default ref="controls" />
-    <KeyboardControls head-bobbing />
+    <OnFirstPersonControls />
     <primitive ref="swordRef" :scale="0.1" :object="scene" :rotation="[0, 1, 0]" />
 </template>

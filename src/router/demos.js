@@ -9,7 +9,7 @@ const descriptions = {
     'You can transform a model to follow a path (and svg one, in this case) and make it bend and rotate accordingly. This effect is base on: https://youtu.be/NH4rSzHLCp4',
   glass:
     'A glass/plastic effect you can achieve using physical material. This effect is base on: https://tympanus.net/codrops/2021/10/27/creating-the-effect-of-transparent-glass-and-plastic-in-three-js/.',
-  grass:
+  fur:
     'A way to simulate fur, hair, grass, etc. Using the sampler technique in ThreeJs. This effect is base on https://youtu.be/n98UO5sUyLo.',
   infiniteBeam:
     'It creates an infinite flow of particles without using a shader. This is the native way, but you have available an abstraction to do it in TresJs. https://cientos.tresjs.org/guide/abstractions/precipitation.html',
@@ -32,13 +32,18 @@ export const demos = [
   generateRoute('FollowPath', 'Demos', descriptions.followPath),
   generateRoute('Gaea', 'Demos', descriptions.gaea),
   generateRoute('Glass', 'Demos', descriptions.glass),
-  generateRoute('Grass', 'Demos', descriptions.grass),
+  generateRoute('Fur', 'Demos', descriptions.fur),
   generateRoute('InfiniteBeam', 'Demos', descriptions.infiniteBeam),
   generateRoute('InfiniteTube', 'Demos', descriptions.infiniteTube),
   generateRoute('MultiCamera', 'Demos', descriptions.multiCamera),
   generateRoute('Nebula', 'Demos', descriptions.nebula),
   generateRoute('RandomMovement', 'Demos', descriptions.randomMovement),
   generateRoute('SixSides', 'Demos', descriptions.sixSides),
+  // generateRoute(
+  //   'ThreeBvhCsg',
+  //   'Demos',
+  //   'Simple demo using three-bvh-csg library for basic operations.'
+  // ),
   generateRoute(
     'Transition',
     'Demos',
@@ -49,13 +54,9 @@ export const demos = [
   generateRoute('Shooter', 'Demos', ''),
   generateRoute(
     'Minecraft',
-    'Demo',
+    'Demos',
     'Following this tutorial: https://youtu.be/tsOTCn0nROI?si=DY32m9v2Vl3jhQqy.'
   ),
-  generateRoute(
-    'ThreeBvhCsg',
-    'Demo',
-    'Simple demo using three-bvh-csg library for basic operations.'
-  ),
-  generateRoute('Playground', 'Demo', '')
+
+  generateRoute('Playground', 'Demos', '')
 ]

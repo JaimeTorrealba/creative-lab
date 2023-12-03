@@ -26,7 +26,7 @@ export const shaders_demos = [
   generateRoute('MouseReveal', 'Shader_demos', descriptions.mouseReveal),
   generateRoute('Slider', 'Shader_demos', descriptions.slider),
   generateRoute('Waves', 'Shader_demos', descriptions.wave),
-  generateRoute('GrassShader', 'Shader_demos', descriptions.grassShader),
+  generateRoute('Grass', 'Shader_demos', descriptions.grassShader),
   generateRoute(
     'InstanceMesh',
     'Shader_demos',
