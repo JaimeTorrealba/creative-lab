@@ -17,6 +17,9 @@ dependencies:
   '@vueuse/core':
     specifier: ^9.13.0
     version: 9.13.0(vue@3.3.9)
+  alea:
+    specifier: ^1.0.1
+    version: 1.0.1
   gsap:
     specifier: ^3.12.2
     version: 3.12.3
@@ -665,6 +668,10 @@ packages:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
     dev: true
+
+  /alea@1.0.1:
+    resolution: {integrity: sha512-QU+wv+ziDXaMxRdsQg/aH7sVfWdhKps5YP97IIwFkHCsbDZA3k87JXoZ5/iuemf4ntytzIWeScrRpae8+lDrXA==}
+    dev: false
 
   /ansi-regex@5.0.1:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}

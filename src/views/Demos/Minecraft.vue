@@ -2,14 +2,17 @@
 import { shallowRef, watch, reactive, computed, ref } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls, Stats, useTweakPane } from '@tresjs/cientos';
-import { MeshLambertMaterial, BoxGeometry, Object3D, InstancedMesh } from 'three';
-import { getBlock, setBlockInstanceId, setBlockId } from '@/utils/minecraftHelpers'
+import { MeshLambertMaterial, BoxGeometry, Object3D, InstancedMesh, Color } from 'three';
+import { getBlock, setBlockInstanceId, setBlockId, blocks, isBlockObscured } from '@/utils/minecraftHelpers'
 import { createNoise2D } from 'simplex-noise'
+import alea from 'alea';
 
 // CONSTANTS
 const canvasRef = shallowRef(null)
+const instanceMesh = shallowRef(null)
 const geometry = new BoxGeometry(1, 1, 1);
-const material = new MeshLambertMaterial({ color: 0x00ff00 });
+const material = new MeshLambertMaterial();
+
 const data = ref([])
 const size = reactive({
   width: 32,
@@ -18,7 +21,8 @@ const size = reactive({
 const options = reactive({
   scale: 30,
   magnitude: 0.5,
-  offset: 0.2
+  offset: 0.2,
+  seeds: 60
 })
 const count = computed(() => size.width * size.width * size.height)
 
@@ -53,6 +57,12 @@ pane.addBinding(options, 'offset', {
   max: 1,
   step: 0.1
 })
+pane.addBinding(options, 'seeds', {
+  label: 'Seeds',
+  min: 0,
+  max: 200,
+  step: 5
+})
 
 watch([size, options], () => {
   initializedTerrain()
@@ -66,29 +76,37 @@ watch(canvasRef, () => {
 })
 
 // METHODS
+const disposeScene = () => {
+  const scene = canvasRef.value.context.scene.value
+  instanceMesh.value && scene.remove(instanceMesh.value)
+  scene.traverse(obj => {
+    if (obj.dispose) obj.dispose();
+  })
+}
 const uploadInstanceMatrix = () => {
-  canvasRef.value.context.scene.value.clear()
-  const instanceMesh = new InstancedMesh(geometry, material, count.value)
+  disposeScene()
+  instanceMesh.value = new InstancedMesh(geometry, material, count.value)
   const dummy = new Object3D();
-  instanceMesh.clear()
   let index = 0
   for (let x = 0; x < size.width; x++) {
     for (let y = 0; y < size.height; y++) {
       for (let z = 0; z < size.width; z++) {
         const blockId = getBlock(x, y, z, { data, size }).id
+        const blockType = Object.values(blocks).find(block => block.id === blockId)
         const instanceId = index
-        if (blockId !== 0) {
+        if (blockId !== blocks.empty.id && !isBlockObscured(x, y, z, {data, size})) {
           dummy.position.set(x + 0.5, y + 0.5, z + 0.5)
           dummy.updateMatrix()
-          instanceMesh.setMatrixAt(instanceId, dummy.matrix)
+          instanceMesh.value.setMatrixAt(instanceId, dummy.matrix)
+          instanceMesh.value.setColorAt(instanceId, new Color(blockType?.color))
           setBlockInstanceId(x, y, z, instanceId, { data, size })
           index++
         }
       }
     }
   }
-  instanceMesh.instanceMatrix.needsUpdate = true
-  canvasRef.value.context.scene.value.add(instanceMesh)
+  instanceMesh.value.instanceMatrix.needsUpdate = true
+  canvasRef.value.context.scene.value.add(instanceMesh.value)
 }
 const initializedTerrain = () => {
   data.value = [];
@@ -98,7 +116,7 @@ const initializedTerrain = () => {
       const row = []
       for (let z = 0; z < size.width; z++) {
         row.push({
-          id: 0,
+          id: blocks.empty.id,
           instanceId: null
         })
       }
@@ -108,15 +126,22 @@ const initializedTerrain = () => {
   }
 }
 const generateTerrain = () => {
-  const noise2D = createNoise2D()
+  const prng = alea(options.seeds);
+  const noise2D = createNoise2D(prng)
   for (let x = 0; x < size.width; x++) {
     for (let z = 0; z < size.width; z++) {
       const value = noise2D(x / options.scale, z / options.scale)
       const scaledNoise = options.offset + options.magnitude * value
       let height = scaledNoise * size.height
-      height = Math.max(0, Math.min(height, size.height - 1))
-      for (let y = 0; y <= height; y++) {
-        setBlockId(x, y, z, 1, { data, size })
+      height = Math.max(0, Math.min(Math.floor(height), size.height - 1))
+      for (let y = 0; y < size.height; y++) {
+        if (y === height) {
+          setBlockId(x, y, z, blocks.grass.id, { data, size })
+        } else if (y < height) {
+          setBlockId(x, y, z, blocks.dirt.id, { data, size })
+        } else if(y > height) {
+          setBlockId(x, y, z, blocks.empty.id, { data, size })
+        }
       }
     }
   }
@@ -125,12 +150,10 @@ const generateTerrain = () => {
 </script>
 <template>
   <TresCanvas window-size clear-color="#80a0e0" ref="canvasRef">
-    <TresPerspectiveCamera :position="[-32, 16, -32]" :fov="45" :aspect="1" :near="0.1" :far="1000"
-      :look-at="[0, 0, 0]" />
+    <TresPerspectiveCamera :position="[45, 45, 45]" :fov="45" :aspect="1" :near="0.1" :far="1000" :look-at="[0, 0, 0]" />
     <OrbitControls />
     <Stats />
-    <TresDirectionalLight :position="[1, 1, 1]" />
-    <TresDirectionalLight :position="[-1, 1, -0.5]" />
+    <TresDirectionalLight :intensity="100" :position="[-1, 1, -0.5]" />
     <TresAmbientLight />
   </TresCanvas>
 </template>

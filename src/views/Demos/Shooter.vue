@@ -1,7 +1,8 @@
 
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import OnFirstPersonControls from '../../components/external/OnFirstPersonControls.vue'
+import { Sky } from '@tresjs/cientos';
+import OnFirstPersonControls from '../../components/OnFirstPersonControls/OnFirstPersonControls.vue'
 
 </script>
 <template>
@@ -11,6 +12,7 @@ import OnFirstPersonControls from '../../components/external/OnFirstPersonContro
     <!-- <Suspense>
       <Weapon />
     </Suspense> -->
+    <!-- <Sky /> -->
     <TresGridHelper :args="[100,100]" :position-y="-2" />
     <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
     <TresAmbientLight />
