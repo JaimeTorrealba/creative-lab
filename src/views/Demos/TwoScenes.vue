@@ -17,7 +17,7 @@ const camSettings = { fov: 45, near: 0.1, far: 500 };
 const cameraPos = new Vector3(-16, 8, 16);
 
 // RENDER TARGET SECTION
-const targetPlaneSize = { width: 6, height: 7 };
+const targetPlaneSize = { width: 6, height: 6 };
 const targetPlanePosition = { x: -5, y: targetPlaneSize.height / 2, z: 5 };
 const renderTargetWidth = targetPlaneSize.width * 512;
 const renderTargetHeight = targetPlaneSize.height * 512;
@@ -47,19 +47,29 @@ secondaryScene.add(secondaryDirectionalLight);
 
 const geometry = new BoxGeometry(3, 3, 3);
 const material = new MeshStandardMaterial({ color: 0x00ff00 });
-const cube = new Mesh(geometry, material);
-cube.position.set(10, 5, -10);
-secondaryScene.add(cube);
+
+for (let i = 0; i < 100; i++) {
+  const cube = new Mesh(geometry, material);
+  cube.position.x = (Math.random() - 0.5) * 100;
+  cube.position.y = (Math.random() - 0.5) * 100;
+  cube.position.z = (Math.random() - 0.5) * 100;
+
+  cube.rotation.x = Math.random() * Math.PI;
+  cube.rotation.y = Math.random() * Math.PI;
+
+  const scale = Math.random(); //todas las donas con diferente tamaño
+  cube.scale.set(scale, scale, scale); // puedes usar scale para evitar repetir 3 veces el valor recuerda
+  secondaryScene.add(cube);
+}
 
 const { onLoop } = useRenderLoop()
 
-onLoop(({elapsed}) => {
+onLoop(() => {
   if (canvasRef.value) {
+    secondaryCamera.position.copy(canvasRef.value.context.camera.value.position);
     canvasRef.value.context.renderer.value.setRenderTarget(renderTarget);
     canvasRef.value.context.renderer.value.render(secondaryScene, secondaryCamera);
     canvasRef.value.context.renderer.value.setRenderTarget(null);
-    cube.rotation.x = elapsed;
-    cube.rotation.y = elapsed;
   }
 })
 </script>
@@ -70,11 +80,11 @@ onLoop(({elapsed}) => {
     <OrbitControls enableDamping :enablePan="false" :enableZoom="false" />
     <TresMesh name="Target plane" :position="[0, 0, 0]
       ">
-      <TresPlaneGeometry :args="[targetPlaneSize.width, targetPlaneSize.height, 32]" castShadow />
+      <TresCircleGeometry :args="[targetPlaneSize.width, 32]" castShadow />
       <TresMeshPhongMaterial :map="renderTarget.texture" />
     </TresMesh>
-    <TresMesh receive-shadow name="Floor" :position-y="-3" :rotation-x="Math.PI * -0.5">
-      <TresCircleGeometry :args="[25, 25, 32]" />
+    <TresMesh receive-shadow name="Floor">
+      <TresTorusGeometry :args="[targetPlaneSize.width + 1.9, 2]" />
       <TresMeshStandardMaterial :color="0xa52a2a" />
     </TresMesh>
     <TresDirectionalLight :position="[3, 10, -4]" :intensity="1" castShadow
