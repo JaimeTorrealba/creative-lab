@@ -54,6 +54,6 @@ export const demos = [
   ),
   generateRoute('TwoScenes', 'Demos', descriptions.twoScenes),
   // no orden alfabetico
-  generateRoute('Shooter', 'Demos', ''),
   generateRoute('Playground', 'Demos', 'My personal template.'),
 ]
+// generateRoute('Shooter', 'Demos', ''),
