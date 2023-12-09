@@ -24,12 +24,12 @@ const descriptions = {
   sixSides: 'Six textures Demo Illusion',
   infiniteTube: 'A simple and funny way to create the illusion of an infinite tube.',
   gaea: 'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.',
-  changeScene: 'Using render target to create two scenes and, one inside the other.'
+  twoScenes: 'Using render target to create two scenes and, one inside the other. based on this video: https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW'
 }
 
 export const demos = [
   generateRoute('Avatar', 'Demos', descriptions.avatar),
-  generateRoute('ChangeScene', 'Demos', descriptions.avatar),
+
   generateRoute('Earth', 'Demos', descriptions.earth),
   generateRoute('FollowPath', 'Demos', descriptions.followPath),
   generateRoute('Gaea', 'Demos', descriptions.gaea),
@@ -37,28 +37,23 @@ export const demos = [
   generateRoute('Fur', 'Demos', descriptions.fur),
   generateRoute('InfiniteBeam', 'Demos', descriptions.infiniteBeam),
   generateRoute('InfiniteTube', 'Demos', descriptions.infiniteTube),
+  generateRoute(
+    'Minecraft',
+    'Demos',
+    'Following this tutorial: https://youtu.be/tsOTCn0nROI?si=DY32m9v2Vl3jhQqy.'
+  ),
   generateRoute('MultiCamera', 'Demos', descriptions.multiCamera),
   generateRoute('Nebula', 'Demos', descriptions.nebula),
   generateRoute('RandomMovement', 'Demos', descriptions.randomMovement),
   generateRoute('SixSides', 'Demos', descriptions.sixSides),
-  // generateRoute(
-  //   'ThreeBvhCsg',
-  //   'Demos',
-  //   'Simple demo using three-bvh-csg library for basic operations.'
-  // ),
   generateRoute(
     'Transition',
     'Demos',
     descriptions.transition,
     'https://medium.com/@Jaimebboyjt/transition-threejs-component-using-vuejs-and-tresjs-d1119cb8ef6c'
   ),
+  generateRoute('TwoScenes', 'Demos', descriptions.twoScenes),
   // no orden alfabetico
   generateRoute('Shooter', 'Demos', ''),
-  generateRoute(
-    'Minecraft',
-    'Demos',
-    'Following this tutorial: https://youtu.be/tsOTCn0nROI?si=DY32m9v2Vl3jhQqy.'
-  ),
-
-  generateRoute('Playground', 'Demos', '')
+  generateRoute('Playground', 'Demos', 'My personal template.'),
 ]
