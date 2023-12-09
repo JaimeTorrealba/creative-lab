@@ -23,11 +23,13 @@ const descriptions = {
     'We can use the Vue Transition API to create some cool effects. Here I left you a simple example.',
   sixSides: 'Six textures Demo Illusion',
   infiniteTube: 'A simple and funny way to create the illusion of an infinite tube.',
-  gaea: 'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.'
+  gaea: 'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.',
+  changeScene: 'Using render target to create two scenes and, one inside the other.'
 }
 
 export const demos = [
   generateRoute('Avatar', 'Demos', descriptions.avatar),
+  generateRoute('ChangeScene', 'Demos', descriptions.avatar),
   generateRoute('Earth', 'Demos', descriptions.earth),
   generateRoute('FollowPath', 'Demos', descriptions.followPath),
   generateRoute('Gaea', 'Demos', descriptions.gaea),
