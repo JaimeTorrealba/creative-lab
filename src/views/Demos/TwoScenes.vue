@@ -1,7 +1,7 @@
 <script setup>
 import { shallowRef } from 'vue'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
-import { OrbitControls } from '@tresjs/cientos'
+import { OrbitControls, Stats } from '@tresjs/cientos'
 import {
   Vector3, WebGLRenderTarget, PerspectiveCamera, Scene,
   Color,
@@ -47,26 +47,29 @@ secondaryScene.add(secondaryDirectionalLight);
 
 const geometry = new BoxGeometry(3, 3, 3);
 const material = new MeshStandardMaterial({ color: 0x00ff00 });
+const cubes = []
 
 for (let i = 0; i < 100; i++) {
-  const cube = new Mesh(geometry, material);
-  cube.position.x = (Math.random() - 0.5) * 100;
-  cube.position.y = (Math.random() - 0.5) * 100;
-  cube.position.z = (Math.random() - 0.5) * 100;
+  cubes.push(new Mesh(geometry, material));
+  cubes[i].position.x = (Math.random() - 0.5) * 100;
+  cubes[i].position.y = (Math.random() - 0.5) * 100;
+  cubes[i].position.z = (Math.random() - 0.5) * 100;
 
-  cube.rotation.x = Math.random() * Math.PI;
-  cube.rotation.y = Math.random() * Math.PI;
+  cubes[i].rotation.x = Math.random() * Math.PI;
+  cubes[i].rotation.y = Math.random() * Math.PI;
 
   const scale = Math.random(); //todas las donas con diferente tamaño
-  cube.scale.set(scale, scale, scale); // puedes usar scale para evitar repetir 3 veces el valor recuerda
-  secondaryScene.add(cube);
+  cubes[i].scale.set(scale, scale, scale); // puedes usar scale para evitar repetir 3 veces el valor recuerda
+  secondaryScene.add(cubes[i]);
 }
+console.log('jaime ~ cubes:', cubes);
 
 const { onLoop } = useRenderLoop()
 
 onLoop(() => {
   if (canvasRef.value) {
     secondaryCamera.position.copy(canvasRef.value.context.camera.value.position);
+    cubes.map(cube => cube.rotation.y += 0.01)
     canvasRef.value.context.renderer.value.setRenderTarget(renderTarget);
     canvasRef.value.context.renderer.value.render(secondaryScene, secondaryCamera);
     canvasRef.value.context.renderer.value.setRenderTarget(null);
@@ -78,6 +81,7 @@ onLoop(() => {
     <TresPerspectiveCamera :position="cameraPos" :fov="camSettings.fov" :aspect="1" :near="camSettings.near"
       :far="camSettings.far" />
     <OrbitControls enableDamping :enablePan="false" :enableZoom="false" />
+    <Stats />
     <TresMesh name="Target plane" :position="[0, 0, 0]
       ">
       <TresCircleGeometry :args="[targetPlaneSize.width, 32]" castShadow />
