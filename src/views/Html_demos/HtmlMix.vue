@@ -14,6 +14,8 @@ const canvas = shallowRef(null)
 
 const { width, height } = useWindowSize()
 const { x, y } = useMouse()
+const fov = computed(() => 2 * Math.atan(height.value / 2 / 600) * (180 / Math.PI))
+const aspect = computed(() => width.value / height.value)
 
 const shader = {
   uniforms: {
@@ -81,9 +83,9 @@ watchEffect(() => {
   y.value = -(y.value / height.value) * 2 + 1
 })
 const updateUniforms = (ev) => {
+  console.log('jaime ~ updateUniforms ~ ev:', ev);
   ev.object.material.uniforms.uHover.value = ev.uv
 }
-const fov = computed(() => 2 * Math.atan(height.value / 2 / 600) * (180 / Math.PI))
 
 const { onLoop } = useRenderLoop()
 
@@ -93,7 +95,7 @@ onLoop(({ elapsed }) => {
 </script>
 <template>
   <TresCanvas window-size clear-color="transparent" ref="canvas" class="canvas">
-    <TresPerspectiveCamera :args="[fov, width / height, 100, 2000]" :position="[0, 0, 600]" />
+    <TresPerspectiveCamera :args="[fov, aspect, 100, 2000]" :position="[0, 0, 600]" />
     <MouseParallax :factor="10" />
     <TresMesh :rotation="[0, 0, -3.075]" :position="[0, height / 2, 0]" name="topShader">
       <TresPlaneGeometry :args="[width * 2, height / 3, 10, 10]" />
