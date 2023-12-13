@@ -26,6 +26,7 @@ const descriptions = {
   gaea: 'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.',
   twoScenes: 'Using render target to create two scenes and, one inside the other. based on this video: https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW',
   stencilMask: 'Stencil is a technique to create a mask, in this demo I show how to use it to create a magic cube. this is often used to create basic portals with less performance than a complete new render.',
+  thirdPersonCamera: 'An animated third person camera, based on this video: https://youtu.be/C3s0UHpwlf8?si=JdxnmkFwgAxoOdk7',
 }
 
 export const demos = [
@@ -54,6 +55,7 @@ export const demos = [
     descriptions.transition,
     'https://medium.com/@Jaimebboyjt/transition-threejs-component-using-vuejs-and-tresjs-d1119cb8ef6c'
   ),
+  generateRoute('ThirdPersonCamera', 'Demos', descriptions.thirdPersonCamera),
   generateRoute('TwoScenes', 'Demos', descriptions.twoScenes),
   // no orden alfabetico
   generateRoute('Playground', 'Demos', 'My personal template.'),

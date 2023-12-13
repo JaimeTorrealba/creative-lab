@@ -146,7 +146,7 @@ const restore = () => {
         <TresConeGeometry />
         <TresShaderMaterial v-bind="triangleShader" />
       </TresMesh>
-      <MouseParallax :factor="0.5" />
+      <MouseParallax :factor="7.5" />
       <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />
       <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
       <TresAmbientLight />
