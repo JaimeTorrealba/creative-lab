@@ -26,7 +26,7 @@ onMounted(() => {
   scrollTriggerRef.map((card) => {
     ScrollTrigger.create({
       trigger: card,
-      start: 'top 75%',
+      start: 'top 80%',
       animation: gsap.from(card, { duration: 0.75, opacity: 0 })
     })
   })

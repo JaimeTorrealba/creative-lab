@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, watch, onUnmounted } from 'vue'
-import { PointerLockControls } from 'three-stdlib'
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js'
 import type { Camera } from 'three'
 import { useEventListener } from '@vueuse/core'
 import { useTresContext } from '@tresjs/core'
@@ -69,11 +69,11 @@ watch(controlsRef, (value) => {
   const selector = document.getElementById(props.selector || '')
   triggerSelector = selector ? selector : renderer.value.domElement
 
-  useEventListener(controls.value as any, 'change', () => emit('change', controls.value))
   useEventListener(triggerSelector, 'click', () => {
     controls.value?.lock()
     controls.value?.addEventListener('lock', () => isLockEmitter(true))
     controls.value?.addEventListener('unlock', () => isLockEmitter(false))
+    useEventListener(controls.value as any, 'change', () => emit('change', controls.value))
   })
 })
 

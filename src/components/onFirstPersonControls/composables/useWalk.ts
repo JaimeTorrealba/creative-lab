@@ -3,26 +3,26 @@ import { onKeyDown, onKeyUp } from '@vueuse/core'
 export const useWalk = (speed, keys) => {
   const xMove = ref(0)
   const zMove = ref(0)
-  const { forward, back, right, left } = keys
+  const { forward, backward, rightward, leftward } = keys
 
   // FORWARD DIRECTION MOVEMENTS
-  onKeyDown(forward.value, () => {
+  onKeyDown(['w', 'W'], () => {
     zMove.value = speed
   })
-  onKeyDown(back.value, () => {
+  onKeyDown(backward.keys, () => {
     zMove.value = -speed
   })
-  onKeyUp([...forward.value, ...back.value], () => {
+  onKeyUp([...forward.keys, ...backward.keys], () => {
     zMove.value = 0
   })
   // X DIRECTION MOVEMENTS
-  onKeyDown(left.value, () => {
+  onKeyDown(leftward.keys, () => {
     xMove.value = -speed
   })
-  onKeyDown(right.value, () => {
+  onKeyDown(rightward.keys, () => {
     xMove.value = speed
   })
-  onKeyUp([...left.value, ...right.value], () => {
+  onKeyUp([...leftward.keys, ...rightward.keys], () => {
     xMove.value = 0
   })
   return { xMove, zMove }

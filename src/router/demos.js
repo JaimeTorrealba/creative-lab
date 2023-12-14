@@ -27,6 +27,7 @@ const descriptions = {
   twoScenes: 'Using render target to create two scenes and, one inside the other. based on this video: https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW',
   stencilMask: 'Stencil is a technique to create a mask, in this demo I show how to use it to create a magic cube. this is often used to create basic portals with less performance than a complete new render.',
   thirdPersonCamera: 'An animated third person camera, based on this video: https://youtu.be/C3s0UHpwlf8?si=JdxnmkFwgAxoOdk7',
+  sprites: 'A fusion between 2D and 3D world characters using sprites and the third person camera. based on this video: https://youtu.be/pGO1Hm-JB90?si=DUtUlYphEuiRr212',
 }
 
 export const demos = [
@@ -48,6 +49,7 @@ export const demos = [
   generateRoute('Nebula', 'Demos', descriptions.nebula),
   generateRoute('RandomMovement', 'Demos', descriptions.randomMovement),
   generateRoute('SixSides', 'Demos', descriptions.sixSides),
+  generateRoute('Sprites', 'Demos', descriptions.sprites),
   generateRoute('StencilMask', 'Demos', descriptions.stencilMask),
   generateRoute(
     'Transition',

@@ -6,7 +6,7 @@ const data = router.currentRoute.value
 </script>
 <template>
   <v-layout>
-    <v-main style="min-height: 100vh; background-color: #111" ref="navigationRef">
+    <v-main style="min-height: 100vh;" ref="navigationRef">
       <div class="floating-back">
         <v-tooltip location="bottom">
           <template v-slot:activator="{ props }">

@@ -18,18 +18,18 @@ const descriptions = {
 }
 
 export const shaders_demos = [
-  generateRoute('CSM', 'Shader_demos', descriptions.CSM),
-  generateRoute('DestroyGeometry', 'Shader_demos', descriptions.destroyGeometry), // acomodar colores
-  generateRoute('Fire', 'Shader_demos', descriptions.fire),
-  generateRoute('ShaderStar', 'Shader_demos', descriptions.shaderStar),
-  generateRoute('ImageParticles', 'Shader_demos', descriptions.imageParticles),
-  generateRoute('MouseReveal', 'Shader_demos', descriptions.mouseReveal),
-  generateRoute('Slider', 'Shader_demos', descriptions.slider),
-  generateRoute('Ripple', 'Shader_demos', descriptions.ripple),
-  generateRoute('Grass', 'Shader_demos', descriptions.grassShader),
+  generateRoute('CSM', 'Shaders_demos', descriptions.CSM),
+  generateRoute('DestroyGeometry', 'Shaders_demos', descriptions.destroyGeometry), // acomodar colores
+  generateRoute('Fire', 'Shaders_demos', descriptions.fire),
+  generateRoute('ShaderStar', 'Shaders_demos', descriptions.shaderStar),
+  generateRoute('ImageParticles', 'Shaders_demos', descriptions.imageParticles),
+  generateRoute('MouseReveal', 'Shaders_demos', descriptions.mouseReveal),
+  generateRoute('Slider', 'Shaders_demos', descriptions.slider),
+  generateRoute('Ripple', 'Shaders_demos', descriptions.ripple),
+  generateRoute('Grass', 'Shaders_demos', descriptions.grassShader),
   generateRoute(
     'InstanceMesh',
-    'Shader_demos',
+    'Shaders_demos',
     'A test to try how the instance mesh works on Tresjs, also i was experiment with the OrthographicCamera (normally I just use the PerspectiveCamera).',
     'https://medium.com/@Jaimebboyjt/how-to-use-instancemesh-with-tresjs-fae8e3b48dcc'
   )

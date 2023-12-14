@@ -6,7 +6,7 @@ export const useJump = (jumpKey, gravity, initCameraPos = 0) => {
   const jumpDistance = ref(0)
   const initJumpTime = ref(0)
 
-  onKeyStroke(jumpKey.value, () => {
+  onKeyStroke(jumpKey.keys, () => {
     if (!isJumping.value) initJumpTime.value = Date.now()
     isJumping.value = true
   })
