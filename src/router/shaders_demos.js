@@ -13,8 +13,13 @@ const descriptions = {
     'An interesting effect of how to use transparency in combination with the mouse to reveal the content behind',
   slider:
     'A WebGl slider made with shaders, using distorsión in images. This effect is base on: https://github.com/akella/webGLImageTransitions',
-  ripple: 'A WebGl ripple effect (like material design) but using shaders. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share',
-  grassShader: ''
+  ripple:
+    'A WebGl ripple effect (like material design) but using shaders. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share',
+  grassShader: '',
+  instanceMesh:
+    'A test to try how the instance mesh works on Tresjs, also i was experiment with the OrthographicCamera (normally I just use the PerspectiveCamera).',
+  waterReflection:
+    'A test to try how the water reflection works on Tresjs, using the ReflectorMesh addons. Based on this video: https://youtu.be/PAy5aQK2pSg?si=4dCtEjHRNGG9tQIH'
 }
 
 export const shaders_demos = [
@@ -30,7 +35,8 @@ export const shaders_demos = [
   generateRoute(
     'InstanceMesh',
     'Shaders_demos',
-    'A test to try how the instance mesh works on Tresjs, also i was experiment with the OrthographicCamera (normally I just use the PerspectiveCamera).',
+    descriptions.instanceMesh,
     'https://medium.com/@Jaimebboyjt/how-to-use-instancemesh-with-tresjs-fae8e3b48dcc'
-  )
+  ),
+  generateRoute('WaterReflector', 'Shaders_demos', descriptions.waterReflection)
 ]

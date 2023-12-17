@@ -11,7 +11,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@tresjs/cientos": "^3.6.0",
+    "@tresjs/cientos": "^3.7.0",
     "@tresjs/core": "^3.5.0",
     "@tresjs/post-processing": "^0.7.0",
     "@vueuse/core": "^9.13.0",
@@ -32,7 +32,7 @@
     "eslint-plugin-vue": "^9.18.1",
     "prettier": "^2.8.8",
     "sass": "^1.69.5",
-    "three": "^0.150.1",
+    "three": "^0.159.0",
     "vite": "^4.5.0",
     "vite-plugin-glsl": "^1.1.2"
   }

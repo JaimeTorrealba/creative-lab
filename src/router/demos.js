@@ -31,8 +31,8 @@ const descriptions = {
 }
 
 export const demos = [
+  generateRoute('Template', 'Demos', 'My personal template.'),
   generateRoute('Avatar', 'Demos', descriptions.avatar),
-
   generateRoute('Earth', 'Demos', descriptions.earth),
   generateRoute('FollowPath', 'Demos', descriptions.followPath),
   generateRoute('Gaea', 'Demos', descriptions.gaea),
@@ -59,7 +59,5 @@ export const demos = [
   ),
   generateRoute('ThirdPersonCamera', 'Demos', descriptions.thirdPersonCamera),
   generateRoute('TwoScenes', 'Demos', descriptions.twoScenes),
-  // no orden alfabetico
-  generateRoute('Playground', 'Demos', 'My personal template.'),
 ]
 // generateRoute('Shooter', 'Demos', ''),
