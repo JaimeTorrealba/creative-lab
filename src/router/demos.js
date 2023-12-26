@@ -28,6 +28,7 @@ const descriptions = {
   stencilMask: 'Stencil is a technique to create a mask, in this demo I show how to use it to create a magic cube. this is often used to create basic portals with less performance than a complete new render.',
   thirdPersonCamera: 'An animated third person camera, based on this video: https://youtu.be/C3s0UHpwlf8?si=JdxnmkFwgAxoOdk7',
   sprites: 'A fusion between 2D and 3D world characters using sprites and the third person camera. based on this video: https://youtu.be/pGO1Hm-JB90?si=DUtUlYphEuiRr212',
+  selectableGrid: 'How to select a grid (tile) in a plane using the mouse. based on this video: https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG',
 }
 
 export const demos = [
@@ -48,6 +49,7 @@ export const demos = [
   generateRoute('MultiCamera', 'Demos', descriptions.multiCamera),
   generateRoute('Nebula', 'Demos', descriptions.nebula),
   generateRoute('RandomMovement', 'Demos', descriptions.randomMovement),
+  generateRoute('SelectableGrid', 'Demos', descriptions.selectableGrid),
   generateRoute('SixSides', 'Demos', descriptions.sixSides),
   generateRoute('Sprites', 'Demos', descriptions.sprites),
   generateRoute('StencilMask', 'Demos', descriptions.stencilMask),
