@@ -29,11 +29,13 @@ const descriptions = {
   thirdPersonCamera: 'An animated third person camera, based on this video: https://youtu.be/C3s0UHpwlf8?si=JdxnmkFwgAxoOdk7',
   sprites: 'A fusion between 2D and 3D world characters using sprites and the third person camera. based on this video: https://youtu.be/pGO1Hm-JB90?si=DUtUlYphEuiRr212',
   selectableGrid: 'How to select a grid (tile) in a plane using the mouse. based on this video: https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG',
+  CSS2DRenderer: 'A different way to add HTML to your scenes (other than the already built HTML component). based on this video: https://youtu.be/0ZW3xrFhY3w?si=QkvzEikyeuv6H1Mb',
 }
 
 export const demos = [
   generateRoute('Template', 'Demos', 'My personal template.'),
   generateRoute('Avatar', 'Demos', descriptions.avatar),
+  generateRoute('CSS2DRenderer', 'Demos', descriptions.CSS2DRenderer),
   generateRoute('Earth', 'Demos', descriptions.earth),
   generateRoute('FollowPath', 'Demos', descriptions.followPath),
   generateRoute('Gaea', 'Demos', descriptions.gaea),
@@ -61,5 +63,6 @@ export const demos = [
   ),
   generateRoute('ThirdPersonCamera', 'Demos', descriptions.thirdPersonCamera),
   generateRoute('TwoScenes', 'Demos', descriptions.twoScenes),
+
 ]
 // generateRoute('Shooter', 'Demos', ''),
