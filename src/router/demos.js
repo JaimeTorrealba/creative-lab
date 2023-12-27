@@ -26,14 +26,12 @@ const descriptions = {
   gaea: 'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.',
   twoScenes: 'Using render target to create two scenes and, one inside the other. based on this video: https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW',
   stencilMask: 'Stencil is a technique to create a mask, in this demo I show how to use it to create a magic cube. this is often used to create basic portals with less performance than a complete new render.',
-  thirdPersonCamera: 'An animated third person camera, based on this video: https://youtu.be/C3s0UHpwlf8?si=JdxnmkFwgAxoOdk7',
-  sprites: 'A fusion between 2D and 3D world characters using sprites and the third person camera. based on this video: https://youtu.be/pGO1Hm-JB90?si=DUtUlYphEuiRr212',
   selectableGrid: 'How to select a grid (tile) in a plane using the mouse. based on this video: https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG',
   CSS2DRenderer: 'A different way to add HTML to your scenes (other than the already built HTML component). based on this video: https://youtu.be/0ZW3xrFhY3w?si=QkvzEikyeuv6H1Mb',
+  audioAnalyzer: 'A funny way to use AudioAnalyzer to create a visual blob who react to the audio waves. based on this video: https://youtu.be/KEMZR3unWTE?si=N05ZAjAWm-Ru-lLY',
 }
 
 export const demos = [
-  generateRoute('Template', 'Demos', 'My personal template.'),
   generateRoute('Avatar', 'Demos', descriptions.avatar),
   generateRoute('CSS2DRenderer', 'Demos', descriptions.CSS2DRenderer),
   generateRoute('Earth', 'Demos', descriptions.earth),
@@ -53,7 +51,6 @@ export const demos = [
   generateRoute('RandomMovement', 'Demos', descriptions.randomMovement),
   generateRoute('SelectableGrid', 'Demos', descriptions.selectableGrid),
   generateRoute('SixSides', 'Demos', descriptions.sixSides),
-  generateRoute('Sprites', 'Demos', descriptions.sprites),
   generateRoute('StencilMask', 'Demos', descriptions.stencilMask),
   generateRoute(
     'Transition',
@@ -61,8 +58,5 @@ export const demos = [
     descriptions.transition,
     'https://medium.com/@Jaimebboyjt/transition-threejs-component-using-vuejs-and-tresjs-d1119cb8ef6c'
   ),
-  generateRoute('ThirdPersonCamera', 'Demos', descriptions.thirdPersonCamera),
   generateRoute('TwoScenes', 'Demos', descriptions.twoScenes),
-
 ]
-// generateRoute('Shooter', 'Demos', ''),

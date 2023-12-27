@@ -5,20 +5,21 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 import Cards from '@/components/TheCard.vue'
+import { BLACK_LIST_PATHS } from '../utils';
 
 const router = useRouter()
 const data = ref()
 const allRoutes = computed(() => router.options.routes)
-const routesWithoutHome = allRoutes.value.filter((route) => route.path !== '/')
+const filteredRoutes = allRoutes.value.filter((route) => !BLACK_LIST_PATHS.includes(route.path))
 
-data.value = routesWithoutHome
+data.value = filteredRoutes
 
 const tags = new Set(data.value.map((route) => route.meta.section))
 
-const goAllRoutes = () => (data.value = routesWithoutHome)
+const goAllRoutes = () => (data.value = filteredRoutes)
 
 const filterByTag = (tag) => {
-  data.value = routesWithoutHome.filter((demo) => demo.meta.section === tag)
+  data.value = filteredRoutes.filter((demo) => demo.meta.section === tag)
 }
 
 onMounted(() => {
@@ -50,7 +51,7 @@ onMounted(() => {
     </v-chip-group>
     <v-row class="pa-lg-8" flex justify="space-around" >
       <v-col v-for="route in data" :key="route.path">
-        <Cards :data="route" v-if="route.path !== '/'" class="scrollTriggerRef" />
+        <Cards :data="route" class="scrollTriggerRef" />
       </v-col>
     </v-row>
     <v-footer class="text-center d-flex flex-column rounded">

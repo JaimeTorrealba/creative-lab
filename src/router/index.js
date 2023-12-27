@@ -4,6 +4,8 @@ import { demos } from './demos.js'
 import { shaders_demos } from './shaders_demos'
 import { html_demos } from './html_demos'
 import { fragment_demos } from './fragment_demos'
+import { controls_demos } from './controls_demos'
+import { generateRoute } from '../utils'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -16,8 +18,11 @@ const router = createRouter({
       },
       component: Home,
     },
+    generateRoute('Template', 'Playground', ''),
+    generateRoute('CartesianCoords', 'Playground', ''),
     ...demos,
     ...html_demos,
+    ...controls_demos,
     ...shaders_demos,
     ...fragment_demos,
     // playground

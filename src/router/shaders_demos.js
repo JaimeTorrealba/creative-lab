@@ -23,6 +23,7 @@ const descriptions = {
 }
 
 export const shaders_demos = [
+  generateRoute('AudioAnalyser', 'Shaders_demos', descriptions.audioAnalyzer),
   generateRoute('CSM', 'Shaders_demos', descriptions.CSM),
   generateRoute('DestroyGeometry', 'Shaders_demos', descriptions.destroyGeometry), // acomodar colores
   generateRoute('Fire', 'Shaders_demos', descriptions.fire),
