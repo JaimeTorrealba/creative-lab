@@ -16,6 +16,7 @@ const descriptions = {
   ripple:
     'A WebGl ripple effect (like material design) but using shaders. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share',
   grassShader: '',
+  particlesRing: 'A simple ring made of particles using shaders',
   instanceMesh:
     'A test to try how the instance mesh works on Tresjs, also i was experiment with the OrthographicCamera (normally I just use the PerspectiveCamera).',
   waterReflection:
@@ -30,6 +31,7 @@ export const shaders_demos = [
   generateRoute('ShaderStar', 'Shaders_demos', descriptions.shaderStar),
   generateRoute('ImageParticles', 'Shaders_demos', descriptions.imageParticles),
   generateRoute('MouseReveal', 'Shaders_demos', descriptions.mouseReveal),
+  generateRoute('ParticlesRing', 'Shaders_demos', descriptions.particlesRing),
   generateRoute('Slider', 'Shaders_demos', descriptions.slider),
   generateRoute('Ripple', 'Shaders_demos', descriptions.ripple),
   generateRoute('Grass', 'Shaders_demos', descriptions.grassShader),
