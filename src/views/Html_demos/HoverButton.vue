@@ -4,7 +4,6 @@ import { TresCanvas } from '@tresjs/core'
 import { Environment, vLog } from '@tresjs/cientos'
 import { gsap } from 'gsap'
 import { useElementSize } from '@vueuse/core'
-import { Color } from 'three';
 
 const sphereRef = shallowRef()
 const torusRef = shallowRef()

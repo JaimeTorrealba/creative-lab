@@ -14,11 +14,13 @@
     "@tresjs/cientos": "^3.7.0",
     "@tresjs/core": "^3.6.0",
     "@tresjs/post-processing": "^0.7.0",
+    "@tweakpane/plugin-essentials": "^0.2.1",
     "@vueuse/core": "^9.13.0",
     "alea": "^1.0.1",
     "gsap": "^3.12.4",
     "simplex-noise": "^4.0.1",
     "three-custom-shader-material": "^5.4.0",
+    "tweakpane": "^4.0.3",
     "vue": "^3.4.10",
     "vue-router": "^4.2.5",
     "vuetify": "^3.4.10"
