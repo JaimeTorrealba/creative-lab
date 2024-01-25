@@ -1,26 +1,23 @@
 <script setup>
-import { ref, reactive, watch } from 'vue'
+import { shallowRef } from 'vue'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
-import { OrbitControls, useGLTF, useAnimations, useTweakPane } from '@tresjs/cientos'
+import { OrbitControls, useGLTF, useAnimations } from '@tresjs/cientos'
 import { gsap } from 'gsap'
 
-const ants = ref()
-const cameraRef = ref()
+const ants = shallowRef()
+const cameraRef = shallowRef()
 const pxPerSecond = 2.5
-const options = reactive({
-  y: 0
-})
 
-const { scene: model1, animations: animations1 } = await useGLTF('/models/ant.glb')
-const { scene: model2, animations: animations2 } = await useGLTF('/models/ant.glb')
-const { scene: model3, animations: animations3 } = await useGLTF('/models/ant.glb')
-const { scene: model4, animations: animations4 } = await useGLTF('/models/ant.glb')
-const { scene: model5, animations: animations5 } = await useGLTF('/models/ant.glb')
-const { scene: model6, animations: animations6 } = await useGLTF('/models/ant.glb')
-const { scene: model7, animations: animations7 } = await useGLTF('/models/ant.glb')
-const { scene: model8, animations: animations8 } = await useGLTF('/models/ant.glb')
-const { scene: model9, animations: animations9 } = await useGLTF('/models/ant.glb')
-const { scene: model10, animations: animations10 } = await useGLTF('/models/ant.glb')
+const { scene: model1, animations: animations1 } = await useGLTF('/models/ant.glb', { draco: true })
+const { scene: model2, animations: animations2 } = await useGLTF('/models/ant.glb', { draco: true })
+const { scene: model3, animations: animations3 } = await useGLTF('/models/ant.glb', { draco: true })
+const { scene: model4, animations: animations4 } = await useGLTF('/models/ant.glb', { draco: true })
+const { scene: model5, animations: animations5 } = await useGLTF('/models/ant.glb', { draco: true })
+const { scene: model6, animations: animations6 } = await useGLTF('/models/ant.glb', { draco: true })
+const { scene: model7, animations: animations7 } = await useGLTF('/models/ant.glb', { draco: true })
+const { scene: model8, animations: animations8 } = await useGLTF('/models/ant.glb', { draco: true })
+const { scene: model9, animations: animations9 } = await useGLTF('/models/ant.glb', { draco: true })
+const { scene: model10, animations: animations10 } = await useGLTF('/models/ant.glb', { draco: true })
 
 const { actions: actions1 } = useAnimations(animations1, model1)
 const { actions: actions2 } = useAnimations(animations2, model2)
@@ -43,10 +40,6 @@ actions7.running.play()
 actions8.running.play()
 actions9.running.play()
 actions10.running.play()
-
-const { pane } = useTweakPane()
-
-pane.addBinding(options, 'y', { min: -Math.PI, max: Math.PI, step: 0.01 })
 
 function moveMe(target) {
   const newPos = {
@@ -95,87 +88,20 @@ onLoop(() => {
 </script>
 <template>
   <TresCanvas window-size clear-color="#333" ref="canvasRef">
-    <TresPerspectiveCamera
-      :position="[0, 8, 12]"
-      :fov="45"
-      :aspect="1"
-      :near="0.1"
-      :far="1000"
-      :look-at="[0, 0, 0]"
-      ref="cameraRef"
-    />
+    <TresPerspectiveCamera :position="[0, 8, 12]" :fov="45" :aspect="1" :near="0.1" :far="1000" :look-at="[0, 0, 0]"
+      ref="cameraRef" />
     <OrbitControls />
 
-    <primitive
-      ref="ants"
-      :object="model1"
-      :position-y="-2"
-      :scale="10"
-      :rotation="[0, options.y, 0]"
-    />
-    <primitive
-      ref="ants"
-      :object="model2"
-      :position-y="-2"
-      :scale="10"
-      :rotation="[0, options.y, 0]"
-    />
-    <primitive
-      ref="ants"
-      :object="model3"
-      :position-y="-2"
-      :scale="10"
-      :rotation="[0, options.y, 0]"
-    />
-    <primitive
-      ref="ants"
-      :object="model4"
-      :position-y="-2"
-      :scale="10"
-      :rotation="[0, options.y, 0]"
-    />
-    <primitive
-      ref="ants"
-      :object="model5"
-      :position-y="-2"
-      :scale="10"
-      :rotation="[0, options.y, 0]"
-    />
-    <primitive
-      ref="ants"
-      :object="model6"
-      :position-y="-2"
-      :scale="10"
-      :rotation="[0, options.y, 0]"
-    />
-    <primitive
-      ref="ants"
-      :object="model7"
-      :position-y="-2"
-      :scale="10"
-      :rotation="[0, options.y, 0]"
-    />
-    <primitive
-      ref="ants"
-      :object="model8"
-      :position-y="-2"
-      :scale="10"
-      :rotation="[0, options.y, 0]"
-    />
-    <primitive
-      ref="ants"
-      :object="model9"
-      :position-y="-2"
-      :scale="10"
-      :rotation="[0, options.y, 0]"
-    />
-    <primitive
-      ref="ants"
-      :object="model10"
-      :position-y="-2"
-      :scale="10"
-      :rotation="[0, options.y, 0]"
-    />
+    <primitive ref="ants" :object="model1" :position-y="-2" :scale="Math.random() * 10 + 5" :rotation="[0, 0, 0]" />
+    <primitive ref="ants" :object="model2" :position-y="-2" :scale="Math.random() * 10 + 5" :rotation="[0, 0, 0]" />
+    <primitive ref="ants" :object="model3" :position-y="-2" :scale="Math.random() * 10 + 5" :rotation="[0, 0, 0]" />
+    <primitive ref="ants" :object="model4" :position-y="-2" :scale="Math.random() * 10 + 5" :rotation="[0, 0, 0]" />
+    <primitive ref="ants" :object="model5" :position-y="-2" :scale="Math.random() * 10 + 5" :rotation="[0, 0, 0]" />
+    <primitive ref="ants" :object="model6" :position-y="-2" :scale="Math.random() * 10 + 5" :rotation="[0, 0, 0]" />
+    <primitive ref="ants" :object="model7" :position-y="-2" :scale="Math.random() * 10 + 5" :rotation="[0, 0, 0]" />
+    <primitive ref="ants" :object="model8" :position-y="-2" :scale="Math.random() * 10 + 5" :rotation="[0, 0, 0]" />
+    <primitive ref="ants" :object="model9" :position-y="-2" :scale="Math.random() * 10 + 5" :rotation="[0, 0, 0]" />
+    <primitive ref="ants" :object="model10" :position-y="-2" :scale="Math.random() * 10 + 5" :rotation="[0, 0, 0]" />
 
     <TresGridHelper :size="100" :divisions="100" :position="[0, -2, 0]" />
     <TresDirectionalLight :position="[0, 2, 4]" :intensity="20" />
