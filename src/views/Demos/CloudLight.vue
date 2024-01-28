@@ -1,7 +1,7 @@
 <script setup>
 import { shallowRef, watch } from 'vue';
 import { TresCanvas, useTexture, useRenderLoop } from '@tresjs/core'
-import { OrbitControls, vLightHelper } from '@tresjs/cientos'
+import { OrbitControls, vLightHelper, vLog } from '@tresjs/cientos'
 import { DoubleSide, Vector3, VSMShadowMap, CameraHelper, RepeatWrapping } from 'three';
 import gsap from 'gsap'
 
@@ -13,13 +13,19 @@ const { alphaMap } = await useTexture({
   alphaMap: '/textures/noise-fbm.png'
 })
 
+const cameraRef = shallowRef()
 const cloudsRef = shallowRef()
 const cloudsRef2 = shallowRef()
 const dirLightRef = shallowRef()
 const spotLightRef = shallowRef()
 const lightPosition = new Vector3(0, 18, 12)
-const lightPositionSpot = new Vector3(0, 24, -16)
 const randomCloudsAlphaTest = gsap.utils.random(0.35, 0.65)
+
+watch(cameraRef, value => {
+  value.layers.enable(0)
+  value.layers.enable(1)
+  value.layers.enable(2)
+})
 
 watch(dirLightRef, value => {
   value.shadow.camera.near = 0.01
@@ -48,20 +54,26 @@ watch(cloudsRef, value => {
   value.material.alphaMap.wrapT = RepeatWrapping
 })
 
+const vLayerSet = {
+    mounted: (el, binding) => {
+      el.layers.set(binding.value)
+    },
+}
+
 
 const { onLoop } = useRenderLoop()
 
 onLoop(({ elapsed }) => {
-  if (cloudsRef.value) {
+  if (cloudsRef.value ) {
     cloudsRef.value.material.alphaMap.offset.x = elapsed * 0.05
-    cloudsRef2.value.material.alphaMap.offset.x = elapsed * 0.025
+    // cloudsRef2.value.material.alphaMap.offset.x = elapsed * 0.01
     // cloudsRef.value.material.alphaMap.offset.y = elapsed * 0.005
   }
 })
 </script>
 <template>
   <TresCanvas shadows window-size clear-color="#111" ref="canvasRef">
-    <TresPerspectiveCamera :position="[-15, 10, 10]" :fov="45" :aspect="1" :near="0.1" :far="1000" :look-at="[0, 0, 0]" />
+    <TresPerspectiveCamera :position="[-15, 10, 10]" :fov="45" :aspect="1" :near="0.1" :far="1000" :look-at="[0, 0, 0]" ref="cameraRef" />
     <OrbitControls />
     <TresMesh cast-shadow receive-shadow :position-y="2">
       <TresBoxGeometry :args="[1, 1, 3]" />
@@ -77,22 +89,25 @@ onLoop(({ elapsed }) => {
     </TresMesh>
 
 
-    <TresDirectionalLight ref="dirLightRef" v-light-helper cast-shadow :position="[...lightPosition]" :intensity="2"
+    <TresDirectionalLight ref="dirLightRef" v-log  v-light-helper cast-shadow :position="[...lightPosition]" :intensity="2"
       :shadow-blurSamples="25" :shadow-radius="4" :shadow-bias="0.000005" />
     <TresMesh ref="cloudsRef" cast-shadow
-      :position="[lightPosition.x - 0.5, lightPosition.y - 0.5, lightPosition.z - 0.5]" :look-at="[0, 0, 0]">
+      :position="[lightPosition.x - 0.5, lightPosition.y - 0.5, lightPosition.z - 0.5]" :look-at="[0, 0, 0]"
+      v-layer-set="2"
+      >
       <TresPlaneGeometry :args="[25, 25, 25]" />
       <TresMeshStandardMaterial transparent :side="DoubleSide" :alphaMap="alphaMap" :alphaTest="randomCloudsAlphaTest" />
     </TresMesh>
 
 
-    <!-- <TresSpotLight ref="spotLightRef" v-light-helper cast-shadow :position="[...lightPositionSpot]" :power="20"
-      :intensity="150" :shadow-blurSamples="5" :shadow-radius="1" :shadow-bias="0.000005" :angle="Math.PI * 0.25" /> -->
-    <TresMesh ref="cloudsRef2" cast-shadow
-      :position="[lightPosition.x - 0.5, lightPosition.y - 0.5, lightPosition.z - 0.5]" :look-at="[0, 0, 0]">
+    <TresSpotLight ref="spotLightRef" v-light-helper cast-shadow
+      :position="[lightPosition.x , lightPosition.y +7.5, lightPosition.z +7.5]" :power="50" :intensity="150"
+      :shadow-blurSamples="5" :shadow-radius="1" :shadow-bias="0.000005"  />
+    <!-- <TresMesh ref="cloudsRef2" cast-shadow
+      :position="[lightPosition.x - 0.5, lightPosition.y - 3, lightPosition.z - 3]" :look-at="[0, 0, 0]">
       <TresPlaneGeometry :args="[25, 25, 25]" />
-      <TresMeshStandardMaterial transparent :side="DoubleSide" :alphaMap="alphaMap" :alphaTest="randomCloudsAlphaTest" />
-    </TresMesh>
+      <TresMeshStandardMaterial transparent :side="DoubleSide" :alphaMap="alphaMap" :alphaTest="0.5" />
+    </TresMesh> -->
     <TresAmbientLight :intensity="0.5" />
   </TresCanvas>
 </template>
