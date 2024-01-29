@@ -15,7 +15,6 @@ const { alphaMap } = await useTexture({
 
 const cameraRef = shallowRef()
 const cloudsRef = shallowRef()
-const cloudsRef2 = shallowRef()
 const dirLightRef = shallowRef()
 const spotLightRef = shallowRef()
 const lightPosition = new Vector3(0, 18, 12)

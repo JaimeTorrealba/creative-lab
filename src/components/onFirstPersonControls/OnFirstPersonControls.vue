@@ -1,5 +1,5 @@
 <script setup>
-import { ref, shallowRef, toRefs, watch } from 'vue'
+import { ref, shallowRef, toRefs, watchEffect } from 'vue'
 import { useRenderLoop, useTresContext } from '@tresjs/core'
 import { Vector3 } from 'three'
 // import { PointerLockControls } from '@tresjs/cientos'
@@ -8,32 +8,38 @@ import PointerLockControls from './PointerLockControls.vue'
 import { useJump } from './composables/useJump'
 import { useWalk } from './composables/useWalk'
 import { useActions } from './composables/useActions'
-// import { useRun } from './composables/useRun'
 import { useHeadBobbing } from './composables/useHeadBobbing'
+import { states, getMovementKey, getActionsKey } from './composables/utils'
 
-//TODO add run funcion
+// JUMP will be removed when rapier is ready
 
 const props = defineProps({
     ...PointerLockControls.props,
     controlsKeys: {
         type: Array,
         default: () => [
-            { name: "forward", keys: ['w', 'W'] },
-            { name: "backward", keys: ['s', 'S'] },
-            { name: "leftward", keys: ['a', 'A'] },
-            { name: "rightward", keys: ['d', 'D'] },
-            { name: "jump", keys: [" "] },
-            { name: "run", keys: ["Shift"] },
+            { name: "forward", key: 'w' },
+            { name: "backward", key: 's' },
+            { name: "leftward", key: 'a' },
+            { name: "rightward", key: 'd' },
             // Optional actions key map
+            { name: "jump", key: "space" },
+            { name: "run", key: "Shift" },
+            { name: "creep", key: "ctrl" },
+            // click actions
+            { name: "leftClick", action: () => { } },
+            { name: "rightClick", action: () => { } },
+            { name: "middleClick", action: () => { } },
             { name: "wheelActionUp", action: () => { } },
             { name: "wheelActionDown", action: () => { } },
+            // key actions
             {
                 name: "actions", actions:
                     [
-                        { name: "action", keys: ['e', 'E'], action: () => { } },
-                        { name: "action2", keys: ['f', 'F'], action: () => { } },
-                        { name: "action3", keys: ['q', 'Q'], action: () => { } },
-                        { name: "action4", keys: ['r', 'R'], action: () => { } },
+                        { name: "action", key: 'e', action: () => console.log('Press e') },
+                        { name: "action", key: 'q', action: () => console.log('Press q') },
+                        { name: "action", key: 'r', action: () => console.log('Press r') },
+                        { name: "action", key: 'f', action: () => console.log('Press f') },
                     ]
             },
         ]
@@ -46,7 +52,7 @@ const props = defineProps({
         type: Number,
         default: 9.8
     },
-    headBobbing: {
+    isHeadBobbing: {
         type: Boolean,
         default: true
     },
@@ -59,12 +65,12 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['isMoving'])
+const emit = defineEmits(['state'])
 
 const { controlsKeys,
     gravity,
     moveSpeed,
-    headBobbing,
+    isHeadBobbing,
     headBobbingOptions,
 } = toRefs(props)
 
@@ -75,26 +81,21 @@ const PointerLockControlsRef = shallowRef()
 const wrapperRef = shallowRef()
 const isLocked = shallowRef()
 const initCameraPos = activeCamera?.value?.position?.y ?? 0
-const isMoving = ref(false)
 const rotation = new Vector3()
-const [forward, backward, leftward, rightward, jump, run, actions, wheelActionUp, wheelActionDown] = controlsKeys.value
+const [ forward, backward, leftward, rightward, run, creep, jump ] = getMovementKey(controlsKeys.value)
+const [ leftClick, rightClick, middleClick, wheelActionUp, wheelActionDown, actions ] = getActionsKey(controlsKeys.value, 'actions')
 
 const { getJump, isJumping } = useJump(jump, gravity.value, initCameraPos)
-const { xMove, zMove } = useWalk(moveSpeed.value, { forward, backward, leftward, rightward });
-// zMove.value? = useRun(run, zMove)
-const { headBobbingMov } = useHeadBobbing({ hasHeadBobbing: headBobbing.value, ...headBobbingOptions.value }, initCameraPos);
-useActions({ actions, wheelActionUp, wheelActionDown })
+const { sidewardMove, forwardMove, isWalking, isRunning, isCreeping } = useWalk(moveSpeed.value, { forward, backward, leftward, rightward, run, creep });
+const { headBobbingMov } = useHeadBobbing({ hasHeadBobbing: isHeadBobbing.value, ...headBobbingOptions.value }, initCameraPos);
+useActions({ actions, wheelActionUp, wheelActionDown, leftClick, rightClick, middleClick })
 
-watch([xMove, zMove], () => {
-    if (zMove.value === 0 && xMove.value === 0) {
-        isMoving.value = false
-    } else isMoving.value = true
-})
-
-watch([isMoving, isJumping], () => {
-    if (isMoving.value || isJumping.value) {
-        emit('isMoving', true)
-    } else emit('isMoving', false)
+watchEffect(() => {
+    if (isRunning.value) emit('state', states.running)
+    else if (isCreeping.value) emit('state', states.creeping)
+    else if (isWalking.value) emit('state', states.walking)
+    else if (isJumping.value) emit('state', states.jumping)
+    else emit('state', states.idle)
 })
 
 const onLock = (event) => {
@@ -106,15 +107,19 @@ const onChangeModel = () => {
     wrapperRef.value.position.copy(activeCamera.value.position).add(activeCamera.value.getWorldDirection(rotation).multiplyScalar(2.5))
 }
 
+const onChangePointerLock = () => {
+    onChangeModel()
+}
+
 const { onLoop } = useRenderLoop()
 
 onLoop(({ elapsed }) => {
     if (isLocked.value && PointerLockControlsRef.value) {
-        PointerLockControlsRef.value.value.moveForward(zMove.value)
-        PointerLockControlsRef.value.value.moveRight(xMove.value)
+        PointerLockControlsRef.value.value.moveForward(forwardMove.value)
+        PointerLockControlsRef.value.value.moveRight(sidewardMove.value)
         activeCamera.value.position.y = getJump()
-        activeCamera.value.position.y += headBobbingMov(isMoving.value, elapsed)
-        onChangeModel()
+        activeCamera.value.position.y += headBobbingMov(isWalking.value, elapsed)
+        if (isWalking.value || isJumping.value) onChangeModel()
     }
 })
 defineExpose({
@@ -123,8 +128,8 @@ defineExpose({
 </script>
 
 <template>
-    <PointerLockControls make-default @isLock="e => onLock(e)" ref="PointerLockControlsRef" :camera="camera"
-        :domElement="domElement" :selector="selector" />
+    <PointerLockControls make-default @change="onChangePointerLock" @isLock="e => onLock(e)" ref="PointerLockControlsRef"
+        :camera="camera" :domElement="domElement" :selector="selector" />
     <TresGroup ref="wrapperRef">
         <slot />
     </TresGroup>
