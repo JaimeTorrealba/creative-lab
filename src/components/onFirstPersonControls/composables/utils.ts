@@ -1,4 +1,4 @@
-export const states = Object.freeze({
+export const STATES = Object.freeze({
   idle: 'idle',
   walking: 'walking',
   running: 'running',
@@ -17,13 +17,13 @@ export const getMovementKey = (keys) => {
   const movementKeys = ['forward', 'backward', 'leftward', 'rightward']
   const result: (boolean | { name: string; key: string })[] = [] // Change the type of 'result' array
   movementKeys.map((key) => {
-    const [filteredKey] = keys.filter((k) => k.name === key)
+    const [filteredKey] = keys.value.filter((k) => k.name === key)
     if (filteredKey) result.push(filteredKey)
     else result.push({ name: key, key: defaultMovementKeys[key] })
   })
   const extraKeys = ['run', 'creep', 'jump']
   extraKeys.map((key) => {
-    const [filteredKey] = keys.filter((k) => k.name === key)
+    const [filteredKey] = keys.value.filter((k) => k.name === key)
     if (filteredKey) result.push(filteredKey)
     else result.push(false)
   })
@@ -41,7 +41,7 @@ export const getActionsKey = (keys) => {
   ]
   const result: (boolean | { name: string; key: string })[] = [] // Change the type of 'result' array
   actionsKeys.map((key) => {
-    const [filteredKey] = keys.filter((k) => k.name === key)
+    const [filteredKey] = keys.value.filter((k) => k.name === key)
     if (filteredKey) result.push(filteredKey)
     else result.push(false)
   })

@@ -1,15 +1,16 @@
 import { ref, watch } from 'vue'
 import { useMagicKeys } from '@vueuse/core'
 
-export const useJump = (jumpKey, gravity, initCameraPos = 0) => {
+export const useJump = (jumpKey, initCameraPos = 0) => {
   const isJumping = ref(false)
   const jumpDistance = ref(0)
   const initJumpTime = ref(0)
+  const gravity = jumpKey.gravity ?? 9.8
 
   const keysDetector = useMagicKeys()
-  const jumpDectector = keysDetector[jumpKey.key]
+  const jumpDetector = keysDetector[jumpKey.key]
 
-  watch(jumpDectector, (v) => {
+  watch(jumpDetector, (v) => {
     if (v) {
       if (!isJumping.value) initJumpTime.value = Date.now()
       isJumping.value = true

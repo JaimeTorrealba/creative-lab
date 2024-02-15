@@ -20,6 +20,10 @@ const goAllRoutes = () => (data.value = filteredRoutes)
 
 const filterByTag = (tag) => {
   data.value = filteredRoutes.filter((demo) => demo.meta.section === tag)
+  const scrollTriggerRef = gsap.utils.toArray('.scrollTriggerRef')
+  scrollTriggerRef.map((card) => {
+    gsap.to(card, {duration: 0.5, opacity: 1})
+  })
 }
 
 onMounted(() => {

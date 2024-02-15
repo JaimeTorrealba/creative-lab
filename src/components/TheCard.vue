@@ -14,7 +14,7 @@ const router = useRouter()
 </script>
 <template>
   <v-card class="mx-auto" width="328" dark>
-    <v-img class="img" :src="data.meta.img" @click="router.push(data.path)" height="200px" cover></v-img>
+    <v-img class="img" :src="data.meta.img" :alt="data.name" @click="router.push(data.path)" height="200px" cover lazy-src="/images/photo_slider1"/>
 
     <v-card-title> {{ data.name }} </v-card-title>
     <v-divider class="mx-4 my-1"></v-divider>

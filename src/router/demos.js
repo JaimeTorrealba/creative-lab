@@ -41,6 +41,7 @@ export const demos = [
   generateRoute('FollowPath', 'Demos', descriptions.followPath),
   generateRoute('Gaea', 'Demos', descriptions.gaea),
   generateRoute('Glass', 'Demos', descriptions.glass),
+  generateRoute('Guide', 'Demos', ''),
   generateRoute('Fog', 'Demos', descriptions.fog),
   generateRoute('Fur', 'Demos', descriptions.fur),
   generateRoute('InfiniteBeam', 'Demos', descriptions.infiniteBeam),

@@ -19,7 +19,8 @@ void main() {
     modelPosition.x = cos(angle);
     modelPosition.y = sin(angle);
 
-    modelPosition.xyz += aRandomness;
+    modelPosition.xy += aRandomness.xy;
+    modelPosition.z += aRandomness.z *0.1;
 
     vec4 viewPosition = viewMatrix * modelPosition;
     vec4 projectedPosition = projectionMatrix * viewPosition;
@@ -29,7 +30,7 @@ void main() {
             //random
     gl_PointSize = uSize * aScale;
             //atenuacion
-    gl_PointSize *= (1.0 / -viewPosition.z);
+    gl_PointSize *= (1.0 / -viewPosition.z *1.5);
 
     vColor = color;
 
