@@ -1,5 +1,5 @@
 <script setup>
-import { ref, shallowRef, toRefs, watchEffect } from 'vue'
+import { ref, shallowRef, toRefs, watchEffect, provide  } from 'vue'
 import { useRenderLoop, useTresContext } from '@tresjs/core'
 import { Vector3 } from 'three'
 // import type { Group } from 'three'
@@ -10,7 +10,7 @@ import { useJump } from './composables/useJump'
 import { useWalk } from './composables/useWalk'
 import { useActions } from './composables/useActions'
 import { useHeadBobbing } from './composables/useHeadBobbing'
-import { STATES, getMovementKey, getActionsKey } from './composables/utils'
+import { STATES, getMovementKey, getActionsKey, isMobile } from './composables/utils'
 
 // JUMP will be removed when rapier is ready
 
@@ -93,6 +93,8 @@ watchEffect(() => {
 const headBobbingMov = useHeadBobbing(headBobbing, initCameraPos);
 useActions({ actions, wheelActionUp, wheelActionDown, leftClick, rightClick, middleClick })
 
+provide('moveMethods', walkSystem)
+
 const onLock = (event) => {
     isLocked.value = event
     emit('isLock', event)
@@ -126,7 +128,7 @@ defineExpose({
 const { onLoop } = useRenderLoop()
 
 onLoop(({ elapsed }) => {
-    if (isLocked.value) {
+    if (isLocked.value || !isMobile()) {
         PointerLockControlsRef.value.value.moveForward(walkSystem.forwardMove.value)
         PointerLockControlsRef.value.value.moveRight(walkSystem.sidewardMove.value)
         activeCamera.value.position.y = getJump()
@@ -143,5 +145,4 @@ onLoop(({ elapsed }) => {
     <TresGroup ref="wrapperRef">
         <slot />
     </TresGroup>
-    <TresGroup ref="cameraGroupRef" />
 </template>

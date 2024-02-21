@@ -48,15 +48,8 @@ export const getActionsKey = (keys) => {
   return result
 }
 
-// Ver opcion
-// export const actions = Object.freeze({
-//     forward: 'forward',
-//     backward: 'backward',
-//     rightward: 'rightward',
-//     leftward: 'leftward',
-//     jump: 'jump',
-//     run: 'run',
-//     creep: 'creep',
-//     wheelActionUp: 'wheelActionUp',
-//     wheelActionDown: 'wheelActionDown',
-// })
+export const isMobile = () => {
+  return navigator.userAgent.match(
+    /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/
+  );
+}
