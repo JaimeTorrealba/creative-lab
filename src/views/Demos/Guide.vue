@@ -3,7 +3,7 @@ import { onMounted, nextTick, ref } from 'vue';
 import { TresCanvas, useRenderLoop, extend } from '@tresjs/core'
 import { OrbitControls, useGLTF } from '@tresjs/cientos';
 import { shallowRef } from 'vue';
-import { Vector3, Quaternion, WebGLRenderer, PerspectiveCamera } from 'three'
+import { WebGLRenderer, PerspectiveCamera } from 'three'
 import { ViewHelper } from 'three/examples/jsm/helpers/ViewHelper.js'
 
 const canvasRef = shallowRef()

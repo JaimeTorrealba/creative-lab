@@ -20,6 +20,7 @@
     "gsap": "^3.12.4",
     "simplex-noise": "^4.0.1",
     "three-custom-shader-material": "^5.4.0",
+    "three-gpu-pathtracer": "^0.0.20",
     "tweakpane": "^4.0.3",
     "vue": "^3.4.10",
     "vue-router": "^4.2.5",

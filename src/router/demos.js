@@ -15,6 +15,7 @@ const descriptions = {
     'It creates an infinite flow of particles without using a shader. This is the native way, but you have available an abstraction to do it in TresJs. https://cientos.tresjs.org/guide/abstractions/precipitation.html',
   multiCamera:
     'You can create an array of cameras, each one with its own viewport and its own configurations.',
+  pathTracing: 'An adnanced way to render a scene using path tracing. We can do this using the https://github.com/gkjohnson/three-gpu-pathtracer/tree/main',
   nebula:
     'A simple nebula generator using smoke abstraction on cientos, and post-processing. This effect is base on: https://youtu.be/5f5wwQb22tE',
   randomMovement:
@@ -53,6 +54,7 @@ export const demos = [
   ),
   generateRoute('MultiCamera', 'Demos', descriptions.multiCamera),
   generateRoute('Nebula', 'Demos', descriptions.nebula),
+  generateRoute('PathTracing', 'Demos', descriptions.pathTracing),
   generateRoute('RandomMovement', 'Demos', descriptions.randomMovement),
   generateRoute('SelectableGrid', 'Demos', descriptions.selectableGrid),
   generateRoute('SixSides', 'Demos', descriptions.sixSides),

@@ -32,6 +32,9 @@ dependencies:
   three-custom-shader-material:
     specifier: ^5.4.0
     version: 5.4.0(three@0.159.0)
+  three-gpu-pathtracer:
+    specifier: ^0.0.20
+    version: 0.0.20(three-mesh-bvh@0.7.3)(three@0.159.0)(xatlas-web@0.1.0)
   tweakpane:
     specifier: ^4.0.3
     version: 4.0.3
@@ -1562,6 +1565,26 @@ packages:
       three: 0.159.0
     dev: false
 
+  /three-gpu-pathtracer@0.0.20(three-mesh-bvh@0.7.3)(three@0.159.0)(xatlas-web@0.1.0):
+    resolution: {integrity: sha512-v7HENGfY50+kTjx3BlqHGHvYTy37mLdS4hxmRIAbirLSg5fm60xg47WRAPCvQdVh86KeejwAqI4IRlTxD2vfZQ==}
+    peerDependencies:
+      three: '>=0.151.0'
+      three-mesh-bvh: '>=0.7.0'
+      xatlas-web: ^0.1.0
+    dependencies:
+      three: 0.159.0
+      three-mesh-bvh: 0.7.3(three@0.159.0)
+      xatlas-web: 0.1.0
+    dev: false
+
+  /three-mesh-bvh@0.7.3(three@0.159.0):
+    resolution: {integrity: sha512-3W6KjzmupjfE89GuHPT31kxKWZ4YGZPEZJNysJpiOZfQRsBQQgmK7v/VJPpjG6syhAvTnY+5Fr77EvIkTLpGSw==}
+    peerDependencies:
+      three: '>= 0.151.0'
+    dependencies:
+      three: 0.159.0
+    dev: false
+
   /three-stdlib@2.29.1(three@0.159.0):
     resolution: {integrity: sha512-s1MkrrYglkzgTasY/pNHH/QiUFt5TeEn5MIlzyq7BTGAXLDAy93WKBeHPcoxURtEFItMzK9IM1na6NV7W+Xhnw==}
     peerDependencies:
@@ -1760,6 +1783,10 @@ packages:
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
     dev: true
+
+  /xatlas-web@0.1.0:
+    resolution: {integrity: sha512-PprVfuXbaIskxLTLBUQRaWfgSy9xUQqAMIRooOw0P6NYqwgh6T0voeer6+Z5M7AFt5SGXUybuww/uDGs1yw8vQ==}
+    dev: false
 
   /xml-name-validator@4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
