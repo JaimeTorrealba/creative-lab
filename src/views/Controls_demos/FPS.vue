@@ -4,8 +4,7 @@ import { ref, shallowRef } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { useGLTF, Sky } from '@tresjs/cientos';
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
-import OnFirstPersonControls from '@/components/onFirstPersonControls/OnFirstPersonControls.vue'
-import { MobileJoystick } from '@/components/onFirstPersonControls/MobileJoystick.ts'
+import { fpsControls } from '@jaimebboyjt/tres-fps-controls'
 import gsap from 'gsap';
 
 const { scene } = await useGLTF('/models/PixelArt Medieval Sword.glb')
@@ -61,14 +60,18 @@ const onState = e => {
 <template>
   <TresCanvas window-size clear-color="#f7f7f7" ref="canvasRef">
     <TresPerspectiveCamera :position="[0, 0, 3]" :fov="45" :aspect="1" :near="0.1" :far="1000" />
-    <OnFirstPersonControls @state="onState" :controlsKeys="keyboardMap" ref="shooter">
-      <primitive ref="" :object="scene" :scale="0.5" :position="[-4.5, -3, -5]" :rotation="[0, 1, 0]" />
-      <TresMesh :scale="2.5" :rotation="[1, 0, 1]" :position="[-4.5, -3, -5]" :visible="!showBar">
-        <TresBoxGeometry :args="[0.1, 0.1, 1]" />
-        <TresMeshBasicMaterial :color="0x00ff00" />
-      </TresMesh>
+    <fpsControls :controls-keys="keyboardMap"
+    >
+    
+    <primitive ref="" :object="scene" :scale="0.5" :position="[-4.5, -3, -5]" :rotation="[0, 1, 0]" />
+    <TresMesh :scale="2.5" :rotation="[1, 0, 1]" :position="[-4.5, -3, -5]" :visible="!showBar">
+      <TresBoxGeometry :args="[0.1, 0.1, 1]" />
+      <TresMeshBasicMaterial :color="0x00ff00" />
+    </TresMesh>
+    </fpsControls>
+    <!-- 
       <MobileJoystick />
-    </OnFirstPersonControls>
+     -->
     <TresMesh :geometry="roundBoxGeometry">
       <TresMeshBasicMaterial :color="0x00ff00" wireframe />
     </TresMesh>
