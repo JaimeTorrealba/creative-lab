@@ -1,6 +1,7 @@
 import { generateRoute } from '../utils'
 
 const descriptions = {
+  CoffeeCup: 'Coffee practice from Bruno Simon. ThreeJs Journey. https://threejs-journey.com/',
   CSM: 'You can see how to extend any material to add shaders and different capabilities. We use the Custom Shader Material library. In this example we extend the MeshPhyiscalMaterial used in the previus glass example',
   destroyGeometry:
     'With this demo, you can see how to destroy and manipulate the individual vertex of any type of geometries. This effect is base on: https://www.youtube.com/live/frgmk0Wu76A?feature=share',
@@ -26,6 +27,7 @@ const descriptions = {
 export const shaders_demos = [
   generateRoute('AudioAnalyser', 'Shaders_demos', descriptions.audioAnalyzer),
   generateRoute('ChromaticAberration', 'Shaders_demos', ''),
+  generateRoute('CoffeeCup', 'Shaders_demos', descriptions.CoffeeCup),
   generateRoute('CSM', 'Shaders_demos', descriptions.CSM),
   generateRoute('DestroyGeometry', 'Shaders_demos', descriptions.destroyGeometry), // acomodar colores
   generateRoute('Fire', 'Shaders_demos', descriptions.fire),

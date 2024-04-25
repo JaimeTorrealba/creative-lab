@@ -4,7 +4,7 @@ import { ref, shallowRef } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { useGLTF, Sky } from '@tresjs/cientos';
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
-import { fpsControls } from '@jaimebboyjt/tres-fps-controls'
+import { fpsControls, MobileJoystick } from '@jaimebboyjt/tres-fps-controls'
 import gsap from 'gsap';
 
 const { scene } = await useGLTF('/models/PixelArt Medieval Sword.glb')
@@ -68,6 +68,7 @@ const onState = e => {
       <TresBoxGeometry :args="[0.1, 0.1, 1]" />
       <TresMeshBasicMaterial :color="0x00ff00" />
     </TresMesh>
+    <MobileJoystick />
     </fpsControls>
     <!-- 
       <MobileJoystick />
