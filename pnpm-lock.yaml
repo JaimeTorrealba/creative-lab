@@ -26,9 +26,15 @@ dependencies:
   alea:
     specifier: ^1.0.1
     version: 1.0.1
+  delaunator:
+    specifier: ^5.0.1
+    version: 5.0.1
   gsap:
     specifier: ^3.12.4
     version: 3.12.4
+  poisson-disk-sampling:
+    specifier: ^2.3.1
+    version: 2.3.1
   simplex-noise:
     specifier: ^4.0.1
     version: 4.0.1
@@ -899,6 +905,12 @@ packages:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
 
+  /delaunator@5.0.1:
+    resolution: {integrity: sha512-8nvh+XBe96aCESrGOqMp/84b13H9cdKbG5P2ejQCh4d4sK9RL4371qou9drQjMhvnPmhWl5hnmqbEE0fXr9Xnw==}
+    dependencies:
+      robust-predicates: 3.0.2
+    dev: false
+
   /doctrine@3.0.0:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
     engines: {node: '>=6.0.0'}
@@ -1357,6 +1369,10 @@ packages:
       brace-expansion: 1.1.11
     dev: true
 
+  /moore@1.0.0:
+    resolution: {integrity: sha512-xcsFo/jgtMuVaGePHod5TdSzxnRAQQ4wFpDmFuu34lHvx5sNMsioA84NW7iBWYZ10jHR/nyGaDkhunMJxqAzkw==}
+    dev: false
+
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
     dev: true
@@ -1448,6 +1464,12 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
+  /poisson-disk-sampling@2.3.1:
+    resolution: {integrity: sha512-O3TzHR8IA+Do5zC7EgPdHLOYOpUJ6DikiTwqRqXdSPUhx1ZqfeH6PqAD86KKi+8Nq8vnL2navErsgURKTe089w==}
+    dependencies:
+      moore: 1.0.0
+    dev: false
+
   /postcss-selector-parser@6.0.15:
     resolution: {integrity: sha512-rEYkQOMUCEMhsKbK66tbEU9QVIxbhN18YiniAwA7XQYTVBqrBy+P2p5JcdqsHgKM2zWylp8d7J6eszocfds5Sw==}
     engines: {node: '>=4'}
@@ -1536,6 +1558,10 @@ packages:
     dependencies:
       glob: 7.2.3
     dev: true
+
+  /robust-predicates@3.0.2:
+    resolution: {integrity: sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==}
+    dev: false
 
   /rollup@3.29.4:
     resolution: {integrity: sha512-oWzmBZwvYrU0iJHtDmhsm662rC15FRXmcjCk1xD771dFDx5jJ02ufAQQTn0etB2emNk4J9EZg/yWKpsn9BWGRw==}

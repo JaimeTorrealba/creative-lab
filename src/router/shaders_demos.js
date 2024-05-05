@@ -14,6 +14,8 @@ const descriptions = {
     'An interesting effect of how to use transparency in combination with the mouse to reveal the content behind',
   slider:
     'A WebGl slider made with shaders, using distorsión in images. This effect is base on: https://github.com/akella/webGLImageTransitions',
+  randomPoints:
+  'Simple plane with random points for future effects. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share',
   ripple:
     'A WebGl ripple effect (like material design) but using shaders. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share',
   grassShader: '',
@@ -36,6 +38,7 @@ export const shaders_demos = [
   generateRoute('MouseReveal', 'Shaders_demos', descriptions.mouseReveal),
   generateRoute('ParticlesRing', 'Shaders_demos', descriptions.particlesRing),
   generateRoute('Slider', 'Shaders_demos', descriptions.slider),
+  generateRoute('RandomPoints', 'Shaders_demos', descriptions.randomPoints),
   generateRoute('Ripple', 'Shaders_demos', descriptions.ripple),
   generateRoute('Grass', 'Shaders_demos', descriptions.grassShader),
   generateRoute(
