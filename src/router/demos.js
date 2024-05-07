@@ -11,6 +11,7 @@ const descriptions = {
     'A glass/plastic effect you can achieve using physical material. This effect is base on: https://tympanus.net/codrops/2021/10/27/creating-the-effect-of-transparent-glass-and-plastic-in-three-js/.',
   fur:
     'A way to simulate fur, hair, grass, etc. Using the sampler technique in ThreeJs. This effect is base on https://youtu.be/n98UO5sUyLo.',
+  isComponent:  'Simple experiment using <component :is /> built in vue feature',
   infiniteBeam:
     'It creates an infinite flow of particles without using a shader. This is the native way, but you have available an abstraction to do it in TresJs. https://cientos.tresjs.org/guide/abstractions/precipitation.html',
   multiCamera:
@@ -45,6 +46,7 @@ export const demos = [
   generateRoute('Guide', 'Demos', ''),
   generateRoute('Fog', 'Demos', descriptions.fog),
   generateRoute('Fur', 'Demos', descriptions.fur),
+  generateRoute('IsComponent', 'Demos', descriptions.isComponent),
   generateRoute('InfiniteBeam', 'Demos', descriptions.infiniteBeam),
   generateRoute('InfiniteTube', 'Demos', descriptions.infiniteTube),
   generateRoute(
