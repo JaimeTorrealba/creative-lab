@@ -35,7 +35,7 @@ onMounted(() => {
       new BufferGeometry().setFromPoints(points),
       new LineBasicMaterial({ color })
     )
-    line.geometry.center()
+    // // line.geometry.center()
     canvasRef.value.context.scene.value.add(line)
   }
   const followPoints = (snakeCurve) => {
@@ -47,6 +47,7 @@ onMounted(() => {
   const originalPoints = getCenteredSvgPoints(pathToFollow, 0.1)
   showLineFromPoints(originalPoints, 0xff0000)
   const snakeCurve = new CatmullRomCurve3(originalPoints, true)
+  console.log('jaime ~ onMounted ~ snakeCurve:', snakeCurve);
   followPoints(snakeCurve)
 })
 
