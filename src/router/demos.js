@@ -38,6 +38,7 @@ const descriptions = {
 export const demos = [
   generateRoute('Avatar', 'Demos', descriptions.avatar),
   generateRoute('CloudLight', 'Demos', ''),
+  generateRoute('CSG', 'Demos', descriptions.CSG),
   generateRoute('CSS2DRenderer', 'Demos', descriptions.CSS2DRenderer),
   generateRoute('Earth', 'Demos', descriptions.earth),
   generateRoute('FollowPath', 'Demos', descriptions.followPath),

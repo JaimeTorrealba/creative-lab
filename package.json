@@ -22,6 +22,7 @@
     "gsap": "^3.12.4",
     "poisson-disk-sampling": "^2.3.1",
     "simplex-noise": "^4.0.1",
+    "three-bvh-csg": "^0.0.16",
     "three-custom-shader-material": "^5.4.0",
     "three-gpu-pathtracer": "^0.0.20",
     "tweakpane": "^4.0.3",
