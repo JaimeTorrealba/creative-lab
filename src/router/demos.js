@@ -31,6 +31,7 @@ const descriptions = {
   selectableGrid: 'How to select a grid (tile) in a plane using the mouse. based on this video: https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG',
   CSS2DRenderer: 'A different way to add HTML to your scenes (other than the already built HTML component). based on this video: https://youtu.be/0ZW3xrFhY3w?si=QkvzEikyeuv6H1Mb',
   audioAnalyzer: 'A funny way to use AudioAnalyzer to create a visual blob who react to the audio waves. based on this video: https://youtu.be/KEMZR3unWTE?si=N05ZAjAWm-Ru-lLY',
+  sphericalCoords: 'Simple pendulum using spherical coordinates.',
   fog:
   'A custom fog, done by modify the global shaders directly from threejs. This effect is base on https://youtu.be/k1zGz55EqfU?si=6Qa_5lP2NIPiBwxO',
 }
@@ -61,6 +62,7 @@ export const demos = [
   generateRoute('RandomMovement', 'Demos', descriptions.randomMovement),
   generateRoute('SelectableGrid', 'Demos', descriptions.selectableGrid),
   generateRoute('SixSides', 'Demos', descriptions.sixSides),
+  generateRoute('SphericalCoords', 'Demos', descriptions.sphericalCoords),
   generateRoute('StencilMask', 'Demos', descriptions.stencilMask),
   generateRoute(
     'Transition',
