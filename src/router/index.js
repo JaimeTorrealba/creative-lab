@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
+import { basic } from './basic.js'
 import { demos } from './demos.js'
 import { shaders_demos } from './shaders_demos'
 import { html_demos } from './html_demos'
@@ -20,6 +21,7 @@ const router = createRouter({
     },
     generateRoute('Template', 'Playground', ''),
     generateRoute('CartesianCoords', 'Playground', ''),
+    ...basic,
     ...demos,
     ...html_demos,
     ...controls_demos,
