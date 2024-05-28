@@ -17,7 +17,8 @@ const descriptions = {
   gaea: 'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.',
   selectableGrid:
     'How to select a grid (tile) in a plane using the mouse. based on this video: https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG',
-  sphericalCoords: 'Simple pendulum using spherical coordinates.'
+  sphericalCoords: 'Simple pendulum using spherical coordinates.',
+  smoothShading: 'Using the edgeSplitModifier to smooth the edges of a Icosahedron.'
 }
 
 export const basic = [
@@ -30,6 +31,7 @@ export const basic = [
   generateRoute('IsComponent', 'Basics', descriptions.isComponent),
   generateRoute('Nebula', 'Basics', descriptions.nebula),
   generateRoute('SelectableGrid', 'Basics', descriptions.selectableGrid),
+  generateRoute('ShadeSmooth', 'Basics', descriptions.smoothShading),
   generateRoute('SixSides', 'Basics', descriptions.sixSides),
   generateRoute('SphericalCoords', 'Basics', descriptions.sphericalCoords),
   generateRoute(
