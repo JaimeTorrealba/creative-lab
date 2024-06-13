@@ -11,12 +11,12 @@ const objects = []
 const onSelect = (e) => {
   const highlighterPos = new Vector3().copy(e.point).floor().addScalar(0.5)
   highlighter.value.position.set(highlighterPos.x, 0, highlighterPos.z)
-  const objectExists = objects.find((obj) => obj.position.equals(highlighter.value.position))
-  if (objectExists) {
-    highlighter.value.visible = false
-  } else {
-    highlighter.value.visible = true
-  }
+  // const objectExists = objects.find((obj) => obj.position.equals(highlighter.value.position))
+  // if (objectExists) {
+  //   highlighter.value.visible = false
+  // } else {
+  //   highlighter.value.visible = true
+  // }
 }
 
 const createSphere = () => {

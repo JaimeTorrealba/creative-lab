@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -9,22 +9,45 @@ import { BLACK_LIST_PATHS } from '../utils';
 
 const router = useRouter()
 const data = ref()
+const search = ref('')
+const currentTag = ref('All')
 const allRoutes = computed(() => router.options.routes)
 const filteredRoutes = allRoutes.value.filter((route) => !BLACK_LIST_PATHS.includes(route.path))
-
 data.value = filteredRoutes
 
 const tags = new Set(data.value.map((route) => route.meta.section))
 
-const goAllRoutes = () => (data.value = filteredRoutes)
+const goAllRoutes = () => {
+  data.value = filteredRoutes
+  currentTag.value = 'All'
+}
 
 const filterByTag = (tag) => {
+  currentTag.value = tag
   data.value = filteredRoutes.filter((demo) => demo.meta.section === tag)
   const scrollTriggerRef = gsap.utils.toArray('.scrollTriggerRef')
   scrollTriggerRef.map((card) => {
-    gsap.to(card, {duration: 0.5, opacity: 1})
+    gsap.to(card, { duration: 0.5, opacity: 1 })
   })
 }
+
+watch(search, (newVal) => {
+  if (newVal) {
+    search.value = newVal.toLowerCase()
+    const filterKeyResult = data.value.filter((route) => {
+      const routeName = route.name.toLowerCase()
+      return routeName.includes(search.value)
+    })
+    data.value = filterKeyResult;
+  } else {
+    if(currentTag.value !== 'All'){
+      filterByTag(currentTag.value)
+      } else {
+      goAllRoutes()
+    }
+  }
+})
+
 
 onMounted(() => {
   const scrollTriggerRef = gsap.utils.toArray('.scrollTriggerRef')
@@ -40,24 +63,28 @@ onMounted(() => {
 <template>
   <v-container class="pa-lg-8 bg">
     <h1 class="text-center text-h3">Welcome to my creative lab</h1>
-    <v-chip-group class="d-flex justify-center mt-4">
-      <v-chip class="mx-2" color="primary" label @click="goAllRoutes()"> All </v-chip>
-      <v-chip
-        v-for="tag in tags"
-        :key="tag"
-        class="mx-2"
-        color="primary"
-        label
-        @click="filterByTag(tag)"
-      >
-        {{ tag }}
-      </v-chip>
-    </v-chip-group>
-    <v-row class="pa-lg-8" flex justify="space-around" >
+    <div class="d-flex justify-center">
+      <v-chip-group class="d-flex justify-center mt-4">
+        <v-chip class="mx-2" color="primary" label @click="goAllRoutes()"> All </v-chip>
+        <v-chip v-for="tag in tags" :key="tag" class="mx-2" color="primary" label @click="filterByTag(tag)">
+          {{ tag }}
+        </v-chip>
+      </v-chip-group>
+    </div>
+    <v-responsive class="mx-auto py-4 " max-width="344">
+      <v-text-field clearable label="Search demo" variant="outlined" v-model="search"></v-text-field>
+    </v-responsive>
+
+    <!-- BODY -->
+
+    <v-row class="pa-lg-8" flex justify="space-around">
       <v-col v-for="route in data" :key="route.path">
         <Cards :data="route" class="scrollTriggerRef" />
       </v-col>
     </v-row>
+
+    <!-- FOOTER -->
+
     <v-footer class="text-center d-flex flex-column rounded">
       <div class="d-flex align-center">
         <a href="https://twitter.com/jaimebboyjt" rel="noreferrer" target="_blank" class="mx-4">
@@ -66,12 +93,7 @@ onMounted(() => {
         <a href="https://github.com/JaimeTorrealba" rel="noreferrer" target="_blank" class="mx-4">
           <img src="/images/github-logo.svg" />
         </a>
-        <a
-          href="https://www.linkedin.com/in/jaime-torrealba-cordova/"
-          rel="noreferrer"
-          target="_blank"
-          class="mx-4"
-        >
+        <a href="https://www.linkedin.com/in/jaime-torrealba-cordova/" rel="noreferrer" target="_blank" class="mx-4">
           <img src="/images/Linkedin-logo.svg" />
         </a>
         <a href="https://codepen.io/jaime_torrealba" rel="noreferrer" target="_blank" class="mx-4">
@@ -79,7 +101,7 @@ onMounted(() => {
         </a>
       </div>
 
-      <div class="pt-0">
+      <div class="pt-4">
         Big thanks to all of my inspirations and resources. <br />
         Feel free to take any code that you want here, and if you have a doubt or suggestion, please
         contact me on my social networks.
