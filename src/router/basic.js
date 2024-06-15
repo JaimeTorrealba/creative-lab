@@ -5,6 +5,7 @@ const descriptions = {
     'You can create a 3D model avatar, exporting in glb in just a few minutes using https://readyplayer.me/es',
   changedPivot: 'Changing the pivot of a 3D primitive.',
   cloudLight: 'Simple imitation of the light being blocked by clouds.',
+  collision: 'Simple coalition demo, thinking in a composable',
   earth:
     'In this demo we can see how to create a 3D earth, make it draggable, some parallax clouds on top and add some markers (to any city). It has also stars, MouseParallax effects and a simple GUI to control the rotation speed.',
   isComponent: 'Simple experiment using <component :is /> built in vue feature',
@@ -25,6 +26,7 @@ export const basic = [
   generateRoute('Avatar', 'Basics', descriptions.avatar),
   generateRoute('ChangedPivot', 'Basics', descriptions.changedPivot),
   generateRoute('CloudLight', 'Basics', descriptions.cloudLight),
+  generateRoute('Collision', 'Basics', descriptions.collision),
   generateRoute('Earth', 'Basics', descriptions.earth),
   generateRoute('Gaea', 'Basics', descriptions.gaea),
   generateRoute('Guide', 'Basics', descriptions.guide),
