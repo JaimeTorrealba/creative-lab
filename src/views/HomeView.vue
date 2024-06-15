@@ -38,6 +38,10 @@ watch(search, (newVal) => {
       const routeName = route.name.toLowerCase()
       return routeName.includes(search.value)
     })
+    const scrollTriggerRef = gsap.utils.toArray('.scrollTriggerRef')
+  scrollTriggerRef.map((card) => {
+    gsap.to(card, { duration: 0.5, opacity: 1 })
+  })
     data.value = filterKeyResult;
   } else {
     if(currentTag.value !== 'All'){
@@ -58,7 +62,7 @@ onMounted(() => {
       animation: gsap.from(card, { duration: 0.75, opacity: 0 })
     })
   })
-})
+ })
 </script>
 <template>
   <v-container class="pa-lg-8 bg">
