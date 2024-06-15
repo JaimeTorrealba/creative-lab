@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
 import { basic } from './basic.js'
 import { demos } from './demos.js'
+import { webgpu_demos } from './webgpu_demos.js'
 import { shaders_demos } from './shaders_demos'
 import { html_demos } from './html_demos'
 import { fragment_demos } from './fragment_demos'
@@ -27,6 +28,7 @@ const router = createRouter({
     ...controls_demos,
     ...shaders_demos,
     ...fragment_demos,
+    // ...webgpu_demos
     // playground
     // {
     //   path: '/playground',
