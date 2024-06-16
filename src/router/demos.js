@@ -21,6 +21,7 @@ const descriptions = {
   audioAnalyzer: 'A funny way to use AudioAnalyzer to create a visual blob who react to the audio waves. based on this video: https://youtu.be/KEMZR3unWTE?si=N05ZAjAWm-Ru-lLY',
   fog:
   'A custom fog, done by modify the global shaders directly from threejs. This effect is base on https://youtu.be/k1zGz55EqfU?si=6Qa_5lP2NIPiBwxO',
+  xyz: 'simple demo using VueYZ library',
 }
 
 export const demos = [
@@ -42,4 +43,5 @@ export const demos = [
   generateRoute('RandomMovement', 'Demos', descriptions.randomMovement),
   generateRoute('StencilMask', 'Demos', descriptions.stencilMask),
   generateRoute('TwoScenes', 'Demos', descriptions.twoScenes),
+  generateRoute('VueXYZ', 'Demos', descriptions.xyz),
 ]
