@@ -2,16 +2,16 @@
 import { reactive, ref, watch } from 'vue'
 import { TresCanvas, vLog } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import { useTriangle, usePolygon } from 'vuexyz'
-import { BufferGeometry, BufferAttribute, Shape, ExtrudeGeometry, DoubleSide } from 'three'
+import { useTriangle, usePolygon, useEllipse } from 'vuexyz'
+import { BufferGeometry, BufferAttribute, Shape, ExtrudeGeometry, DoubleSide, CubicBezierCurve,  Vector2, CurvePath } from 'three'
 import { Pane } from 'tweakpane';
 
 const pane = new Pane();
 
 const { vertices: Tvertices, edges, faces } = useTriangle({ sideLength: 1 })
-console.log('jaime ~ faces:', faces.value);
-console.log('jaime ~ edges:', edges.value);
-console.log('jaime ~ Tvertices:', Tvertices.value);
+console.log('jaime ~ TRIANGLE faces:', faces.value);
+console.log('jaime ~ TRIANGLE edges:', edges.value);
+console.log('jaime ~ TRIANGLE Tvertices:', Tvertices.value);
 
 const traingleGeometry = new BufferGeometry();
 const triangleVertices = new Float32Array([
@@ -23,13 +23,14 @@ const triangleVertices = new Float32Array([
 traingleGeometry.setAttribute('position', new BufferAttribute(triangleVertices, 3));
 
 // POLYGON
-const extrudeSettings = reactive({ 
-	depth: 2, 
-	bevelEnabled: true, 
-	bevelSegments: 2, 
-	steps: 2, 
-	bevelSize: 1, 
-	bevelThickness: 1 
+
+const extrudeSettings = reactive({
+  depth: 2,
+  bevelEnabled: true,
+  bevelSegments: 2,
+  steps: 2,
+  bevelSize: 1,
+  bevelThickness: 1
 });
 
 const polygonGeometry = ref()
@@ -77,9 +78,32 @@ const generatePolygonGeo = () => {
     }
   });
 
-  polygonGeometry.value = new ExtrudeGeometry(polygonShape, extrudeSettings );
+  polygonGeometry.value = new ExtrudeGeometry(polygonShape, extrudeSettings);
 }
 generatePolygonGeo();
+
+// ELLIPSE
+
+const ellipseShape = new Shape();
+const { edges: Eedges } = useEllipse({ xRadius: 1, yRadius: 0.5 })
+
+const [ellipseValue] = Eedges.value;
+console.log('jaime ~ ellipseValue:', ellipseValue);
+const storeCurves = [] 
+ellipseValue.map((vertex) => {
+  const curve = new CubicBezierCurve(
+    new Vector2( vertex.start.x, vertex.start.y ),
+    new Vector2( vertex.c1.x, vertex.c1.y ),
+    new Vector2( vertex.c2.x, vertex.c2.y ),
+    new Vector2( vertex.end.x, vertex.end.y )
+  );
+  storeCurves.push(curve);
+  // const points = curve.getPoints( 50 );
+  // console.log('jaime ~ ellipseGeometry:', ellipseGeometry);
+});
+const curve = new CurvePath();
+curve.curves = [...storeCurves];
+const ellipseGeometry = new BufferGeometry().setFromPoints( curve.getSpacedPoints(50))
 
 </script>
 <template>
@@ -89,8 +113,11 @@ generatePolygonGeo();
     <TresMesh name="triangle" :geometry="traingleGeometry">
       <TresMeshBasicMaterial :side="DoubleSide" :color="0x00ff00" />
     </TresMesh>
-    <TresMesh name="Polygon" v-log :position-y="2" :geometry="polygonGeometry">
+    <TresMesh name="Polygon" v-log :position-y="3" :geometry="polygonGeometry">
       <TresMeshBasicMaterial :side="DoubleSide" :color="0x00ff" :wireframe="polygonOptions.wireframe" />
     </TresMesh>
+    <TresLine name="Ellipse" :position-x="-3" :geometry="ellipseGeometry" >
+      <TresLineBasicMaterial :side="DoubleSide" :color="0xff0000"  />
+    </TresLine>
   </TresCanvas>
 </template>
