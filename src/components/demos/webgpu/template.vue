@@ -1,11 +1,11 @@
 <script setup>
-import { useLoop } from '@tresjs/core'
+// import { useLoop } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import WebGPURenderer from 'three/addons/renderers/webgpu/WebGPURenderer.js';
-// console.log('jaime ~ WebGPURenderer:', WebGPURenderer);
+// import WebGPURenderer from 'three/addons/renderers/webgpu/WebGPURenderer.js';
+// // console.log('jaime ~ WebGPURenderer:', WebGPURenderer);
 
 
-const gpuRenderer = new WebGPURenderer( { antialias: true } );
+// const gpuRenderer = new WebGPURenderer( { antialias: true } );
 // const { render } = useLoop()
 
 // render(({ camera, scene }) => {
