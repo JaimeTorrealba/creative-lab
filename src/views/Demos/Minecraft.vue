@@ -1,11 +1,12 @@
 <script setup>
 import { shallowRef, watch, reactive, computed, ref } from 'vue'
 import { TresCanvas } from '@tresjs/core'
-import { OrbitControls, Stats, useTweakPane } from '@tresjs/cientos';
+import { OrbitControls, Stats } from '@tresjs/cientos';
 import { MeshLambertMaterial, BoxGeometry, Object3D, InstancedMesh, Color } from 'three';
 import { getBlock, setBlockInstanceId, setBlockId, blocks, isBlockObscured } from '@/utils/minecraftHelpers'
 import { createNoise2D } from 'simplex-noise'
 import alea from 'alea';
+import { Pane } from 'tweakpane';
 
 // CONSTANTS
 const canvasRef = shallowRef(null)
@@ -26,7 +27,7 @@ const options = reactive({
 })
 const count = computed(() => size.width * size.width * size.height)
 
-const { pane } = useTweakPane()
+const pane = new Pane();
 pane.addBinding(size, 'width', {
   label: 'Width',
   min: 1,

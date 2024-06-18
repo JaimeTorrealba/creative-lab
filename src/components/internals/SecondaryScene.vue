@@ -1,7 +1,7 @@
 <script setup>
 import { ref, shallowRef } from 'vue'
 import { useTresContext, useRenderLoop } from '@tresjs/core'
-import { useFBO, useTweakPane } from '@tresjs/cientos'
+import { useFBO } from '@tresjs/cientos'
 
 
 </script>

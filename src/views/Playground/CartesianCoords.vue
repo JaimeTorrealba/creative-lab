@@ -1,7 +1,7 @@
 <script setup>
 import { shallowRef, reactive } from 'vue'
 import { TresCanvas } from '@tresjs/core'
-import { useTweakPane } from '@tresjs/cientos';
+import { Pane } from 'tweakpane';
 
 const cubeRef = shallowRef()
 
@@ -16,7 +16,7 @@ const options = reactive({
   rotationY: 0,
   rotationZ: 0,
 })
-const { pane } = useTweakPane()
+const pane = new Pane();
 
 pane.addBinding(options, 'x', {
   label: 'Pos X',

@@ -1,9 +1,10 @@
 <script setup>
 import { shallowRef, reactive, watch } from 'vue'
-import { MouseParallax, Sphere, useTweakPane, Stars } from '@tresjs/cientos'
+import { MouseParallax, Sphere, Stars } from '@tresjs/cientos'
 import { useTexture, TresCanvas, useRenderLoop } from '@tresjs/core'
 import { useEventListener } from '@vueuse/core'
 import { Vector3, MathUtils } from 'three'
+import { Pane } from 'tweakpane';
 
 const planeRef = shallowRef(null)
 const cloudRef = shallowRef(null)
@@ -51,7 +52,7 @@ const latLngToVec3 = (radius, { lat, lng }) => {
   )
 }
 
-const { pane } = useTweakPane()
+const pane = new Pane();
 const options = reactive({
   speed: 0.03
 })

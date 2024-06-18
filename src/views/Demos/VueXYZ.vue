@@ -3,7 +3,7 @@ import { reactive, ref, watch } from 'vue'
 import { TresCanvas, vLog } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import { useTriangle, usePolygon, useEllipse } from 'vuexyz'
-import { BufferGeometry, BufferAttribute, Shape, ExtrudeGeometry, DoubleSide, CubicBezierCurve,  Vector2, CurvePath } from 'three'
+import { BufferGeometry, BufferAttribute, Shape, ExtrudeGeometry, DoubleSide, CubicBezierCurve, Vector2, CurvePath } from 'three'
 import { Pane } from 'tweakpane';
 
 const pane = new Pane();
@@ -40,23 +40,27 @@ const polygonOptions = reactive({
   wireframe: true,
 })
 
-pane.addBinding(polygonOptions, 'sides', {
+const polygonPane = pane.addFolder({
+  title: 'Polygon',
+});
+
+polygonPane.addBinding(polygonOptions, 'sides', {
   min: 3,
   max: 12,
   steps: 1,
 });
-pane.addBinding(polygonOptions, 'wireframe');
-pane.addBinding(extrudeSettings, 'depth', {
+polygonPane.addBinding(polygonOptions, 'wireframe');
+polygonPane.addBinding(extrudeSettings, 'depth', {
   min: 1,
   max: 8,
   steps: 1,
 });
-pane.addBinding(extrudeSettings, 'bevelSegments', {
+polygonPane.addBinding(extrudeSettings, 'bevelSegments', {
   min: 1,
   max: 8,
   steps: 1,
 });
-pane.addBinding(extrudeSettings, 'bevelEnabled');
+polygonPane.addBinding(extrudeSettings, 'bevelEnabled');
 
 
 watch([polygonOptions, extrudeSettings], () => {
@@ -83,27 +87,53 @@ const generatePolygonGeo = () => {
 generatePolygonGeo();
 
 // ELLIPSE
+const ellipseGeometry = ref()
+const ellipseOptions = reactive({
+  xRadius: 1,
+  yRadius: 0.5,
+})
 
-const ellipseShape = new Shape();
-const { edges: Eedges } = useEllipse({ xRadius: 1, yRadius: 0.5 })
-
-const [ellipseValue] = Eedges.value;
-console.log('jaime ~ ellipseValue:', ellipseValue);
-const storeCurves = [] 
-ellipseValue.map((vertex) => {
-  const curve = new CubicBezierCurve(
-    new Vector2( vertex.start.x, vertex.start.y ),
-    new Vector2( vertex.c1.x, vertex.c1.y ),
-    new Vector2( vertex.c2.x, vertex.c2.y ),
-    new Vector2( vertex.end.x, vertex.end.y )
-  );
-  storeCurves.push(curve);
-  // const points = curve.getPoints( 50 );
-  // console.log('jaime ~ ellipseGeometry:', ellipseGeometry);
+const ellipsePane = pane.addFolder({
+  title: 'Ellipse',
 });
-const curve = new CurvePath();
-curve.curves = [...storeCurves];
-const ellipseGeometry = new BufferGeometry().setFromPoints( curve.getSpacedPoints(50))
+ellipsePane.addBinding(ellipseOptions, 'xRadius', {
+  min: 0.1,
+  max: 5,
+  steps: 0.1,
+});
+ellipsePane.addBinding(ellipseOptions, 'yRadius', {
+  min: 0.1,
+  max: 5,
+  steps: 0.1,
+});
+
+watch([ellipseOptions, extrudeSettings], () => {
+  generateEllipseGeo();
+}, { deep: true });
+
+const generateEllipseGeo = () => {
+  console.log('jaime ~ generateEllipseGeo ~ ellipseGeometry.value:', ellipseGeometry.value);
+  ellipseGeometry.value?.dispose();
+  ellipseGeometry.value = null;
+  const { edges: Eedges } = useEllipse({ xRadius: ellipseOptions.xRadius, yRadius: ellipseOptions.yRadius })
+
+  const [ellipseValue] = Eedges.value;
+  const storeCurves = []
+  ellipseValue.map((vertex) => {
+    const curve = new CubicBezierCurve(
+      new Vector2(vertex.start.x, vertex.start.y),
+      new Vector2(vertex.c1.x, vertex.c1.y),
+      new Vector2(vertex.c2.x, vertex.c2.y),
+      new Vector2(vertex.end.x, vertex.end.y)
+    );
+    storeCurves.push(curve);
+  });
+  const curve = new CurvePath();
+  curve.curves = [...storeCurves];
+  ellipseGeometry.value = new BufferGeometry().setFromPoints(curve.getSpacedPoints(50))
+}
+generateEllipseGeo()
+
 
 </script>
 <template>
@@ -116,8 +146,8 @@ const ellipseGeometry = new BufferGeometry().setFromPoints( curve.getSpacedPoint
     <TresMesh name="Polygon" v-log :position-y="3" :geometry="polygonGeometry">
       <TresMeshBasicMaterial :side="DoubleSide" :color="0x00ff" :wireframe="polygonOptions.wireframe" />
     </TresMesh>
-    <TresLine name="Ellipse" :position-x="-3" :geometry="ellipseGeometry" >
-      <TresLineBasicMaterial :side="DoubleSide" :color="0xff0000"  />
+    <TresLine name="Ellipse" :position-x="-3" :geometry="ellipseGeometry">
+      <TresLineBasicMaterial :side="DoubleSide" :color="0xff0000" />
     </TresLine>
   </TresCanvas>
 </template>

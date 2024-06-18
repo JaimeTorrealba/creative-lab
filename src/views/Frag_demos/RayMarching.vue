@@ -1,10 +1,10 @@
 <script setup>
 import { watchEffect, reactive } from 'vue'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
-import { useTweakPane } from '@tresjs/cientos'
 import { useWindowSize } from '@vueuse/core'
 import { Vector2 } from 'three'
 import fragment from '@/components/shaders/ray_marching/fragment.glsl'
+import { Pane } from 'tweakpane';
 
 const { width, height } = useWindowSize()
 
@@ -50,7 +50,7 @@ onLoop(({ elapsed }) => {
 })
 
 const camera = reactive({y:1})
-const { pane } = useTweakPane()
+const pane = new Pane();
 
 pane.addBinding(camera, 'y', { min: -5, max: 5 })
 </script>

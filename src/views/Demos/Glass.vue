@@ -1,9 +1,10 @@
 <script setup>
 import { shallowRef, reactive, watch } from 'vue'
-import { OrbitControls, useTweakPane } from '@tresjs/cientos'
+import { OrbitControls } from '@tresjs/cientos'
 import { useTexture, TresCanvas } from '@tresjs/core'
 import { EquirectangularReflectionMapping } from 'three'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+import { Pane } from 'tweakpane';
 
 const { map } = await useTexture({map:'/textures/glassMorphismTexture.jpg'})
 const { map:normalMap } = await useTexture({map:'/textures/glassMorphismNormal.jpg'})
@@ -34,7 +35,7 @@ const hdrEquirect = await new RGBELoader().load(
     clearcoatNormalScale: 0.3,
   })
 
-  const { pane } = useTweakPane()
+  const pane = new Pane();
 
   pane.addBinding(options, 'transmission', {
   label: 'transmission',

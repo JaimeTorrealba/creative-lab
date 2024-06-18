@@ -1,9 +1,10 @@
 <script setup>
 import { computed } from 'vue'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
-import { useAnimations, useGLTF, useTweakPane } from '@tresjs/cientos'
+import { useAnimations, useGLTF } from '@tresjs/cientos'
 import { PerspectiveCamera, Vector4, Vector3 } from 'three'
 import { useWindowSize, useDevicePixelRatio  } from '@vueuse/core'
+import { Pane } from 'tweakpane';
 
 const { width, height } = useWindowSize()
 const { pixelRatio } = useDevicePixelRatio()
@@ -59,7 +60,7 @@ let currentAction = actions.Idle
 
 currentAction.play()
 
-const { pane } = useTweakPane()
+const pane = new Pane();
 
 const animationList = pane.addBlade({
   view: 'list',
