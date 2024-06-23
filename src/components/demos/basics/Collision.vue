@@ -1,16 +1,24 @@
 <script setup>
 import { shallowRef } from 'vue'
 import { useLoop } from '@tresjs/core'
-import { OrbitControls, TransformControls } from '@tresjs/cientos'
+import { OrbitControls, TransformControls, useGLTF } from '@tresjs/cientos'
 import { useBasicCollision } from '../../../utils/useBasicCollision'
 
 const greenBox = shallowRef(null)
 const redSphere = shallowRef(null)
 const blueBox = shallowRef(null)
+const modelRef = shallowRef(null)
+
+
+const { scene } = await useGLTF('/models/PixelArt Medieval Sword.glb')
+
+const model = scene.children[0].clone()
 
 const { check } = useBasicCollision([greenBox,
     blueBox,
-    redSphere])
+    redSphere,
+    modelRef
+])
 
 const { onBeforeRender } = useLoop()
 
@@ -39,4 +47,6 @@ onBeforeRender(() => {
         <TresBoxGeometry :args="[2, 2, 2]" />
         <TresMeshBasicMaterial :color="0x00ff" />
     </TresMesh>
+    <primitive :position-x="3" ref="modelRef" :object="model" />
+    <TresAmbientLight />
 </template>
