@@ -1,6 +1,7 @@
 import { generateRoute } from '../utils'
 
 const descriptions = {
+  multiClone: 'A initial example of how to use an ArrayModifier to create meshes.',
   followPath:
     'You can transform a model to follow a path (and svg one, in this case) and make it bend and rotate accordingly. This effect is base on: https://youtu.be/NH4rSzHLCp4',
   glass:
@@ -25,6 +26,7 @@ const descriptions = {
 }
 
 export const demos = [
+  generateRoute('MultiClone', 'Demos', descriptions.multiClone),
   generateRoute('CSG', 'Demos', descriptions.CSG),
   generateRoute('CSS2DRenderer', 'Demos', descriptions.CSS2DRenderer),
   generateRoute('FollowPath', 'Demos', descriptions.followPath),
