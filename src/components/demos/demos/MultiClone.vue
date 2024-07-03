@@ -24,21 +24,10 @@ pane.addBinding(options, 'count', {
     max: 50,
     step: 1,
 })
-
 </script>
 <template>
-    <!-- <TresMesh>
-        <TresBoxGeometry :args="[1, 1, 1]" />
-        <TresMeshBasicMaterial :color="0x00ff00" /> 
-    </TresMesh> -->
-    <MultiCloneComponent 
-    ref="multiCloneRef"
-    :position="[-10, 0, 0]" :count="options.count" 
-    :mesh="mesh" 
-    :x-gap="[2, -7, 3, 3]" 
-    :y-gap="[-0.25, 0, 0.25]"
-    :z-gap="[-3, 3, 5, -4]" 
-    />
+    <MultiCloneComponent ref="multiCloneRef" :position="[-10, 0, 0]" :count="options.count" :mesh="mesh"
+        :x-gap="[2, -7, 3, 3]" :y-gap="[-0.25, 0, 0.25]" :z-gap="[-3, 3, 5, -4]" />
     <TresMesh :rotation-x="-Math.PI * 0.5" :position-y="-1">
         <TresPlaneGeometry :args="[100, 100]" />
         <TresMeshBasicMaterial :color="0xe4e4e4" />

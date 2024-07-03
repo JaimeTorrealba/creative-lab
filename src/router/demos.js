@@ -23,9 +23,11 @@ const descriptions = {
   fog:
   'A custom fog, done by modify the global shaders directly from threejs. This effect is base on https://youtu.be/k1zGz55EqfU?si=6Qa_5lP2NIPiBwxO',
   xyz: 'simple demo using VueYZ library',
+  skyDome: 'Demo of how to use Sky dome as a background',
 }
 
 export const demos = [
+  generateRoute('SkyDome', 'Demos', descriptions.skyDome),
   generateRoute('MultiClone', 'Demos', descriptions.multiClone),
   generateRoute('CSG', 'Demos', descriptions.CSG),
   generateRoute('CSS2DRenderer', 'Demos', descriptions.CSS2DRenderer),
