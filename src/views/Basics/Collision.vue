@@ -1,13 +1,13 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import Collision from '../../components/demos/basics/Collision.vue'
+import TheExperience from '@/components/demos/basics/CollisionDemo.vue'
 
 </script>
 <template>
   <TresCanvas window-size clear-color="#111" ref="canvasRef">
     <TresPerspectiveCamera :position="[0, 0, 20]" />
     <Suspense>
-      <Collision />
+      <TheExperience />
     </Suspense>
   </TresCanvas>
 </template>

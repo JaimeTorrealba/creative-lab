@@ -4,7 +4,17 @@ This is a personal collection of some basic scene, you could take whatever you w
 
 All the code is reference in the same page
 
-## Recommended IDE Setup
+## My Standard
+
+Folders starts with LowerCase
+Files starts with UpperCase
+
+Components end with "Demo"
+pages end with "View"
+
+The creation of the routes come from an object
+
+## Assets
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 

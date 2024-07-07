@@ -10,10 +10,10 @@ const modifier = new EdgeSplitModifier();
 const isModified = ref(false);
 
 const smoothGeometry = () => {
-    const baseGeometry = icoRef.value.geometry;
-    icoRef.value.geometry = modifier.modify(
+  const baseGeometry = icoRef.value.geometry;
+  icoRef.value.geometry = modifier.modify(
     baseGeometry,
-    Math.PI *2 ,
+    Math.PI * 2,
     // params.tryKeepNormals
   );
   isModified.value = true;
@@ -21,22 +21,22 @@ const smoothGeometry = () => {
 
 watch(icoRef, (ico) => {
   if (!ico) return;
-//   smoothGeometry();
+  //   smoothGeometry();
 });
 
 const changeGeo = () => {
-    icoRef.value.geometry.dispose();
-    if(isModified.value) {
-        icoRef.value.geometry = new IcosahedronGeometry(1, 1);
-        isModified.value = false;
-    } else {
-        console.log('jaime ~ changeGeo ~ isModified.value:', isModified.value);
-        smoothGeometry();
-    }
+  icoRef.value.geometry.dispose();
+  if (isModified.value) {
+    icoRef.value.geometry = new IcosahedronGeometry(1, 1);
+    isModified.value = false;
+  } else {
+    console.log('jaime ~ changeGeo ~ isModified.value:', isModified.value);
+    smoothGeometry();
+  }
 }
 </script>
 <template>
-    <button @click="changeGeo" class="button">Click here</button>
+  <button @click="changeGeo" class="button">Click here</button>
   <TresCanvas window-size clear-color="#111" ref="canvasRef">
     <TresPerspectiveCamera :position="[0, 0, 3]" :fov="45" :aspect="1" :near="0.1" :far="1000" />
     <OrbitControls />
