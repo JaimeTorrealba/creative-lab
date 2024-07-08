@@ -12,7 +12,6 @@ const descriptions = {
     'It creates an infinite flow of particles without using a shader. This is the native way, but you have available an abstraction to do it in TresJs. https://cientos.tresjs.org/guide/abstractions/precipitation.html',
   multiCamera:
     'You can create an array of cameras, each one with its own viewport and its own configurations.',
-  pathTracing: 'An adnanced way to render a scene using path tracing. We can do this using the https://github.com/gkjohnson/three-gpu-pathtracer/tree/main',
   randomMovement:
     'A fun example using random movements to create a ant colony with gsap. Thanks to "Ant walkcycle" (https://skfb.ly/ZsMz) by Matrix Rex is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/)',
   infiniteTube: 'A simple and funny way to create the illusion of an infinite tube.',
@@ -43,7 +42,6 @@ export const demos = [
     'Following this tutorial: https://youtu.be/tsOTCn0nROI?si=DY32m9v2Vl3jhQqy.'
   ),
   generateRoute('MultiCamera', 'Demos', descriptions.multiCamera),
-  generateRoute('PathTracing', 'Demos', descriptions.pathTracing),
   generateRoute('RandomMovement', 'Demos', descriptions.randomMovement),
   generateRoute('StencilMask', 'Demos', descriptions.stencilMask),
   generateRoute('TwoScenes', 'Demos', descriptions.twoScenes),
