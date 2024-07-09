@@ -1,23 +1,22 @@
 <script setup>
-import { watchEffect, ref, shallowRef, computed } from 'vue'
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
+import { watchEffect, ref, computed } from 'vue'
+import { useLoop, useTresContext } from '@tresjs/core'
 import { useGLTF, useAnimations } from '@tresjs/cientos'
 import { useMagicKeys } from '@vueuse/core'
 import { Quaternion, Vector3 } from 'three'
-import { useWindowSize } from '@vueuse/core'
 
 const { scene: model, animations } = await useGLTF('/models/footman/source/Footman_RIG.glb')
 const { actions, mixer } = useAnimations(animations, model)
 
 //constants
 const fadeDuration = 0.3
-const { width, height } = useWindowSize()
+
 const decceleration = new Vector3(-0.0005, -0.0001, -5.0);
 const acceleration = new Vector3(1, 0.25, 50.0);
 const velocity = new Vector3(0, 0, 0);
 
 // template ref
-const cameraRef = shallowRef()
+const { camera: cameraRef } = useTresContext()
 
 const curruentAction = ref(actions.Idle)
 curruentAction.value.play()
@@ -141,9 +140,9 @@ const thirdPersonCamera = (elapsed, model3D, camera) => {
   camera.position.copy(currentPosition);
   camera.lookAt(currentLookat);
 }
-const { onLoop } = useRenderLoop()
+const { onBeforeRender } = useLoop()
 
-onLoop(({ delta, elapsed }) => {
+onBeforeRender(({ delta, elapsed }) => {
   mixer.update(delta * 0.5)
   if (model && cameraRef.value) {
     onMovement(delta * 0.5)
@@ -153,11 +152,8 @@ onLoop(({ delta, elapsed }) => {
 
 </script>
 <template>
-  <TresCanvas window-size clear-color="#111" ref="canvasRef">
-    <TresPerspectiveCamera ref="cameraRef" :args="[45, width / height, 0.1, 1000]" :position="[25, 10, 25]" />
     <primitive :object="model" />
     <TresGridHelper :size="100" :divisions="100" />
     <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
     <TresAmbientLight />
-  </TresCanvas>
 </template>

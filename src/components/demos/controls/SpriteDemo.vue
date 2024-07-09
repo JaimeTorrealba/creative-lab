@@ -1,11 +1,9 @@
 <script setup>
 import { ref, shallowRef, computed } from 'vue'
-import { TresCanvas, useRenderLoop, useTexture } from '@tresjs/core'
+import { useLoop, useTexture, useTresContext } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import { useMagicKeys } from '@vueuse/core'
-import { Vector3 } from 'three'
-import { useWindowSize } from '@vueuse/core'
-import { NearestFilter } from 'three'
+import { Vector3, NearestFilter } from 'three'
 
 //constants
 const tilesHorizontal = 9
@@ -15,7 +13,6 @@ const velocity = 5
 const rotateAngle = new Vector3(0, 1, 0)
 const cameraTarget = new Vector3()
 const walkDirection = new Vector3()
-const { width, height } = useWindowSize()
 const playSpriteIndicesGlobal = ref()
 const runningTileArrayIndex = ref()
 const maxDisplayTime = ref()
@@ -48,7 +45,7 @@ const spritesLoop = (playSpriteIndices, totalDuration) => {
 spritesLoop([0, 1, 2, 3, 4, 5], 0.65)
 
 // template ref
-const cameraRef = shallowRef()
+const { camera: cameraRef } = useTresContext()
 const orbitControlsRef = shallowRef()
 const spriteRef = shallowRef()
 
@@ -106,9 +103,9 @@ const updateCameraTarget = (moveX, moveZ) => {
   cameraTarget.z = spriteRef.value.position.z
   orbitControlsRef.value.value.target = cameraTarget
 }
-const { onLoop } = useRenderLoop()
+const { onBeforeRender } = useLoop()
 
-onLoop(({ delta }) => {
+onBeforeRender(({ delta }) => {
   elapsedTimeGlobal.value += delta
   orbitControlsRef.value.value.update()
   if (maxDisplayTime.value > 0 && elapsedTimeGlobal.value >= maxDisplayTime.value) {
@@ -120,18 +117,14 @@ onLoop(({ delta }) => {
   }
 
 })
-
 </script>
 <template>
-  <TresCanvas window-size clear-color="#111" ref="canvasRef">
-    <TresPerspectiveCamera ref="cameraRef" :args="[45, width / height, 0.1, 1000]" :position="[0, 5, 5]" />
     <OrbitControls enableDamping :enable-pan="false" :min-distance="5" :max-distance="15"
-      :max-polar-angle="Math.PI / 2 - 0.05" ref="orbitControlsRef" />
+        :max-polar-angle="Math.PI / 2 - 0.05" ref="orbitControlsRef" />
     <TresSprite ref="spriteRef" :scale="2">
-      <TresSpriteMaterial :map="map" />
+        <TresSpriteMaterial :map="map" />
     </TresSprite>
     <TresGridHelper position-y="-1" :size="50" :divisions="50" />
     <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
     <TresAmbientLight />
-  </TresCanvas>
 </template>

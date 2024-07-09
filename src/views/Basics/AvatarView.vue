@@ -5,7 +5,7 @@ import TheExperience from '@/components/demos/basics/AvatarDemo.vue'
 
 </script>
 <template>
-  <TresCanvas window-size clear-color="#111" ref="canvasRef">
+  <TresCanvas window-size clear-color="#111">
     <TresPerspectiveCamera :position="[0, 3, 3]" :args="[45, 1, 0.1, 1000]" />
     <OrbitControls />
     <Suspense>

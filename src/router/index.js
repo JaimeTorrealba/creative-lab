@@ -25,7 +25,7 @@ const router = createRouter({
     ...basic(),
     ...demos,
     ...html_demos,
-    ...controls_demos,
+    ...controls_demos(),
     ...shaders_demos,
     ...fragment_demos,
     // ...webgpu_demos

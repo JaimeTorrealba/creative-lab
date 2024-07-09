@@ -1,6 +1,6 @@
 <script setup>
 import { watchEffect, ref, shallowRef, computed } from 'vue'
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
+import { useLoop, useTresContext } from '@tresjs/core'
 import { OrbitControls, useGLTF, useAnimations } from '@tresjs/cientos'
 import { useMagicKeys } from '@vueuse/core'
 import { Quaternion, Vector3 } from 'three'
@@ -17,10 +17,9 @@ const rotateAngle = new Vector3(0, 1, 0)
 const cameraTarget = new Vector3()
 const walkDirection = new Vector3()
 const rotateQuarternion = new Quaternion()
-const { width, height } = useWindowSize()
 
 // template ref
-const cameraRef = shallowRef()
+const { camera: cameraRef } = useTresContext()
 const orbitControlsRef = shallowRef()
 
 const curruentAction = ref(actions.Idle)
@@ -141,9 +140,9 @@ const updateCameraTarget = (moveX, moveZ) => {
   cameraTarget.z = model.position.z
   orbitControlsRef.value.value.target = cameraTarget
 }
-const { onLoop } = useRenderLoop()
+const { onBeforeRender } = useLoop()
 
-onLoop(({ delta }) => {
+onBeforeRender(({ delta }) => {
   mixer.update(delta * 0.5)
   orbitControlsRef.value.value.update()
   if (cameraRef.value && orbitControlsRef.value && hasPressed.value) {
@@ -151,16 +150,12 @@ onLoop(({ delta }) => {
   }
 
 })
-
 </script>
 <template>
-  <TresCanvas window-size clear-color="#111" ref="canvasRef">
-    <TresPerspectiveCamera ref="cameraRef" :args="[45, width / height, 0.1, 1000]" :position="[0, 5, 5]" />
     <OrbitControls enableDamping :enable-pan="false" :min-distance="5" :max-distance="15"
-      :max-polar-angle="Math.PI / 2 - 0.05" ref="orbitControlsRef" />
+        :max-polar-angle="Math.PI / 2 - 0.05" ref="orbitControlsRef" />
     <primitive :object="model" />
     <TresGridHelper :size="50" :divisions="50" />
     <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
     <TresAmbientLight />
-  </TresCanvas>
 </template>
