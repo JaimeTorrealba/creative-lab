@@ -1,13 +1,14 @@
 <script setup>
 import { watchEffect } from 'vue'
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
+import { useLoop } from '@tresjs/core'
 import { useWindowSize } from '@vueuse/core'
 import { Vector2 } from 'three'
-import fragment from '@/components/shaders/ray_marching_operations/fragment.glsl'
+import fragment from './shaders/template/fragment.glsl'
 
 const { width, height } = useWindowSize()
 
 const shader = {
+    //We don't touch the vertex shader
   vertexShader: `
   varying vec2 vUv;
   varying vec3 vNormal;
@@ -16,8 +17,7 @@ const shader = {
   uniform vec2 uResolution;
 
     void main(){
-      //gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-      gl_Position = modelViewMatrix * vec4(position, 1.0);
+      gl_Position =  vec4(position, 1.0);
       vUv = uv;
       vNormal = normal;
       vPosition = position;
@@ -35,32 +35,24 @@ const shader = {
 }
 
 watchEffect(() => {
+    // Resize Observer
   shader.uniforms.uResolution.value = new Vector2(width.value, height.value)
 })
 
 const updateUniforms = (ev) => {
-  const newUv = new Vector2( ev.uv.x * 16 - 8, ev.uv.y * 16 - 10)
+    // Mouse Observer
+  ev.object.material.uniforms.uHover.value = ev.uv
+}
 
-   ev.object.material.uniforms.uHover.value = newUv
- }
+const { onBeforeRender } = useLoop()
 
-const { onLoop } = useRenderLoop()
-
-onLoop(({ elapsed }) => {
+onBeforeRender(({ elapsed }) => {
   shader.uniforms.uTime.value = elapsed
 })
-
 </script>
 <template>
-    <TresCanvas window-size clear-color="#111">
-      <TresPerspectiveCamera :position="[0, 1, 1]" />
-      <TresMesh @pointer-move="(ev) => updateUniforms(ev)">
+    <TresMesh @pointer-move="(ev) => updateUniforms(ev)">
         <TresPlaneGeometry :args="[4, 4]" />
         <TresShaderMaterial v-bind="shader" />
       </TresMesh>
-
-      <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />
-      <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
-      <TresAmbientLight />
-    </TresCanvas>
 </template>

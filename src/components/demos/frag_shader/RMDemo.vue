@@ -1,10 +1,10 @@
 <script setup>
-import { watchEffect, reactive } from 'vue'
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
+import { watchEffect } from 'vue'
+import { useLoop } from '@tresjs/core'
 import { useWindowSize } from '@vueuse/core'
 import { Vector2 } from 'three'
-import fragment from '@/components/shaders/ray_marching/fragment.glsl'
-import { Pane } from 'tweakpane';
+import fragment from './shaders/ray_marching/fragment.glsl'
+
 
 const { width, height } = useWindowSize()
 
@@ -43,28 +43,17 @@ const updateUniforms = (ev) => {
    ev.object.material.uniforms.uHover.value = ev.uv
  }
 
-const { onLoop } = useRenderLoop()
+const { onBeforeRender } = useLoop()
 
-onLoop(({ elapsed }) => {
+onBeforeRender(({ elapsed }) => {
   shader.uniforms.uTime.value = elapsed
 })
 
-const camera = reactive({y:1})
-const pane = new Pane();
 
-pane.addBinding(camera, 'y', { min: -5, max: 5 })
 </script>
 <template>
-    <TresCanvas window-size clear-color="#111">
-      <TresPerspectiveCamera :position="[0, camera.y, 1]" />
-      <!-- <OrbitControls /> -->
-      <TresMesh @pointer-move="(ev) => updateUniforms(ev)">
+    <TresMesh @pointer-move="(ev) => updateUniforms(ev)">
         <TresPlaneGeometry :args="[4, 4]" />
         <TresShaderMaterial v-bind="shader" />
       </TresMesh>
-
-      <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />
-      <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
-      <TresAmbientLight />
-    </TresCanvas>
 </template>

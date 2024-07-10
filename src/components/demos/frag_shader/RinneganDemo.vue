@@ -1,9 +1,8 @@
 <script setup>
 import { watchEffect } from 'vue'
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { useWindowSize } from '@vueuse/core'
 import { Vector2 } from 'three'
-import fragment from '@/components/shaders/rinnegan/fragment.glsl'
+import fragment from './shaders/rinnegan/fragment.glsl'
 
 const { width, height } = useWindowSize()
 
@@ -40,23 +39,10 @@ watchEffect(() => {
 const updateUniforms = (ev) => {
    ev.object.material.uniforms.uHover.value = ev.uv
  }
-
-const { onLoop } = useRenderLoop()
-
-onLoop(({ elapsed }) => {
-  shader.uniforms.uTime.value = elapsed
-})
 </script>
 <template>
-    <TresCanvas window-size clear-color="#111">
-      <TresPerspectiveCamera :position="[0, 0, 5]" />
-      <TresMesh @pointer-move="(ev) => updateUniforms(ev)">
+    <TresMesh @pointer-move="(ev) => updateUniforms(ev)">
         <TresPlaneGeometry :args="[4, 4]" />
         <TresShaderMaterial v-bind="shader" />
       </TresMesh>
-
-      <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />
-      <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
-      <TresAmbientLight />
-    </TresCanvas>
 </template>
