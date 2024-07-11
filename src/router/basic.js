@@ -24,17 +24,31 @@ const basic_routes = [
       'In this demo we can see how to create a 3D earth, make it draggable, some parallax clouds on top and add some markers (to any city). It has also stars, MouseParallax effects and a simple GUI to control the rotation speed.'
   },
   {
-    name: 'IsComponent',
-    description: 'Simple experiment using <component :is /> built in vue feature'
+    name: 'Gaea',
+    description:
+      'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.'
   },
   {
     name: 'Guide',
     description: ' Helpers to understand the 3D world with status'
   },
   {
+    name: 'IsComponent',
+    description: 'Simple experiment using <component :is /> built in vue feature'
+  },
+  {
     name: 'Nebula',
     description:
       'A simple nebula generator using smoke abstraction on cientos, and post-processing. This effect is base on: https://youtu.be/5f5wwQb22tE'
+  },
+  {
+    name: 'SelectableGrid',
+    description:
+      'How to select a grid (tile) in a plane using the mouse. based on this video: https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG'
+  },
+  {
+    name: 'ShadeSmooth',
+    description: 'Using the edgeSplitModifier to smooth the edges of a Icosahedron.'
   },
   {
     name: 'Transition',
@@ -47,23 +61,9 @@ const basic_routes = [
     description: 'Six textures Demo Illusion'
   },
   {
-    name: 'Gaea',
-    description:
-      'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.'
-  },
-  {
-    name: 'SelectableGrid',
-    description:
-      'How to select a grid (tile) in a plane using the mouse. based on this video: https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG'
-  },
-  {
     name: 'SphericalCoords',
     description: 'Simple pendulum using spherical coordinates.'
   },
-  {
-    name: 'ShadeSmooth',
-    description: 'Using the edgeSplitModifier to smooth the edges of a Icosahedron.'
-  }
 ]
 
 export const basic = () => {
