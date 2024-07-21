@@ -9,6 +9,7 @@ import { controls_demos } from './controls_demos'
 // import { webgpu_demos } from './webgpu_demos.js'
 import { generateRoute } from '../utils'
 
+console.log('jaime', generateRoute('Template', 'Playground', ''));
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -19,7 +20,7 @@ const router = createRouter({
       },
       component: Home,
     },
-    generateRoute('Template', 'Playground', ''),
+    generateRoute('template', 'Playground', ''),
     generateRoute('CartesianCoords', 'Playground', ''),
     ...basic(),
     ...demos(),

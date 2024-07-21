@@ -67,7 +67,7 @@ const demos_routes = [
       'Using render target to create two scenes and, one inside the other. based on this video: https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW'
   },
   {
-    name: 'XYZ',
+    name: 'VueXYZ',
     description: 'simple demo using VueYZ library'
   },
 ]
