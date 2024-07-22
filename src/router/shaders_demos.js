@@ -5,10 +5,10 @@ const shaders_routes = [
     name: 'AudioAnalyser',
     description: 'Simple Audio blob with shaders and tresjs'
   },
-  {
-    name: 'ChromaticAberration',
-    description: 'Simple Chromatic Aberration with shaders and tresjs'
-  },
+  // {
+  //   name: 'ChromaticAberration',
+  //   description: 'Simple Chromatic Aberration with shaders and tresjs'
+  // },
   {
     name: 'CoffeeCup',
     description: 'Coffee practice from Bruno Simon. ThreeJs Journey. https://threejs-journey.com/'

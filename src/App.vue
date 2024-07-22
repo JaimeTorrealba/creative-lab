@@ -1,7 +1,6 @@
-<script setup></script>
+
 
 <template>
-  <!-- <theNavbar /> -->
   <v-app>
     <component :is="$route.meta.layout || 'div'">
       <Suspense>
