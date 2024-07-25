@@ -49,14 +49,6 @@ const shaders_routes = [
     description: 'A simple ring made of particles using shaders'
   },
   {
-    name: 'RandomPoints',
-    description: 'Simple plane with random points for future effects. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
-  },
-  {
-    name: 'Ripple',
-    description: 'A WebGl ripple effect (like material design) but using shaders. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
-  },
-  {
     name: 'ShaderStar',
     description:
       'A star made with shaders, a combination of colors and techniques like fresnel, matrix rotation, multi layer. This effect is base on: https://www.youtube.com/live/3krH52AhPqk?feature=share'
@@ -66,8 +58,12 @@ const shaders_routes = [
     description: 'A WebGl slider made with shaders, using distorsión in images. This effect is base on: https://github.com/akella/webGLImageTransitions'
   },
   {
-    name: 'WaterReflection',
+    name: 'WaterReflector',
     description: 'A test to try how the water reflection works on Tresjs, using the ReflectorMesh addons. Based on this video: https://youtu.be/PAy5aQK2pSg?si=4dCtEjHRNGG9tQIH'
+  },
+  {
+    name: 'Wave',
+    description: 'A WebGl ripple effect (like material design) but using shaders. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
   },
 ]
 

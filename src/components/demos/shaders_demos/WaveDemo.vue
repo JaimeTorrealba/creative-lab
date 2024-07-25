@@ -1,10 +1,9 @@
 <script setup>
 import gsap from 'gsap'
-import { TresCanvas } from '@tresjs/core'
 import { Text3D } from '@tresjs/cientos'
 import { Vector2 } from 'three'
-import fragment from '@/components/shaders/wave/fragment.glsl'
-import vertex from '@/components/shaders/wave/vertex.glsl'
+import fragment from './shaders/wave/fragment.glsl'
+import vertex from './shaders/wave/vertex.glsl'
 
 const fontPath = 'https://raw.githubusercontent.com/Tresjs/assets/main/fonts/FiraCodeRegular.json'
 
@@ -32,10 +31,7 @@ const showWave = (ev) => {
 }
 </script>
 <template>
-  <Suspense>
-    <TresCanvas window-size clear-color="#111">
-      <TresPerspectiveCamera :position="[0, 0, 5]" />
-      <Suspense>
+    <Suspense>
         <Text3D
           text="Click on plane"
           :font="fontPath"
@@ -49,10 +45,4 @@ const showWave = (ev) => {
         <TresPlaneGeometry :args="[4, 4]" />
         <TresShaderMaterial v-bind="shader" />
       </TresMesh>
-
-      <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />
-      <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
-      <TresAmbientLight />
-    </TresCanvas>
-  </Suspense>
 </template>

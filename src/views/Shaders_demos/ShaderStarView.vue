@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { BasicShadowMap, NoToneMapping } from 'three'
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
+import { TresCanvas } from '@tresjs/core'
 import { MouseParallax, Stars } from '@tresjs/cientos'
-import Vertex from '@/components/shaders/star/vertex.glsl'
-import Fragment from '@/components/shaders/star/fragment.glsl'
+import { BasicShadowMap, NoToneMapping } from 'three'
+import TheExperience from '@/components/demos/shaders_demos/ShaderStarDemo.vue'
 
 const gl = {
   clearColor: '#111',
@@ -12,18 +11,6 @@ const gl = {
   shadowMapType: BasicShadowMap,
   toneMapping: NoToneMapping,
 }
-const shader = {
-  vertexShader: Vertex,
-  fragmentShader: Fragment,
-  uniforms: {
-    uTime: { value: 0 },
-  },
-}
-const { onLoop } = useRenderLoop()
-
-onLoop(() => {
-  shader.uniforms.uTime.value += 0.01
-})
 </script>
 
 <template>
@@ -31,10 +18,9 @@ onLoop(() => {
     <TresPerspectiveCamera :position="[0, 0, 5]" :fov="75" :near="0.1" :far="1000" />
     <MouseParallax :factor="1" />
     <Stars />
-    <TresMesh :scale="2" :position="[0.5, 0.5, 0]" cast-shadow>
-      <TresSphereGeometry :args="[1, 30, 30]" />
-      <TresShaderMaterial v-bind="shader" />
-    </TresMesh>
+    <Suspense>
+      <TheExperience />
+    </Suspense>
     <TresAmbientLight :intensity="1" />
   </TresCanvas>
 </template>

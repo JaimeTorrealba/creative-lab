@@ -53,6 +53,10 @@ const demos_routes = [
       'A fun example using random movements to create a ant colony with gsap. Thanks to "Ant walkcycle" (https://skfb.ly/ZsMz) by Matrix Rex is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/)'
   },
   {
+    name: 'RandomPoints',
+    description: 'Simple plane with random points for future effects. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
+  },
+  {
     name: 'SkyDome',
     description: 'Demo of how to use Sky dome as a background'
   },

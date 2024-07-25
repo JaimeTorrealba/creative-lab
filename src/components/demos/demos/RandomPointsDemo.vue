@@ -1,7 +1,5 @@
 <script setup>
 import { shallowRef, watch } from 'vue'
-import { TresCanvas } from '@tresjs/core'
-import { OrbitControls } from '@tresjs/cientos'
 import { Vector3, BufferGeometry } from 'three'
 import PoissonDiskSampling from 'poisson-disk-sampling'
 import Delaunator from 'delaunator'
@@ -40,17 +38,10 @@ watch(planeRef, (plane) => {
     plane.geometry = geometry
 
 })
-
 </script>
 <template>
-  <TresCanvas window-size clear-color="#111" ref="canvasRef">
-    <TresPerspectiveCamera :position="[0, 5, 0]" :fov="45" :aspect="1" :near="0.1" :far="1000" :look-at="[0,0,0]"/>
-    <OrbitControls />
     <TresMesh ref="planeRef" :position="[0,0, 0]">
-      <TresPlaneGeometry :args="[10, 10, 50, 50]" />
-      <TresShaderMaterial wireframe />
-    </TresMesh>
-    <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
-    <TresAmbientLight />
-  </TresCanvas>
+        <TresPlaneGeometry :args="[10, 10, 50, 50]" />
+        <TresShaderMaterial wireframe />
+      </TresMesh>
 </template>

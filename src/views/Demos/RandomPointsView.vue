@@ -1,10 +1,13 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/shaders_demos/SliderDemo.vue'
+import { OrbitControls } from '@tresjs/cientos'
+import TheExperience from '@/components/demos/demos/RandomPointsDemo.vue'
+
 </script>
 <template>
   <TresCanvas window-size clear-color="#111">
-    <TresPerspectiveCamera :position="[0, 0, 5]" />
+    <TresPerspectiveCamera :position="[0, 5, 0]" :look-at="[0,0,0]"/>
+    <OrbitControls />
     <Suspense>
       <TheExperience />
     </Suspense>
