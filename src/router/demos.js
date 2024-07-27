@@ -39,6 +39,10 @@ const demos_routes = [
     description: 'Following this tutorial: https://youtu.be/tsOTCn0nROI?si=DY32m9v2Vl3jhQqy.'
   },
   {
+    name: 'MirrorModifier',
+    description: 'A simple Mirror modifier from scrath'
+  },
+  {
     name: 'MultiCamera',
     description:
       'You can create an array of cameras, each one with its own viewport and its own configurations.'
