@@ -35,6 +35,10 @@ const demos_routes = [
     description: 'A simple and funny way to create the illusion of an infinite tube.'
   },
   {
+    name: 'LightStrike',
+    description: 'Using the LightStrike Geometry on threejs. Based on: https://www.youtube.com/watch?v=fezzkdjHoiI'
+  },
+  {
     name: 'Minecraft',
     description: 'Following this tutorial: https://youtu.be/tsOTCn0nROI?si=DY32m9v2Vl3jhQqy.'
   },
