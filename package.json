@@ -11,7 +11,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@jaimebboyjt/tres-fps-controls": "^0.0.53",
+    "@jaimebboyjt/tres-fps-controls": "^0.0.52",
     "@tresjs/cientos": "^4.0.3",
     "@tresjs/core": "^4.2.1",
     "@tresjs/post-processing": "^0.7.1",
