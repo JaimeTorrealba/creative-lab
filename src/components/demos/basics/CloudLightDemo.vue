@@ -1,7 +1,6 @@
 <script setup>
 import { shallowRef, watch } from 'vue';
-import { useTexture, useLoop } from '@tresjs/core'
-import { vLightHelper } from '@tresjs/cientos'
+import { useTexture, useLoop, vLightHelper } from '@tresjs/core'
 import { DoubleSide, Vector3, CameraHelper, RepeatWrapping } from 'three';
 import gsap from 'gsap'
 
