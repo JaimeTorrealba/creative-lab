@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@jaimebboyjt/tres-fps-controls':
-    specifier: ^0.0.53
-    version: 0.0.53(@tresjs/core@4.2.1)(three@0.165.0)(vue@3.4.32)
+    specifier: ^0.0.52
+    version: 0.0.52(@tresjs/core@4.2.1)(three@0.165.0)(tweakpane@4.0.4)(vue@3.4.32)
   '@tresjs/cientos':
     specifier: ^4.0.3
     version: 4.0.3(@tresjs/core@4.2.1)(three@0.165.0)(vue@3.4.32)
@@ -591,16 +591,22 @@ packages:
     deprecated: Use @eslint/object-schema instead
     dev: true
 
-  /@jaimebboyjt/tres-fps-controls@0.0.53(@tresjs/core@4.2.1)(three@0.165.0)(vue@3.4.32):
-    resolution: {integrity: sha512-KUBB+k/Nqb00lJCRrDl8dh+H/3X2gX2AoyrJilXT5i7UwseYBPsdb5jLMXvnWe1yasBU4SmZO2P1CxNxV5LIkQ==}
+  /@jaimebboyjt/tres-fps-controls@0.0.52(@tresjs/core@4.2.1)(three@0.165.0)(tweakpane@4.0.4)(vue@3.4.32):
+    resolution: {integrity: sha512-tV8ByP2Uaa5HmXUfRZhVbFEsN3egUGI9zANCwAWWO2yJe8l5P+m6/B/HZvofO/IacPvIELwHWLhOgHh4xjOXEg==}
     peerDependencies:
       '@tresjs/core': '>=3.5.0'
       three: '>=0.158.0'
       vue: '>=3.3.8'
     dependencies:
+      '@tresjs/cientos': 3.9.0(@tresjs/core@4.2.1)(three@0.165.0)(tweakpane@4.0.4)(vue@3.4.32)
       '@tresjs/core': 4.2.1(three@0.165.0)(vue@3.4.32)
       three: 0.165.0
       vue: 3.4.32
+    transitivePeerDependencies:
+      - '@react-three/fiber'
+      - '@vue/composition-api'
+      - react
+      - tweakpane
     dev: false
 
   /@jest/schemas@29.6.3:
