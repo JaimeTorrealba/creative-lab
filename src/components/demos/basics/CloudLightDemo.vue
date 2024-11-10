@@ -1,7 +1,7 @@
 <script setup>
 import { shallowRef, watch } from 'vue';
 import { useTexture, useLoop } from '@tresjs/core'
-import { vLightHelper, vLog } from '@tresjs/cientos'
+import { vLightHelper } from '@tresjs/cientos'
 import { DoubleSide, Vector3, CameraHelper, RepeatWrapping } from 'three';
 import gsap from 'gsap'
 
@@ -72,7 +72,7 @@ onBeforeRender(({ elapsed }) => {
     </TresMesh>
 
 
-    <TresDirectionalLight ref="dirLightRef" v-log v-light-helper cast-shadow :position="[...lightPosition]"
+    <TresDirectionalLight ref="dirLightRef" v-light-helper cast-shadow :position="[...lightPosition]"
         :intensity="2" :shadow-blurSamples="25" :shadow-radius="4" :shadow-bias="0.000005" />
     <TresMesh ref="cloudsRef" cast-shadow
         :position="[lightPosition.x - 0.5, lightPosition.y - 0.5, lightPosition.z - 0.5]" :look-at="[0, 0, 0]"
