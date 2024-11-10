@@ -1,7 +1,7 @@
 <script setup>
 import { shallowRef, ref, watch } from 'vue';
-import { TresCanvas } from '@tresjs/core'
-import { Environment, vLog } from '@tresjs/cientos'
+import { TresCanvas, vLog } from '@tresjs/core'
+import { Environment  } from '@tresjs/cientos'
 import { gsap } from 'gsap'
 import { useElementSize } from '@vueuse/core'
 
