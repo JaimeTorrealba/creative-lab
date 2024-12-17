@@ -5,10 +5,6 @@ const shaders_routes = [
     name: 'AudioAnalyser',
     description: 'Simple Audio blob with shaders and tresjs'
   },
-  // {
-  //   name: 'ChromaticAberration',
-  //   description: 'Simple Chromatic Aberration with shaders and tresjs'
-  // },
   {
     name: 'CoffeeCup',
     description: 'Coffee practice from Bruno Simon. ThreeJs Journey. https://threejs-journey.com/'
@@ -32,11 +28,6 @@ const shaders_routes = [
     description: 'Naive implementation of grass'
   },
   {
-    name: 'ImageParticles',
-    description:
-      'An image transformed into particles that you can animated separately . This effect is base on: https://youtu.be/vEaAheMO0bo'
-  },
-  {
     name: 'InstanceMesh',
     description: 'A test to try how the instance mesh works on Tresjs, also i was experiment with the OrthographicCamera (normally I just use the PerspectiveCamera).'
   },
@@ -52,10 +43,6 @@ const shaders_routes = [
     name: 'ShaderStar',
     description:
       'A star made with shaders, a combination of colors and techniques like fresnel, matrix rotation, multi layer. This effect is base on: https://www.youtube.com/live/3krH52AhPqk?feature=share'
-  },
-  {
-    name: 'Slider',
-    description: 'A WebGl slider made with shaders, using distorsión in images. This effect is base on: https://github.com/akella/webGLImageTransitions'
   },
   {
     name: 'WaterReflector',

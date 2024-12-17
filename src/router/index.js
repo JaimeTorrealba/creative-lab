@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
 import { basic } from './basic.js'
+import { textures_demos } from './textures_effects.js'
 import { demos } from './demos.js'
 import { shaders_demos } from './shaders_demos'
 import { html_demos } from './html_demos'
@@ -26,6 +27,7 @@ const router = createRouter({
     ...demos(),
     ...html_demos(),
     ...controls_demos(),
+    ...textures_demos(),
     ...shaders_demos(),
     ...fragment_demos(),
     // ...webgpu_demos
