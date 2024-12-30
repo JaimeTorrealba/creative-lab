@@ -24,6 +24,10 @@ const shaders_routes = [
     description: 'An example of Fire made with shaders. This effect is base on:https://github.com/mattatz/THREE.Fire'
   },
   {
+    name: 'GPGPUFlowField',
+    description: 'Example of GPGPU and flow field by Bruno Simon'
+  },
+  {
     name: 'Grass',
     description: 'Naive implementation of grass'
   },
