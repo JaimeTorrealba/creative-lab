@@ -11,9 +11,9 @@ import {
 import { GPUComputationRenderer } from 'three/addons/misc/GPUComputationRenderer.js';
 import { useWindowSize, useDevicePixelRatio } from '@vueuse/core';
 import { Pane } from 'tweakpane';
-import vertex from './shaders/GPGPU/vertex.glsl';
-import fragment from './shaders/GPGPU/fragment.glsl';
-import particlesShader from './shaders/GPGPU/particles.glsl';
+import vertex from './shaders/GPGPUFlowField/vertex.glsl';
+import fragment from './shaders/GPGPUFlowField/fragment.glsl';
+import particlesShader from './shaders/GPGPUFlowField/particles.glsl';
 
 const { scene: model } = await useGLTF('/models/push logo.glb');
 

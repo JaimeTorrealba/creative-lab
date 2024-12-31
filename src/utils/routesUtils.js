@@ -8,7 +8,6 @@ export const generateRoute = (name, section, description, howTo = false) => {
   const path = `/${splitLowerText[0]}${
     splitLowerText.length > 1 ? '_' + splitLowerText[1] : ''
   }`
-  console.log('jaime ~ generateRoute ~ splitLowerText:', name);
 
   return {
     path,
