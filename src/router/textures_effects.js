@@ -6,6 +6,11 @@ const textures_routes = [
       description:
         'How to blur a texture when hovering with the mouse, based on: https://t.co/3mIyS58Cyd'
     },
+   {
+      name: 'ChromaticAberration',
+      description:
+        'Simple chromatic aberration effect using shaders, over a texture'
+    },
     {
       name: 'ImageParticles',
       description:
