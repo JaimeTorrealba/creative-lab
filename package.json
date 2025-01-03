@@ -14,7 +14,7 @@
     "@jaimebboyjt/tres-fps-controls": "^0.0.52",
     "@tresjs/cientos": "^4.0.3",
     "@tresjs/core": "^4.2.1",
-    "@tresjs/post-processing": "^0.7.1",
+    "@tresjs/post-processing": "^2.0.0",
     "@tweakpane/plugin-essentials": "^0.2.1",
     "@vueuse/core": "10.9.0",
     "alea": "^1.0.1",

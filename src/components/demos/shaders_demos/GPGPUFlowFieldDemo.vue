@@ -1,6 +1,8 @@
 <script setup>
 import { useTresContext, useLoop } from '@tresjs/core';
 import { useGLTF } from '@tresjs/cientos';
+
+import { BloomPmndrs, EffectComposerPmndrs  } from '@tresjs/post-processing'
 import {
     Uniform, Vector2, Mesh,
     PlaneGeometry,
@@ -15,7 +17,10 @@ import vertex from './shaders/GPGPUFlowField/vertex.glsl';
 import fragment from './shaders/GPGPUFlowField/fragment.glsl';
 import particlesShader from './shaders/GPGPUFlowField/particles.glsl';
 
-const { scene: model } = await useGLTF('/models/push logo.glb');
+const { scene: model } = await useGLTF('/models/necronomicon_custom_vertex_colors.glb');
+console.log('jaime ~ model:', model);
+
+model.position.y = -15.5
 
 const { width, height } = useWindowSize();
 const { pixelRatio } = useDevicePixelRatio()
@@ -69,7 +74,7 @@ gpgpu.debug = new Mesh(
     new MeshBasicMaterial({ map: gpgpu.computation.getCurrentRenderTarget(gpgpu.particlesVariable).texture })
 )
 gpgpu.debug.position.set(3, 0, 0)
-scene.value.add(gpgpu.debug)
+//scene.value.add(gpgpu.debug)
 
 pane.addBinding(gpgpu.particlesVariable.material.uniforms.uFlowFieldInfluence, 'value',
     {
@@ -111,6 +116,7 @@ const geometry = new BufferGeometry()
 geometry.setDrawRange(0, baseGeometry.count)
 geometry.setAttribute('aParticlesUv', new BufferAttribute(particlesUVArray, 2))
 geometry.setAttribute('aSize', new BufferAttribute(particlesSize, 1))
+geometry.setAttribute('aColor', baseGeometry.instance.attributes.color)
 const shaders = {
     vertexShader: vertex,
     fragmentShader: fragment,
@@ -137,4 +143,13 @@ onBeforeRender(({ elapsed, delta }) => {
     <TresPoints :geometry="geometry">
         <TresShaderMaterial v-bind="shaders" />
     </TresPoints>
+    <EffectComposerPmndrs>
+        <BloomPmndrs
+        :radius="0.85"
+        :intensity="8.0"
+        :luminance-threshold="1.1"
+        :luminance-smoothing="0.3"
+        mipmap-blur
+      />
+          </EffectComposerPmndrs>
 </template>
