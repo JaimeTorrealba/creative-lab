@@ -18,13 +18,10 @@ import fragment from './shaders/GPGPUFlowField/fragment.glsl';
 import particlesShader from './shaders/GPGPUFlowField/particles.glsl';
 
 const { scene: model } = await useGLTF('/models/necronomicon_custom_vertex_colors.glb');
-console.log('jaime ~ model:', model);
-
-model.position.y = -15.5
 
 const { width, height } = useWindowSize();
 const { pixelRatio } = useDevicePixelRatio()
-const { renderer, scene } = useTresContext()
+const { renderer } = useTresContext()
 const pane = new Pane()
 
 const baseGeometry = {}
