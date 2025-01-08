@@ -1,6 +1,6 @@
 <script setup>
 import { Stars, MouseParallax, Smoke } from '@tresjs/cientos'
-import { EffectComposer, Bloom } from '@tresjs/post-processing'
+import { EffectComposer, BloomPmndrs } from '@tresjs/post-processing'
 
 // TODO: Problem with post-processing (to check later)
 </script>
@@ -11,7 +11,7 @@ import { EffectComposer, Bloom } from '@tresjs/post-processing'
     <Stars />
     <Suspense>
         <EffectComposer>
-            <Bloom :luminance-threshold="4" :luminance-smoothing="0.1" :intensity="0.015" :radius="0.15" />
+            <BloomPmndrs :luminance-threshold="15" :luminance-smoothing="0.1" :intensity="0.15" :radius="0.25" />
         </EffectComposer>
     </Suspense>
     <Suspense>
