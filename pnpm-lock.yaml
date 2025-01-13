@@ -47,9 +47,6 @@ dependencies:
   three-gpu-pathtracer:
     specifier: ^0.0.20
     version: 0.0.20(three-mesh-bvh@0.7.6)(three@0.165.0)(xatlas-web@0.1.0)
-  tweakpane:
-    specifier: ^4.0.4
-    version: 4.0.4
   vue:
     specifier: ^3.4.32
     version: 3.4.32
@@ -91,6 +88,9 @@ devDependencies:
   three:
     specifier: ^0.165.0
     version: 0.165.0
+  tweakpane:
+    specifier: ^4.0.4
+    version: 4.0.4
   vite:
     specifier: ^4.5.3
     version: 4.5.3(sass@1.77.8)
@@ -2555,7 +2555,6 @@ packages:
 
   /tweakpane@4.0.4:
     resolution: {integrity: sha512-RkWD54zDlEbnN01wQPk0ANHGbdCvlJx/E8A1QxhTfCbX+ROWos1Ws2MnhOm39aUGMOh+36TjUwpDmLfmwTr1Fg==}
-    dev: false
 
   /type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}

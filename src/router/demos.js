@@ -65,6 +65,10 @@ const demos_routes = [
     description: 'Simple plane with random points for future effects. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
   },
   {
+    name: 'Scatter',
+    description: 'My attempt to create a scatter models similar to g-scatter in Blender'
+  },
+  {
     name: 'SkyDome',
     description: 'Demo of how to use Sky dome as a background'
   },
