@@ -11,6 +11,10 @@ const html_routes = [
       description: 'A basic example of a login with 3D reactive text using VueJs and TresJs.'
     },
     {
+      name: 'PamCanvas',
+      description: 'Canvas effect pam, which you can move through it and search for your images'
+    },
+    {
       name: 'HoverButton',
       description: 'Inspired by: https://dribbble.com/shots/11386939-Play-with-Magic-Motion'
     }

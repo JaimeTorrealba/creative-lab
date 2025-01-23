@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@jaimebboyjt/tres-fps-controls": "^0.0.54",
-    "@tresjs/cientos": "^4.0.3",
+    "@tresjs/cientos": "^4.1.0",
     "@tresjs/core": "^4.2.1",
     "@tresjs/post-processing": "^2.0.0",
     "@tweakpane/plugin-essentials": "^0.2.1",

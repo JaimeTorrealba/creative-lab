@@ -9,8 +9,8 @@ dependencies:
     specifier: ^0.0.54
     version: 0.0.54(@tresjs/core@4.2.1)(three@0.165.0)(vue@3.4.32)
   '@tresjs/cientos':
-    specifier: ^4.0.3
-    version: 4.0.3(@tresjs/core@4.2.1)(three@0.165.0)(vue@3.4.32)
+    specifier: ^4.1.0
+    version: 4.1.0(@tresjs/core@4.2.1)(three@0.165.0)(vue@3.4.32)
   '@tresjs/core':
     specifier: ^4.2.1
     version: 4.2.1(three@0.165.0)(vue@3.4.32)
@@ -838,26 +838,26 @@ packages:
       - react
     dev: false
 
-  /@tresjs/cientos@4.0.3(@tresjs/core@4.2.1)(three@0.165.0)(vue@3.4.32):
-    resolution: {integrity: sha512-6urkgwGtXzxj7JBZh0HjX5sJwaoNVHXXclFNwFyWVIOBHBikAxFF52GhxTaAlOYfMnun2YKBW/StjnWutq7zAQ==}
+  /@tresjs/cientos@4.1.0(@tresjs/core@4.2.1)(three@0.165.0)(vue@3.4.32):
+    resolution: {integrity: sha512-vhYQ6HbcuswLngyHgHj+L6FAgtedhmbH83+xQbPgJmEGAUqu+91PQeH+Hujgk/6U444hObq1FwUZWClrrjXatQ==}
     peerDependencies:
       '@tresjs/core': '>=4.2.1'
       three: '>=0.133'
       vue: '>=3.3'
     dependencies:
       '@tresjs/core': 4.2.1(three@0.165.0)(vue@3.4.32)
-      '@vueuse/core': 11.1.0(vue@3.4.32)
+      '@vueuse/core': 12.3.0
       camera-controls: 2.9.0(three@0.165.0)
       stats-gl: 2.2.8
       stats.js: 0.17.0
       three: 0.165.0
       three-custom-shader-material: 5.4.0(three@0.165.0)
-      three-stdlib: 2.33.0(three@0.165.0)
+      three-stdlib: 2.35.12(three@0.165.0)
       vue: 3.4.32
     transitivePeerDependencies:
       - '@react-three/fiber'
-      - '@vue/composition-api'
       - react
+      - typescript
     dev: false
 
   /@tresjs/core@4.2.1(three@0.165.0)(vue@3.4.32):
@@ -1169,18 +1169,6 @@ packages:
       - vue
     dev: false
 
-  /@vueuse/core@11.1.0(vue@3.4.32):
-    resolution: {integrity: sha512-P6dk79QYA6sKQnghrUz/1tHi0n9mrb/iO1WTMk/ElLmTyNqgDeSZ3wcDf6fRBGzRJbeG1dxzEOvLENMjr+E3fg==}
-    dependencies:
-      '@types/web-bluetooth': 0.0.20
-      '@vueuse/metadata': 11.1.0
-      '@vueuse/shared': 11.1.0(vue@3.4.32)
-      vue-demi: 0.14.10(vue@3.4.32)
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-    dev: false
-
   /@vueuse/core@12.3.0:
     resolution: {integrity: sha512-cnV8QDKZrsyKC7tWjPbeEUz2cD9sa9faxF2YkR8QqNwfofgbOhmfIgvSYmkp+ttSvfOw4E6hLcQx15mRPr0yBA==}
     dependencies:
@@ -1200,10 +1188,6 @@ packages:
     resolution: {integrity: sha512-iddNbg3yZM0X7qFY2sAotomgdHK7YJ6sKUvQqbvwnf7TmaVPxS4EJydcNsVejNdS8iWCtDk+fYXr7E32nyTnGA==}
     dev: false
 
-  /@vueuse/metadata@11.1.0:
-    resolution: {integrity: sha512-l9Q502TBTaPYGanl1G+hPgd3QX5s4CGnpXriVBR5fEZ/goI6fvDaVmIl3Td8oKFurOxTmbXvBPSsgrd6eu6HYg==}
-    dev: false
-
   /@vueuse/metadata@12.3.0:
     resolution: {integrity: sha512-M/iQHHjMffOv2npsw2ihlUx1CTiBwPEgb7DzByLq7zpg1+Ke8r7s9p5ybUWc5OIeGewtpY4Xy0R2cKqFqM8hFg==}
     dev: false
@@ -1221,15 +1205,6 @@ packages:
     resolution: {integrity: sha512-Uud2IWncmAfJvRaFYzv5OHDli+FbOzxiVEQdLCKQKLyhz94PIyFC3CHcH7EDMwIn8NPtD06+PNbC/PiO0LGLtw==}
     dependencies:
       vue-demi: 0.14.8(vue@3.4.32)
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-    dev: false
-
-  /@vueuse/shared@11.1.0(vue@3.4.32):
-    resolution: {integrity: sha512-YUtIpY122q7osj+zsNMFAfMTubGz0sn5QzE5gPzAIiCmtt2ha3uQUY1+JPyL4gRCTsLPX82Y9brNbo/aqlA91w==}
-    dependencies:
-      vue-demi: 0.14.10(vue@3.4.32)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -2505,8 +2480,8 @@ packages:
       three: 0.165.0
     dev: false
 
-  /three-stdlib@2.33.0(three@0.165.0):
-    resolution: {integrity: sha512-V/uycBuqQOP/3Z+FBtpMdj2Ds5PyfJ3VDfMzktEmG4niOIzv7q1y5uMSbMcng0+057m1l0N147FQxsodQo9zBg==}
+  /three-stdlib@2.35.12(three@0.165.0):
+    resolution: {integrity: sha512-3Mb3U7gtf1orCb6j2BBcc8BJsBVoCYUjFtwaq9KM8I7ippz4o9G+aDQdT5AF8Sg5FXXZfnPPccP6ufsP8bgG3g==}
     peerDependencies:
       three: '>=0.128.0'
     dependencies:
@@ -2745,21 +2720,6 @@ packages:
       - sugarss
       - supports-color
       - terser
-    dev: false
-
-  /vue-demi@0.14.10(vue@3.4.32):
-    resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
-    engines: {node: '>=12'}
-    hasBin: true
-    requiresBuild: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^3.0.0-0 || ^2.6.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-    dependencies:
-      vue: 3.4.32
     dev: false
 
   /vue-demi@0.14.8(vue@3.4.32):
