@@ -7,6 +7,10 @@ const basic_routes = [
       'You can create a 3D model avatar, exporting in glb in just a few minutes using https://readyplayer.me/es'
   },
   {
+    name: 'BoneTweaks',
+    description: 'Using the tweak pane to modify the bones of a 3D model. just for fun.'
+  },
+  {
     name: 'ChangedPivot',
     description: 'Changing the pivot of a 3D primitive.'
   },
