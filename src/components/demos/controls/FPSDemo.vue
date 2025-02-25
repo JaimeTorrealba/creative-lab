@@ -4,6 +4,7 @@ import { useGLTF } from '@tresjs/cientos';
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import { fpsControls, MobileJoystick } from '@jaimebboyjt/tres-fps-controls'
 import gsap from 'gsap';
+console.log('jaime ~ MobileJoystick:', MobileJoystick);
 
 const { scene } = await useGLTF('/models/PixelArt Medieval Sword.glb')
 
