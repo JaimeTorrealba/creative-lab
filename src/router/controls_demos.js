@@ -11,6 +11,10 @@ const controls_routes = [
     description: 'A click base controls (move character with your click), with glb model + animations'
   },
   {
+    name: 'FourFaceModel',
+    description: 'A way to show 4 faces of a model depending on the position of the camera'
+  },
+  {
     name: 'FPS',
     description: 'First person shooter controls, uses my tres-FPS-controls component. '
   },
