@@ -17,6 +17,10 @@ const html_routes = [
     {
       name: 'HoverButton',
       description: 'Inspired by: https://dribbble.com/shots/11386939-Play-with-Magic-Motion'
+    },
+    {
+      name: 'Carousel3D',
+      description: 'My own implementation of a 3D carousel using TresJs and VueJs.'
     }
 ]
 
