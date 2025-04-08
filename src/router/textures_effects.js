@@ -11,6 +11,11 @@ const textures_routes = [
       description:
         'Simple chromatic aberration effect using shaders, over a texture'
     },
+   {
+      name: 'Displacement',
+      description:
+        'A AI generated shader that displace the texture based on the mouse position.'
+    },
     {
       name: 'ImageParticles',
       description:
