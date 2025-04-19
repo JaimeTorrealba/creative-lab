@@ -7,7 +7,7 @@ uniform vec2 uMouseOverPos; // 0 (left) 0 (top) / 1 (right) 1 (bottom)
 
 in vec2 vUv; // 0 (left) 0 (bottom) - 1 (right) 1 (top)
 
-#include './noise.glsl';
+#include '../../../../shaders/SHARED/noise2D.glsl;
 
 void main() {
   vec2 texCoords = vUv;

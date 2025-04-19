@@ -6,6 +6,10 @@ const shaders_routes = [
     description: 'Simple Audio blob with shaders and tresjs'
   },
   {
+    name: 'Caustics',
+    description: 'How to create the underwater caustics effect using shaders.'
+  },
+  {
     name: 'CoffeeCup',
     description: 'Coffee practice from Bruno Simon. ThreeJs Journey. https://threejs-journey.com/'
   },
