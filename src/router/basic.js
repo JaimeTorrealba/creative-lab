@@ -46,6 +46,10 @@ const basic_routes = [
       'A simple nebula generator using smoke abstraction on cientos, and post-processing. This effect is base on: https://youtu.be/5f5wwQb22tE'
   },
   {
+    name: 'RandomPoints',
+    description: 'Simple plane with random points for future effects. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
+  },
+  {
     name: 'SelectableGrid',
     description:
       'How to select a grid (tile) in a plane using the mouse. based on this video: https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG'
