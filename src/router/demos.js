@@ -56,6 +56,10 @@ const demos_routes = [
     description: 'A initial example of how to use an ArrayModifier to create meshes.'
   },
   {
+    name: 'PointsEarth',
+    description: 'Using a canvas 2D to read an alpha image an generate points only when the image is black. Simulating continents'
+  },
+  {
     name: 'RandomMovement',
     description:
       'A fun example using random movements to create a ant colony with gsap. Thanks to "Ant walkcycle" (https://skfb.ly/ZsMz) by Matrix Rex is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/)'
