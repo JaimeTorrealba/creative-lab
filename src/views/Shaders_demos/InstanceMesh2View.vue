@@ -9,7 +9,7 @@ import TheExperience from '@/components/demos/shaders_demos/InstanceMeshDemo2.vu
 </script>
 <template>
   <TresCanvas window-size clear-color="#333">
-    <TresPerspectiveCamera :position="[0, 5, -3]" :look-at="[0, 0, 0]" />
+    <TresPerspectiveCamera :position="[0, 15, -45]" :look-at="[0, 0, 0]" />
     <MapControls />
     <Suspense>
       <TheExperience />
