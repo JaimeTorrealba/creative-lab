@@ -8,6 +8,9 @@ dependencies:
   '@jaimebboyjt/tres-fps-controls':
     specifier: ^0.0.55
     version: 0.0.55(@tresjs/core@4.3.3)(three@0.165.0)(vue@3.5.13)
+  '@three.ez/instanced-mesh':
+    specifier: ^0.3.4
+    version: 0.3.4(three@0.165.0)
   '@tresjs/cientos':
     specifier: ^4.1.0
     version: 4.1.0(@tresjs/core@4.3.3)(@types/three@0.173.0)(three@0.165.0)(vue@3.5.13)
@@ -940,6 +943,15 @@ packages:
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
     dev: false
 
+  /@three.ez/instanced-mesh@0.3.4(three@0.165.0):
+    resolution: {integrity: sha512-iBFdxkLXa2YyfKHnkR+aJMgzIAHUbh95TCeBMDn7OYa2kflhFrNf4NairPXVNWlw0m1IlSS4vZWgJcyjroH2gA==}
+    peerDependencies:
+      three: '>=0.159.0'
+    dependencies:
+      bvh.js: 0.0.13
+      three: 0.165.0
+    dev: false
+
   /@tresjs/cientos@3.9.0(@tresjs/core@4.3.3)(@types/three@0.173.0)(three@0.165.0)(tweakpane@4.0.5)(vue@3.5.13):
     resolution: {integrity: sha512-LAtMveKlecKvWh7TNWdwEs3nQUYMLqz9DZy0YhSZ6OVTfL2vevx2K4sH9744UME8OedUf4fkFFkX4OWQRHaDRQ==}
     peerDependencies:
@@ -1345,6 +1357,10 @@ packages:
     dependencies:
       fill-range: 7.1.1
     optional: true
+
+  /bvh.js@0.0.13:
+    resolution: {integrity: sha512-7jVxKGyyATOwEoqFvghXoStJXkkmqf7JIXYEG44eMtMXQoeCwZL2n1z5/kZogFKvCaN7XweS2TKnqdyDrd0DJA==}
+    dev: false
 
   /cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}

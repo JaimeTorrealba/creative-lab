@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@jaimebboyjt/tres-fps-controls": "^0.0.55",
+    "@three.ez/instanced-mesh": "^0.3.4",
     "@tresjs/cientos": "^4.1.0",
     "@tresjs/core": "^4.3.3",
     "@tresjs/post-processing": "^2.1.0",

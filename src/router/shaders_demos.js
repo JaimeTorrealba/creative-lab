@@ -40,6 +40,10 @@ const shaders_routes = [
     description: 'A test to try how the instance mesh works on Tresjs, also i was experiment with the OrthographicCamera (normally I just use the PerspectiveCamera).'
   },
   {
+    name: 'InstanceMesh2',
+    description: 'A test to try how the instance mesh 2 works on Tresjs, this uses the https://github.com/agargaro/instanced-mesh'
+  },
+  {
     name: 'MouseReveal',
     description: 'An interesting effect of how to use transparency in combination with the mouse to reveal the content behind'
   },
