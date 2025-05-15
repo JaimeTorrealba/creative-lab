@@ -4,11 +4,11 @@ import fragment from "./shaders/simonGrass/fragment.glsl";
 import { InstancedBufferGeometry, Sphere, Vector3, Vector2, Vector4 } from "three";
 import { useLoop } from "@tresjs/core";
 
-const NUM_GRASS = 1500;
+const NUM_GRASS = 3000;
 const GRASS_SEGMENTS = 6;
 const GRASS_VERTICES = (GRASS_SEGMENTS + 1) * 2;
-const GRASS_PATCH_SIZE = 4;
-const GRASS_HEIGHT = 4;
+const GRASS_PATCH_SIZE = 5;
+const GRASS_HEIGHT = 2;
 const GRASS_WIDTH = 0.25;
 
 const VERTICES = (GRASS_SEGMENTS + 1) * 2;
@@ -54,7 +54,7 @@ const shader = {
 const { onBeforeRender } = useLoop();
 
 onBeforeRender(({elapsed}) => {
-  shader.uniforms.uTime.value = elapsed;
+  shader.uniforms.uTime.value = elapsed * 0.5;
 });
 </script>
 <template>
