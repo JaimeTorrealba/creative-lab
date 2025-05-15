@@ -57,6 +57,11 @@ const shaders_routes = [
       'A star made with shaders, a combination of colors and techniques like fresnel, matrix rotation, multi layer. This effect is base on: https://www.youtube.com/live/3krH52AhPqk?feature=share'
   },
   {
+    name: 'SimonGrass',
+    description:
+      'Complex realistic grass by simondev example'
+  },
+  {
     name: 'WaterReflector',
     description: 'A test to try how the water reflection works on Tresjs, using the ReflectorMesh addons. Based on this video: https://youtu.be/PAy5aQK2pSg?si=4dCtEjHRNGG9tQIH'
   },

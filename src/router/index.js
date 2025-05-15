@@ -10,7 +10,7 @@ import { controls_demos } from './controls_demos'
 // import { webgpu_demos } from './webgpu_demos.js'
 import { generateRoute } from '../utils'
 
-console.log('jaime', generateRoute('Template', 'Playground', ''));
+//playground is a route
 const router = createRouter({
   history: createWebHistory(),
   routes: [
