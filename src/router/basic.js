@@ -50,6 +50,11 @@ const basic_routes = [
     description: 'Simple plane with random points for future effects. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
   },
   {
+    name: 'Scatter',
+    description:
+      ''
+  },
+  {
     name: 'SelectableGrid',
     description:
       'How to select a grid (tile) in a plane using the mouse. based on this video: https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG'
