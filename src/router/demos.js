@@ -65,10 +65,6 @@ const demos_routes = [
       'A fun example using random movements to create a ant colony with gsap. Thanks to "Ant walkcycle" (https://skfb.ly/ZsMz) by Matrix Rex is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/)'
   },
   {
-    name: 'Scatter',
-    description: 'My attempt to create a scatter models similar to g-scatter in Blender'
-  },
-  {
     name: 'SkyDome',
     description: 'Demo of how to use Sky dome as a background'
   },
@@ -76,7 +72,7 @@ const demos_routes = [
     name: 'StencilMask',
     description:
       'Stencil is a technique to create a mask, in this demo I show how to use it to create a magic cube. this is often used to create basic portals with less'
-    },
+  },
   {
     name: 'TwoScenes',
     description:

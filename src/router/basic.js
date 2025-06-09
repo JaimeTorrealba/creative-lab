@@ -46,13 +46,17 @@ const basic_routes = [
       'A simple nebula generator using smoke abstraction on cientos, and post-processing. This effect is base on: https://youtu.be/5f5wwQb22tE'
   },
   {
+    name: 'ProceduralDC',
+    description: 'Creating a basic procedural animation using the DC (distance constrain) technique. Based on: https://www.youtube.com/watch?v=qlfh_rv6khY'
+  },
+  {
     name: 'RandomPoints',
     description: 'Simple plane with random points for future effects. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
   },
   {
     name: 'Scatter',
     description:
-      ''
+      'Using my library three-scatter'
   },
   {
     name: 'SelectableGrid',
