@@ -1,13 +1,13 @@
 <script setup>
-import { useTexture, useTresContext, extend } from "@tresjs/core";
+import { watch, reactive, ref } from "vue";
+import { useTexture, extend } from "@tresjs/core";
 import { useGLTF } from "@tresjs/cientos";
 import { ThreeScatter } from "@jaimebboyjt/three-scatter";
+import { Pane } from "tweakpane";
 
- extend({ ThreeScatter })
+extend({ ThreeScatter });
 
-const { scene } = useTresContext();
-console.log("jaime ~ scene:", scene);
-
+const scatterRef = ref(null);
 const pathFloor = "/models/surfaceSamplingTest.glb";
 const { scene: floor } = await useGLTF(pathFloor);
 
@@ -23,12 +23,51 @@ const { normalMap, map, roughnessMap, aoMap } = await useTexture({
 
 const geometry = floor.children[0].geometry;
 
-// const scatter = new ThreeScatter(geometry, model, 50);
-// scatter.setAll((model) => {
-//   model.scale.set(3, 3, 3);
+watch(scatterRef, (scatter) => {
+  console.log("jaime ~ watch ~ scatter:", scatter);
+  scatter.alignToSurfaceNormal();
+  scatter.setAll((model) => {
+    model.scale.set(3, 3, 3);
+  });
+  // scatterRef.value.setSeeds(5);
+});
+
+const options = reactive({
+  seeds: 1,
+  scale: 3,
+});
+
+const pane = new Pane();
+// pane.addBinding(options, "seeds", {
+//   label: "Seeds",
+//   min: -10,
+//   max: 10,
+//   step: 1,
 // });
-// scatter.alignToSurfaceNormal();
-// scene.value.add(scatter);
+pane.addBinding(options, "scale", {
+  label: "Scale",
+  min: 1,
+  max: 10,
+  step: 1,
+});
+
+watch(
+  () => options.scale,
+  (scale) => {
+    scatterRef.value.setAll((model) => {
+      model.scale.set(scale, scale, scale);
+    });
+  }
+);
+// watch(
+//   () => options.seeds,
+//   (seed) => {
+//     // console.log('jaime ~ seed:', seed);
+//     scatterRef.value.setSeeds(seed);
+//     // console.log("jaime ~ scatterRef.value:", scatterRef.value);
+//     // scatterRef.value.alignToSurfaceNormal();
+//   }
+// );
 </script>
 <template>
   <TresMesh :geometry="geometry">
@@ -40,5 +79,5 @@ const geometry = floor.children[0].geometry;
     />
   </TresMesh>
   <TresDirectionalLight :position="[10, 10, 10]" :intensity="4" />
-  <TresThreeScatter :args="[geometry, model, 100]" />
+  <TresThreeScatter ref="scatterRef" :args="[geometry, model, 100]" />
 </template>
