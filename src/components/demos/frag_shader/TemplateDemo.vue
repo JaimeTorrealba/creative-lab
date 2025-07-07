@@ -1,28 +1,17 @@
 <script setup>
 import { watchEffect } from 'vue'
-import { useLoop } from '@tresjs/core'
+import { useLoop, useTresContext } from '@tresjs/core'
 import { useWindowSize } from '@vueuse/core'
 import { Vector2 } from 'three'
 import fragment from './shaders/template/fragment.glsl'
 
 const { width, height } = useWindowSize()
+const { scene, renderer, camera} = useTresContext()
+console.log('jaime ~ renderer:', renderer.value);
+console.log('jaime ~ scene:', scene.value);
+console.log('jaime ~ camera:', camera.value);
 
 const shader = {
-    //We don't touch the vertex shader
-  vertexShader: `
-  varying vec2 vUv;
-  varying vec3 vNormal;
-  varying vec3 vPosition;
-  uniform float time;
-  uniform vec2 uResolution;
-
-    void main(){
-      gl_Position =  vec4(position, 1.0);
-      vUv = uv;
-      vNormal = normal;
-      vPosition = position;
-    }
-  `,
   fragmentShader: fragment,
   uniforms: {
     uTime: { value: 0 },
@@ -52,7 +41,8 @@ onBeforeRender(({ elapsed }) => {
 </script>
 <template>
     <TresMesh @pointer-move="(ev) => updateUniforms(ev)">
-        <TresPlaneGeometry :args="[4, 4]" />
-        <TresShaderMaterial v-bind="shader" />
+        <TresPlaneGeometry :args="[2, 2]" />
+        <!-- <TresShaderMaterial v-bind="shader" /> -->
+         <TresMeshBasicMaterial color="red" />
       </TresMesh>
 </template>

@@ -22,6 +22,11 @@ const textures_routes = [
         'An image transformed into particles that you can animated separately . This effect is base on: https://youtu.be/vEaAheMO0bo'
     },
     {
+      name: 'ImageReveal',
+      description:
+        'Simple reveal image effect. This effect is base on: https://tympanus.net/codrops/2024/12/02/how-to-code-a-shader-based-reveal-effect-with-react-three-fiber-glsl/'
+    },
+    {
       name: 'Slider',
       description: 'A WebGl slider made with shaders, using distorsión in images. This effect is base on: https://github.com/akella/webGLImageTransitions'
     },

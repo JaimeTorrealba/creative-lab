@@ -1,10 +1,10 @@
 <script setup>
-import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/frag_shader/TemplateDemo.vue'
+import { TresCanvas } from "@tresjs/core";
+import TheExperience from "@/components/demos/frag_shader/TemplateDemo.vue";
 </script>
 <template>
-  <TresCanvas window-size clear-color="#111">
-    <TresPerspectiveCamera :position="[0, 0, 5]" />
+  <TresCanvas antialias clear-color="#111">
+    <TresOrthographicCamera :args="[-1, 1, 1, -1, -1, , 1]" :bottom="-1" :position="[0, 0, 0]" />
     <Suspense>
       <TheExperience />
     </Suspense>
