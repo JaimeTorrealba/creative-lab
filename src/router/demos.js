@@ -56,6 +56,10 @@ const demos_routes = [
     description: 'A initial example of how to use an ArrayModifier to create meshes.'
   },
   {
+    name: 'MultiLayer',
+    description: 'A multi layer texture demo, copying the original Disney machine in the 80s'
+  },
+  {
     name: 'PointsEarth',
     description: 'Using a canvas 2D to read an alpha image an generate points only when the image is black. Simulating continents'
   },
