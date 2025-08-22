@@ -20,6 +20,7 @@
     "@tweakpane/plugin-essentials": "^0.2.1",
     "@vueuse/core": "10.9.0",
     "alea": "^1.0.1",
+    "bulma": "^1.0.4",
     "delaunator": "^5.0.1",
     "gsap": "^3.12.7",
     "poisson-disk-sampling": "^2.3.1",

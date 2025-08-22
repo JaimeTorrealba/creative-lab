@@ -40,7 +40,6 @@ body {
 #app {
   width: 100%;
   background-color: #000;
-  overflow: hidden;
 }
 
 .debug {

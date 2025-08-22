@@ -4,6 +4,8 @@ import Tres from '@tresjs/core'
 import router from "./router";
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
+import 'bulma/css/bulma.css'
+
 const app = createApp(App)
 
 import 'vuetify/styles'

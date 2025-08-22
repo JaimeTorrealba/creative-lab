@@ -35,6 +35,9 @@ importers:
       alea:
         specifier: ^1.0.1
         version: 1.0.1
+      bulma:
+        specifier: ^1.0.4
+        version: 1.0.4
       delaunator:
         specifier: ^5.0.1
         version: 5.0.1
@@ -871,6 +874,9 @@ packages:
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
+
+  bulma@1.0.4:
+    resolution: {integrity: sha512-Ffb6YGXDiZYX3cqvSbHWqQ8+LkX6tVoTcZuVB3lm93sbAVXlO0D6QlOTMnV6g18gILpAXqkG2z9hf9z4hCjz2g==}
 
   bvh.js@0.0.13:
     resolution: {integrity: sha512-7jVxKGyyATOwEoqFvghXoStJXkkmqf7JIXYEG44eMtMXQoeCwZL2n1z5/kZogFKvCaN7XweS2TKnqdyDrd0DJA==}
@@ -2410,6 +2416,8 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
     optional: true
+
+  bulma@1.0.4: {}
 
   bvh.js@0.0.13: {}
 
