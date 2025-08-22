@@ -33,22 +33,25 @@ const updateSearch = (value) => {
 };
 </script>
 <template>
-  <h1 class="has-text-centered is-size-1">Welcome to my creative lab</h1>
-  <h2 class="is-size-4 has-text-centered py-4">
-    All the code is free, take what you like, and if you have questions please contact me
+  <h1 class="has-text-centered has-text-light is-size-1 mt-6">
+    Welcome to my creative lab
+  </h1>
+  <h2 class="is-size-4 has-text-centered py-4 max_subtitle_size has-text-light">
+    All the code is free, take what you like, and if you have questions please contact me,
+    also you can give me a github start if this repo have help you :D
   </h2>
-  <section class="d-flex justify-center pb-6">
+  <section class="is-flex is-justify-content-center pb-6">
     <RRSS />
   </section>
   <div>
     <NavBar class="sticky-nav" @searchResult="(value) => updateSearch(value)" />
-      <!-- BODY -->
-      <v-row class="pa-lg-8" flex justify="space-around">
-        <v-col v-for="route in data" :key="route.path">
-          <Cards :data="route" class="scrollTriggerRef" />
-        </v-col>
-      </v-row>
+    <!-- BODY -->
+    <div class="grid is-col-min-13 is-gap-2">
+      <div class="cell " v-for="route in data" :key="route.path">
+        <Cards :data="route" class="scrollTriggerRef" />
+      </div>
     </div>
+  </div>
 </template>
 <style scoped>
 h1,
@@ -59,6 +62,10 @@ li,
 a,
 .router-link-active {
   color: #f7f7f7;
+}
+.max_subtitle_size {
+  width: 70ch;
+  margin: auto;
 }
 .sticky-nav {
   position: sticky;

@@ -118,7 +118,7 @@ const restore = () => {
 }
 </script>
 <template>
-  <div class="d-flex justify-center ontop">
+  <div class="is-flex is-justify-content-center ontop">
     <v-btn class="mr-2 my-2 is-danger" @click="destroyAll()">Destroy All</v-btn>
     <v-btn class="mr-2 my-2 is-success" @click="restore()">Restore</v-btn>
   </div>

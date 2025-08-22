@@ -1,6 +1,6 @@
 <script setup></script>
 <template>
-  <div class="d-flex align-center">
+  <div class="is-flex is-align-content-center">
     <a
       href="https://twitter.com/jaimebboyjt"
       rel="noreferrer"
