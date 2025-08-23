@@ -88,19 +88,19 @@ const toggleMenu = () => {
         <ul class="is-flex is-align-content-center is-justify-content-center">
           <li
             class="has-text-black mx-2 is-clickable"
-            :class="{ 'is-active': currentTag === 'All' }"
+            :class="currentTag === 'All' ? 'is-active' : 'has-text-black-ter'"
             @click="goAllRoutes()"
           >
-            <a role="button"> All </a>
+            <a role="button" class="has-text-weight-medium"> All </a>
           </li>
           <li
             v-for="tag in tags"
             :key="tag"
             class="mx-2 has-text-black is-clickable"
-            :class="{ 'is-active': currentTag === tag }"
+            :class="currentTag === tag ? 'is-active' : 'has-text-black-ter'"
             @click="filterByTag(tag)"
           >
-            <a role="button">{{ mapTagName(tag) }}</a>
+            <a role="button" class="has-text-weight-medium">{{ mapTagName(tag) }}</a>
           </li>
         </ul>
       </div>

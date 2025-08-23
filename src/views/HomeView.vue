@@ -18,8 +18,8 @@ const filteredRoutes = allRoutes.value.filter(
 data.value = filteredRoutes;
 
 onMounted(() => {
-  const scrollTriggerRef = gsap.utils.toArray(".scrollTriggerRef");
-  scrollTriggerRef.map((card) => {
+  const scrollTrigger = gsap.utils.toArray(".scroll-trigger");
+  scrollTrigger.map((card) => {
     ScrollTrigger.create({
       trigger: card,
       start: "top 80%",
@@ -46,9 +46,10 @@ const updateSearch = (value) => {
   <div>
     <NavBar class="sticky-nav" @searchResult="(value) => updateSearch(value)" />
     <!-- BODY -->
-    <div class="grid is-col-min-13 is-gap-2">
-      <div class="cell " v-for="route in data" :key="route.path">
-        <Cards :data="route" class="scrollTriggerRef" />
+     <!-- grid is-col-min-13 is-gap-2 -->
+    <div class="masonry py-4">
+      <div class="cell" v-for="route in data" :key="route.path">
+        <Cards :data="route" class="scroll-trigger" />
       </div>
     </div>
   </div>
@@ -71,5 +72,34 @@ a,
   position: sticky;
   top: 0;
   z-index: 10;
+}
+
+
+.masonry {
+  column-gap: var(--masonry-gap, 1.5rem);
+  column-count: 6;
+  @media screen and (max-width: 1696px) {
+    column-count: 5;
+  }
+  @media screen and (max-width: 1440px) {
+    column-count: 4;
+  }
+  @media screen and (max-width: 1024px) {
+    column-count: 3;
+  }
+  @media screen and (max-width: 768px) {
+    column-count: 2;
+  }
+  @media screen and (max-width: 480px) {
+    column-count: 1;
+  }
+
+}
+
+.masonry > .cell {
+  break-inside: avoid;
+  margin-bottom: var(--masonry-gap, 1.5rem);
+  width: 100%;
+  max-width: 350px;
 }
 </style>

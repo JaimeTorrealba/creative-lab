@@ -17,6 +17,7 @@ export const generateRoute = (name, section, description, howTo = false) => {
       howTo,
       section,
       img: `/gifs/${section}/${name}.gif`,
+      // source code needs to change
       sourceCode: `https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/${section}/${name}View.vue`,
       description
     },
