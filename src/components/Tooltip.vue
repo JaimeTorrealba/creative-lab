@@ -7,7 +7,12 @@
 
     <!-- Tooltip -->
     <transition>
-      <div v-if="show" ref="tooltipRef" class="tooltip-styles notification is-info is-light">
+      <div
+        v-if="show"
+        ref="tooltipRef"
+        class="tooltip-styles notification is-info is-light pr-6"
+      >
+      <button v-show="clickOutside" @click="onClose" class="delete"></button>
         {{ text }}
       </div>
     </transition>
@@ -18,8 +23,18 @@
 defineProps({
   text: { type: String, required: true },
   show: { type: Boolean, default: false },
-  anchor: { type: String, default: "top" }
+  anchor: { type: String, default: "top" },
+  clickOutside: { type: Boolean, default: false },
 });
+
+const emit = defineEmits(["close"]);
+
+const onClose = () => {
+    console.log("sss");
+  emit("close");
+};
+
+
 </script>
 <style scoped>
 .trigger {
@@ -30,7 +45,7 @@ defineProps({
   text-align: center;
   padding: 8px 12px;
   z-index: 9999;
-  white-space: nowrap;
+  text-wrap: v-bind("clickOutside ? 'wrap' : 'nowrap'");
   position-anchor: --trigger;
   position-area: v-bind(anchor);
 }
