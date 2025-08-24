@@ -6,7 +6,7 @@ import { GLTFModel } from '@tresjs/cientos'
     <Suspense>
         <GLTFModel path="/models/jaimeAvatar.glb" draco />
     </Suspense>
-    <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
-    <TresAmbientLight :intensity="4" />
+    <TresDirectionalLight :position="[0, 2, 4]" :intensity="1" />
+    <TresAmbientLight :intensity="2" />
     <TresAxesHelper :size="1" />
 </template>

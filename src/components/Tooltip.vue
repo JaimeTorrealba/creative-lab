@@ -10,9 +10,8 @@
       <div
         v-if="show"
         ref="tooltipRef"
-        class="tooltip-styles notification is-info is-light pr-6"
+        class="tooltip-styles notification is-info is-light"
       >
-      <button v-show="clickOutside" @click="onClose" class="delete"></button>
         {{ text }}
       </div>
     </transition>
@@ -20,6 +19,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 defineProps({
   text: { type: String, required: true },
   show: { type: Boolean, default: false },
@@ -28,11 +29,13 @@ defineProps({
 });
 
 const emit = defineEmits(["close"]);
+const tooltipRef = ref(null);
 
 const onClose = () => {
-    console.log("sss");
   emit("close");
 };
+
+onClickOutside(tooltipRef, onClose);
 
 
 </script>
@@ -44,6 +47,7 @@ const onClose = () => {
   position: absolute;
   text-align: center;
   padding: 8px 12px;
+  min-width: 25vw;
   z-index: 9999;
   text-wrap: v-bind("clickOutside ? 'wrap' : 'nowrap'");
   position-anchor: --trigger;
