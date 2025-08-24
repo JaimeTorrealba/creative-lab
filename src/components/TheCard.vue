@@ -29,7 +29,7 @@ const mapTagType = (tag) => {
 <template>
   <router-link :to="data.path">
     <div
-      class="is-flex is-flex-direction-column is-clickable is-relative border_radius_top_card border_radius_bottom_card overflow"
+      class="is-flex is-flex-direction-column is-clickable is-relative border_radius_top_card border_radius_bottom_card "
       :style="{ '--my-content': `'${data.meta.description}'` }"
     >
       <img

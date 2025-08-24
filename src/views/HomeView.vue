@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,17 +16,6 @@ const filteredRoutes = allRoutes.value.filter(
   (route) => !BLACK_LIST_PATHS.includes(route.path)
 );
 data.value = filteredRoutes;
-
-onMounted(() => {
-  const scrollTrigger = gsap.utils.toArray(".scroll-trigger");
-  scrollTrigger.map((card) => {
-    ScrollTrigger.create({
-      trigger: card,
-      start: "top 80%",
-      animation: gsap.from(card, { duration: 0.75, opacity: 0 }),
-    });
-  });
-});
 
 const updateSearch = (value) => {
   data.value = value;
@@ -49,7 +38,7 @@ const updateSearch = (value) => {
      <!-- grid is-col-min-13 is-gap-2 -->
     <div class="masonry py-4">
       <div class="cell" v-for="route in data" :key="route.path">
-        <Cards :data="route" class="scroll-trigger" />
+        <Cards :data="route" />
       </div>
     </div>
   </div>

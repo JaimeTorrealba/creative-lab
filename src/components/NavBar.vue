@@ -1,7 +1,6 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { gsap } from "gsap";
 import { BLACK_LIST_PATHS } from "../utils";
 
 const emit = defineEmits(["searchResult"]);
@@ -31,10 +30,6 @@ const mapTagName = (tag) => {
 const filterByTag = (tag) => {
   currentTag.value = tag;
   data.value = filteredRoutes.filter((demo) => demo.meta.section === tag);
-  const scrollTriggerRef = gsap.utils.toArray(".scrollTriggerRef");
-  scrollTriggerRef.map((card) => {
-    gsap.to(card, { duration: 0.5, opacity: 1 });
-  });
   emit("searchResult", data.value);
 };
 
@@ -44,10 +39,6 @@ watch(search, (newVal) => {
     const filterKeyResult = data.value.filter((route) => {
       const routeName = route.name.toLowerCase();
       return routeName.includes(search.value);
-    });
-    const scrollTriggerRef = gsap.utils.toArray(".scrollTriggerRef");
-    scrollTriggerRef.map((card) => {
-      gsap.to(card, { duration: 0.5, opacity: 1 });
     });
     data.value = filterKeyResult;
   } else {
