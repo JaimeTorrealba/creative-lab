@@ -24,8 +24,8 @@ const activeCS = ref(0)
 <template>
   <h1 class="text-center" >Carousel 3D {{ activeCS }} </h1>
   <div class="text-center mb-4 z-index-10">
-    <v-btn color="primary" variant="text" @click="activeCS = (activeCS + 1) % URLS.length">Next</v-btn>
-    <v-btn color="primary" variant="text" @click="activeCS = (activeCS - 1 + URLS.length) % URLS.length">Prev</v-btn>
+    <button class="button is-light mx-4" @click="activeCS = (activeCS + 1) % URLS.length">Prev</button>
+    <button class="button is-light" @click="activeCS = (activeCS - 1 + URLS.length) % URLS.length">Next</button>
   </div>
   <TresCanvas window-size id="canvasID" v-bind="canvasConfig" >
     <TresPerspectiveCamera :position="[0, 4, 18]" :look-at="[0, 0, 0]" />

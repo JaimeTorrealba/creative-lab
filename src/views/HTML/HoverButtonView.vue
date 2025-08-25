@@ -119,7 +119,7 @@ const shrink = () => {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #E2F2FF;
+  background-color: #e2f2ff80;
   display: grid;
   place-items: center;
 }

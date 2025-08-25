@@ -4,7 +4,7 @@ import { basic } from './basic.js'
 import { textures_demos } from './textures_effects.js'
 import { demos } from './demos.js'
 import { shaders_demos } from './shaders_demos'
-// import { html_demos } from './html_demos'
+import { html_demos } from './html_demos'
 import { fragment_demos } from './fragment_demos'
 import { controls_demos } from './controls_demos'
 // import { webgpu_demos } from './webgpu_demos.js'
@@ -25,7 +25,7 @@ const router = createRouter({
     generateRoute('CartesianCoords', 'Playground', ''),
     ...basic(),
     ...demos(),
-    // ...html_demos(),
+    ...html_demos(),
     ...controls_demos(),
     ...textures_demos(),
     ...shaders_demos(),
