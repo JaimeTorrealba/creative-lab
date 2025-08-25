@@ -25,6 +25,10 @@ const mapTagType = (tag) => {
   }
 };
 
+const mapTagName = (tag) => {
+  return tag.replaceAll("_", " ").replaceAll(/\b\w/g, (char) => char.toUpperCase());
+};
+
 </script>
 <template>
   <router-link :to="data.path">
@@ -39,7 +43,7 @@ const mapTagType = (tag) => {
       width="300"
       />
       <div class="tag-wrapper">
-        <span class="tag" :class="mapTagType(data.meta.section)">{{ data.meta.section }}</span>
+        <span class="tag" :class="mapTagType(data.meta.section)">{{ mapTagName(data.meta.section) }}</span>
       </div>
       <div
         class="has-text-centered has-background-light has-text-black-ter py-1 has-text-weight-medium border_radius_bottom_card"

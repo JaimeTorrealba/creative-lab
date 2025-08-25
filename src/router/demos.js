@@ -16,11 +16,6 @@ const demos_routes = [
       'You can transform a model to follow a path (and svg one, in this case) and make it bend and rotate accordingly. This effect is base on: https://youtu.be/NH4rSzHLCp4'
   },
   {
-    name: 'Fur',
-    description:
-      'A way to simulate fur, hair, grass, etc. Using the sampler technique in ThreeJs. This effect is base on https://youtu.be/n98UO5sUyLo.'
-  },
-  {
     name: 'Glass',
     description:
       'A glass/plastic effect you can achieve using physical material. This effect is base on: https://tympanus.net/codrops/2021/10/27/creating-the-effect-of-transparent-glass-and-plastic-in-three-js/.'
@@ -50,10 +45,6 @@ const demos_routes = [
     name: 'MultiCamera',
     description:
       'You can create an array of cameras, each one with its own viewport and its own configurations.'
-  },
-  {
-    name: 'MultiClone',
-    description: 'A initial example of how to use an ArrayModifier to create meshes.'
   },
   {
     name: 'MultiLayer',

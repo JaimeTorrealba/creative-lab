@@ -12,7 +12,7 @@ const controls_routes = [
   },
   {
     name: 'FourFaceModel',
-    description: 'A way to show 4 faces of a model depending on the position of the camera'
+    description: 'A way to show 4 faces of a model depending on the position of the camera, useful when you have a pixel, Minecraft or 2D sprite.'
   },
   {
     name: 'FPS',

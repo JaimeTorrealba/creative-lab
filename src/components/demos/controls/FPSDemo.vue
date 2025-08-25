@@ -1,6 +1,6 @@
 <script setup>
 import { ref, shallowRef } from 'vue'
-import { useGLTF } from '@tresjs/cientos';
+import { useGLTF, Sky } from '@tresjs/cientos';
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import { fpsControls, MobileJoystick } from '@jaimebboyjt/tres-fps-controls'
 import gsap from 'gsap';
@@ -71,6 +71,7 @@ const onState = e => {
     <TresMesh :geometry="roundBoxGeometry">
         <TresMeshBasicMaterial :color="0x00ff00" wireframe />
     </TresMesh>
+    <Sky />
     <TresGridHelper :args="[100, 100]" :position-y="-2" />
     <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
     <TresAmbientLight />

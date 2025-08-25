@@ -12,7 +12,7 @@ const basic_routes = [
   },
   {
     name: 'ChangedPivot',
-    description: 'Changing the pivot of a 3D primitive.'
+    description: 'I tried to change the pivot of a 3D primitive. isn´t that straightforward as I thought?'
   },
   {
     name: 'CloudLight',
