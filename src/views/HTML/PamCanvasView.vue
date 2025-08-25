@@ -4,7 +4,7 @@ import { Image, Stars, OrbitControls } from "@tresjs/cientos";
 </script>
 <template>
   <section class="is-flex is-flex-direction-column is-justify-content-space-between h-screen">
-    <div class="columns is-centered has-background-white-ter">
+    <div class="columns is-centered has-background-dark">
       <div class="column is-half p-4">
         <h1 class="title-4 text-center">Pam Canvas</h1>
         <p>
@@ -46,7 +46,7 @@ import { Image, Stars, OrbitControls } from "@tresjs/cientos";
         </TresCanvas>
       </div>
     </div>
-    <div class="columns is-centered has-background-white-ter">
+    <div class="columns is-centered has-background-dark">
       <div class="column is-half px-4">
         <h1 class="title-4 text-center">Pam Canvas</h1>
         <p>
