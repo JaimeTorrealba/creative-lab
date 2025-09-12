@@ -62,6 +62,11 @@ const shaders_routes = [
       'Complex realistic grass by simondev example'
   },
   {
+    name: 'VolumetricSmoke',
+    description:
+      'Complex realistic volumetric smoke simulation'
+  },
+  {
     name: 'WaterReflector',
     description: 'A test to try how the water reflection works on Tresjs, using the ReflectorMesh addons. Based on this video: https://youtu.be/PAy5aQK2pSg?si=4dCtEjHRNGG9tQIH'
   },
