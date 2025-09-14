@@ -19,7 +19,6 @@ uniform float uSunIntensity;
 uniform vec3 uLightDir; // must be normalized
 uniform vec3 uAmbientColor;
 uniform float uAmbientIntensity;
-uniform mat4 uProjectionMatrixInverse;
 uniform mat4 uViewMatrixInverse;
 uniform mat4 uModelMatrix;
 uniform float uCameraNear;
@@ -33,7 +32,6 @@ uniform float uDensityThreshold;
 uniform float uDensityMultiplier;
 uniform vec3 uTextureOffset;
 uniform float uTextureTiling;
-uniform bool uOcclusionMode; // not used here but kept for parity
 
 // Volumetric Mask Uniforms
 uniform float u_mask_raio;
@@ -125,14 +123,18 @@ float CalculateLightEnergy(vec3 samplePos, vec3 lightDir) {
   return exp(-acc);
 }
 
+// Convert non-linear depth buffer value to linear camera distance
+float linearize_depth(float d, float zNear, float zFar) {
+  // Perspective depth to NDC then to linear view-space Z distance
+  float z = d * 2.0 - 1.0; // NDC
+  return (2.0 * zNear * zFar) / (zFar + zNear - z * (zFar - zNear));
+}
+
 void main() {
   vec3 dir = normalize(vDirection);
   vec2 bounds = hitBox(vOrigin, dir);
   if (bounds.x >= bounds.y) discard;
   bounds.x = max(bounds.x, 0.0);
-
-  // No depth occlusion pass here; set to a very large distance
-  float sceneLinearDistance = 1e20;
 
   float rayLength = bounds.y - bounds.x;
   if (rayLength < 0.001) discard;
@@ -146,6 +148,17 @@ void main() {
   float mu = dot(dir, uLightDir);
   float fade_zone = stepSize * 2.0;
 
+  // Sample scene depth at current pixel once and convert to linear camera distance
+  vec2 screenUV = gl_FragCoord.xy / uResolution;
+  float sceneDepthSample = texture(uDepthTexture, screenUV).r;
+  float sceneLinearDistance = linearize_depth(sceneDepthSample, uCameraNear, uCameraFar);
+  // If no geometry rendered to depth at this pixel, depth is 1.0 -> treat as "very far"
+  if (sceneDepthSample >= 0.9999) {
+    sceneLinearDistance = 1e20;
+  }
+  // Prepare view matrix from inverse for occasional conversions
+  mat4 viewMatrix = inverse(uViewMatrixInverse);
+
   for (int i = 0; i < 1024; i++) {
     if (i >= uMaxSteps) break;
     // optional safety using view space distance (requires modelViewMatrix built-in)
@@ -153,7 +166,12 @@ void main() {
     float dist_remaining = rayLength - dist_traveled;
     if (dist_remaining < 0.0) break;
 
-    float density = getDensity(p);
+  // Early out if current sample point is behind previously rendered opaque geometry
+  vec3 worldP = (uModelMatrix * vec4(p, 1.0)).xyz;
+  float viewDepth = -(viewMatrix * vec4(worldP, 1.0)).z; // camera-forward positive depth
+  if (viewDepth > sceneLinearDistance) break;
+
+  float density = getDensity(p);
     if (density > 0.01) {
       float lightEnergy = CalculateLightEnergy(p, uLightDir);
       vec3 sunL = uSunColor * uSunIntensity * lightEnergy;
