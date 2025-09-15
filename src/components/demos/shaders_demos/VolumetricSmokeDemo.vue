@@ -68,7 +68,7 @@ pane.addBinding(parameters, "animationSpeedZ", {
 pane.addBinding(parameters, "containerScale", {
   label: "Container Scale",
   min: 0,
-  max: 4080,
+  max: 2024,
   step: 1,
 });
 pane.addBinding(parameters, "densityThreshold", {
@@ -76,6 +76,8 @@ pane.addBinding(parameters, "densityThreshold", {
   min: 0,
   max: 1,
   step: 0.01,
+}).on('change', () => {
+	shader.uniforms.uDensityThreshold.value = parameters.densityThreshold;
 });
 pane.addBinding(parameters, "isAnimating", {
   label: "Is Animating",
