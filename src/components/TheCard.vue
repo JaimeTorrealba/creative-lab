@@ -41,6 +41,7 @@ const mapTagName = (tag) => {
       :src="data.meta.img"
       :alt="data.name"
       width="300"
+      height="200"
       />
       <div class="tag-wrapper">
         <span class="tag" :class="mapTagType(data.meta.section)">{{ mapTagName(data.meta.section) }}</span>

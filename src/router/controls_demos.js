@@ -19,6 +19,10 @@ const controls_routes = [
     description: 'First person shooter controls, uses my tres-FPS-controls component. '
   },
   {
+    name: 'SnapDrag',
+    description: 'Snap and drag controls for objects in the 3D space. It moves along a pre-defined grid.'
+  },
+  {
     name: 'Sprites',
     description: 'A fusion between 2D and 3D world characters using sprites and the third person camera. based on this video: https://youtu.be/pGO1Hm-JB90?si=DUtUlYphEuiRr212'
   },
