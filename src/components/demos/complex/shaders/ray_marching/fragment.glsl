@@ -69,7 +69,19 @@ void main() {
   vec3 surfacePos = rayOrigin + rayDirection * d;
   d /= 6.0;
   float diffuse = GetLight(surfacePos);
-  col = vec3(diffuse);
+  // Determine which surface we hit (sphere vs plane) and tint accordingly
+  vec4 s = vec4(0.0, 1.0, 6.0, 1.0);
+  float sphereDist = length(surfacePos - s.xyz) - s.w;
+  float planeDist = surfacePos.y;
+  bool hitSphere = sphereDist < planeDist;
+
+  if (hitSphere) {
+    // Red sphere with shading preserved
+    col = vec3(1.0, 0.5, 0.0) * diffuse;
+  } else {
+    // Keep plane grayscale
+    col = vec3(diffuse);
+  }
 
   gl_FragColor = vec4(col, 1.0);
 }
