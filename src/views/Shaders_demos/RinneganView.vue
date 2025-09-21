@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/frag_shader/RinneganDemo.vue'
+import TheExperience from '@/components/demos/shaders_demos/RinneganDemo.vue'
 
 </script>
 <template>

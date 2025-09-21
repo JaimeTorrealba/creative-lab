@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/shaders_demos/VolumetricSmokeDemo.vue";
+import TheExperience from "@/components/demos/complex/VolumetricSmokeDemo.vue";
 
 </script>
 <template>

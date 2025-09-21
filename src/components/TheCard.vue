@@ -33,11 +33,11 @@ const mapTagName = (tag) => {
 <template>
   <router-link :to="data.path">
     <div
-      class="is-flex is-flex-direction-column is-clickable is-relative border_radius_top_card border_radius_bottom_card "
+      class="is-flex is-flex-direction-column is-clickable is-relative border_radius_top_card border_radius_bottom_card overflow"
       :style="{ '--my-content': `'${data.meta.description}'` }"
     >
       <img
-      class="img border_radius_top_card "
+      class="img border_radius_top_card"
       :src="data.meta.img"
       :alt="data.name"
       width="300"

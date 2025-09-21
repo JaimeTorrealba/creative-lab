@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from 'vue'
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/frag_shader/RMDemo.vue'
+import TheExperience from '@/components/demos/complex/RMDemo.vue'
 import { Pane } from 'tweakpane';
 
 const camera = reactive({y:1})

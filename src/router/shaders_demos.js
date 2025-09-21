@@ -24,6 +24,11 @@ const shaders_routes = [
       'With this demo, you can see how to destroy and manipulate the individual vertex of any type of geometries. This effect is base on: https://www.youtube.com/live/frgmk0Wu76A?feature=share'
   },
   {
+    name: 'FragmentTemplate',
+    description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)',
+    link: 'https://www.shadertoy.com/view/3t2fRn'
+  },
+  {
     name: 'Grass',
     description: 'Naive implementation of grass'
   },
@@ -44,6 +49,11 @@ const shaders_routes = [
     description: 'A simple ring made of particles using shaders'
   },
   {
+    name: 'Rinnegan',
+    description: 'A naive play with fragments draws, a rinnegan design.',
+    link: 'https://www.shadertoy.com/view/3t2fRn'
+  },
+  {
     name: 'WaterReflector',
     description: 'A test to try how the water reflection works on Tresjs, using the ReflectorMesh addons. Based on this video: https://youtu.be/PAy5aQK2pSg?si=4dCtEjHRNGG9tQIH'
   },
@@ -51,16 +61,6 @@ const shaders_routes = [
     name: 'Wave',
     description: 'A WebGl ripple effect (like material design) but using shaders. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
   },
-  {
-    name: 'FragmentTemplate',
-    description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)',
-    link: 'https://www.shadertoy.com/view/3t2fRn'
-  },
-  {
-    name: 'Rinnegan',
-    description: 'A naive play with fragments draws, a rinnegan design.',
-    link: 'https://www.shadertoy.com/view/3t2fRn'
-  }
 ]
 
 
