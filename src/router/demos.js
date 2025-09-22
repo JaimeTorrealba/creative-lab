@@ -60,6 +60,11 @@ const demos_routes = [
       'A fun example using random movements to create a ant colony with gsap. Thanks to "Ant walkcycle" (https://skfb.ly/ZsMz) by Matrix Rex is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/)'
   },
   {
+    name: 'Ribbon',
+    description:
+      'The basic idea how to create, animate and render a ribbon in threejs. Is based on (and the full version) https://www.youtube.com/watch?v=87J8EhKMH6c'
+  },
+  {
     name: 'SkyDome',
     description: 'Demo of how to use Sky dome as a background'
   },
