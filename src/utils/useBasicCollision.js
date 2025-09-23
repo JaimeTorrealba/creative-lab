@@ -1,43 +1,46 @@
-import { onMounted, nextTick } from 'vue'
 import { Box3 } from 'three'
-// import type { MaybeElementRef } from '@vueuse/core'
 import { unrefElement } from '@vueuse/core'
 
-// TODO handle models
+// Works with Mesh, Group, and loaded models (e.g., GLTF roots).
+export const useBasicCollision = (objects = []) => {
+  if (!Array.isArray(objects) || objects.length < 2) {
+    console.error('useBasicCollision: requires at least 2 objects')
+    return { check: () => [] }
+  }
 
-export const useBasicCollision = (objects) => {
-  if (objects.length < 2) return console.error('It requires at least 2 objects to check collision')
+  // Preallocate one Box3 per tracked object
+  const AABBStore = objects.map(() => new Box3())
 
-  const AABBStore = []
-
-  onMounted(async () => {
-    await nextTick()
-    objects.map((object) => {
-      let el = unrefElement(object)
-      if (!el.geometry) {
-        console.error('useBasicCollision: can access to geometry or boundingBox')
-        return
-      }
-      const currentAABB = new Box3()
-      currentAABB.setFromObject(el)
-      AABBStore.push(currentAABB)
-    })
-  })
+  // Try to resolve a usable THREE.Object3D from different wrappers/refs
+  const resolveObject3D = (maybe) => {
+    const el = unrefElement(maybe)
+    if (el?.isObject3D) return el
+    if (el?.object3D?.isObject3D) return el.object3D
+    if (el?.value?.isObject3D) return el.value
+    return null
+  }
 
   const check = () => {
-    let result = []
-    objects.map((object, index) => {
-      const el = unrefElement(object)
-      AABBStore[index].copy(el.geometry.boundingBox).applyMatrix4(el.matrixWorld)
-      // inner loop
-      AABBStore.map((_, innerIndex) => {
-        if (index === innerIndex) return
-        if (AABBStore[index].intersectsBox(AABBStore[innerIndex])) {
-          result = [unrefElement(objects[index]), unrefElement(objects[innerIndex])]
+    // Update world-space AABBs for all objects
+    for (let i = 0; i < objects.length; i++) {
+      const obj = resolveObject3D(objects[i])
+      if (!obj) {
+        AABBStore[i].makeEmpty()
+        continue
+      }
+      AABBStore[i].setFromObject(obj)
+    }
+
+    // Pairwise intersection test; return first collision pair found
+    for (let i = 0; i < AABBStore.length; i++) {
+      for (let j = i + 1; j < AABBStore.length; j++) {
+        if (AABBStore[i].intersectsBox(AABBStore[j])) {
+          return [resolveObject3D(objects[i]), resolveObject3D(objects[j])]
         }
-      })
-    })
-    return result
+      }
+    }
+    return []
   }
+
   return { check }
 }

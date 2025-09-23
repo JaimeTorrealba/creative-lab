@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted, nextTick, shallowRef } from 'vue';
-import { useLoop, extend, useTresContext } from '@tresjs/core'
+import { onMounted, nextTick, shallowRef, computed } from 'vue';
+import { useLoop, extend, useTres } from '@tresjs/core'
 import { useGLTF, OrbitControls } from '@tresjs/cientos';
 import { WebGLRenderer, PerspectiveCamera } from 'three'
 import { ViewHelper } from 'three/examples/jsm/helpers/ViewHelper.js'
@@ -8,10 +8,12 @@ import { ViewHelper } from 'three/examples/jsm/helpers/ViewHelper.js'
 //todo emit stats
 
 const wrapperRef = shallowRef()
-const { scene, camera } = useTresContext()
+const { scene, camera } = useTres()
 const emit = defineEmits(['stats'])
 
-const { scene: model } = await useGLTF('/models/footman/source/Footman_RIG.glb')
+const { state: _model } = useGLTF('/models/footman/source/Footman_RIG.glb')
+
+const model = computed(() => _model.value?.scene)
 
 const onChange = () => {
     wrapperRef.value.rotation.copy(camera.value.rotation)
@@ -67,7 +69,7 @@ onMounted(async () => {
     <TresGroup ref="wrapperRef" :position="[0, 100, 0]">
         <TresViewHelper :scale="0.1" />
     </TresGroup>
-    <primitive :position-y="-1" :object="model" />
+    <primitive v-if="model" :position-y="-1" :object="model" />
     <TresDirectionalLight :position="[0, 10, 0]" :intensity="1" />
     <TresAmbientLight :intensity="0.5" />
 </template>

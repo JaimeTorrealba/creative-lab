@@ -1,15 +1,22 @@
 <script setup>
 import { shallowRef, watch } from 'vue';
-import { useTexture, useLoop, vLightHelper } from '@tresjs/core'
+import { useLoop, vLightHelper } from '@tresjs/core'
+import { useTexture } from '@tresjs/cientos'
 import { DoubleSide, Vector3, CameraHelper, RepeatWrapping } from 'three';
 import gsap from 'gsap'
+import { watchOnce } from '@vueuse/core';
 
 //todo learn more about shadows types
 //Another directional light (replace spotLight)
 // name of this abstraction
 
-const { alphaMap } = await useTexture({
-    alphaMap: '/textures/noise-fbm.png'
+const { state: alphaMap, isLoading } = useTexture('/textures/noise-fbm.png')
+
+watchOnce(isLoading, (loading) => {
+    if (!loading) {
+        alphaMap.value.wrapS = RepeatWrapping
+        alphaMap.value.wrapT = RepeatWrapping
+    }
 })
 
 const cloudsRef = shallowRef()
@@ -45,7 +52,6 @@ watch(cloudsRef, value => {
     value.material.alphaMap.wrapT = RepeatWrapping
 })
 
-
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ elapsed }) => {
@@ -70,12 +76,10 @@ onBeforeRender(({ elapsed }) => {
         <TresMeshStandardMaterial :color="0xf7f7f7" />
     </TresMesh>
 
-
     <TresDirectionalLight ref="dirLightRef" v-light-helper cast-shadow :position="[...lightPosition]"
         :intensity="2" :shadow-blurSamples="25" :shadow-radius="4" :shadow-bias="0.000005" />
     <TresMesh ref="cloudsRef" cast-shadow
-        :position="[lightPosition.x - 0.5, lightPosition.y - 0.5, lightPosition.z - 0.5]" :look-at="[0, 0, 0]"
-        v-layer-set="2">
+        :position="[lightPosition.x - 0.5, lightPosition.y - 0.5, lightPosition.z - 0.5]" :look-at="[0, 0, 0]">
         <TresPlaneGeometry :args="[25, 25, 25]" />
         <TresMeshStandardMaterial transparent :side="DoubleSide" :alphaMap="alphaMap"
             :alphaTest="randomCloudsAlphaTest" />

@@ -1,5 +1,5 @@
 <script setup>
-import { useTexture, useLoop } from "@tresjs/core";
+import { useLoop } from "@tresjs/core";
 import {
   BufferGeometry,
   CatmullRomCurve3,
@@ -8,6 +8,7 @@ import {
   BackSide,
   MeshStandardMaterial,
 } from "three";
+import { useTexture } from "@tresjs/cientos";
 import { Pane } from "tweakpane";
 import { reactive, shallowRef, watch } from "vue";
 
@@ -19,10 +20,9 @@ const options = reactive({
 
 pane.addBinding(options, "debugCurve");
 
-const textures = await useTexture([
-  "/textures/front_ribbon.png",
-  "/textures/back_ribbon.png",
-]);
+const { state: frontTexture} = useTexture("/textures/front_ribbon.png");
+const { state: backTexture} = useTexture("/textures/back_ribbon.png");
+const textures = [frontTexture.value, backTexture.value];
 textures.forEach((t) => {
   t.wrapS = t.wrapT = 1000;
   t.repeat.set(1, 1);

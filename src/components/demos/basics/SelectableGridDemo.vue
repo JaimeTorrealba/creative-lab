@@ -22,7 +22,7 @@ const createSphere = () => {
   const objectExists = objects.find((obj) => obj.position.equals(highlighter.value.position))
 
   if (objectExists) return
-  const sphere = sphereBase.value.value.clone()
+  const sphere = sphereBase.value.instance.clone()
   sphere.visible = true
   sphere.position.copy(highlighter.value.position)
   objects.push(sphere)
@@ -32,7 +32,7 @@ const createSphere = () => {
 </script>
 <template>
     <TresMesh name="ground" :rotation-x="-Math.PI * 0.5" :visible="false" @click="createSphere()"
-        @pointer-move="(e) => onSelect(e)">
+        @pointermove="(e) => onSelect(e)">
         <TresPlaneGeometry :args="[10, 10, 32]" />
         <TresMeshBasicMaterial :color="0x00ff00" :side="DoubleSide" />
     </TresMesh>

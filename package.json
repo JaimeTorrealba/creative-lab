@@ -1,6 +1,6 @@
 {
   "name": "my-tresjs-playground",
-  "version": "0.0.0",
+  "version": "3.0.2",
   "private": false,
   "type": "module",
   "scripts": {
@@ -15,8 +15,8 @@
     "@jaimebboyjt/three-scatter": "0.0.6",
     "@jaimebboyjt/tres-fps-controls": "^0.0.55",
     "@three.ez/instanced-mesh": "^0.3.4",
-    "@tresjs/cientos": "^4.1.0",
-    "@tresjs/core": "^4.3.3",
+    "@tresjs/cientos": "^5.0.0",
+    "@tresjs/core": "^5.0.1",
     "@tresjs/post-processing": "^2.1.0",
     "@tweakpane/plugin-essentials": "^0.2.1",
     "@vueuse/core": "10.9.0",
@@ -31,7 +31,8 @@
     "three-gpu-pathtracer": "^0.0.20",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0",
-    "vuexyz": "^1.3.168"
+    "vuexyz": "^1.3.168",
+    "three": "^0.180.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.10.5",
@@ -41,7 +42,6 @@
     "eslint-plugin-vue": "^9.32.0",
     "prettier": "^2.8.8",
     "sass": "^1.85.1",
-    "three": "^0.176.0",
     "tweakpane": "^4.0.5",
     "vite": "^4.5.9",
     "vite-plugin-glsl": "^1.3.2"

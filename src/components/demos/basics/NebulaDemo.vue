@@ -1,19 +1,17 @@
 <script setup>
 import { Stars, MouseParallax, Smoke } from '@tresjs/cientos'
-import { EffectComposer, BloomPmndrs } from '@tresjs/post-processing'
-
-// TODO: Problem with post-processing (to check later)
+// import { EffectComposer, BloomPmndrs } from '@tresjs/post-processing'
 </script>
 <template>
     <TresFogExp2 :color="0x03544e" :density="0.001" />
     <MouseParallax :factor="1" />
 
     <Stars />
-    <Suspense>
+    <!-- <Suspense>
         <EffectComposer>
             <BloomPmndrs :luminance-threshold="15" :luminance-smoothing="0.1" :intensity="0.15" :radius="0.25" />
         </EffectComposer>
-    </Suspense>
+    </Suspense> -->
     <Suspense>
         <Smoke texture='/textures/smoke.png' :segments="2" :width="4" :depth="1" :position="[0, 0, -7.5]" />
     </Suspense>

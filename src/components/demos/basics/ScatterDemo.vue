@@ -1,7 +1,7 @@
 <script setup>
-import { watch, reactive, ref } from "vue";
-import { useTexture, extend } from "@tresjs/core";
-import { useGLTF } from "@tresjs/cientos";
+import { watch, reactive, ref,computed } from "vue";
+import { extend } from "@tresjs/core";
+import { useGLTF, useTextures } from "@tresjs/cientos";
 import { ThreeScatter } from "@jaimebboyjt/three-scatter";
 import { Pane } from "tweakpane";
 
@@ -9,22 +9,22 @@ extend({ ThreeScatter });
 
 const scatterRef = ref(null);
 const pathFloor = "/models/surfaceSamplingTest.glb";
-const { scene: floor } = await useGLTF(pathFloor);
+const { state: floor } = useGLTF(pathFloor);
 
 const pathModel = "/models/House.glb";
-const { scene: model } = await useGLTF(pathModel);
+const { state: model } = useGLTF(pathModel);
+console.log('jaime ~ model:', model);
 
-const { normalMap, map, roughnessMap, aoMap } = await useTexture({
-  map: "/textures/floor_textures/Ground_Wet_002_basecolor.jpg",
-  normalMap: "/textures/floor_textures/Ground_Wet_002_normal.jpg",
-  roughnessMap: "/textures/floor_textures/Ground_Wet_002_roughness.jpg",
-  aoMap: "/textures/floor_textures/Ground_Wet_002_ambientOcclusion.jpg",
-});
+const { textures } = useTextures([
+   "/textures/floor_textures/Ground_Wet_002_basecolor.jpg",
+   "/textures/floor_textures/Ground_Wet_002_normal.jpg",
+   "/textures/floor_textures/Ground_Wet_002_roughness.jpg",
+   "/textures/floor_textures/Ground_Wet_002_ambientOcclusion.jpg",
+]);
 
-const geometry = floor.children[0].geometry;
+const geometry = computed(() => floor.value?.scene.children[0].geometry);
 
 watch(scatterRef, (scatter) => {
-  console.log("jaime ~ watch ~ scatter:", scatter);
   scatter.alignToSurfaceNormal();
   scatter.setAll((model) => {
     model.scale.set(3, 3, 3);
@@ -59,25 +59,16 @@ watch(
     });
   }
 );
-// watch(
-//   () => options.seeds,
-//   (seed) => {
-//     // console.log('jaime ~ seed:', seed);
-//     scatterRef.value.setSeeds(seed);
-//     // console.log("jaime ~ scatterRef.value:", scatterRef.value);
-//     // scatterRef.value.alignToSurfaceNormal();
-//   }
-// );
 </script>
 <template>
-  <TresMesh :geometry="geometry">
+  <TresMesh v-if="geometry" :geometry="geometry">
     <TresMeshStandardMaterial
-      :normalMap="normalMap"
-      :map="map"
-      :roughnessMap="roughnessMap"
-      :aoMap="aoMap"
+      :normalMap="textures[1]"
+      :map="textures[0]"
+      :roughnessMap="textures[2]"
+      :aoMap="textures[3]"
     />
   </TresMesh>
   <TresDirectionalLight :position="[10, 10, 10]" :intensity="4" />
-  <TresThreeScatter ref="scatterRef" :args="[geometry, model, 100]" />
+  <TresThreeScatter v-if="geometry && model?.scene" ref="scatterRef" :args="[geometry, model.scene, 100]" />
 </template>
