@@ -1,13 +1,12 @@
 <script setup>
 import { shallowRef, watch, reactive } from "vue";
-import { useLoop, useTexture, useTresContext } from "@tresjs/core";
+import { useLoop, useTres } from "@tresjs/core";
+import { useTexture } from "@tresjs/cientos";
 import * as THREE from "three";
-import {
-  VolumetricMaskController,
-} from "@/components/demos/shaders_demos/shaders/volumetricSmoke/utils.js";
-import VERTEX_SHADER from "@/components/demos/shaders_demos/shaders/volumetricSmoke/vertex.glsl";
-import FRAGMENT_SHADER from "@/components/demos/shaders_demos/shaders/volumetricSmoke/fragment.glsl";
-import { useWindowSize } from "@vueuse/core";
+import { VolumetricMaskController } from "./shaders/volumetricSmoke/utils";
+import VERTEX_SHADER from "./shaders/volumetricSmoke/vertex.glsl";
+import FRAGMENT_SHADER from "./shaders/volumetricSmoke/fragment.glsl";
+import { useWindowSize, watchOnce } from "@vueuse/core";
 import { Pane } from "tweakpane";
 
 const pane = new Pane();
@@ -71,21 +70,23 @@ pane.addBinding(parameters, "containerScale", {
   max: 2024,
   step: 1,
 });
-pane.addBinding(parameters, "densityThreshold", {
-  label: "Density Threshold",
-  min: 0,
-  max: 1,
-  step: 0.01,
-}).on('change', () => {
-	shader.uniforms.uDensityThreshold.value = parameters.densityThreshold;
-});
+pane
+  .addBinding(parameters, "densityThreshold", {
+    label: "Density Threshold",
+    min: 0,
+    max: 1,
+    step: 0.01,
+  })
+  .on("change", () => {
+    shader.uniforms.uDensityThreshold.value = parameters.densityThreshold;
+  });
 pane.addBinding(parameters, "isAnimating", {
   label: "Is Animating",
 });
 
 // ------- Refs & Context -------
 const { width, height } = useWindowSize();
-const { camera, renderer, scene } = useTresContext();
+const { camera, renderer, scene } = useTres();
 const directionalLightRef = shallowRef();
 const ambientLightRef = shallowRef();
 const smokeRef = shallowRef();
@@ -95,12 +96,21 @@ const fallbackTexture = new THREE.DataTexture(new Uint8Array([0, 0, 0, 255]), 1,
 fallbackTexture.needsUpdate = true;
 
 // Use a blue-noise-like texture (we reuse an available asset for jitter)
-const { map: blueNoise } = await useTexture({ map: "/textures/Cloud.png" });
-blueNoise.wrapS = THREE.RepeatWrapping;
-blueNoise.wrapT = THREE.RepeatWrapping;
-blueNoise.minFilter = THREE.NearestFilter;
-blueNoise.magFilter = THREE.NearestFilter;
-blueNoise.needsUpdate = true;
+const { state: blueNoise, isLoading } = useTexture("/textures/Cloud.png");
+watchOnce(isLoading, (v) => {
+  if (!v) {
+    blueNoise.value.wrapS = THREE.RepeatWrapping;
+    blueNoise.value.wrapT = THREE.RepeatWrapping;
+    blueNoise.value.minFilter = THREE.NearestFilter;
+    blueNoise.value.magFilter = THREE.NearestFilter;
+    blueNoise.value.needsUpdate = true;
+    shader.uniforms.uBlueNoise.value = blueNoise.value;
+    shader.uniforms.uBlueNoiseSize.value.x = blueNoise.value.width;
+    shader.uniforms.uBlueNoiseSize.value.y = blueNoise.value.height;
+    const parametersClone = { ...parameters };
+    myWorker.postMessage(parametersClone);
+  }
+});
 
 // Mask controller creates u_mask_* uniforms and 3D shape noise textures
 const maskController = new VolumetricMaskController();
@@ -112,9 +122,9 @@ const shader = {
     uVolumeTexture: { value: null },
     uTextureOffset: { value: new THREE.Vector3(0, 0, 0) },
     uTextureTiling: { value: parameters.textureTiling },
-    uBlueNoise: { value: blueNoise },
+    uBlueNoise: { value: null },
     uBlueNoiseSize: {
-      value: new THREE.Vector2(blueNoise.image.width, blueNoise.image.height),
+      value: new THREE.Vector2(32, 32),
     },
     uResolution: { value: new THREE.Vector2(width.value, height.value) },
     cameraPos: { value: camera.value.position },
@@ -149,12 +159,8 @@ const shader = {
 
 const myWorker = new Worker(new URL("worker-smoke.js", import.meta.url));
 
-const parametersClone = { ...parameters };
-
-myWorker.postMessage(parametersClone);
-
 myWorker.onmessage = (e) => {
-  const size = parameters.textureSize
+  const size = parameters.textureSize;
   const texture = new THREE.Data3DTexture(e.data, size, size, size);
   texture.format = THREE.RedFormat;
   texture.minFilter = THREE.LinearFilter;
@@ -165,7 +171,7 @@ myWorker.onmessage = (e) => {
   texture.wrapR = THREE.RepeatWrapping;
   texture.needsUpdate = true;
 
-  set3DTexture(texture)
+  set3DTexture(texture);
 };
 
 const set3DTexture = (texture) => {
@@ -212,8 +218,8 @@ onBeforeRender(({ delta }) => {
   }
 
   // Depth pre-pass: render scene without the volumetric mesh into the depth target
-  if (renderer?.value && scene?.value && smokeRef.value) {
-    const r = renderer.value;
+  if (renderer && scene?.value && smokeRef.value) {
+    const r = renderer;
     const s = scene.value;
     const prevTarget = r.getRenderTarget();
     const prevAutoClear = r.autoClear;

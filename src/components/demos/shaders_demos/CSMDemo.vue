@@ -1,10 +1,9 @@
 <script setup>
 import { shallowRef } from "vue";
 import { useLoop } from "@tresjs/core";
-import { useTexture, Environment } from "@tresjs/cientos";
+import { useTexture, Environment, CustomShaderMaterial } from "@tresjs/cientos";
 import { EquirectangularReflectionMapping, MeshPhysicalMaterial } from "three";
 import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader";
-import CustomShaderMaterial from "three-custom-shader-material/vanilla";
 import vertex from "./shaders/drop/vertex.glsl";
 
 const { state: normalMap } = useTexture("/textures/glassMorphismNormal.jpg");
@@ -18,7 +17,7 @@ const hdrEquirect = await new HDRLoader().load(
 
 const dropRef = shallowRef();
 
-const waterMaterial = new CustomShaderMaterial({
+const waterMaterial = {
   baseMaterial: MeshPhysicalMaterial,
   transmission: 1,
   thickness: 0.5,
@@ -30,7 +29,7 @@ const waterMaterial = new CustomShaderMaterial({
   uniforms: {
     uTime: { value: 0 },
   },
-});
+};
 
 const { onBeforeRender } = useLoop();
 
@@ -42,7 +41,8 @@ onBeforeRender(({ delta }) => {
 </script>
 <template>
   <Environment files="/textures/empty_warehouse_01_2k.hdr" :background="true" />
-  <TresMesh ref="dropRef" :position="[-0, 0, 0]" :material="waterMaterial" >
+  <TresMesh ref="dropRef" :position="[-0, 0, 0]" >
     <TresIcosahedronGeometry :args="[1, 10]" />
+    <CustomShaderMaterial v-bind="waterMaterial" />
   </TresMesh>
 </template>
