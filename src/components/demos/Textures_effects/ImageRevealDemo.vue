@@ -1,18 +1,23 @@
 <script setup>
 import { computed, reactive } from 'vue'
-import { useTexture, useLoop } from '@tresjs/core'
-// import { Vector2 } from 'three'
+import { useLoop } from '@tresjs/core'
+import { useTexture } from '@tresjs/cientos'
+import { watchOnce } from '@vueuse/core'
 import vertex from './shaders/ImageReveal/vertex.glsl'
 import fragment from './shaders/ImageReveal/fragment.glsl'
 import { Pane } from 'tweakpane'
 
-const { map:texture } = await useTexture({
-    map: '/images/photo_slider2.jpg'
+const { state: texture, isLoading } = useTexture('/images/photo_slider2.jpg')
+
+watchOnce(isLoading, (value) => {
+    if (!value) {
+        shader.uniforms.uTexture.value = texture.value;
+    }
 })
 
 const shader = {
   uniforms: {
-    uTexture: { value: texture },
+    uTexture: { value: null },
     uTime: { value: 0 },
     uProgress: { value: 0.5 },
   },

@@ -9,6 +9,8 @@ import RRSS from "@/components/RRSS.vue";
 import { BLACK_LIST_PATHS } from "../utils";
 import NavBar from "../components/NavBar.vue";
 
+//TODO route query params for filter by tag
+
 const router = useRouter();
 const data = ref();
 const allRoutes = computed(() => router.options.routes);

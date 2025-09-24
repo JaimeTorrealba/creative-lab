@@ -1,12 +1,18 @@
 <script setup>
 import { ref, watch } from 'vue'
-import { useTexture } from '@tresjs/core'
+import { useTexture } from '@tresjs/cientos'
 import { Vector4 } from 'three'
-import { useWindowSize } from '@vueuse/core'
+import { useWindowSize, watchOnce } from '@vueuse/core'
 import { Pane } from 'tweakpane'
 import fragment from './shaders/ChromaticAberration/fragment.glsl'
 
-const texture = await useTexture(['/images/photo_slider1.jpg'])
+const { state: texture, isLoading } = useTexture('/images/photo_slider1.jpg')
+
+watchOnce(isLoading, (value) => {
+    if (!value) {
+        shader.uniforms.difftexture.value = texture.value;
+    }
+})
 
 const sliderRef = ref(null)
 const { width, height } = useWindowSize()
@@ -18,7 +24,7 @@ const shader = {
     red: { type: 'f', value: 0.1 },
     blue: { type: 'f', value: 0.1 },
     green: { type: 'f', value: 0.1 },
-    difftexture: { type: 'f', value: texture }, // texture 1
+    difftexture: { type: 'f', value: null }, // texture 1
     resolution: { type: 'v4', value: new Vector4() }
   },
   vertexShader: `
@@ -45,7 +51,7 @@ watch(sliderRef, () => {
 })
 const resize = () => {
   // image cover
-  const imageAspect = texture.image.height / texture.image.width
+  const imageAspect = texture.value.image.height / texture.value.image.width
   let a1
   let a2
   if (height.value / width.value > imageAspect) {

@@ -1,7 +1,7 @@
 <script setup>
 import { watch } from 'vue'
-import { useWindowSize, useMouseInElement } from '@vueuse/core'
-import { useTexture } from '@tresjs/core'
+import { useWindowSize, useMouseInElement, watchOnce } from '@vueuse/core'
+import { useTexture } from '@tresjs/cientos'
 import gsap from "gsap";
 import { Vector2 } from 'three'
 import vertex from './shaders/BlurPixels/vertex.glsl'
@@ -9,9 +9,14 @@ import fragment from './shaders/BlurPixels/fragment.glsl'
 
 const { width, height } = useWindowSize()
 
-const { map } = await useTexture({
-    map: '/images/photo_slider2.jpg'
+const { state: map, isLoading } = useTexture('/images/photo_slider2.jpg')
+
+watchOnce(isLoading, (value) => {
+    if (!value) {
+        shader.uniforms.uTexture.value = map.value;
+    }
 })
+
 const canvas = document.getElementById('canvasId')
 const { isOutside } = useMouseInElement(canvas)
 
@@ -43,7 +48,7 @@ const shader = {
     uniforms: {
         uResolution: { value: new Vector2(width.value, height.value) },
         uTime: { value: 0 },
-        uTexture: { value: map },
+        uTexture: { value: null },
         uMouseEnter: { value: 0 },
         uMouseOverPos: { value: new Vector2(0.5, 0.9) }
     },
@@ -63,7 +68,7 @@ const handleMove = (e) => {
 
 </script>
 <template>
-    <TresMesh @pointer-move="(event) => handleMove(event)">
+    <TresMesh @pointermove="(event) => handleMove(event)">
         <TresPlaneGeometry :args='[width, height, 100, 100]' />
         <TresShaderMaterial v-bind="shader" />
     </TresMesh>
