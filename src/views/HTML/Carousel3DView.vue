@@ -22,7 +22,6 @@ const URLS = [
 const activeCS = ref(0)
 </script>
 <template>
-  <h1 class="text-center" >Carousel 3D {{ activeCS }} </h1>
   <div class="text-center mb-4 z-index-10">
     <button class="button is-light mx-4" @click="activeCS = (activeCS + 1) % URLS.length">Prev</button>
     <button class="button is-light" @click="activeCS = (activeCS - 1 + URLS.length) % URLS.length">Next</button>

@@ -1,11 +1,8 @@
 <script setup>
 import gsap from 'gsap'
-import { Text3D } from '@tresjs/cientos'
 import { Vector2 } from 'three'
 import fragment from './shaders/wave/fragment.glsl'
 import vertex from './shaders/wave/vertex.glsl'
-
-const fontPath = 'https://raw.githubusercontent.com/Tresjs/assets/main/fonts/FiraCodeRegular.json'
 
 const shader = {
   vertexShader: vertex,
@@ -31,16 +28,6 @@ const showWave = (ev) => {
 }
 </script>
 <template>
-    <Suspense>
-        <Text3D
-          text="Click on plane"
-          :font="fontPath"
-          :size="0.2"
-          :position="[0, 2, 0]"
-          center
-          :look-at="[0,0,5]"
-        />
-      </Suspense>
       <TresMesh @click="(ev) => showWave(ev)">
         <TresPlaneGeometry :args="[4, 4]" />
         <TresShaderMaterial v-bind="shader" />

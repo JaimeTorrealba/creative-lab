@@ -1,18 +1,26 @@
 <script setup>
-import { useLoop, useTexture } from '@tresjs/core'
-import { GLTFModel } from '@tresjs/cientos'
+import { useLoop } from '@tresjs/core'
+import { GLTFModel, useTexture } from '@tresjs/cientos'
 import fragment from './shaders/CoffeeCup/fragment.glsl'
 import vertex from './shaders/CoffeeCup/vertex.glsl'
 import { DoubleSide, RepeatWrapping } from 'three';
+import { watchOnce } from '@vueuse/core';
 
-const { map: perlinTexture } = await useTexture({ map: '/perlin.png' })
-perlinTexture.wrapS = RepeatWrapping
-perlinTexture.wrapT = RepeatWrapping
+const { state: perlinTexture, isLoading } = useTexture('/perlin.png')
+
+watchOnce(isLoading, (value) => {
+  if (!value) {
+    perlinTexture.wrapS = RepeatWrapping
+    perlinTexture.wrapT = RepeatWrapping
+    shader.uniforms.uPerlin.value = perlinTexture.value
+  }
+})
+
 
 const shader = {
   uniforms: {
     uTime: { value: 0.0 },
-    uPerlin: { value: perlinTexture }
+    uPerlin: { value: null }
   },
   vertexShader: vertex,
   fragmentShader: fragment,

@@ -22,7 +22,7 @@ const shader = {
 }
 
 watch(audioRef, value => {
-  analyzer.value = new AudioAnalyser(value.sound, 32)
+  analyzer.value = new AudioAnalyser(value.instance, 32)
 
 })
 

@@ -1,18 +1,22 @@
 <script setup>
-import { shallowRef } from 'vue'
-import { useTexture, useLoop } from '@tresjs/core'
-import { EquirectangularReflectionMapping, MeshPhysicalMaterial } from 'three'
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
-import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
-import vertex from './shaders/drop/vertex.glsl'
+import { shallowRef } from "vue";
+import { useLoop } from "@tresjs/core";
+import { useTexture, Environment } from "@tresjs/cientos";
+import { EquirectangularReflectionMapping, MeshPhysicalMaterial } from "three";
+import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader";
+import CustomShaderMaterial from "three-custom-shader-material/vanilla";
+import vertex from "./shaders/drop/vertex.glsl";
 
+const { state: normalMap } = useTexture("/textures/glassMorphismNormal.jpg");
 
-const { map: normalMap } = await useTexture({ map: '/textures/glassMorphismNormal.jpg' })
-const hdrEquirect = await new RGBELoader().load('/textures/empty_warehouse_01_2k.hdr', () => {
-  hdrEquirect.mapping = EquirectangularReflectionMapping
-})
+const hdrEquirect = await new HDRLoader().load(
+  "/textures/empty_warehouse_01_2k.hdr",
+  () => {
+    hdrEquirect.mapping = EquirectangularReflectionMapping;
+  }
+);
 
-const dropRef = shallowRef()
+const dropRef = shallowRef();
 
 const waterMaterial = new CustomShaderMaterial({
   baseMaterial: MeshPhysicalMaterial,
@@ -25,19 +29,20 @@ const waterMaterial = new CustomShaderMaterial({
   vertexShader: vertex,
   uniforms: {
     uTime: { value: 0 },
-  }
-})
+  },
+});
 
-const { onBeforeRender } = useLoop()
+const { onBeforeRender } = useLoop();
 
-onBeforeRender(({delta}) => {
-  if(dropRef.value){
-    dropRef.value.material.uniforms.uTime.value += delta
+onBeforeRender(({ delta }) => {
+  if (dropRef.value) {
+    dropRef.value.material.uniforms.uTime.value += delta;
   }
-})
+});
 </script>
 <template>
-    <TresMesh :position="[-0, 0, 0]" :material="waterMaterial" ref="dropRef">
-        <TresIcosahedronGeometry :args="[1, 10]" />
-      </TresMesh>
+  <Environment files="/textures/empty_warehouse_01_2k.hdr" :background="true" />
+  <TresMesh ref="dropRef" :position="[-0, 0, 0]" :material="waterMaterial" >
+    <TresIcosahedronGeometry :args="[1, 10]" />
+  </TresMesh>
 </template>

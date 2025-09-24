@@ -29,10 +29,6 @@ const shaders_routes = [
     link: 'https://www.shadertoy.com/view/3t2fRn'
   },
   {
-    name: 'Grass',
-    description: 'Naive implementation of grass'
-  },
-  {
     name: 'InstanceMesh',
     description: 'A test to try how the instance mesh works on Tresjs, also i was experiment with the OrthographicCamera (normally I just use the PerspectiveCamera).'
   },
@@ -53,10 +49,10 @@ const shaders_routes = [
     description: 'A naive play with fragments draws, a rinnegan design.',
     link: 'https://www.shadertoy.com/view/3t2fRn'
   },
-  {
-    name: 'WaterReflector',
-    description: 'A test to try how the water reflection works on Tresjs, using the ReflectorMesh addons. Based on this video: https://youtu.be/PAy5aQK2pSg?si=4dCtEjHRNGG9tQIH'
-  },
+  // {
+  //   name: 'WaterReflector',
+  //   description: 'A test to try how the water reflection works on Tresjs, using the ReflectorMesh addons. Based on this video: https://youtu.be/PAy5aQK2pSg?si=4dCtEjHRNGG9tQIH'
+  // },
   {
     name: 'Wave',
     description: 'A WebGl ripple effect (like material design) but using shaders. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'

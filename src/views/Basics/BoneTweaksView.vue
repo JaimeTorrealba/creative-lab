@@ -3,8 +3,6 @@ import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import TheExperience from '@/components/demos/basics/BoneTweaksDemo.vue'
 
-// TODO: Fix this
-
 </script>
 <template>
   <TresCanvas window-size clear-color="#333">

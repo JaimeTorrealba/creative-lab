@@ -36,8 +36,8 @@ const { onBeforeRender } = useLoop()
 onBeforeRender(({ elapsed }) => {
   if (box.value) {
     box.value.map((b, index) => {
-      b.value.rotation.y = (index + elapsed) * 0.3
-      b.value.rotation.z = (index + elapsed) * 0.3
+      b.instance.rotation.y = (index + elapsed) * 0.3
+      b.instance.rotation.z = (index + elapsed) * 0.3
     })
   }
   if (spotLightRef.value) {
@@ -74,7 +74,7 @@ const boxes = [
         <TresMeshStandardMaterial color="#C4C4C4" />
       </TresMesh>
       <!-- Shader wall -->
-      <TresMesh @pointer-move="(ev) => updateUniforms(ev)" name="wall">
+      <TresMesh @pointermove="(ev) => updateUniforms(ev)" name="wall">
         <TresPlaneGeometry :args="[2, 1]" />
         <TresShaderMaterial v-bind="shader" :transparent="true" />
       </TresMesh>

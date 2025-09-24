@@ -3,6 +3,7 @@ import { useLoop } from '@tresjs/core'
 import { Color, AdditiveBlending } from 'three'
 import fragment from './shaders/ParticlesRing/fragment.glsl'
 import vertex from './shaders/ParticlesRing/vertex.glsl'
+
 const parameters = {}
 parameters.count = 50000
 parameters.radius = 5

@@ -1,18 +1,24 @@
 <script setup>
 import { shallowRef, watch } from "vue";
-import { useLoop, useTexture, extend } from "@tresjs/core";
+import { useLoop, extend } from "@tresjs/core";
+import { useTexture } from "@tresjs/cientos";
 import { BoxGeometry, ShaderMaterial } from "three";
 import { InstancedMesh2 } from "@three.ez/instanced-mesh";
-const { matcap } = await useTexture({
-  matcap: "/textures/matcap example.png",
+import { watchOnce } from "@vueuse/core";
+
+const { state: texture, isLoading } = useTexture("/textures/matcap example.png");
+watchOnce(isLoading, (value) => {
+  if (!value) {
+    shader.uniforms.uMatCap.value = texture.value;
+  }
 });
 
 extend({ InstancedMesh2 });
 
-const material = new ShaderMaterial({
+const shader = new ShaderMaterial({
   uniforms: {
     uTime: { value: 0 },
-    uMatCap: { value: matcap },
+    uMatCap: { value: null },
   },
   vertexShader: `
     uniform float uTime;
@@ -78,14 +84,14 @@ watch(instanceMeshRef, (value) => {
 const { onBeforeRender } = useLoop();
 
 onBeforeRender(({ delta }) => {
-  if (material) {
-    material.uniforms.uTime.value += delta;
+  if (shader) {
+    shader.uniforms.uTime.value += delta;
   }
 });
 </script>
 <template>
   <TresInstancedMesh2
     ref="instanceMeshRef"
-    :args="[geometry, material, { capacity: count }]"
+    :args="[geometry, shader, { capacity: count }]"
   />
 </template>
