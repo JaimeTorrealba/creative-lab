@@ -1,7 +1,7 @@
 <script setup>
 import { ref, shallowRef, computed } from 'vue'
-import { useLoop, useTexture, useTresContext } from '@tresjs/core'
-import { OrbitControls } from '@tresjs/cientos'
+import { useLoop, useTres } from '@tresjs/core'
+import { OrbitControls, useTexture } from '@tresjs/cientos'
 import { useMagicKeys } from '@vueuse/core'
 import { Vector3, NearestFilter } from 'three'
 
@@ -18,11 +18,9 @@ const runningTileArrayIndex = ref()
 const maxDisplayTime = ref()
 const elapsedTimeGlobal = ref()
 
-const { map } = await useTexture({
-  map: '/textures/Evil Druid.png',
-})
-map.magFilter = NearestFilter
-map.repeat.set(1 / tilesHorizontal, 1 / tilesVertical)
+const { state: map } = await useTexture('/textures/Evil Druid.png')
+map.value.magFilter = NearestFilter
+map.value.repeat.set(1 / tilesHorizontal, 1 / tilesVertical)
 
 
 const updateSprites = () => {
@@ -31,8 +29,8 @@ const updateSprites = () => {
   currentTile.value = playSpriteIndicesGlobal.value[runningTileArrayIndex.value];
   const offsetX = ((currentTile.value % tilesHorizontal) / tilesHorizontal)
   // const offsetY = (tilesVertical - Math.floor(currentTile / tilesHorizontal) -1 ) / tilesVertical
-  map.offset.x = offsetX
-   map.offset.y = 0.885
+  map.value.offset.x = offsetX
+   map.value.offset.y = 0.885
   // map.offset.y = 0.77 // factor of 0.115
 }
 const spritesLoop = (playSpriteIndices, totalDuration) => {
@@ -44,8 +42,7 @@ const spritesLoop = (playSpriteIndices, totalDuration) => {
 }
 spritesLoop([0, 1, 2, 3, 4, 5], 0.65)
 
-// template ref
-const { camera: cameraRef } = useTresContext()
+const { camera } = useTres()
 const orbitControlsRef = shallowRef()
 const spriteRef = shallowRef()
 
@@ -94,26 +91,25 @@ const getOffset = () => {
 }
 const updateCameraTarget = (moveX, moveZ) => {
   // move camera
-  cameraRef.value.position.x += moveX
-  cameraRef.value.position.z += moveZ
+  camera.value.position.x += moveX
+  camera.value.position.z += moveZ
 
   // update camera target
   cameraTarget.x = spriteRef.value.position.x
   cameraTarget.y = spriteRef.value.position.y
   cameraTarget.z = spriteRef.value.position.z
-  orbitControlsRef.value.value.target = cameraTarget
+  orbitControlsRef.value.instance.target = cameraTarget
 }
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ delta }) => {
   elapsedTimeGlobal.value += delta
-  orbitControlsRef.value.value.update()
   if (maxDisplayTime.value > 0 && elapsedTimeGlobal.value >= maxDisplayTime.value) {
     updateSprites()
   }
 
-  if (cameraRef.value && orbitControlsRef.value && hasPressed.value) {
-    updateCamera(cameraRef.value, delta)
+  if (camera.value && orbitControlsRef.value && hasPressed.value) {
+    updateCamera(camera.value, delta)
   }
 
 })

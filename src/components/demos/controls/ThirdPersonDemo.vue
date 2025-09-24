@@ -1,13 +1,21 @@
 <script setup>
 import { watchEffect, ref, shallowRef, computed } from 'vue'
-import { useLoop, useTresContext } from '@tresjs/core'
+import { useLoop, useTres } from '@tresjs/core'
 import { OrbitControls, useGLTF, useAnimations } from '@tresjs/cientos'
-import { useMagicKeys } from '@vueuse/core'
+import { useMagicKeys, watchOnce } from '@vueuse/core'
 import { Quaternion, Vector3 } from 'three'
-import { useWindowSize } from '@vueuse/core'
 
+const { state, isLoading } = useGLTF('/models/footman/source/Footman_RIG.glb')
 
-const { scene: model, animations } = await useGLTF('/models/footman/source/Footman_RIG.glb')
+watchOnce(isLoading, (v) => {
+  if (!v) {
+    currentAction.value = actions.Idle;
+    currentAction.value.play();
+  }
+});
+
+const animations = computed(() => state.value?.animations || [])
+const model = computed(() => state?.value?.scene)
 const { actions, mixer } = useAnimations(animations, model)
 
 //constants
@@ -19,18 +27,16 @@ const walkDirection = new Vector3()
 const rotateQuarternion = new Quaternion()
 
 // template ref
-const { camera: cameraRef } = useTresContext()
+const { camera } = useTres()
 const orbitControlsRef = shallowRef()
-
-const curruentAction = ref(actions.Idle)
-curruentAction.value.play()
+const currentAction = ref()
 
 const changeAnimation = (action) => {
-  curruentAction.value.fadeOut(fadeDuration)
+  currentAction.value.fadeOut(fadeDuration)
   action.reset().fadeIn(fadeDuration).play()
-  curruentAction.value = action
+  currentAction.value = action
   if(action === actions.SwordAndShieldSlash){
-    mixer.addEventListener( 'loop', () => {
+    mixer.value.addEventListener( 'loop', () => {
       changeAnimation(actions.Idle)
       waitForAnimation.value = false
     })
@@ -42,10 +48,10 @@ const { w, s, a, d } = useMagicKeys()
 const hasPressed = computed(() => w.value || s.value || a.value || d.value)
 const waitForAnimation = ref(false)
 watchEffect(() => {
-  if (hasPressed.value) {
+  if (hasPressed.value && !isLoading.value) {
     changeAnimation(actions.SwordAndShieldRun)
   }
-  if (!hasPressed.value && !waitForAnimation.value) {
+  if (!hasPressed.value && !waitForAnimation.value && !isLoading.value) {
     changeAnimation(actions.Idle)
   }
 })
@@ -58,14 +64,14 @@ document.addEventListener('click', () => {
 
 const updateCamera = (camera, delta) => {
   const angleYCameraDirection = Math.atan2(
-    (camera.position.x - model.position.x),
-    (camera.position.z - model.position.z))
+    (camera.position.x - model.value.position.x),
+    (camera.position.z - model.value.position.z))
   const directionOffset = getOffset()
   let directionOffsetModel = getInvertOffset() // correct rotation model coordinates
 
   // rotate model
   rotateQuarternion.setFromAxisAngle(rotateAngle, angleYCameraDirection + directionOffsetModel)
-  model.quaternion.rotateTowards(rotateQuarternion, 0.2)
+  model.value.quaternion.rotateTowards(rotateQuarternion, 0.2)
 
 
   // calculate direction
@@ -76,8 +82,8 @@ const updateCamera = (camera, delta) => {
 
   const moveX = walkDirection.x * velocity * delta
   const moveZ = walkDirection.z * velocity * delta
-  model.position.x += moveX
-  model.position.z += moveZ
+  model.value.position.x += moveX
+  model.value.position.z += moveZ
   updateCameraTarget(moveX, moveZ)
 }
 
@@ -131,22 +137,22 @@ const getInvertOffset = () => {
 }
 const updateCameraTarget = (moveX, moveZ) => {
   // move camera
-  cameraRef.value.position.x += moveX
-  cameraRef.value.position.z += moveZ
+  camera.value.position.x += moveX
+  camera.value.position.z += moveZ
 
   // update camera target
-  cameraTarget.x = model.position.x
-  cameraTarget.y = model.position.y
-  cameraTarget.z = model.position.z
-  orbitControlsRef.value.value.target = cameraTarget
+  cameraTarget.x = model.value.position.x
+  cameraTarget.y = model.value.position.y
+  cameraTarget.z = model.value.position.z
+  orbitControlsRef.value.instance.target = cameraTarget
 }
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ delta }) => {
-  mixer.update(delta * 0.5)
-  orbitControlsRef.value.value.update()
-  if (cameraRef.value && orbitControlsRef.value && hasPressed.value) {
-    updateCamera(cameraRef.value, delta)
+  mixer.value.update(delta * 0.5)
+  orbitControlsRef.value.instance.update()
+  if (camera.value && orbitControlsRef.value && hasPressed.value) {
+    updateCamera(camera.value, delta)
   }
 
 })
@@ -154,7 +160,7 @@ onBeforeRender(({ delta }) => {
 <template>
     <OrbitControls enableDamping :enable-pan="false" :min-distance="5" :max-distance="15"
         :max-polar-angle="Math.PI / 2 - 0.05" ref="orbitControlsRef" />
-    <primitive :object="model" />
+    <primitive v-if="model" :object="model" />
     <TresGridHelper :size="50" :divisions="50" />
     <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
     <TresAmbientLight />

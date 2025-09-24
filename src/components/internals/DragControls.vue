@@ -1,7 +1,7 @@
 <script setup>
 import { DragControls } from "three/examples/jsm/controls/DragControls";
 import { onUnmounted, ref, watchEffect } from "vue";
-import { useTresContext } from "@tresjs/core";
+import { useTres } from "@tresjs/core";
 import { useEventListener } from "@vueuse/core";
 
 // THIS IS TEMPORAL SINCE CIENTOS DOES NOT EXPORT IT YET
@@ -17,7 +17,7 @@ defineProps({
   },
 });
 const emit = defineEmits(["dragstart", "drag", "dragend", "hoveron", "hoveroff"]);
-const { camera: activeCamera, renderer, extend } = useTresContext();
+const { camera, renderer, extend } = useTres();
 const controlsRef = ref(null);
 extend({ DragControls });
 watchEffect(() => {

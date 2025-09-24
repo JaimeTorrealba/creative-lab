@@ -1,24 +1,20 @@
 <script setup>
-import { shallowRef } from "vue";
-import { useRenderLoop, useTresContext } from "@tresjs/core";
-import { useGLTF } from "@tresjs/cientos";
-import { fpsControls } from "@jaimebboyjt/tres-fps-controls";
+import { shallowRef, computed } from "vue";
+import { useLoop, useTres } from "@tresjs/core";
+import { useGLTF, OrbitControls } from "@tresjs/cientos";
+// import { fpsControls } from "@jaimebboyjt/tres-fps-controls";
 import { Spherical } from "three";
 
-const { scene } = await useGLTF("/models/ff1+black+magician+4faces.glb");
+const { state } = useGLTF("/models/ff1+black+magician+4faces.glb");
+const model = computed(() => state?.value?.scene);
 
-const { camera } = useTresContext();
+const { camera } = useTres();
 
 const blackMagicRef = shallowRef(false);
 
+const { onBeforeRender } = useLoop();
 
-console.log("mathPI ~:", Math.PI * 0.25);
-
-
-
-const { onLoop } = useRenderLoop();
-
-onLoop(() => {
+onBeforeRender(() => {
   if (!blackMagicRef.value) return;
   const cameraPosition = camera.value.position;
   const coords = new Spherical().setFromVector3(cameraPosition);
@@ -35,8 +31,9 @@ onLoop(() => {
 });
 </script>
 <template>
-  <fpsControls :moveSpeed="0.25" />
-  <primitive :object="scene" ref="blackMagicRef" :position-y="-1.5" />
+  <!-- <fpsControls :moveSpeed="0.25" /> -->
+  <OrbitControls :enablePan="false" :enableZoom="true" :minPolarAngle="1.65" :maxPolarAngle="1.55" />
+  <primitive v-if="model" :object="model" ref="blackMagicRef" :position-y="-1.5" />
   <TresPolarGridHelper :args="[25, 8, 1, 64]" :position-y="-2" />
   <TresAmbientLight :intensity="5" />
 </template>

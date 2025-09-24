@@ -14,10 +14,10 @@ const controls_routes = [
     name: 'FourFaceModel',
     description: 'A way to show 4 faces of a model depending on the position of the camera, useful when you have a pixel, Minecraft or 2D sprite.'
   },
-  {
-    name: 'FPS',
-    description: 'First person shooter controls, uses my tres-FPS-controls component. '
-  },
+  // {
+  //   name: 'FPS',
+  //   description: 'First person shooter controls, uses my tres-FPS-controls component. '
+  // },
   {
     name: 'SnapDrag',
     description: 'Snap and drag controls for objects in the 3D space. It moves along a pre-defined grid.'

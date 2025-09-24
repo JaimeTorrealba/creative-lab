@@ -1,11 +1,14 @@
 <script setup>
 import { watchEffect, ref, computed } from 'vue'
-import { useLoop, useTresContext } from '@tresjs/core'
+import { useLoop, useTres } from '@tresjs/core'
 import { useGLTF, useAnimations } from '@tresjs/cientos'
 import { useMagicKeys } from '@vueuse/core'
 import { Quaternion, Vector3 } from 'three'
 
-const { scene: model, animations } = await useGLTF('/models/footman/source/Footman_RIG.glb')
+const { state } = useGLTF('/models/footman/source/Footman_RIG.glb')
+
+const animations = computed(() => state.value?.animations || [])
+const model = computed(() => state?.value?.scene)
 const { actions, mixer } = useAnimations(animations, model)
 
 //constants
@@ -16,7 +19,7 @@ const acceleration = new Vector3(1, 0.25, 50.0);
 const velocity = new Vector3(0, 0, 0);
 
 // template ref
-const { camera: cameraRef } = useTresContext()
+const { camera} = useTres()
 
 const curruentAction = ref(actions.Idle)
 curruentAction.value.play()
@@ -26,7 +29,7 @@ const changeAnimation = (action) => {
   action.reset().fadeIn(fadeDuration).play()
   curruentAction.value = action
   if (action === actions.SwordAndShieldSlash) {
-    mixer.addEventListener('loop', () => {
+    mixer.value.addEventListener('loop', () => {
       changeAnimation(actions.Idle)
       waitForAnimation.value = false
     })
@@ -64,7 +67,7 @@ const onMovement = (delta) => {
 
   velocity.add(frameDecceleration);
 
-  const controlObject = model;
+  const controlObject = model.value;
   const _Q = new Quaternion();
   const _A = new Vector3();
   const _R = controlObject.quaternion.clone();
@@ -143,13 +146,13 @@ const thirdPersonCamera = (elapsed, model3D, camera) => {
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ delta, elapsed }) => {
-  mixer.update(delta * 0.5)
-  if (model && cameraRef.value) {
+  mixer.value.update(delta * 0.5)
+  if (model.value && camera.value) {
     onMovement(delta * 0.5)
-    thirdPersonCamera(elapsed, model, cameraRef.value)
+    thirdPersonCamera(elapsed, model.value, camera.value)
   }
 })
-
+  
 </script>
 <template>
     <primitive :object="model" />
