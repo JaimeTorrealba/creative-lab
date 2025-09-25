@@ -1,12 +1,18 @@
 <script setup>
-import { computed, watchEffect, shallowRef, watch } from "vue";
-import { TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
+import { computed, watchEffect } from "vue";
+import { TresCanvas } from "@tresjs/core";
+import { useTexture } from "@tresjs/cientos";
 import { Vector2 } from "three";
-import { useWindowSize, useMouse } from "@vueuse/core";
+import { useWindowSize, useMouse, watchOnce } from "@vueuse/core";
 
-const { map: imgToShader } = await useTexture({ map: "/images/imgToShader.jpg" });
+const { state: imgToShader, isLoading } = useTexture( "/images/imgToShader.jpg" );
 
-const canvasRef = shallowRef(null);
+watchOnce(isLoading, (value) => {
+  if (!value) {
+    imgShader.uniforms.uImage.value = imgToShader.value;
+  }
+});
+
 const { width, height } = useWindowSize();
 const { x, y } = useMouse();
 const fov = computed(() => 2 * Math.atan(height.value / 2 / 600) * (180 / Math.PI));
@@ -41,7 +47,7 @@ const imgShader = {
     uTime: { value: 0 },
     uResolution: { value: new Vector2(width.value, height.value) },
     uHover: { value: new Vector2(0.5, 0.5) },
-    uImage: { value: imgToShader },
+    uImage: { value: null },
   },
   vertexShader: `
   uniform float uTime;
@@ -72,34 +78,34 @@ const imgShader = {
   `,
 };
 
-watch(canvasRef, (canvas) => {
-  const { context } = canvas;
-  console.log("jaime ~ canvas:", context.renderer.value);
-});
-
 watchEffect(() => {
   shader.uniforms.uResolution.value = new Vector2(width.value, height.value);
   x.value = (x.value / width.value) * 2 - 1;
   y.value = -(y.value / height.value) * 2 + 1;
 });
 const updateUniforms = (ev) => {
-  ev.object.material.uniforms.uHover.value = ev.uv;
+  ev.object.material.uniforms.uHover.value = ev.intersection.uv;
 };
 
-const { onLoop } = useRenderLoop();
-
-onLoop(({ elapsed }) => {
+const onLoop = ({ elapsed }) => {
   shader.uniforms.uTime.value = elapsed;
-});
+};
+
+const onReady = (e) => {
+  // TODO: this should disappear when the bug is fixed
+  e.renderer.instance.setClearAlpha(0)
+  console.log('Canvas is ready', e.renderer.instance.getClearAlpha())
+}
 </script>
 <template>
   <TresCanvas
     window-size
     clear-color="#f7f7f7"
     alpha
+    @ready="onReady"
     antialias
-    ref="canvasRef"
     class="canvas"
+    @loop="onLoop"
   >
     <TresPerspectiveCamera :args="[fov, aspect, 100, 2000]" :position="[0, 0, 600]" />
     <TresMesh :rotation="[0, 0, -3.075]" :position="[0, height / 2, 0]" name="topShader">
@@ -114,7 +120,7 @@ onLoop(({ elapsed }) => {
     <TresMesh
       name="planeImg"
       :position="[width / 5 + 75, 0, 0]"
-      @pointer-move="(ev) => updateUniforms(ev)"
+      @pointermove="(ev) => updateUniforms(ev)"
     >
       <TresPlaneGeometry :args="[405, 532, 10, 10]" />
       <TresShaderMaterial v-bind="imgShader" />

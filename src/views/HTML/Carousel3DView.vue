@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import { TresCanvas } from "@tresjs/core";
-import { EffectComposerPmndrs, VignettePmndrs } from "@tresjs/post-processing";
+// import { EffectComposerPmndrs, VignettePmndrs } from "@tresjs/post-processing";
 import { SRGBColorSpace } from "three";
-import CustomCarousel from "@/components/internals/CustomCarousel.vue";
+import TheExperience from "@/components/demos/html_demos/CustomCarousel.vue";
 
 const canvasConfig = {
   cleaColor: "#111",
@@ -22,7 +22,7 @@ const URLS = [
 const activeCS = ref(0)
 </script>
 <template>
-  <div class="text-center mb-4 z-index-10">
+  <div class="has-text-centered mb-4 z-index-10">
     <button class="button is-light mx-4" @click="activeCS = (activeCS + 1) % URLS.length">Prev</button>
     <button class="button is-light" @click="activeCS = (activeCS - 1 + URLS.length) % URLS.length">Next</button>
   </div>
@@ -31,11 +31,11 @@ const activeCS = ref(0)
     <TresAmbientLight :intensity="1" />
     <TresDirectionalLight :position="[0, 5, 0]" :intensity="2" />
     <TresFog color="#000" :near="1" :far="15" />
-    <EffectComposerPmndrs>
+    <!-- <EffectComposerPmndrs>
       <VignettePmndrs :darkness="1" :offset="0.5" />
-    </EffectComposerPmndrs>
+    </EffectComposerPmndrs> -->
     <Suspense>
-      <CustomCarousel v-model="activeCS" :items="URLS" />
+      <TheExperience v-model="activeCS" :items="URLS" />
     </Suspense>
   </TresCanvas>
 </template>

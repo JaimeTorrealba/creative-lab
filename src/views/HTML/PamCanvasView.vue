@@ -35,14 +35,14 @@ import { Image, Stars, OrbitControls } from "@tresjs/cientos";
           />
           <Stars />
 
-          <Image
+          <!-- <Image
             v-for="num in 9"
             :key="num"
             :url="`https://picsum.photos/200/${num * 100}`"
             :radius="0.2"
             :transparent="true"
             :position="[num * Math.random() + num, num * Math.random() + num, 0]"
-          />
+          /> -->
         </TresCanvas>
       </div>
     </div>

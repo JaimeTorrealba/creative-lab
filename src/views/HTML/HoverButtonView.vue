@@ -15,6 +15,11 @@ const { width, height } = useElementSize(wrapperRef)
 const torusDuration = 0.35
 const icoDuration = 0.5
 
+const onReady = (e) => {
+  // TODO: this should disappear when the bug is fixed
+  e.renderer.instance.setClearAlpha(0)
+}
+
 watch(width, value => {
   cameraRef.value.aspect = value / height.value
   cameraRef.value.updateProjectionMatrix()
@@ -58,9 +63,11 @@ const shrink = () => {
   <div class="fullScreen">
     <div class="wrapper" ref="wrapperRef" @mouseenter="grow" @mouseleave="shrink">
       <button class="button"><span class="button-text">Play</span></button>
-      <TresCanvas alpha ref="canvasRef" class="canvas">
+      <TresCanvas :alpha="true" ref="canvasRef" class="canvas"  @ready="(e) => onReady(e)">
         <TresPerspectiveCamera ref="cameraRef" :position="[0, 0, 5]" />
-        <Environment preset="city" />
+        <Suspense>
+          <Environment preset="city" />
+        </Suspense>
         <TresMesh ref="sphereRef" :scale="0">
           <TresSphereGeometry :args="[1, 32]" />
           <TresMeshStandardMaterial :color="0xff004b" :roughness="0" :metalness="1" :envMapIntensity="0.05" v-log />
@@ -78,7 +85,7 @@ const shrink = () => {
           <TresMeshStandardMaterial :color="0xff004b" :roughness="0" :metalness="1" :envMapIntensity="0.5" />
         </TresMesh>
         <TresDirectionalLight :position="[-3, 2, 0]" :intensity="4" />
-        <TresAmbientLight :intensity="4" />
+        <TresAmbientLight :intensity="40" />
       </TresCanvas>
     </div>
   </div>
