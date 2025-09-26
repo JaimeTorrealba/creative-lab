@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+-->
+<materialx version="1.38">
+  <nodegraph name="NG_Car_Paint">
+    <constant name="UVScale_Flakes" type="float">
+      <input name="value" type="float" value="100.0" />
+    </constant>
+    <constant name="PaintColor" type="color3">
+      <input name="value" type="color3" value=" 0.5843139, 0.19215536, 0.000000" />
+    </constant>
+    <constant name="UVScale_Base" type="float">
+      <input name="value" type="float" value="2.0" />
+    </constant>
+    <constant name="Metalness" type="float">
+      <input name="value" type="float" value="1.0" />
+    </constant>
+    <constant name="RoughnessLowerBracket" type="float">
+      <input name="value" type="float" value="0.22200001776218414" />
+    </constant>
+    <constant name="RoughnessUpperBracket" type="float">
+      <input name="value" type="float" value="0.49800002574920654" />
+    </constant>
+    <constant name="UVRotation" type="float">
+      <input name="value" type="float" value="0.6070000529289246" />
+    </constant>
+    <constant name="coat" type="float">
+      <input name="value" type="float" value="1.0" />
+    </constant>
+    <output name="base_color_output" type="color3" nodename="PaintColor_constant" />
+    <dot name="PaintColor_constant" type="color3">
+      <input name="in" type="color3" nodename="PaintColor" />
+    </dot>
+    <output name="metalness_output" type="float" nodename="Metalness_constant" />
+    <dot name="Metalness_constant" type="float">
+      <input name="in" type="float" nodename="Metalness" />
+    </dot>
+    <output name="specular_roughness_output" type="float" nodename="node_clamp_0" />
+    <output name="coat_output" type="float" nodename="coat_constant" />
+    <dot name="coat_constant" type="float">
+      <input name="in" type="float" nodename="coat" />
+    </dot>
+    <normal name="onthefly_1" type="vector3">
+      <input name="space" type="string" value="world" />
+    </normal>
+    <output name="coat_normal_output" type="vector3" nodename="onthefly_1" />
+    <output name="normal_output" type="vector3" nodename="node_normalmap_2" />
+    <tangent name="onthefly_3" type="vector3">
+      <input name="space" type="string" value="world" />
+    </tangent>
+    <output name="tangent_output" type="vector3" nodename="onthefly_3" />
+    <image name="node_image_vector3_4" type="vector3" GLSLFX_usage="normal" expose="true">
+      <input name="texcoord" type="vector2" nodename="node_multiply_5" />
+      <input name="file" type="filename" value="/materials/car_paint_textures/car_paint_textures/Car_Paint_normal.png" />
+      <input name="layer" type="string" value="" />
+      <input name="default" type="vector3" value=" 0.000000, 0.000000, 0.000000" />
+      <input name="uaddressmode" type="string" value="periodic" />
+      <input name="vaddressmode" type="string" value="periodic" />
+      <input name="filtertype" type="string" value="linear" />
+      <input name="framerange" type="string" value="" />
+      <input name="frameoffset" type="integer" value="0" />
+      <input name="frameendaction" type="string" value="constant" />
+    </image>
+    <texcoord name="node_texcoord_vector2_6" type="vector2">
+      <input name="index" type="integer" value="0" />
+    </texcoord>
+    <multiply name="node_multiply_5" type="vector2">
+      <input name="in1" type="vector2" nodename="node_texcoord_vector2_6" />
+      <input name="in2" type="float" nodename="UVScale_Flakes" />
+    </multiply>
+    <normalmap name="node_normalmap_2" type="vector3">
+      <input name="in" type="vector3" nodename="node_mix_7" />
+    </normalmap>
+    <image name="node_image_float_8" type="float" GLSLFX_usage="roughness" expose="true">
+      <input name="texcoord" type="vector2" nodename="node_multiply_9" />
+      <input name="file" type="filename" value="/materials/car_paint_textures/Car_Paint_roughness.png" />
+      <input name="layer" type="string" value="" />
+      <input name="default" type="float" value="0.0" />
+      <input name="uaddressmode" type="string" value="periodic" />
+      <input name="vaddressmode" type="string" value="periodic" />
+      <input name="filtertype" type="string" value="linear" />
+      <input name="framerange" type="string" value="" />
+      <input name="frameoffset" type="integer" value="0" />
+      <input name="frameendaction" type="string" value="constant" />
+    </image>
+    <texcoord name="node_texcoord_vector2_10" type="vector2">
+      <input name="index" type="integer" value="0" />
+    </texcoord>
+    <multiply name="node_multiply_9" type="vector2">
+      <input name="in1" type="vector2" nodename="node_texcoord_vector2_10" />
+      <input name="in2" type="float" nodename="UVScale_Base" />
+    </multiply>
+    <image name="node_image_float_11" type="float" GLSLFX_usage="metallic" expose="true">
+      <input name="texcoord" type="vector2" nodename="node_multiply_5" />
+      <input name="file" type="filename" value="/materials/car_paint_textures/Car_Paint_metallic.png" />
+      <input name="layer" type="string" value="" />
+      <input name="default" type="float" value="0.0" />
+      <input name="uaddressmode" type="string" value="periodic" />
+      <input name="vaddressmode" type="string" value="periodic" />
+      <input name="filtertype" type="string" value="linear" />
+      <input name="framerange" type="string" value="" />
+      <input name="frameoffset" type="integer" value="0" />
+      <input name="frameendaction" type="string" value="constant" />
+    </image>
+    <subtract name="node_subtract_12" type="float">
+      <input name="in1" type="float" nodename="node_mix_13" />
+      <input name="in2" type="float" nodename="node_clamp_14" />
+    </subtract>
+    <mix name="node_mix_13" type="float">
+      <input name="fg" type="float" nodename="RoughnessLowerBracket" />
+      <input name="bg" type="float" nodename="RoughnessUpperBracket" />
+      <input name="mix" type="float" nodename="node_image_float_8" />
+    </mix>
+    <image name="node_image_float_15" type="float" GLSLFX_usage="metallic" expose="true">
+      <input name="texcoord" type="vector2" nodename="node_multiply_16" />
+      <input name="file" type="filename" value="/materials/car_paint_textures/Car_Paint_metallic.png" />
+      <input name="layer" type="string" value="" />
+      <input name="default" type="float" value="0.0" />
+      <input name="uaddressmode" type="string" value="periodic" />
+      <input name="vaddressmode" type="string" value="periodic" />
+      <input name="filtertype" type="string" value="linear" />
+      <input name="framerange" type="string" value="" />
+      <input name="frameoffset" type="integer" value="0" />
+      <input name="frameendaction" type="string" value="constant" />
+    </image>
+    <add name="node_add_17" type="vector2">
+      <input name="in1" type="vector2" nodename="node_combine2_vector2_18" />
+      <input name="in2" type="float" nodename="node_float_FirtNoise" />
+    </add>
+    <texcoord name="node_texcoord_vector2_20" type="vector2">
+      <input name="index" type="integer" value="0" />
+    </texcoord>
+    <constant name="node_float_FirtNoise" type="float">
+      <input name="value" type="float" value="0.21000000834465027" />
+    </constant>
+    <multiply name="node_multiply_16" type="vector2">
+      <input name="in1" type="vector2" nodename="node_add_17" />
+      <input name="in2" type="float" nodename="node_multiply_26" />
+    </multiply>
+    <image name="node_image_vector3_22" type="vector3" GLSLFX_usage="normal" expose="true">
+      <input name="texcoord" type="vector2" nodename="node_multiply_16" />
+      <input name="file" type="filename" value="/materials/car_paint_textures/Car_Paint_normal.png" />
+      <input name="layer" type="string" value="" />
+      <input name="default" type="vector3" value=" 0.000000, 0.000000, 0.000000" />
+      <input name="uaddressmode" type="string" value="periodic" />
+      <input name="vaddressmode" type="string" value="periodic" />
+      <input name="filtertype" type="string" value="linear" />
+      <input name="framerange" type="string" value="" />
+      <input name="frameoffset" type="integer" value="0" />
+      <input name="frameendaction" type="string" value="constant" />
+    </image>
+    <mix name="node_mix_23" type="vector3">
+      <input name="fg" type="vector3" nodename="node_image_vector3_4" />
+      <input name="bg" type="vector3" nodename="node_image_vector3_22" />
+      <input name="mix" type="float" value="0.2670000195503235" />
+    </mix>
+    <multiply name="node_multiply_24" type="vector2">
+      <input name="in1" type="vector2" nodename="node_add_25" />
+      <input name="in2" type="float" nodename="node_multiply_26" />
+    </multiply>
+    <multiply name="node_multiply_26" type="float">
+      <input name="in1" type="float" nodename="UVScale_Flakes" />
+      <input name="in2" type="float" nodename="node_float_noise" />
+    </multiply>
+    <constant name="node_float_noiseOffset" type="float">
+      <input name="value" type="float" value="0.41700002551078796" />
+    </constant>
+    <add name="node_add_25" type="vector2">
+      <input name="in1" type="vector2" nodename="node_combine2_vector2_29" />
+      <input name="in2" type="float" nodename="node_float_noiseOffset" />
+    </add>
+    <texcoord name="node_texcoord_vector2_30" type="vector2">
+      <input name="index" type="integer" value="0" />
+    </texcoord>
+    <image name="node_image_vector3_31" type="vector3" GLSLFX_usage="normal" expose="true">
+      <input name="texcoord" type="vector2" nodename="node_multiply_24" />
+      <input name="file" type="filename" value="/materials/car_paint_textures/Car_Paint_normal.png" />
+      <input name="layer" type="string" value="" />
+      <input name="default" type="vector3" value=" 0.000000, 0.000000, 0.000000" />
+      <input name="uaddressmode" type="string" value="periodic" />
+      <input name="vaddressmode" type="string" value="periodic" />
+      <input name="filtertype" type="string" value="linear" />
+      <input name="framerange" type="string" value="" />
+      <input name="frameoffset" type="integer" value="0" />
+      <input name="frameendaction" type="string" value="constant" />
+    </image>
+    <mix name="node_mix_7" type="vector3">
+      <input name="fg" type="vector3" nodename="node_image_vector3_31" />
+      <input name="bg" type="vector3" nodename="node_mix_23" />
+      <input name="mix" type="float" value="0.5139999985694885" />
+    </mix>
+    <extract name="node_extract_32" type="float">
+      <input name="in" type="vector2" nodename="node_texcoord_vector2_30" />
+      <input name="index" type="integer" value="0" />
+    </extract>
+    <extract name="node_extract_33" type="float">
+      <input name="in" type="vector2" nodename="node_texcoord_vector2_30" />
+      <input name="index" type="integer" value="1" />
+    </extract>
+    <combine2 name="node_combine2_vector2_29" type="vector2">
+      <input name="in1" type="float" nodename="node_extract_33" />
+      <input name="in2" type="float" nodename="node_extract_32" />
+    </combine2>
+    <constant name="node_float_noise" type="float">
+      <input name="value" type="float" value="0.23400001227855682" />
+    </constant>
+    <cos name="node_cos_34" type="float">
+      <input name="in" type="float" nodename="UVRotation" />
+    </cos>
+    <extract name="node_extract_35" type="float">
+      <input name="in" type="vector2" nodename="node_texcoord_vector2_20" />
+      <input name="index" type="integer" value="0" />
+    </extract>
+    <extract name="node_extract_36" type="float">
+      <input name="in" type="vector2" nodename="node_texcoord_vector2_20" />
+      <input name="index" type="integer" value="1" />
+    </extract>
+    <subtract name="node_subtract_37" type="float">
+      <input name="in1" type="float" nodename="node_extract_35" />
+      <input name="in2" type="float" value="0.5" />
+    </subtract>
+    <subtract name="node_subtract_38" type="float">
+      <input name="in1" type="float" nodename="node_extract_36" />
+      <input name="in2" type="float" value="0.5" />
+    </subtract>
+    <sin name="node_sin_39" type="float">
+      <input name="in" type="float" nodename="UVRotation" />
+    </sin>
+    <multiply name="node_multiply_40" type="float">
+      <input name="in1" type="float" nodename="node_subtract_37" />
+      <input name="in2" type="float" nodename="node_cos_34" />
+    </multiply>
+    <multiply name="node_multiply_41" type="float">
+      <input name="in1" type="float" nodename="node_subtract_38" />
+      <input name="in2" type="float" nodename="node_sin_39" />
+    </multiply>
+    <add name="node_add_42" type="float">
+      <input name="in1" type="float" nodename="node_multiply_40" />
+      <input name="in2" type="float" nodename="node_multiply_41" />
+    </add>
+    <add name="node_add_43" type="float">
+      <input name="in1" type="float" nodename="node_add_42" />
+      <input name="in2" type="float" value="0.5" />
+    </add>
+    <multiply name="node_multiply_44" type="float">
+      <input name="in1" type="float" nodename="node_cos_34" />
+      <input name="in2" type="float" nodename="node_subtract_38" />
+    </multiply>
+    <multiply name="node_multiply_45" type="float">
+      <input name="in1" type="float" nodename="node_subtract_37" />
+      <input name="in2" type="float" nodename="node_sin_39" />
+    </multiply>
+    <subtract name="node_subtract_46" type="float">
+      <input name="in1" type="float" nodename="node_multiply_44" />
+      <input name="in2" type="float" nodename="node_multiply_45" />
+    </subtract>
+    <add name="node_add_47" type="float">
+      <input name="in1" type="float" nodename="node_subtract_46" />
+      <input name="in2" type="float" value="0.5" />
+    </add>
+    <combine2 name="node_combine2_vector2_18" type="vector2">
+      <input name="in1" type="float" nodename="node_add_43" />
+      <input name="in2" type="float" nodename="node_add_47" />
+    </combine2>
+    <image name="node_image_float_48" type="float" GLSLFX_usage="metallic" expose="true">
+      <input name="texcoord" type="vector2" nodename="node_multiply_24" />
+      <input name="file" type="filename" value="/materials/car_paint_textures/Car_Paint_metallic.png" />
+      <input name="layer" type="string" value="" />
+      <input name="default" type="float" value="0.0" />
+      <input name="uaddressmode" type="string" value="periodic" />
+      <input name="vaddressmode" type="string" value="periodic" />
+      <input name="filtertype" type="string" value="linear" />
+      <input name="framerange" type="string" value="" />
+      <input name="frameoffset" type="integer" value="0" />
+      <input name="frameendaction" type="string" value="constant" />
+    </image>
+    <add name="node_add_49" type="float">
+      <input name="in1" type="float" nodename="node_image_float_11" />
+      <input name="in2" type="float" nodename="node_image_float_15" />
+    </add>
+    <add name="node_add_50" type="float">
+      <input name="in1" type="float" nodename="node_add_49" />
+      <input name="in2" type="float" nodename="node_image_float_48" />
+    </add>
+    <clamp name="node_clamp_14" type="float">
+      <input name="in" type="float" nodename="node_add_50" />
+      <input name="low" type="float" value="0.0" />
+      <input name="high" type="float" value="1.0" />
+    </clamp>
+    <clamp name="node_clamp_0" type="float">
+      <input name="in" type="float" nodename="node_subtract_12" />
+      <input name="low" type="float" value="0.0" />
+      <input name="high" type="float" value="1.0" />
+    </clamp>
+  </nodegraph>
+  <standard_surface name="SR_Car_Paint" type="surfaceshader">
+    <input name="base" type="float" value="0.800000011920929" />
+    <input name="base_color" type="color3" output="base_color_output" nodegraph="NG_Car_Paint" />
+    <input name="diffuse_roughness" type="float" value="0.0" />
+    <input name="metalness" type="float" value="1.0" />
+    <input name="specular" type="float" value="1.0" />
+    <input name="specular_color" type="color3" value=" 1.000000, 1.000000, 1.000000" />
+    <input name="specular_roughness" type="float" output="specular_roughness_output" nodegraph="NG_Car_Paint" />
+    <input name="specular_IOR" type="float" value="1.5" />
+    <input name="specular_anisotropy" type="float" value="0.0" />
+    <input name="specular_rotation" type="float" value="0.0" />
+    <input name="transmission" type="float" value="0.0" />
+    <input name="transmission_color" type="color3" value=" 1.000000, 1.000000, 1.000000" />
+    <input name="transmission_depth" type="float" value="0.0" />
+    <input name="transmission_scatter" type="color3" value=" 0.000000, 0.000000, 0.000000" />
+    <input name="transmission_scatter_anisotropy" type="float" value="0.0" />
+    <input name="transmission_dispersion" type="float" value="0.0" />
+    <input name="transmission_extra_roughness" type="float" value="0.0" />
+    <input name="subsurface" type="float" value="0.0" />
+    <input name="subsurface_color" type="color3" value=" 1.000000, 1.000000, 1.000000" />
+    <input name="subsurface_radius" type="color3" value=" 1.000000, 1.000000, 1.000000" />
+    <input name="subsurface_scale" type="float" value="1.0" />
+    <input name="subsurface_anisotropy" type="float" value="0.0" />
+    <input name="sheen" type="float" value="0.0" />
+    <input name="sheen_color" type="color3" value=" 1.000000, 1.000000, 1.000000" />
+    <input name="sheen_roughness" type="float" value="0.30000001192092896" />
+    <input name="coat" type="float" value="1.0" />
+    <input name="coat_color" type="color3" value=" 1.000000, 1.000000, 1.000000" />
+    <input name="coat_roughness" type="float" value="0.05" />
+    <input name="coat_anisotropy" type="float" value="0.0" />
+    <input name="coat_rotation" type="float" value="0.0" />
+    <input name="coat_IOR" type="float" value="1.5" />
+    <input name="coat_normal" type="vector3" output="coat_normal_output" nodegraph="NG_Car_Paint" />
+    <input name="coat_affect_color" type="float" value="0.0" />
+    <input name="coat_affect_roughness" type="float" value="0.0" />
+    <input name="thin_film_thickness" type="float" value="0.0" />
+    <input name="thin_film_IOR" type="float" value="1.5" />
+    <input name="emission" type="float" value="0.0" />
+    <input name="emission_color" type="color3" value=" 1.000000, 1.000000, 1.000000" />
+    <input name="opacity" type="color3" value=" 1.000000, 1.000000, 1.000000" />
+    <input name="thin_walled" type="boolean" value="false" />
+    <input name="normal" type="vector3" output="normal_output" nodegraph="NG_Car_Paint" />
+    <input name="tangent" type="vector3" output="tangent_output" nodegraph="NG_Car_Paint" />
+  </standard_surface>
+  <surfacematerial name="Car_Paint" type="material">
+    <input name="surfaceshader" type="surfaceshader" nodename="SR_Car_Paint" />
+  </surfacematerial>
+</materialx>

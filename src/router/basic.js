@@ -41,6 +41,10 @@ const basic_routes = [
     description: 'Simple experiment using <component :is /> built in vue feature'
   },
   {
+    name: 'MaterialX',
+    description: 'Using MaterialX materials in TresJS'
+  },
+  {
     name: 'Nebula',
     description:
       'A simple nebula generator using smoke abstraction on cientos, and post-processing. This effect is base on: https://youtu.be/5f5wwQb22tE'
