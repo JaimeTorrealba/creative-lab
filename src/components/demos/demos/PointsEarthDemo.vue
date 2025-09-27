@@ -1,7 +1,7 @@
 <script setup>
 import { useTresContext } from "@tresjs/core";
 import { Stars } from "@tresjs/cientos";
-import { BloomPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
+// import { BloomPmndrs, EffectComposerPmndrs } from '@tresjs/post-processing'
 import {
   CircleGeometry,
   MeshPhysicalMaterial,
@@ -31,14 +31,13 @@ loader.load("/textures/earthspec1k.jpg", (image) => {
   const data = imageData.data;
   const length = data.length;
   let pixels = Array.from(Array(press), () => Array(press).fill(0));
-  
+
   for (let i = 0; i < length; i += 4) {
       const x = i / 4 % press;
       const y = Math.floor(i / 4 / press);
       pixels[x][y] = imageData.data[i] < 20 ? 1 : 0;
 
     }
-
 
   const pointsNumber = 5000;
   const goldenRation = (1 + Math.sqrt(5)) / 2;
@@ -80,7 +79,7 @@ loader.load("/textures/earthspec1k.jpg", (image) => {
 </script>
 <template>
   <Stars />
-  <Suspense>
+  <!-- <Suspense>
     <EffectComposerPmndrs>
       <BloomPmndrs
         :radius="0.85"
@@ -90,8 +89,8 @@ loader.load("/textures/earthspec1k.jpg", (image) => {
         mipmap-blur
       />
     </EffectComposerPmndrs>
-  </Suspense>
-  <TresMesh :visible="true">
+  </Suspense> -->
+  <TresMesh>
     <TresIcosahedronGeometry :args="[1, 64]" />
     <TresMeshStandardMaterial :color="0x333" :roughness="0.5" :metalness="0.5" />
   </TresMesh>

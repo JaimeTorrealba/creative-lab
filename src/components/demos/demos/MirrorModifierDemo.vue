@@ -8,7 +8,7 @@ const cubeRef = shallowRef(null)
 </script>
 <template>
   <TresMesh ref="cubeRef" 
-  :position="[0,0,0]"
+  :position="[3,0,0]"
   :rotation="[0,0,0]"
   >
     <TresBoxGeometry />

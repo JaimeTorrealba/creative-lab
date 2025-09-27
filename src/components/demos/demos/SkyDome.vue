@@ -1,16 +1,23 @@
 <script setup>
 import { shallowRef } from 'vue'
-import { useTexture, useLoop } from '@tresjs/core'
-import { OrbitControls } from '@tresjs/cientos'
+import { useLoop } from '@tresjs/core'
+import { OrbitControls, useTexture } from '@tresjs/cientos'
 import { BackSide } from 'three'
+import { watchOnce } from '@vueuse/core'
 
 
 const skyDomeRef = shallowRef(null)
-const texture = await useTexture(['/images/stars.jpg'])
+const {state: texture, isLoading} = useTexture('/images/stars.jpg')
+
+watchOnce(isLoading, (val) => {
+    if (!val) {
+        shader.uniforms.tex.value = texture.value
+    }
+})
 
 const shader = {
     uniforms: {
-        tex: { type: 't', value: texture }
+        tex: { type: 't', value: null }
     },
     vertexShader: `
      varying vec2 vUV;
@@ -49,9 +56,9 @@ onBeforeRender(() => {
         <TresBoxGeometry :args="[1, 1, 1]" />
         <TresMeshBasicMaterial :color="0x00ff00" />
     </TresMesh>
-    <TresMesh :rotation-x="-Math.PI * 0.5" :position-y="-1">
+    <!-- <TresMesh :rotation-x="-Math.PI * 0.5" :position-y="-1">
         <TresPlaneGeometry :args="[100, 100]" />
         <TresMeshBasicMaterial :color="0xe4e4e4" />
-    </TresMesh>
+    </TresMesh> -->
     <TresAmbientLight />
 </template>

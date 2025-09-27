@@ -1,5 +1,5 @@
 <script setup>
-import { useTresContext, useLoop } from '@tresjs/core'
+import { useTres, useLoop } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import {
   Vector3, WebGLRenderTarget, PerspectiveCamera, Scene,
@@ -10,7 +10,7 @@ import {
   Mesh,
 } from 'three'
 
-const { renderer, camera } = useTresContext()
+const { renderer, camera } = useTres()
 
 const camSettings = {
   fov: 45,
@@ -70,9 +70,9 @@ const { onBeforeRender } = useLoop()
 onBeforeRender(() => {
     secondaryCamera.position.copy(camera.value.position);
     cubes.map(cube => cube.rotation.y += 0.01)
-    renderer.value.setRenderTarget(renderTarget);
-    renderer.value.render(secondaryScene, secondaryCamera);
-    renderer.value.setRenderTarget(null);
+    renderer.setRenderTarget(renderTarget);
+    renderer.render(secondaryScene, secondaryCamera);
+    renderer.setRenderTarget(null);
 })
 </script>
 <template>

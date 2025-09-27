@@ -1,11 +1,11 @@
 <script setup>
 import { watch } from 'vue'
-import { useLoop, useTresContext } from '@tresjs/core'
+import { useLoop, useTres } from '@tresjs/core'
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js'
 import { useWindowSize } from '@vueuse/core'
 
 
-const { scene, camera } = useTresContext()
+const { scene, camera } = useTres()
 const { width, height } = useWindowSize()
 const labelRenderer = new CSS2DRenderer()
 labelRenderer.setSize(width.value, height.value)

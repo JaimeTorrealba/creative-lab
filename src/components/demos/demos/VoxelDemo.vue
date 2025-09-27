@@ -59,7 +59,6 @@ function voxelizeMesh() {
             }
         }
     }
-    console.log('jaime ~ voxelizeMesh ~ voxels:', voxels);
 }
 
 const setInstanceMesh = () => {

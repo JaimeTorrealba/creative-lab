@@ -8,9 +8,10 @@ import {
   BackSide,
   MeshStandardMaterial,
 } from "three";
-import { useTexture } from "@tresjs/cientos";
+import { useTextures } from "@tresjs/cientos";
 import { Pane } from "tweakpane";
-import { reactive, shallowRef, watch } from "vue";
+import { reactive, shallowRef, watch, ref } from "vue";
+import { watchOnce } from "@vueuse/core";
 
 const pane = new Pane();
 
@@ -20,31 +21,39 @@ const options = reactive({
 
 pane.addBinding(options, "debugCurve");
 
-const { state: frontTexture} = useTexture("/textures/front_ribbon.png");
-const { state: backTexture} = useTexture("/textures/back_ribbon.png");
-const textures = [frontTexture.value, backTexture.value];
-textures.forEach((t) => {
-  t.wrapS = t.wrapT = 1000;
-  t.repeat.set(1, 1);
-  t.offset.setX(0.5);
-  t.flipY = false;
-});
-
-textures[1].repeat.set(-1, 1);
+const { textures, isLoading } = useTextures([
+  "/textures/front_ribbon.png",
+  "/textures/back_ribbon.png",
+]);
 
 const frontMaterial = new MeshStandardMaterial({
-  map: textures[0],
   side: BackSide,
   roughness: 0.65,
   metalness: 0.25,
   alphaTest: true,
 });
 const backMaterial = new MeshStandardMaterial({
-  map: textures[1],
   side: FrontSide,
   roughness: 0.65,
   metalness: 0.25,
   alphaTest: true,
+});
+
+const materials = ref([]);
+
+watchOnce(isLoading, (value) => {
+  if (!value) {
+    textures.value.forEach((t) => {
+      t.wrapS = t.wrapT = 1000;
+      t.repeat.set(1, 1);
+      t.offset.setX(0.5);
+      t.flipY = false;
+    });
+    textures.value[1].repeat.set(-1, 1);
+    frontMaterial.map = textures.value[0];
+    backMaterial.map = textures.value[1];
+    materials.value = [frontMaterial, backMaterial];
+  }
 });
 
 const pointsLength = 10;
@@ -83,8 +92,6 @@ dimensions.forEach((dimension) => {
 finalPoints[0].copy(finalPoints[vertices]);
 finalPoints[vertices + 1].copy(finalPoints[vertices * 2 + 1]);
 
-const materials = [frontMaterial, backMaterial];
-
 const ribbonGeometryRef = shallowRef();
 watch(ribbonGeometryRef, (geo) => {
   geo.setFromPoints(finalPoints);
@@ -95,8 +102,9 @@ watch(ribbonGeometryRef, (geo) => {
 
 const { onBeforeRender } = useLoop();
 onBeforeRender(({ elapsed }) => {
-  textures[0].offset.x = elapsed * 0.1;
-  textures[1].offset.x = -elapsed * 0.1;
+  if (isLoading.value) return;
+  textures.value[0].offset.x = elapsed * 0.1;
+  textures.value[1].offset.x = -elapsed * 0.1;
 });
 </script>
 <template>

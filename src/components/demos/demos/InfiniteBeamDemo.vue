@@ -1,12 +1,12 @@
 <script setup>
 import { shallowRef } from 'vue'
-import { useTexture, useLoop } from '@tresjs/core'
-import { OrbitControls, Stars } from '@tresjs/cientos'
+import { useLoop } from '@tresjs/core'
+import { OrbitControls, Stars, useTexture } from '@tresjs/cientos'
 
 const beamsGeoRef = shallowRef()
 const sunRef = shallowRef()
 
-const { map: sun_color } = await useTexture({ map: '/textures/sun_color.jpg' })
+const { state: sun_color } = useTexture( '/textures/sun_color.jpg')
 
 const beamOptions = {
   size: 1,

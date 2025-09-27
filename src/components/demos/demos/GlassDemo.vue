@@ -1,21 +1,16 @@
 <script setup>
-import { shallowRef, reactive, watch } from 'vue'
-import { useTexture } from '@tresjs/core'
+import { shallowRef, reactive } from 'vue'
+import { useTexture, Environment } from '@tresjs/cientos'
 import { EquirectangularReflectionMapping } from 'three'
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader";
 import { Pane } from 'tweakpane';
 
-const { map } = await useTexture({map:'/textures/glassMorphismTexture.jpg'})
-const { map:normalMap } = await useTexture({map:'/textures/glassMorphismNormal.jpg'})
-const { map:earthNormalMap } = await useTexture({map:'/textures/8k_earth_normal_map.jpg'})
+const { state:map } = useTexture('/textures/glassMorphismTexture.jpg')
+const { state:normalMap } = useTexture('/textures/glassMorphismNormal.jpg')
+const { state:earthNormalMap } = useTexture('/textures/8k_earth_normal_map.jpg')
 const planeRef = shallowRef(null)
-const materialRef = shallowRef(null)
 
-watch(materialRef, value => {
-  console.log('jaime ~ value:', value);
-})
-
-const hdrEquirect = await new RGBELoader().load(
+const hdrEquirect = await new HDRLoader().load(
     "/textures/empty_warehouse_01_2k.hdr",
     () => {
       hdrEquirect.mapping = EquirectangularReflectionMapping;
@@ -27,7 +22,7 @@ const hdrEquirect = await new RGBELoader().load(
     thickness: 0.5,
     roughness: 0,
     envMap: hdrEquirect,
-    clearcoatNormalMap: normalMap,
+    clearcoatNormalMap: normalMap.value,
     envMapIntensity: 1.5,
     clearcoat: 0.5,
     clearcoatRoughness: 0.1,
@@ -91,14 +86,15 @@ const chgNormalButton = pane.addButton({
   title: 'Change normal',
 });
 chgNormalButton.on('click', () => {
-    options.clearcoatNormalMap = options.clearcoatNormalMap.uuid === normalMap.uuid ? earthNormalMap : normalMap
+    options.clearcoatNormalMap = options.clearcoatNormalMap.uuid === normalMap.value.uuid ? earthNormalMap.value : normalMap.value
 });
 </script>
 <template>
+  <Environment files="/textures/empty_warehouse_01_2k.hdr" :background="true" />
     <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />
     <TresMesh :position="[-0, 0, 0]">
         <TresIcosahedronGeometry :args="[1, 10]" />
-        <TresMeshPhysicalMaterial v-bind="options" ref="materialRef" />
+        <TresMeshPhysicalMaterial v-bind="options" />
     </TresMesh>
     <TresMesh ref="planeRef" :position="[0,0, -1]">
         <TresPlaneGeometry :args="[5, 5]" />
