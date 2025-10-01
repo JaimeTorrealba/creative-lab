@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
+import { TresCanvas } from '@tresjs/core'
 import { useAnimations, useGLTF } from '@tresjs/cientos'
 import { PerspectiveCamera, Vector4, Vector3 } from 'three'
 import { useWindowSize, useDevicePixelRatio  } from '@vueuse/core'
@@ -86,16 +86,15 @@ animationList.on('change', value => {
   currentAction.play()
 })
 
-const { onLoop } = useRenderLoop()
 
-onLoop(() => {
+const onLoop = () => {
   if (mixer) {
     mixer.update(0.01)
   }
-})
+}
 </script>
 <template>
-  <TresCanvas window-size clear-color="#333" class="over-hidden">
+  <TresCanvas window-size clear-color="#333" class="over-hidden" @loop="onLoop">
     <TresArrayCamera :args="[cameras]" :position="[0, 2, 5]" />
       <primitive :object="model" />
     <TresSpotLight :color="0xf7f7f7" :intensity="1" :position="[0, 0, 5]" />
