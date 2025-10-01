@@ -41,11 +41,11 @@ const demos_routes = [
     name: 'MirrorModifier',
     description: 'A simple Mirror modifier from scrath'
   },
-  // {
-  //   name: 'MultiCamera',
-  //   description:
-  //     'You can create an array of cameras, each one with its own viewport and its own configurations.'
-  // },
+  {
+    name: 'MultiCamera',
+    description:
+      'You can create an array of cameras, each one with its own viewport and its own configurations.'
+  },
   {
     name: 'MultiLayer',
     description: 'A multi layer texture demo, copying the original Disney machine in the 80s'

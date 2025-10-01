@@ -2,14 +2,21 @@
 import { watchEffect, ref, computed } from 'vue'
 import { useLoop, useTres } from '@tresjs/core'
 import { useGLTF, useAnimations } from '@tresjs/cientos'
-import { useMagicKeys } from '@vueuse/core'
+import { useMagicKeys, watchOnce } from '@vueuse/core'
 import { Quaternion, Vector3 } from 'three'
 
-const { state } = useGLTF('/models/footman/source/Footman_RIG.glb')
+const { state, isLoading } = useGLTF('/models/footman/source/Footman_RIG.glb')
 
 const animations = computed(() => state.value?.animations || [])
 const model = computed(() => state?.value?.scene)
 const { actions, mixer } = useAnimations(animations, model)
+
+watchOnce(isLoading, (v) => {
+  if (!v) {
+    currentAction.value = actions.Idle
+    currentAction.value?.play()
+  }
+})
 
 //constants
 const fadeDuration = 0.3
@@ -21,13 +28,13 @@ const velocity = new Vector3(0, 0, 0);
 // template ref
 const { camera} = useTres()
 
-const curruentAction = ref(actions.Idle)
-curruentAction.value.play()
+const currentAction = ref(null)
 
 const changeAnimation = (action) => {
-  curruentAction.value.fadeOut(fadeDuration)
+  if (!currentAction.value) return
+  currentAction.value?.fadeOut(fadeDuration)
   action.reset().fadeIn(fadeDuration).play()
-  curruentAction.value = action
+  currentAction.value = action
   if (action === actions.SwordAndShieldSlash) {
     mixer.value.addEventListener('loop', () => {
       changeAnimation(actions.Idle)
@@ -155,7 +162,7 @@ onBeforeRender(({ delta, elapsed }) => {
   
 </script>
 <template>
-    <primitive :object="model" />
+    <primitive v-if="model" :object="model" />
     <TresGridHelper :size="100" :divisions="100" />
     <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
     <TresAmbientLight />
