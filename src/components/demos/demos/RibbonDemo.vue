@@ -56,7 +56,7 @@ watchOnce(isLoading, (value) => {
   }
 });
 
-const pointsLength = 10;
+const pointsLength = 5;
 const curvePoints = [];
 for (let i = 0; i < pointsLength; i++) {
   const theta = (i / pointsLength) * Math.PI * 2;
@@ -115,6 +115,5 @@ onBeforeRender(({ elapsed }) => {
   <TresMesh :material="materials">
     <TresPlaneGeometry ref="ribbonGeometryRef" :args="[1, 1, vertices, 1]" />
   </TresMesh>
-  <TresAmbientLight :intensity="0.5" />
-  <TresDirectionalLight :position="[0, 5, 0]" :intensity="2" />
+  <TresAmbientLight :intensity="1.5" />
 </template>
