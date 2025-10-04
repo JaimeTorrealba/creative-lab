@@ -41,6 +41,10 @@ const basic_routes = [
     description: 'Simple experiment using <component :is /> built in vue feature'
   },
   {
+    name: 'LeomonLights',
+    description: 'Using and experimenting with different spot lights. all the lights are from leomon'
+  },
+  {
     name: 'MaterialX',
     description: 'Using MaterialX materials in TresJS'
   },
