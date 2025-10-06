@@ -13,7 +13,8 @@ const demos_routes = [
   {
     name: 'FollowPath',
     description:
-      'You can transform a model to follow a path (and svg one, in this case) and make it bend and rotate accordingly. This effect is base on: https://youtu.be/NH4rSzHLCp4'
+      'You can transform a model to follow a path (and svg one, in this case) and make it bend and rotate accordingly. This effect is base on: https://youtu.be/NH4rSzHLCp4',
+    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/Demos/FollowPathView.vue'
   },
   {
     name: 'Glass',
