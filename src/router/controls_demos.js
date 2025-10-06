@@ -35,6 +35,6 @@ const controls_routes = [
 
 export const controls_demos = () => {
   return controls_routes.map((route) => {
-    return generateRoute(route.name, 'Controls', route.description, route.link)
+    return generateRoute(route.name, 'Controls', route.description)
   })
 }

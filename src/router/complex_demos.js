@@ -12,17 +12,14 @@ const complex_routes = [
   {
     name: 'RayMarching',
     description: 'Basic of the ray marching, understanding the distance function and how to use it. playing with it and creating kind of a template',
-    link: 'https://www.shadertoy.com/view/3t2fRn'
   },
   {
     name: 'RayMarchingOperations',
     description: 'An interesting effect of how to use transparency in combination with the mouse to reveal the content behind',
-    link: 'https://www.shadertoy.com/view/3t2fRn'
   },
   {
     name: 'RayMarchingTweaks',
     description: 'Basic of the ray marching, understanding the distance function and how to use it. playing with it and creating kind of a template',
-    link: 'https://www.shadertoy.com/view/3t2fRn'
   },
   {
     name: 'ShaderStar',
@@ -44,6 +41,6 @@ const complex_routes = [
 
 export const complex = () => {
   return complex_routes.map((route) => {
-    return generateRoute(route.name, 'Complex', route.description, route.link)
+    return generateRoute(route.name, 'Complex', route.description)
   })
 }

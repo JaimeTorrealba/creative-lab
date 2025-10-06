@@ -25,8 +25,7 @@ const shaders_routes = [
   },
   {
     name: 'FragmentTemplate',
-    description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)',
-    link: 'https://www.shadertoy.com/view/3t2fRn'
+    description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)'
   },
   {
     name: 'InstanceMesh',
@@ -47,7 +46,6 @@ const shaders_routes = [
   {
     name: 'Rinnegan',
     description: 'A naive play with fragments draws, a rinnegan design.',
-    link: 'https://www.shadertoy.com/view/3t2fRn'
   },
   // {
   //   name: 'WaterReflector',
@@ -62,6 +60,6 @@ const shaders_routes = [
 
 export const shaders_demos = () => {
   return shaders_routes.map((route) => {
-    return generateRoute(route.name, 'Shaders_demos', route.description, route.link)
+    return generateRoute(route.name, 'Shaders_demos', route.description)
   })
 }

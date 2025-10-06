@@ -83,7 +83,6 @@ const basic_routes = [
     name: 'Transition',
     description:
       'We can use the Vue Transition API to create some cool effects. Here I left you a simple example.',
-    link: 'https://medium.com/@Jaimebboyjt/transition-threejs-component-using-vuejs-and-tresjs-d1119cb8ef6c'
   },
   {
     name: 'SixSides',
@@ -97,6 +96,6 @@ const basic_routes = [
 
 export const basic = () => {
   return basic_routes.map((route) => {
-    return generateRoute(route.name, 'Basics', route.description, route.link)
+    return generateRoute(route.name, 'Basics', route.description)
   })
 }

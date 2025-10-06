@@ -39,6 +39,6 @@ const textures_routes = [
 
 export const textures_demos = () => {
   return textures_routes.map((route) => {
-    return generateRoute(route.name, 'Textures_effects', route.description, route.link)
+    return generateRoute(route.name, 'Textures_effects', route.description)
   })
 }
