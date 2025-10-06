@@ -3,7 +3,6 @@ import defaultLayout from '@/layouts/defaultLayout.vue'
 export const BLACK_LIST_PATHS = ['/', '/template', '/cartesiancoords']
 
 export const generateRoute = (name, section, description, url) => {
-  console.log('jaime ~ generateRoute ~ url:', url);
   const lowerCase = name.toLocaleLowerCase()
   const splitLowerText = lowerCase.split('-')
   const path = `/${splitLowerText[0]}${
