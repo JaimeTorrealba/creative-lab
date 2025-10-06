@@ -49,6 +49,10 @@ const basic_routes = [
     description: 'Using MaterialX materials in TresJS'
   },
   {
+    name: 'MirrorModifier',
+    description: 'A simple Mirror modifier from scrath'
+  },
+  {
     name: 'Nebula',
     description:
       'A simple nebula generator using smoke abstraction on cientos, and post-processing. This effect is base on: https://youtu.be/5f5wwQb22tE'

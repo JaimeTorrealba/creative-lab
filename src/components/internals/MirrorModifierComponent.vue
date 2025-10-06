@@ -15,7 +15,6 @@ const mirrorTarget = shallowRef()
 onMounted(async() => {
     await nextTick()
     mirrorTarget.value = props.object.clone()
-    console.log('jaime ~ onMounted ~ mirrorTarget.value:', mirrorTarget.value);
 })
 
 const { onBeforeRender } = useLoop()
