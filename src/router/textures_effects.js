@@ -27,6 +27,11 @@ const textures_routes = [
         'Simple reveal image effect. This effect is base on: https://tympanus.net/codrops/2024/12/02/how-to-code-a-shader-based-reveal-effect-with-react-three-fiber-glsl/'
     },
     {
+      name: 'ParallaxMap',
+      description:
+        'Using different parallax map types in three.js.'
+    },
+    {
       name: 'Slider',
       description: 'A WebGl slider made with shaders, using distorsión in images. This effect is base on: https://github.com/akella/webGLImageTransitions'
     },
