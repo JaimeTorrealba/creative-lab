@@ -1,11 +1,13 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { BLACK_LIST_PATHS } from "../utils";
+import { useUrlSearchParams } from '@vueuse/core'
 
 const emit = defineEmits(["searchResult"]);
 
 const router = useRouter();
+const params = useUrlSearchParams('history')
 const data = ref();
 const search = ref("");
 const currentTag = ref("All");
@@ -18,6 +20,7 @@ data.value = filteredRoutes;
 const goAllRoutes = () => {
   data.value = filteredRoutes;
   currentTag.value = "All";
+  params.tag = null
   emit("searchResult", data.value);
 };
 
@@ -28,6 +31,7 @@ const mapTagName = (tag) => {
 };
 
 const filterByTag = (tag) => {
+  params.tag = tag
   currentTag.value = tag;
   data.value = filteredRoutes.filter((demo) => demo.meta.section === tag);
   emit("searchResult", data.value);
@@ -54,10 +58,27 @@ const isOpen = ref(false);
 const toggleMenu = () => {
   isOpen.value = !isOpen.value;
 };
+
+onMounted(() => {
+  if (params.tag) {
+    const tagParam = params.tag
+    if (tags.has(tagParam)) {
+      filterByTag(tagParam)
+    }
+  }
+});
 </script>
 <template>
   <nav class="navbar has-background-light" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
+        <div class="navbar-item">
+          <input
+            class="input is-medium"
+            type="text"
+            placeholder="Search"
+            v-model="search"
+          />
+        </div>
       <a
         role="button"
         class="navbar-burger"
@@ -76,7 +97,7 @@ const toggleMenu = () => {
 
     <div class="navbar-menu" :class="{ 'is-active': isOpen }">
       <div class="navbar-start tabs is-boxed">
-        <ul class="is-flex is-align-content-center is-justify-content-center">
+        <ul class="is-flex is-align-content-center is-justify-content-center" :class="isOpen ? 'is-flex-direction-column' : ''">
           <li
             class="has-text-black mx-2 is-clickable"
             :class="currentTag === 'All' ? 'is-active' : 'has-text-black-ter'"
@@ -94,17 +115,6 @@ const toggleMenu = () => {
             <a role="button" class="has-text-weight-medium">{{ mapTagName(tag) }}</a>
           </li>
         </ul>
-      </div>
-
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <input
-            class="input is-medium"
-            type="text"
-            placeholder="Search"
-            v-model="search"
-          />
-        </div>
       </div>
     </div>
   </nav>

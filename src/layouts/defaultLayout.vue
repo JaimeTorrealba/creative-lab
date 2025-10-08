@@ -13,9 +13,9 @@ const showTooltipDesc = ref(false);
 </script>
 <template>
   <main style="min-height: 100vh">
-    <div class="floating-back">
+    <div class="floating-wrapper">
       <router-link to="/">
-        <Tooltip text="Back home" :show="showTooltipBack" anchor="right" >
+        <Tooltip text="Back home" :show="showTooltipBack" anchor="right">
           <button
             class="button is-link is-inverted mr-1"
             @mouseenter="showTooltipBack = true"
@@ -27,9 +27,6 @@ const showTooltipDesc = ref(false);
           </button>
         </Tooltip>
       </router-link>
-    </div>
-    <slot />
-    <div class="floating-source">
       <a :href="data.meta.sourceCode" target="_blank">
         <Tooltip text="Go to GitHub" :show="showTooltipCode" anchor="right">
           <button
@@ -43,9 +40,13 @@ const showTooltipDesc = ref(false);
           </button>
         </Tooltip>
       </a>
-    </div>
-    <div class="floating-description">
-      <Tooltip :text="data.meta.description" :show="showTooltipDesc" anchor="center right" click-outside @close="showTooltipDesc = false">
+      <Tooltip
+        :text="data.meta.description"
+        :show="showTooltipDesc"
+        anchor="center right"
+        click-outside
+        @close="showTooltipDesc = false"
+      >
         <button
           class="button is-link is-inverted mr-1"
           @click="showTooltipDesc = !showTooltipDesc"
@@ -57,26 +58,18 @@ const showTooltipDesc = ref(false);
         </button>
       </Tooltip>
     </div>
+    <slot />
   </main>
 </template>
 
 <style scoped>
-.floating-back {
+.floating-wrapper {
   position: fixed;
   top: 2%;
   left: 2%;
   z-index: 9999;
-}
-.floating-source {
-  position: fixed;
-  top: 6%;
-  left: 2%;
-  z-index: 9999;
-}
-.floating-description {
-  position: fixed;
-  top: 10%;
-  left: 2%;
-  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 </style>
