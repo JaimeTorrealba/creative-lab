@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/shaders_demos/WaveDemo.vue'
+import TheExperience from '@/components/demos/shaders/WaveDemo.vue'
 </script>
 <template>
   <h1 class="has-text-centered floating-text" >Click on the plane </h1>

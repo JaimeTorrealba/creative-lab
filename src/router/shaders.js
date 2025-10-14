@@ -58,8 +58,8 @@ const shaders_routes = [
 ]
 
 
-export const shaders_demos = () => {
+export const shaders = () => {
   return shaders_routes.map((route) => {
-    return generateRoute(route.name, 'Shaders_demos', route.description)
+    return generateRoute(route.name, 'Shaders', route.description)
   })
 }

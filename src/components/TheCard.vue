@@ -18,7 +18,7 @@ const mapTagType = (tag) => {
       return "is-info is-light";
     case "Textures_effects":
       return "is-link is-light";
-    case "Shaders_demos":
+    case "Shaders":
       return "is-success is-light";
     default:
       break;

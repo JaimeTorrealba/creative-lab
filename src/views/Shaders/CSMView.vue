@@ -1,6 +1,6 @@
 <script setup>
 import { OrbitControls } from '@tresjs/cientos'
-import TheExperience from '@/components/demos/shaders_demos/CSMDemo.vue'
+import TheExperience from '@/components/demos/shaders/CSMDemo.vue'
 </script>
 <template>
   <TresCanvas window-size clear-color="#333" >
