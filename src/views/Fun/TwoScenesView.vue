@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { Stats } from '@tresjs/cientos'
-import TheExperience from '@/components/demos/demos/TwoScenesDemo.vue'
+import TheExperience from '@/components/demos/fun/TwoScenesDemo.vue'
  
 </script>
 <template>

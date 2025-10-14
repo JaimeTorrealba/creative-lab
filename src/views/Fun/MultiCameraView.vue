@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
-import TheExperience from '@/components/demos/demos/MultiCameraDemo.vue'
+import TheExperience from '@/components/demos/fun/MultiCameraDemo.vue'
 </script>
 <template>
   <TresCanvas window-size clear-color="#333" class="over-hidden">

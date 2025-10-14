@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import TheExperience from '@/components/demos/demos/RandomMovementDemo.vue'
+import TheExperience from '@/components/demos/fun/RandomMovementDemo.vue'
 </script>
 <template>
   <TresCanvas window-size clear-color="#333" ref="canvasRef">

@@ -1,6 +1,6 @@
 import { generateRoute } from '../utils'
 
-const demos_routes = [
+const fun_routes = [
   {
     name: 'CSG',
     description: 'Example using the CSG library'
@@ -85,8 +85,8 @@ const demos_routes = [
   },
 ]
 
-export const demos = () => {
-  return demos_routes.map((route) => {
-    return generateRoute(route.name, 'Demos', route.description, route.link)
+export const fun = () => {
+  return fun_routes.map((route) => {
+    return generateRoute(route.name, 'Fun', route.description, route.link)
   })
 }

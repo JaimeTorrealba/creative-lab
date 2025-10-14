@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import TheExperience from '@/components/demos/demos/GlassDemo.vue'
+import TheExperience from '@/components/demos/fun/GlassDemo.vue'
 
 </script>
 <template>

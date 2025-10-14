@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core';
-import TheExperience from '@/components/demos/demos/SkyDome.vue';
+import TheExperience from '@/components/demos/fun/SkyDome.vue';
 
 </script>
 <template>

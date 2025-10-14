@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
 import { basic } from './basic.js'
 import { textures_demos } from './textures_effects.js'
-import { demos } from './demos.js'
+import { fun } from './fun.js'
 import { shaders } from './shaders'
 import { html_demos } from './html_demos'
 import { controls_demos } from './controls_demos'
@@ -23,7 +23,7 @@ const router = createRouter({
     generateRoute('template', 'Playground', ''),
     generateRoute('CartesianCoords', 'Playground', ''),
     ...basic(),
-    ...demos(),
+    ...fun(),
     ...html_demos(),
     ...controls_demos(),
     ...textures_demos(),

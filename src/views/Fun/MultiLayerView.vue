@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/demos/MultiLayerDemo.vue'
+import TheExperience from '@/components/demos/fun/MultiLayerDemo.vue'
 
 // TODO: update to OrthographicCamera
 </script>

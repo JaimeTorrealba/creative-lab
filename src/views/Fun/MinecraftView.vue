@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls, Stats } from '@tresjs/cientos';
-import TheExperience from '@/components/demos/demos/MinecraftDemo.vue'
+import TheExperience from '@/components/demos/fun/MinecraftDemo.vue'
 
 </script>
 <template>

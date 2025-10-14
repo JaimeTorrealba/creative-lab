@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/demos/InfiniteBeamDemo.vue'
+import TheExperience from '@/components/demos/fun/InfiniteBeamDemo.vue'
 
 const gl = {
   clearColor: '#000',
