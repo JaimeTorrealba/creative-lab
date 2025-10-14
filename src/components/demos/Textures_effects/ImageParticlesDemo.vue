@@ -6,8 +6,9 @@ import { randFloat } from "three/src/math/MathUtils";
 import { gsap } from "gsap";
 import vertex from "./shaders/image_particles/vertex.glsl";
 import fragment from "./shaders/image_particles/fragment.glsl";
+import { Pane } from 'tweakpane';
 
-//TODO: add tweakpane
+const pane = new Pane();
 
 const wallRef = ref(null);
 
@@ -16,7 +17,7 @@ const columns = 16 * multiplier;
 const lines = 9 * multiplier;
 
 const { state:texture, isLoading } = useTexture(
-  "/images/photo_slider2.jpg");
+  "/images/image_particles.jpg");
 
 watchOnce(isLoading, (value) => {
     if (!value) {
@@ -67,6 +68,9 @@ watch(wallRef, (value) => {
     ease: "power4.in",
   });
 });
+
+pane.addBinding(shader.uniforms.uSize, 'value', { min: 1, max: 21, step: 0.1, label: 'Point Size' });
+pane.addBinding(shader.uniforms.uProgress, 'value', { min: 0, max: 1, step: 0.01, label: 'Progress' });
 </script>
 <template>
   <TresPoints ref="wallRef">

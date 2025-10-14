@@ -6,8 +6,9 @@ import { useTexture } from "@tresjs/cientos";
 import { Vector2 } from "three";
 import vertex from "./shaders/displacement/vertex.glsl";
 import fragment from "./shaders/displacement/fragment.glsl";
+import { Pane } from 'tweakpane';
 
-//TODO: add tweakpane
+const pane = new Pane();
 
 const { width, height } = useWindowSize();
 
@@ -25,10 +26,14 @@ const shader = {
     u_time: { value: 0 },
     u_texture: { value: null },
     u_mouse: { value: new Vector2(0.5, 0.9) },
+    uMouseInfluence: { value: 0.1 },
   },
   vertexShader: vertex,
   fragmentShader: fragment,
 };
+
+pane.addBinding(shader.uniforms.uMouseInfluence, 'value', { min: 0, max: 1, step: 0.01, label: 'Mouse X' });
+
 
 //resize
 watch(width, () => {

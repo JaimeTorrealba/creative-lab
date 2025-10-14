@@ -3,6 +3,7 @@ precision mediump float;
 
 uniform float u_time;
 uniform vec2 u_mouse;
+uniform float uMouseInfluence;
 uniform vec2 u_resolution;
 uniform sampler2D u_texture;
 varying vec2 v_uv;
@@ -15,19 +16,7 @@ vec2 distort(vec2 uv, vec2 center, float strength, float frequency) {
     return uv + dir * distortion;
 }
 
-vec3 chromaticAberration(sampler2D tex, vec2 uv, float strength) {
-    // Stronger at edges
-    float edgeFactor = length(vec2(0.5, 0.5) - uv) * 2.0;
-    strength *= edgeFactor * 1.5;
-    
-    vec2 offset = vec2(strength, 0.0);
-    
-    float r = texture2D(tex, uv - offset).r;
-    float g = texture2D(tex, uv).g;
-    float b = texture2D(tex, uv + offset).b;
-    
-    return vec3(r, g, b);
-}
+// chromatic aberration removed
 
 float noise(vec2 st) {
     return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
@@ -59,7 +48,7 @@ void main() {
     
     // Base distortion centered around mouse
     float mouseInfluence = 1.0 - smoothstep(0.0, 0.3, length(normalizedUV - normalizedMouse));
-    float distortStrength = 0.05 + mouseInfluence * 0.1;
+    float distortStrength = 0.05 + mouseInfluence * uMouseInfluence;
     float distortFreq = 10.0 + 5.0 * sin(u_time * 0.2);
     
     // Add some noise for more interesting distortion
@@ -69,12 +58,8 @@ void main() {
     // Apply distortion
     vec2 distortedUV = distort(uv, u_mouse, distortStrength + noiseVal, distortFreq);
     
-    // Apply chromatic aberration (stronger at edges)
-    vec3 color = chromaticAberration(u_texture, distortedUV, 0.01 + mouseInfluence * 0.02);
-    
-    // Add a subtle vignette effect
-    float vignette = smoothstep(1.2, 0.5, length(v_uv - vec2(0.5)));
-    color *= vignette;
+    // Sample texture directly (chromatic aberration removed)
+    vec3 color = texture2D(u_texture, distortedUV).rgb;
     
     // Add a subtle pulsing glow around mouse
     float pulse = 0.5 + 0.5 * sin(u_time * 2.0);
