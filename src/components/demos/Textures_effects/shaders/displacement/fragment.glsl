@@ -4,6 +4,8 @@ precision mediump float;
 uniform float u_time;
 uniform vec2 u_mouse;
 uniform float uMouseInfluence;
+uniform float uGlow;
+uniform float uMouseArea;
 uniform vec2 u_resolution;
 uniform sampler2D u_texture;
 varying vec2 v_uv;
@@ -47,7 +49,7 @@ void main() {
     vec2 normalizedMouse = vec2(u_mouse.x * aspect, u_mouse.y);
     
     // Base distortion centered around mouse
-    float mouseInfluence = 1.0 - smoothstep(0.0, 0.3, length(normalizedUV - normalizedMouse));
+    float mouseInfluence = 1.0 - smoothstep(0.0, 0.3, length(normalizedUV - normalizedMouse) * uMouseArea);
     float distortStrength = 0.05 + mouseInfluence * uMouseInfluence;
     float distortFreq = 10.0 + 5.0 * sin(u_time * 0.2);
     
@@ -58,12 +60,12 @@ void main() {
     // Apply distortion
     vec2 distortedUV = distort(uv, u_mouse, distortStrength + noiseVal, distortFreq);
     
-    // Sample texture directly (chromatic aberration removed)
+    // Sample texture directly
     vec3 color = texture2D(u_texture, distortedUV).rgb;
     
     // Add a subtle pulsing glow around mouse
     float pulse = 0.5 + 0.5 * sin(u_time * 2.0);
-    float glow = smoothstep(0.3 + 0.1 * pulse, 0.0, length(normalizedUV - normalizedMouse));
+    float glow = smoothstep(0.3 + 0.1 * pulse, 0.0, length(normalizedUV - normalizedMouse) * uGlow);
     color += vec3(0.1, 0.05, 0.2) * glow;
     
     gl_FragColor = vec4(color, 1.0);

@@ -1,5 +1,5 @@
 <script setup>
-import { watch } from "vue";
+import { watch, reactive } from "vue";
 import { useLoop } from "@tresjs/core";
 import { useWindowSize, watchOnce } from "@vueuse/core";
 import { useTexture } from "@tresjs/cientos";
@@ -7,6 +7,10 @@ import { Vector2 } from "three";
 import vertex from "./shaders/displacement/vertex.glsl";
 import fragment from "./shaders/displacement/fragment.glsl";
 import { Pane } from 'tweakpane';
+
+const options = reactive({
+  speed: 0.5,
+});
 
 const pane = new Pane();
 
@@ -27,12 +31,17 @@ const shader = {
     u_texture: { value: null },
     u_mouse: { value: new Vector2(0.5, 0.9) },
     uMouseInfluence: { value: 0.1 },
+    uGlow: { value: 1.0 },
+    uMouseArea: { value: 1.0 },
   },
   vertexShader: vertex,
   fragmentShader: fragment,
 };
 
-pane.addBinding(shader.uniforms.uMouseInfluence, 'value', { min: 0, max: 1, step: 0.01, label: 'Mouse X' });
+pane.addBinding(shader.uniforms.uMouseInfluence, 'value', { min: 0, max: 1, step: 0.01, label: 'Influence' });
+pane.addBinding(shader.uniforms.uGlow, 'value', { min: 0, max: 2, step: 0.01, label: 'Glow area' });
+pane.addBinding(shader.uniforms.uMouseArea, 'value', { min: 0, max: 5, step: 0.01, label: 'Mouse Area' });
+pane.addBinding(options, 'speed', { min: 0, max: 5, step: 0.01, label: 'Speed' });
 
 
 //resize
@@ -48,7 +57,7 @@ const handleMove = (e) => {
 const { onBeforeRender } = useLoop();
 
 onBeforeRender(({ elapsed }) => {
-  shader.uniforms.u_time.value = elapsed * 0.1;
+  shader.uniforms.u_time.value = elapsed * options.speed;
 });
 </script>
 <template>
