@@ -16,6 +16,11 @@ const textures_routes = [
       description:
         'A AI generated shader that displace the texture based on the mouse position.'
     },
+   {
+      name: 'Fake3DImage',
+      description:
+        'Based on Akella s Post. https://tympanus.net/codrops/2019/02/20/how-to-create-a-fake-3d-image-effect-with-webgl/'
+    },
     {
       name: 'ImageParticles',
       description:
