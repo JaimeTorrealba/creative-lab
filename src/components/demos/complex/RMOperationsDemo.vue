@@ -52,7 +52,7 @@ onBeforeRender(({ elapsed }) => {
 </script>
 <template>
     <TresMesh @pointermove="(ev) => updateUniforms(ev)">
-        <TresPlaneGeometry :args="[4, 4]" />
+        <TresPlaneGeometry :args="[2, 2]" />
         <TresShaderMaterial v-bind="shader" />
       </TresMesh>
 </template>

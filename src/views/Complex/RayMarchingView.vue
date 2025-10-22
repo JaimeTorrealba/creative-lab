@@ -11,7 +11,7 @@ pane.addBinding(camera, 'y', { min: -5, max: 5, step: 0.1 });
 </script>
 <template>
     <TresCanvas window-size clear-color="#111">
-      <TresPerspectiveCamera :position="[0, camera.y, 1]" />
+    <TresOrthographicCamera :position="[0, 0, 0]" :args="[-1, 1, 1, -1, -1, 1]" />
       <Suspense>
         <TheExperience />
       </Suspense>
