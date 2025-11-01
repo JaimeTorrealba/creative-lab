@@ -23,6 +23,11 @@ const basic_routes = [
     description: 'Simple coalition demo, thinking in a composable'
   },
   {
+    name: 'CornelBox',
+    description: 'Famous Cornel Box scene template',
+    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/HtmlMixView.vue'
+  },
+  {
     name: 'Earth',
     description:
       'In this demo we can see how to create a 3D earth, make it draggable, some parallax clouds on top and add some markers (to any city). It has also stars, MouseParallax effects and a simple GUI to control the rotation speed.'
@@ -31,6 +36,11 @@ const basic_routes = [
     name: 'Gaea',
     description:
       'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.'
+  },
+  {
+    name: 'GlobalIlluminationNode',
+    description:
+      'In this demo I show how to use the Global Illumination Node using webgpu TSL in TresJs.'
   },
   {
     name: 'Guide',
@@ -96,6 +106,6 @@ const basic_routes = [
 
 export const basic = () => {
   return basic_routes.map((route) => {
-    return generateRoute(route.name, 'Basics', route.description)
+    return generateRoute(route.name, 'Basics', route.description,  route.link)
   })
 }
