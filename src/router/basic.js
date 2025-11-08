@@ -51,6 +51,10 @@ const basic_routes = [
     description: 'Simple experiment using <component :is /> built in vue feature'
   },
   {
+    name: 'LabeledGeometry',
+    description: 'Based on: https://stemkoski.github.io/Three.js/Labeled-Geometry.html  a component that can show a label over any 3D geometry in the scene.'
+  },
+  {
     name: 'LeomonLights',
     description: 'Using and experimenting with different spot lights. all the lights are from leomon'
   },
