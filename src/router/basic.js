@@ -66,6 +66,10 @@ const basic_routes = [
     name: 'MaterialX',
     description: 'Using MaterialX materials in TresJS'
   },
+    {
+    name: 'MeshLine',
+    description: 'Inspired on: https://tympanus.net/codrops/2019/01/08/animated-mesh-lines/ from Yuri. I actually couldnt install the library so I ended with this demo instead. a line that follows the mouse (very smoothly)'
+  },
   {
     name: 'MirrorModifier',
     description: 'A simple Mirror modifier from scrath'
