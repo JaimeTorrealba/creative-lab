@@ -6,6 +6,10 @@ const shaders_routes = [
     description: 'Simple Audio blob with shaders and tresjs'
   },
   {
+    name: 'Bubble',
+    description: 'Based on: https://stemkoski.github.io/Three.js/Bubble.html create bubble effect using cube camera and fresnel shader.'
+  },
+  {
     name: 'Caustics',
     description: 'How to create the underwater caustics effect using shaders.'
   },
