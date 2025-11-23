@@ -48,12 +48,17 @@ const shaders_routes = [
     description: 'A simple ring made of particles using shaders'
   },
   {
+    name: 'RimLight',
+    description: 'Based on: https://threejsroadmap.com/blog/rim-lighting-shader simple rim lighting using shaders.',
+  },
+  {
     name: 'Rinnegan',
     description: 'A naive play with fragments draws, a rinnegan design.',
   },
+
   {
-    name: 'RimLight',
-    description: 'Based on: https://threejsroadmap.com/blog/rim-lighting-shader simple rim lighting using shaders.',
+    name: 'SlicedModel',
+    description: 'Following the Three.js Journey tutorial about sliced models.'
   },
   // {
   //   name: 'WaterReflector',
