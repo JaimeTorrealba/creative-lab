@@ -32,6 +32,10 @@ const shaders_routes = [
     description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)'
   },
   {
+    name: 'Glow',
+    description: ''
+  },
+  {
     name: 'InstanceMesh',
     description: 'A test to try how the instance mesh works on Tresjs, also i was experiment with the OrthographicCamera (normally I just use the PerspectiveCamera).'
   },
