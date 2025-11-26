@@ -1,6 +1,7 @@
 <script setup>
-import { watchEffect } from 'vue'
+import { watch } from 'vue'
 import { useWindowSize } from '@vueuse/core'
+import { useLoop } from '@tresjs/core'
 import { Vector2 } from 'three'
 import fragment from './shaders/rinnegan/fragment.glsl'
 
@@ -11,11 +12,9 @@ const shader = {
   varying vec2 vUv;
   varying vec3 vNormal;
   varying vec3 vPosition;
-  uniform float time;
-  uniform vec2 uResolution;
 
     void main(){
-      gl_Position =  vec4(position, 1.0);
+      gl_Position = vec4(position, 1.0);
       vUv = uv;
       vNormal = normal;
       vPosition = position;
@@ -25,15 +24,18 @@ const shader = {
   uniforms: {
     uTime: { value: 0 },
     uHover: { value: new Vector2(0.5, 0.5) },
-    uResolution: {
-      value: new Vector2(window.innerWidth, window.innerHeight)
-    }
+    uResolution: { value: new Vector2(width.value, height.value) }
   },
   transparent: true,
 }
 
-watchEffect(() => {
-  shader.uniforms.uResolution.value = new Vector2(width.value, height.value)
+watch([width, height], () => {
+  shader.uniforms.uResolution.value.set(width.value, height.value)
+})
+
+const { onBeforeRender } = useLoop()
+onBeforeRender(({ elapsed }) => {
+  shader.uniforms.uTime.value = elapsed
 })
 
 const updateUniforms = (ev) => {
