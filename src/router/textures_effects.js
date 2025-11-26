@@ -3,8 +3,8 @@ import { generateRoute } from '../utils'
 const textures_routes = [
    {
       name: 'BlurPixels',
-      description:
-        'How to blur a texture when hovering with the mouse, based on: https://t.co/3mIyS58Cyd'
+      description: 'Mouse-driven texture blur effect using custom shaders.',
+      basedOn: 'https://t.co/3mIyS58Cyd'
     },
    {
       name: 'ChromaticAberration',
@@ -18,18 +18,18 @@ const textures_routes = [
     },
    {
       name: 'Fake3DImage',
-      description:
-        'Based on Akella s Post. https://tympanus.net/codrops/2019/02/20/how-to-create-a-fake-3d-image-effect-with-webgl/'
+      description: 'Parallax depth effect using texture and depth map with mouse interaction.',
+      basedOn: 'https://tympanus.net/codrops/2019/02/20/how-to-create-a-fake-3d-image-effect-with-webgl/'
     },
     {
       name: 'ImageParticles',
-      description:
-        'An image transformed into particles that you can animated separately . This effect is base on: https://youtu.be/vEaAheMO0bo'
+      description: 'Transform images into individually animated particles.',
+      basedOn: 'https://youtu.be/vEaAheMO0bo'
     },
     {
       name: 'ImageReveal',
-      description:
-        'Simple reveal image effect. This effect is base on: https://tympanus.net/codrops/2024/12/02/how-to-code-a-shader-based-reveal-effect-with-react-three-fiber-glsl/'
+      description: 'Shader-based image reveal transition effect.',
+      basedOn: 'https://tympanus.net/codrops/2024/12/02/how-to-code-a-shader-based-reveal-effect-with-react-three-fiber-glsl/'
     },
     {
       name: 'ParallaxMap',
@@ -38,12 +38,13 @@ const textures_routes = [
     },
     {
       name: 'Slider',
-      description: 'A WebGl slider made with shaders, using distorsión in images. This effect is base on: https://github.com/akella/webGLImageTransitions'
+      description: 'WebGL image slider with distortion transitions between images.',
+      basedOn: 'https://github.com/akella/webGLImageTransitions'
     },
 ]
 
 export const textures_demos = () => {
   return textures_routes.map((route) => {
-    return generateRoute(route.name, 'Textures_effects', route.description)
+    return generateRoute(route.name, 'Textures_effects', route.description, route.link, route.basedOn)
   })
 }

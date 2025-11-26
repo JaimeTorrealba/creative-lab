@@ -21,7 +21,8 @@
 <script setup>
 import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-defineProps({
+
+const props = defineProps({
   text: { type: String, required: true },
   show: { type: Boolean, default: false },
   anchor: { type: String, default: "top" },
@@ -30,6 +31,9 @@ defineProps({
 
 const emit = defineEmits(["close"]);
 const tooltipRef = ref(null);
+
+// Generate unique anchor ID for each tooltip instance
+const anchorId = `--trigger-${Math.random().toString(36).substr(2, 9)}`;
 
 const onClose = () => {
   emit("close");
@@ -41,7 +45,7 @@ onClickOutside(tooltipRef, onClose);
 </script>
 <style scoped>
 .trigger {
-  anchor-name: --trigger;
+  anchor-name: v-bind(anchorId);
 }
 .tooltip-styles {
   position: absolute;
@@ -50,7 +54,7 @@ onClickOutside(tooltipRef, onClose);
   min-width: 25vw;
   z-index: 9999;
   text-wrap: v-bind("clickOutside ? 'wrap' : 'nowrap'");
-  position-anchor: --trigger;
+  position-anchor: v-bind(anchorId);
   position-area: v-bind(anchor);
 }
 

@@ -3,8 +3,8 @@ import { generateRoute } from '../utils'
 const basic_routes = [
   {
     name: 'Avatar',
-    description:
-      'You can create a 3D model avatar, exporting in glb in just a few minutes using https://readyplayer.me/es'
+    description: '3D avatar model created and exported from Ready Player Me.',
+    basedOn: 'https://readyplayer.me/'
   },
   {
     name: 'BoneTweaks',
@@ -24,17 +24,16 @@ const basic_routes = [
   },
   {
     name: 'Collision',
-    description: 'Simple coalition demo, thinking in a composable'
+    description: 'Simple collision detection demo using a reusable composable.'
   },
   {
     name: 'CornelBox',
     description: 'Famous Cornel Box scene template',
-    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/HtmlMixView.vue'
+    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/CornelBoxView.vue'
   },
   {
     name: 'Earth',
-    description:
-      'In this demo we can see how to create a 3D earth, make it draggable, some parallax clouds on top and add some markers (to any city). It has also stars, MouseParallax effects and a simple GUI to control the rotation speed.'
+    description: 'Interactive 3D Earth with draggable rotation, parallax clouds, city markers, stars, and GUI controls for rotation speed.'
   },
   {
     name: 'Gaea',
@@ -56,7 +55,8 @@ const basic_routes = [
   },
   {
     name: 'LabeledGeometry',
-    description: 'Based on: https://stemkoski.github.io/Three.js/Labeled-Geometry.html  a component that can show a label over any 3D geometry in the scene.'
+    description: 'A component that can show a label over any 3D geometry in the scene.',
+    basedOn: 'https://stemkoski.github.io/Three.js/Labeled-Geometry.html'
   },
   {
     name: 'LeomonLights',
@@ -76,26 +76,28 @@ const basic_routes = [
   },
   {
     name: 'Nebula',
-    description:
-      'A simple nebula generator using smoke abstraction on cientos, and post-processing. This effect is base on: https://youtu.be/5f5wwQb22tE'
+    description: 'A nebula generator using smoke abstraction with colored point lights and fog effects.',
+    basedOn: 'https://youtu.be/5f5wwQb22tE'
   },
   {
     name: 'ProceduralDC',
-    description: 'Creating a basic procedural animation using the DC (distance constrain) technique. Based on: https://www.youtube.com/watch?v=qlfh_rv6khY'
+    description: 'Basic procedural animation using the DC (distance constraint) technique.',
+    basedOn: 'https://www.youtube.com/watch?v=qlfh_rv6khY'
   },
   {
     name: 'RandomPoints',
-    description: 'Simple plane with random points for future effects. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
+    description: 'Plane with randomly distributed points for particle effects.',
+    basedOn: 'https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
   },
   {
     name: 'Scatter',
-    description:
-      'Using my library three-scatter'
+    description: 'Demo showcasing the three-scatter library for distributing objects across surfaces.',
+    basedOn: 'https://github.com/JaimeTorrealba/three-scatter'
   },
   {
     name: 'SelectableGrid',
-    description:
-      'How to select a grid (tile) in a plane using the mouse. based on this video: https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG'
+    description: 'Interactive grid system with mouse-based tile selection.',
+    basedOn: 'https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG'
   },
   {
     name: 'ShadeSmooth',
@@ -118,6 +120,6 @@ const basic_routes = [
 
 export const basic = () => {
   return basic_routes.map((route) => {
-    return generateRoute(route.name, 'Basics', route.description,  route.link)
+    return generateRoute(route.name, 'Basics', route.description, route.link, route.basedOn)
   })
 }

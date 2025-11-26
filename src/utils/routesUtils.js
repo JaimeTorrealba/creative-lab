@@ -2,7 +2,7 @@ import defaultLayout from '@/layouts/defaultLayout.vue'
 
 export const BLACK_LIST_PATHS = ['/', '/template', '/cartesiancoords']
 
-export const generateRoute = (name, section, description, url) => {
+export const generateRoute = (name, section, description, url, basedOn) => {
   const lowerCase = name.toLocaleLowerCase()
   const splitLowerText = lowerCase.split('-')
   const path = `/${splitLowerText[0]}${
@@ -19,7 +19,8 @@ export const generateRoute = (name, section, description, url) => {
       section,
       img: `/gifs/${section}/${name}.gif`,
       sourceCode: sourceCodePath,
-      description
+      description,
+      basedOn
     },
     component: () => import(`../views/${section}/${name}View.vue`)
   }

@@ -3,8 +3,7 @@ import { generateRoute } from '../utils'
 const html_routes = [
   {
     name: 'HtmlMix',
-    description:
-      'A basic example of how to mix TresJs with some HTML. I use a camera config to make the units in ThreeJs match the pixels in HTML. Some hover effects on the image and some 3D icons. Also a simple fragment shader banner ',
+    description: 'Blend HTML and WebGL using pixel-matched camera coordinates with hover effects and 3D icons.',
     link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/HtmlMixView.vue'
   },
   // {
@@ -14,17 +13,18 @@ const html_routes = [
   // },
   {
     name: 'HoverButton',
-    description: 'Inspired by: https://dribbble.com/shots/11386939-Play-with-Magic-Motion',
+    description: 'Interactive button with 3D hover effects and animations.',
+    basedOn: 'https://dribbble.com/shots/11386939-Play-with-Magic-Motion',
     link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/HoverButtonView.vue'
   },
   {
     name: 'Carousel3D',
-    description: 'My own implementation of a 3D carousel using TresJs and VueJs.',
+    description: 'Custom 3D carousel implementation with TresJS and Vue.'
   }
 ]
 
 export const html_demos = () => {
   return html_routes.map((route) => {
-    return generateRoute(route.name, 'HTML', route.description, route.link)
+    return generateRoute(route.name, 'HTML', route.description, route.link, route.basedOn)
   })
 }

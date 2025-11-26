@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { HomeIcon, CodeBracketIcon, DocumentTextIcon } from "@heroicons/vue/24/solid";
+import { HomeIcon, CodeBracketIcon, DocumentTextIcon, LinkIcon } from "@heroicons/vue/24/solid";
 import Tooltip from "@/components/Tooltip.vue";
 
 const router = useRouter();
@@ -10,6 +10,7 @@ const data = router.currentRoute.value;
 const showTooltipBack = ref(false);
 const showTooltipCode = ref(false);
 const showTooltipDesc = ref(false);
+const showTooltipBased = ref(false);
 </script>
 <template>
   <main style="min-height: 100vh">
@@ -57,6 +58,19 @@ const showTooltipDesc = ref(false);
           </span>
         </button>
       </Tooltip>
+      <a v-if="data.meta.basedOn" :href="data.meta.basedOn" target="_blank">
+        <Tooltip text="Based on" :show="showTooltipBased" anchor="right">
+          <button
+            class="button is-link is-inverted mr-1"
+            @mouseenter="showTooltipBased = true"
+            @mouseleave="showTooltipBased = false"
+          >
+            <span class="icon is-small">
+              <LinkIcon />
+            </span>
+          </button>
+        </Tooltip>
+      </a>
     </div>
     <slot />
   </main>

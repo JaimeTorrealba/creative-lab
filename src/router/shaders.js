@@ -3,19 +3,21 @@ import { generateRoute } from '../utils'
 const shaders_routes = [
   {
     name: 'AudioAnalyser',
-    description: 'Simple Audio blob with shaders and tresjs'
+    description: 'Audio-reactive icosahedron that responds to music frequency data with vertex shader animation.'
   },
   {
     name: 'Bubble',
-    description: 'Based on: https://stemkoski.github.io/Three.js/Bubble.html create bubble effect using cube camera and fresnel shader.'
+    description: 'Soap bubble effect using CubeCamera reflections and Fresnel shader.',
+    basedOn: 'https://stemkoski.github.io/Three.js/Bubble.html'
   },
   {
     name: 'Caustics',
-    description: 'How to create the underwater caustics effect using shaders.'
+    description: 'Underwater caustics light patterns on ocean floor using animated shader effects.'
   },
   {
     name: 'CoffeeCup',
-    description: 'Coffee practice from Bruno Simon. ThreeJs Journey. https://threejs-journey.com/'
+    description: 'Coffee smoke shader practice from Three.js Journey course.',
+    basedOn: 'https://threejs-journey.com/'
   },
   {
     name: 'CSM',
@@ -24,8 +26,8 @@ const shaders_routes = [
   },
   {
     name: 'DestroyGeometry',
-    description:
-      'With this demo, you can see how to destroy and manipulate the individual vertex of any type of geometries. This effect is base on: https://www.youtube.com/live/frgmk0Wu76A?feature=share'
+    description: 'Vertex manipulation demo showing how to destroy and animate individual vertices of geometries.',
+    basedOn: 'https://www.youtube.com/live/frgmk0Wu76A?feature=share'
   },
   {
     name: 'FragmentTemplate',
@@ -33,7 +35,7 @@ const shaders_routes = [
   },
   {
     name: 'Glow',
-    description: ''
+    description: 'Glowing effect using shader materials.'
   },
   {
     name: 'InstanceMesh',
@@ -41,7 +43,8 @@ const shaders_routes = [
   },
   {
     name: 'InstanceMesh2',
-    description: 'A test to try how the instance mesh 2 works on Tresjs, this uses the https://github.com/agargaro/instanced-mesh'
+    description: 'Advanced instanced mesh rendering using the instanced-mesh library.',
+    basedOn: 'https://github.com/agargaro/instanced-mesh'
   },
   {
     name: 'MouseReveal',
@@ -53,7 +56,8 @@ const shaders_routes = [
   },
   {
     name: 'RimLight',
-    description: 'Based on: https://threejsroadmap.com/blog/rim-lighting-shader simple rim lighting using shaders.',
+    description: 'Rim lighting effect using custom shaders to highlight object edges.',
+    basedOn: 'https://threejsroadmap.com/blog/rim-lighting-shader'
   },
   {
     name: 'Rinnegan',
@@ -70,13 +74,14 @@ const shaders_routes = [
   // },
   {
     name: 'Wave',
-    description: 'A WebGl ripple effect (like material design) but using shaders. This effect is base on: https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
+    description: 'WebGL ripple effect (Material Design style) implemented with custom shaders.',
+    basedOn: 'https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
   },
 ]
 
 
 export const shaders = () => {
   return shaders_routes.map((route) => {
-    return generateRoute(route.name, 'Shaders', route.description)
+    return generateRoute(route.name, 'Shaders', route.description, route.link, route.basedOn)
   })
 }
