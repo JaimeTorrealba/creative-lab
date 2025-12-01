@@ -35,7 +35,8 @@ const shaders_routes = [
   },
   {
     name: 'Glow',
-    description: 'Glowing effect using shader materials.'
+    description: 'Glowing effect using shader materials.',
+    basedOn: 'https://stemkoski.github.io/Three.js/Shader-Glow.html'
   },
   {
     name: 'InstanceMesh',

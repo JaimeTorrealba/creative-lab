@@ -5,7 +5,7 @@ import TheExperience from "@/components/demos/shaders/GlowDemo.vue";
 </script>
 <template>
   <Suspense>
-    <TresCanvas window-size clear-color="#111">
+    <TresCanvas window-size clear-color="#333">
       <TresPerspectiveCamera :position="[0, 0, 15]" />
       <OrbitControls />
       <Suspense>
