@@ -30,6 +30,14 @@ const shaders_routes = [
     basedOn: 'https://www.youtube.com/live/frgmk0Wu76A?feature=share'
   },
   {
+    name: 'Dissolve',
+    description: 'Dissolve effect VFX when appears or disappears an object.'
+  },
+  {
+    name: 'DissolveTsl',
+    description: 'Same as Dissolve but using the TSL shader language.'
+  },
+  {
     name: 'FragmentTemplate',
     description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)'
   },
