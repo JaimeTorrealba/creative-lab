@@ -24,13 +24,16 @@ const uAlphaThreshold = uniform(0.5);
 const uTextureScale = uniform(1.0);
 const material = new MeshStandardNodeMaterial();
 
+const { state: colorTex } = useTexture("/textures/8k_earth_daymap.jpg");
 const { state: tex, isLoading } = useTexture("/perlin.png");
 
 watch(tex, (_tex) => {
+  console.log('jaime ~ colorTex:', colorTex);
   if (_tex) {
     _tex.wrapS = _tex.wrapT = RepeatWrapping;
     _tex.minFilter = LinearFilter;
     material.colorNode = texture(_tex, vec2(mul(uv().x, uTextureScale), mul(uv().y, uTextureScale))).r;
+    const colorMap = texture(colorTex.value, uv());
 
     const mask = step(add(uAlphaThreshold, uBorderSize), material.colorNode);
 
@@ -40,8 +43,8 @@ watch(tex, (_tex) => {
       float(1.0)
     );
 
-    const color1 = vec3(0.15, 0.15, 0.96);
-    const color2 = vec3(0.75);
+    const color1 = vec3(0.0);
+    const color2 = colorMap.rgb;
     const finalColor = vec4(mix(color1, color2, mask), alpha);
     material.colorNode = finalColor;
     material.transparent = true;
