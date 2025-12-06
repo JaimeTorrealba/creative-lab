@@ -37,6 +37,8 @@ const sectionMap = {
   html: { router: 'html_demos.js', viewFolder: 'HTML', componentFolder: 'html_demos' },
   shaders: { router: 'shaders.js', viewFolder: 'Shaders', componentFolder: 'shaders' },
   textures: { router: 'textures_effects.js', viewFolder: 'Textures_effects', componentFolder: 'Textures_effects' }
+  ,noc: { router: 'nature_of_code.js', viewFolder: 'Noc', componentFolder: 'noc' }
+  ,random: { router: 'random.js', viewFolder: 'Random', componentFolder: 'random' }
 };
 
 if (!sectionMap[section]) {
