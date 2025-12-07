@@ -77,6 +77,10 @@ const shaders_routes = [
     name: 'SlicedModel',
     description: 'Following the Three.js Journey tutorial about sliced models.'
   },
+  {
+    name: 'Volumetric',
+    description: 'Following the Scratchapixel tutorial about volumetric rendering.',
+  },
   // {
   //   name: 'WaterReflector',
   //   description: 'A test to try how the water reflection works on Tresjs, using the ReflectorMesh addons. Based on this video: https://youtu.be/PAy5aQK2pSg?si=4dCtEjHRNGG9tQIH'
