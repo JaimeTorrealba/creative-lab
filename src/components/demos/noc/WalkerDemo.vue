@@ -39,24 +39,11 @@ class Walker {
       else this.mesh.position.z -= 1;
     }
     if (options.directions === 8) {
-      const random = options.randomFn();
-      if (random < 0.125) this.mesh.position.x += 1;
-      else if (random < 0.25) {
-        this.mesh.position.x += 1;
-        this.mesh.position.z += 1;
-      } else if (random < 0.375) this.mesh.position.z += 1;
-      else if (random < 0.5) {
-        this.mesh.position.x -= 1;
-        this.mesh.position.z += 1;
-      } else if (random < 0.625) this.mesh.position.x -= 1;
-      else if (random < 0.75) {
-        this.mesh.position.x -= 1;
-        this.mesh.position.z -= 1;
-      } else if (random < 0.875) this.mesh.position.z -= 1;
-      else {
-        this.mesh.position.x += 1;
-        this.mesh.position.z -= 1;
-      }
+
+      const randomX = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+      const randomZ = Math.floor(Math.random() * 3) - 1;
+      this.mesh.position.x += randomX;
+      this.mesh.position.z += randomZ;
     }
     wrapperRef.value.add(this.mesh);
   }

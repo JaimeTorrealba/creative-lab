@@ -2,6 +2,11 @@ import { generateRoute } from '../utils'
 
 const nature_of_code = [
   {
+    name: 'Mover',
+    description: ''
+  },
+
+  {
     name: 'Walker',
     description: 'This demo is based on the first chapter of the Nature of Code book by Daniel Shiffman. It simulates a random walker that moves around the canvas.',
   },

@@ -103,8 +103,11 @@ const createFile = (filePath, content) => {
 const addRouteEntry = (routerPath, name) => {
   let content = fs.readFileSync(routerPath, 'utf8');
   
-  // Find the routes array
-  const arrayMatch = content.match(/const\s+\w+_routes\s*=\s*\[/);
+  // Find the routes array. Prefer *_routes, but fall back to any const array = [
+  let arrayMatch = content.match(/const\s+\w+_routes\s*=\s*\[/);
+  if (!arrayMatch) {
+    arrayMatch = content.match(/const\s+\w+\s*=\s*\[/);
+  }
   if (!arrayMatch) {
     console.error('Could not find routes array in router file');
     return false;
