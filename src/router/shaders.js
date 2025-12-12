@@ -72,6 +72,10 @@ const shaders_routes = [
     name: 'Rinnegan',
     description: 'A naive play with fragments draws, a rinnegan design.',
   },
+  {
+    name: 'Slash',
+    description: 'My own attempt to create a vfx slash effect using shaders.',
+  },
 
   {
     name: 'SlicedModel',
