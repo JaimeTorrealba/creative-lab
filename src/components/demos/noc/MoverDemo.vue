@@ -73,7 +73,6 @@ class RandomAccMover extends BasicMover {
     this.updateWorldPosition();
   }
 }
-
 class FollowingMouseMover extends BasicMover {
   constructor() {
     super();
@@ -81,12 +80,24 @@ class FollowingMouseMover extends BasicMover {
     this.mousePos = new Vector2(x.value, y.value);
   }
   update() {
-    //TODO: make it follow the mouse smoothly
     this.mousePos.set(x.value, y.value);
-    // this.velocity.add(new Vector2(Math.random() - 0.5, Math.random() - 0.5));
-    // clampVector(this.velocity, -5, 5);
-    // this.position.add(this.velocity);
-    // this.updateWorldPosition();
+    this.position.lerp(this.mousePos, 0.05);
+    this.updateWorldPosition();
+  }
+}
+class MouseDirectionMover extends BasicMover {
+  constructor() {
+    super();
+    this.acceleration = new Vector2(0, 0);
+    this.mousePos = new Vector2(x.value, y.value);
+  }
+  update() {
+    this.mousePos.set(x.value, y.value);
+    const direction = this.mousePos.clone().sub(this.position).normalize();
+    this.velocity.add(direction.multiplyScalar(0.5));
+    clampVector(this.velocity, -5, 5);
+    this.position.add(this.velocity);
+    this.updateWorldPosition();
   }
 }
 
@@ -107,6 +118,7 @@ pane
       "Simple Acc Mover": "SimpleAccMover",
       "Random Acc Mover": "RandomAccMover",
       "Following Mouse Mover": "FollowingMouseMover",
+      "Mouse Direction Mover": "MouseDirectionMover",
     },
     label: "Mover Type",
   })
@@ -119,6 +131,7 @@ const moverClasses = {
   BasicMover,
   SimpleAccMover,
   RandomAccMover,
+  MouseDirectionMover,
   FollowingMouseMover,
 };
 
