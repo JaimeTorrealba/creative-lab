@@ -43,6 +43,10 @@ const shaders_routes = [
     description: 'Same as Dissolve but using the TSL shader language.'
   },
   {
+    name: 'Fireworks',
+    description: 'Three.js journey lesson fireworks on tres.js'
+  },
+  {
     name: 'FragmentTemplate',
     description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)'
   },
