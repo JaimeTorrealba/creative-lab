@@ -91,6 +91,10 @@ const shaders_routes = [
     description: 'Following the Three.js Journey tutorial about sliced models.'
   },
   {
+    name: 'TextureParticleCursor',
+    description: 'Three.js journey #39 - Texture Particles Cursor animation'
+  },
+  {
     name: 'Volumetric',
     description: 'Following the Scratchapixel tutorial about volumetric rendering.',
   },
