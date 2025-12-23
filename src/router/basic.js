@@ -85,6 +85,10 @@ const basic_routes = [
     basedOn: 'https://www.youtube.com/watch?v=qlfh_rv6khY'
   },
   {
+    name: 'Quaternions',
+    description: 'Extra simple demo to understand quaternions and how they work. Panel tweaking values',
+  },
+  {
     name: 'RandomPoints',
     description: 'Plane with randomly distributed points for particle effects.',
     basedOn: 'https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
