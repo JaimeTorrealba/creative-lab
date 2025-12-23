@@ -92,7 +92,7 @@ class liquidForce {
  }
 }
 
-const sphere1 = new BasicForces(new Vector2(width.value / 2, 0), 1, 100);
+const mover = new BasicForces(new Vector2(width.value / 2, 0), 1, 100);
 const liquid = new liquidForce(options.fluidResistance, {x:0, y:height.value/2, width:width.value, height:height.value/2});
 
 
@@ -116,22 +116,22 @@ pane.addBinding(options, "fluidResistance", { min: 0, max: 0.1, step: 0.001 });
 // ANIMATION LOOP
 const { onBeforeRender } = useLoop();
 onBeforeRender(() => {
-  sphere1.applyForce(new Vector2(0, options.gravity));
-  sphere1.applyForce(new Vector2(options.wind, 0));
-  sphere1.update();
-  sphere1.checkEdges();
-  if (options.friction && sphere1.contactEdge()) {
-    let friction = sphere1.velocity.clone().normalize().multiplyScalar(-1);
-    sphere1.applyForce(friction.multiplyScalar(options.frictionAmount));
+  mover.applyForce(new Vector2(0, options.gravity));
+  mover.applyForce(new Vector2(options.wind, 0));
+  mover.update();
+  mover.checkEdges();
+  if (options.friction && mover.contactEdge()) {
+    let friction = mover.velocity.clone().normalize().multiplyScalar(-1);
+    mover.applyForce(friction.multiplyScalar(options.frictionAmount));
   }
-  if(liquid.contains(sphere1) && options.showFluidResistance){
-    let drag = liquid.calculateDrag(sphere1);
-    sphere1.applyForce(drag);
+  if(liquid.contains(mover) && options.showFluidResistance){
+    let drag = liquid.calculateDrag(mover);
+    mover.applyForce(drag);
   }
 
   if (sphereRef.value) {
-    sphereRef.value.position.x = sphere1.worldPosition.x;
-    sphereRef.value.position.y = sphere1.worldPosition.y;
+    sphereRef.value.position.x = mover.worldPosition.x;
+    sphereRef.value.position.y = mover.worldPosition.y;
   }
 });
 </script>

@@ -2,8 +2,13 @@ import { generateRoute } from '../utils'
 
 const nature_of_code = [
   {
+    name: 'Attractor',
+    description: 'This demo is based on the second chapter of the Nature of Code book by Daniel Shiffman. It simulates an attractors that pull other objects towards it.',
+  },
+
+  {
     name: 'Forces',
-    description: 'This demo is based on the first chapter of the Nature of Code book by Daniel Shiffman. It simulates some basics forces like gravity and wind.'
+    description: 'This demo is based on the second chapter of the Nature of Code book by Daniel Shiffman. It simulates some basics forces like gravity and wind.'
   },
   {
     name: 'Mover',
