@@ -2,6 +2,7 @@
 import { useLoop, useTres } from "@tresjs/core";
 import { useWindowSize } from "@vueuse/core";
 import { Vector2, SphereGeometry, MeshStandardMaterial, Mesh } from "three";
+import { TransformControls } from "@tresjs/cientos";
 import { reactive } from "vue";
 import { Pane } from "tweakpane";
 
@@ -117,6 +118,7 @@ const attractor = new Attractor({ x: width.value / 2, y: height.value / 2 }, 150
 
 scene.value.add(sphere.createMesh());
 scene.value.add(attractor.createMesh());
+const attractorMesh = attractor.getMesh();
 movers.push(sphere);
 
 function createMoverAtWorldPoint(worldX, worldY) {
@@ -127,6 +129,14 @@ function createMoverAtWorldPoint(worldX, worldY) {
   scene.value.add(newMover.createMesh());
   movers.push(newMover);
 }
+
+const updateAttractorPos = () => {
+  if (!attractorMesh) return;
+  const worldPos = attractorMesh.position;
+  const screenX = worldPos.x + width.value / 2;
+  const screenY = height.value / 2 - worldPos.y;
+  attractor.position.set(screenX, screenY);
+};
 
 const { onBeforeRender } = useLoop();
 onBeforeRender(() => {
@@ -146,6 +156,7 @@ onBeforeRender(() => {
 </script>
 <template>
   <!-- Invisible XY plane to capture canvas clicks and provide e.point (world XY) -->
+   <TransformControls mode="translate" :object="attractorMesh" @change="updateAttractorPos"  />
   <TresMesh
     name="click-plane"
     :visible="false"

@@ -1,6 +1,12 @@
 import { generateRoute } from '../utils'
 
 const textures_routes = [
+  {
+    name: 'BlackHole',
+    description: 'Texture distortion effect simulating a black hole using shaders.',
+    basedOn: 'https://codepen.io/darrylhuffman/pen/gRZrpv?editors=1010'
+  },
+
    {
       name: 'BlurPixels',
       description: 'Mouse-driven texture blur effect using custom shaders.',
