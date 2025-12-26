@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/fun/MeshLineDemo.vue'
+import TheExperience from '@/components/demos/basics/MeshLineDemo.vue'
 
 </script>
 <template>
