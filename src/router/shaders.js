@@ -25,6 +25,11 @@ const shaders_routes = [
     basedOn: 'https://threejs-journey.com/'
   },
   {
+    name: 'CustomFog',
+    description: 'Custom fog effect, found it on three.js forum',
+    basedOn: 'https://codepen.io/the-red-reddington/pen/wBGQQwO?editors=1000'
+  },
+  {
     name: 'CSM',
     description:
       'You can see how to extend any material to add shaders and different capabilities. We use the Custom Shader Material library. In this example we extend the MeshPhyiscalMaterial used in the previos glass example'
