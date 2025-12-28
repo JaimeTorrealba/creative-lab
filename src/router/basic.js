@@ -36,6 +36,10 @@ const basic_routes = [
     description: 'Interactive 3D Earth with draggable rotation, parallax clouds, city markers, stars, and GUI controls for rotation speed.'
   },
   {
+    name: 'Fbos',
+    description: 'WIP. working with the FBO component, it look like have an error so I need to check that'
+  },
+  {
     name: 'Gaea',
     description:
       'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.'
