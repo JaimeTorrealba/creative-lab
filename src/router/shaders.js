@@ -61,6 +61,10 @@ const shaders_routes = [
     basedOn: 'https://stemkoski.github.io/Three.js/Shader-Glow.html'
   },
   {
+    name: 'HoverOnFaces',
+    description: 'This is my attempt to create a hover effect on each face of a geometry using shaders.'
+  },
+  {
     name: 'InstanceMesh',
     description: 'A test to try how the instance mesh works on Tresjs, also i was experiment with the OrthographicCamera (normally I just use the PerspectiveCamera).'
   },
