@@ -52,6 +52,10 @@ const shaders_routes = [
     description: 'Three.js journey lesson fireworks on tres.js'
   },
   {
+    name: 'ForceField',
+    description: 'My attempt to create a force field effect using shaders.'
+  },
+  {
     name: 'FragmentTemplate',
     description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)'
   },
