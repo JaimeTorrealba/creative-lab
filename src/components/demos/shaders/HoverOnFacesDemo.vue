@@ -3,8 +3,8 @@
 import { Vector2 } from "three";
 import { Pane } from "tweakpane";
 import { gsap } from "gsap";
-import vertex from "./shaders/hoverOnFaces/vertex.glsl";
-import fragment from "./shaders/hoverOnFaces/fragment.glsl";
+import vertex from "./shaders/HoverOnFaces/vertex.glsl";
+import fragment from "./shaders/HoverOnFaces/fragment.glsl";
 
 const materialRef = shallowRef();
 let currentStrength = 0.15;
