@@ -101,8 +101,6 @@ class MouseDirectionMover extends BasicMover {
   }
 }
 
-const { onBeforeRender } = useLoop();
-
 let mover = new BasicMover();
 
 const options = reactive({
@@ -134,6 +132,8 @@ const moverClasses = {
   MouseDirectionMover,
   FollowingMouseMover,
 };
+
+const { onBeforeRender } = useLoop();
 
 onBeforeRender(() => {
   mover.update();

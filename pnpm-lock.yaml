@@ -13,22 +13,22 @@ importers:
         version: 2.2.0(vue@3.5.27)
       '@jaimebboyjt/three-scatter':
         specifier: ^0.0.6
-        version: 0.0.6(three@0.180.0)
+        version: 0.0.6(three@0.182.0)
       '@jaimebboyjt/tres-fps-controls':
         specifier: ^0.0.55
-        version: 0.0.55(@tresjs/core@5.3.3(three@0.180.0)(vue@3.5.27))(three@0.180.0)(vue@3.5.27)
+        version: 0.0.55(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)
       '@three.ez/instanced-mesh':
         specifier: ^0.3.13
-        version: 0.3.13(three@0.180.0)
+        version: 0.3.13(three@0.182.0)
       '@tresjs/cientos':
         specifier: ^5.2.5
-        version: 5.2.5(@tresjs/core@5.3.3(three@0.180.0)(vue@3.5.27))(@types/three@0.177.0)(three@0.180.0)(vue@3.5.27)
+        version: 5.2.5(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(@types/three@0.177.0)(three@0.182.0)(vue@3.5.27)
       '@tresjs/core':
         specifier: ^5.3.3
-        version: 5.3.3(three@0.180.0)(vue@3.5.27)
+        version: 5.3.3(three@0.182.0)(vue@3.5.27)
       '@tresjs/post-processing':
         specifier: ^2.4.0
-        version: 2.4.0(@tresjs/core@5.3.3(three@0.180.0)(vue@3.5.27))(three@0.180.0)(vue@3.5.27)
+        version: 2.4.0(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)
       '@tweakpane/plugin-essentials':
         specifier: ^0.2.1
         version: 0.2.1(tweakpane@4.0.5)
@@ -54,11 +54,11 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3
       three:
-        specifier: ^0.180.0
-        version: 0.180.0
+        specifier: ^0.182.0
+        version: 0.182.0
       three-bvh-csg:
         specifier: ^0.0.16
-        version: 0.0.16(three-mesh-bvh@0.9.0(three@0.180.0))(three@0.180.0)
+        version: 0.0.16(three-mesh-bvh@0.9.0(three@0.182.0))(three@0.182.0)
       vue:
         specifier: ^3.5.27
         version: 3.5.27
@@ -1594,8 +1594,8 @@ packages:
   three@0.165.0:
     resolution: {integrity: sha512-cc96IlVYGydeceu0e5xq70H8/yoVT/tXBxV/W8A/U6uOq7DXc4/s1Mkmnu6SqoYGhSRWWYFOhVwvq6V0VtbplA==}
 
-  three@0.180.0:
-    resolution: {integrity: sha512-o+qycAMZrh+TsE01GqWUxUIKR1AL0S8pq7zDkYOQw8GqfX8b8VoCKYUoHbhiX5j+7hr8XsuHDVU6+gkQJQKg9w==}
+  three@0.182.0:
+    resolution: {integrity: sha512-GbHabT+Irv+ihI1/f5kIIsZ+Ef9Sl5A1Y7imvS5RQjWgtTPfPnZ43JmlYI7NtCRDK9zir20lQpfg8/9Yd02OvQ==}
 
   through2@0.6.5:
     resolution: {integrity: sha512-RkK/CCESdTKQZHdmKICijdKKsCRVHs5KsLZ6pACAmF/1GPUQhonHSXWNERctxEp7RmvjdNbZTL5z9V7nSCXKcg==}
@@ -1996,17 +1996,17 @@ snapshots:
 
   '@humanwhocodes/object-schema@2.0.3': {}
 
-  '@jaimebboyjt/three-scatter@0.0.6(three@0.180.0)':
+  '@jaimebboyjt/three-scatter@0.0.6(three@0.182.0)':
     dependencies:
-      '@three.ez/instanced-mesh': 0.3.13(three@0.180.0)
+      '@three.ez/instanced-mesh': 0.3.13(three@0.182.0)
       alea: 1.0.1
       simplex-noise: 4.0.3
-      three: 0.180.0
+      three: 0.182.0
 
-  '@jaimebboyjt/tres-fps-controls@0.0.55(@tresjs/core@5.3.3(three@0.180.0)(vue@3.5.27))(three@0.180.0)(vue@3.5.27)':
+  '@jaimebboyjt/tres-fps-controls@0.0.55(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)':
     dependencies:
-      '@tresjs/core': 5.3.3(three@0.180.0)(vue@3.5.27)
-      three: 0.180.0
+      '@tresjs/core': 5.3.3(three@0.182.0)(vue@3.5.27)
+      three: 0.182.0
       vue: 3.5.27
 
   '@jest/schemas@29.6.3':
@@ -2178,10 +2178,10 @@ snapshots:
 
   '@sinclair/typebox@0.27.8': {}
 
-  '@three.ez/instanced-mesh@0.3.13(three@0.180.0)':
+  '@three.ez/instanced-mesh@0.3.13(three@0.182.0)':
     dependencies:
       bvh.js: 0.0.13
-      three: 0.180.0
+      three: 0.182.0
 
   '@tresjs/cientos@3.9.0(@tresjs/core@4.3.6(three@0.165.0)(vue@3.5.27))(@types/three@0.177.0)(three@0.165.0)(tweakpane@4.0.5)(vue@3.5.27)':
     dependencies:
@@ -2201,16 +2201,16 @@ snapshots:
       - '@vue/composition-api'
       - react
 
-  '@tresjs/cientos@5.2.5(@tresjs/core@5.3.3(three@0.180.0)(vue@3.5.27))(@types/three@0.177.0)(three@0.180.0)(vue@3.5.27)':
+  '@tresjs/cientos@5.2.5(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(@types/three@0.177.0)(three@0.182.0)(vue@3.5.27)':
     dependencies:
-      '@tresjs/core': 5.3.3(three@0.180.0)(vue@3.5.27)
+      '@tresjs/core': 5.3.3(three@0.182.0)(vue@3.5.27)
       '@vueuse/core': 13.9.0(vue@3.5.27)
-      camera-controls: 2.10.1(three@0.180.0)
-      stats-gl: 2.4.2(@types/three@0.177.0)(three@0.180.0)
+      camera-controls: 2.10.1(three@0.182.0)
+      stats-gl: 2.4.2(@types/three@0.177.0)(three@0.182.0)
       stats.js: 0.17.0
-      three: 0.180.0
-      three-custom-shader-material: 5.4.0(three@0.180.0)
-      three-stdlib: 2.36.1(three@0.180.0)
+      three: 0.182.0
+      three-custom-shader-material: 5.4.0(three@0.182.0)
+      three-stdlib: 2.36.1(three@0.182.0)
       vue: 3.5.27
     transitivePeerDependencies:
       - '@react-three/fiber'
@@ -2227,21 +2227,21 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@tresjs/core@5.3.3(three@0.180.0)(vue@3.5.27)':
+  '@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27)':
     dependencies:
       '@pmndrs/pointer-events': 6.6.29
       '@vue/devtools-api': 7.7.9
       '@vueuse/core': 13.9.0(vue@3.5.27)
       radashi: 12.7.1
-      three: 0.180.0
+      three: 0.182.0
       vue: 3.5.27
 
-  '@tresjs/post-processing@2.4.0(@tresjs/core@5.3.3(three@0.180.0)(vue@3.5.27))(three@0.180.0)(vue@3.5.27)':
+  '@tresjs/post-processing@2.4.0(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)':
     dependencies:
-      '@tresjs/core': 5.3.3(three@0.180.0)(vue@3.5.27)
+      '@tresjs/core': 5.3.3(three@0.182.0)(vue@3.5.27)
       '@vueuse/core': 12.8.2
-      postprocessing: 6.38.2(three@0.180.0)
-      three: 0.180.0
+      postprocessing: 6.38.2(three@0.182.0)
+      three: 0.182.0
       vue: 3.5.27
     transitivePeerDependencies:
       - typescript
@@ -2507,9 +2507,9 @@ snapshots:
     dependencies:
       three: 0.165.0
 
-  camera-controls@2.10.1(three@0.180.0):
+  camera-controls@2.10.1(three@0.182.0):
     dependencies:
-      three: 0.180.0
+      three: 0.182.0
 
   chai@4.5.0:
     dependencies:
@@ -3022,9 +3022,9 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postprocessing@6.38.2(three@0.180.0):
+  postprocessing@6.38.2(three@0.182.0):
     dependencies:
-      three: 0.180.0
+      three: 0.182.0
 
   potpack@1.0.2: {}
 
@@ -3145,10 +3145,10 @@ snapshots:
       '@types/three': 0.177.0
       three: 0.165.0
 
-  stats-gl@2.4.2(@types/three@0.177.0)(three@0.180.0):
+  stats-gl@2.4.2(@types/three@0.177.0)(three@0.182.0):
     dependencies:
       '@types/three': 0.177.0
-      three: 0.180.0
+      three: 0.182.0
 
   stats.js@0.17.0: {}
 
@@ -3178,10 +3178,10 @@ snapshots:
 
   text-table@0.2.0: {}
 
-  three-bvh-csg@0.0.16(three-mesh-bvh@0.9.0(three@0.180.0))(three@0.180.0):
+  three-bvh-csg@0.0.16(three-mesh-bvh@0.9.0(three@0.182.0))(three@0.182.0):
     dependencies:
-      three: 0.180.0
-      three-mesh-bvh: 0.9.0(three@0.180.0)
+      three: 0.182.0
+      three-mesh-bvh: 0.9.0(three@0.182.0)
 
   three-custom-shader-material@5.4.0(three@0.165.0):
     dependencies:
@@ -3191,17 +3191,17 @@ snapshots:
       object-hash: 3.0.0
       three: 0.165.0
 
-  three-custom-shader-material@5.4.0(three@0.180.0):
+  three-custom-shader-material@5.4.0(three@0.182.0):
     dependencies:
       glsl-token-functions: 1.0.1
       glsl-token-string: 1.0.1
       glsl-tokenizer: 2.1.5
       object-hash: 3.0.0
-      three: 0.180.0
+      three: 0.182.0
 
-  three-mesh-bvh@0.9.0(three@0.180.0):
+  three-mesh-bvh@0.9.0(three@0.182.0):
     dependencies:
-      three: 0.180.0
+      three: 0.182.0
 
   three-stdlib@2.36.1(three@0.165.0):
     dependencies:
@@ -3213,7 +3213,7 @@ snapshots:
       potpack: 1.0.2
       three: 0.165.0
 
-  three-stdlib@2.36.1(three@0.180.0):
+  three-stdlib@2.36.1(three@0.182.0):
     dependencies:
       '@types/draco3d': 1.4.10
       '@types/offscreencanvas': 2019.7.3
@@ -3221,11 +3221,11 @@ snapshots:
       draco3d: 1.5.7
       fflate: 0.6.10
       potpack: 1.0.2
-      three: 0.180.0
+      three: 0.182.0
 
   three@0.165.0: {}
 
-  three@0.180.0: {}
+  three@0.182.0: {}
 
   through2@0.6.5:
     dependencies:

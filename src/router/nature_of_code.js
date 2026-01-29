@@ -26,6 +26,10 @@ const nature_of_code = [
     description: 'This demo is based on the third chapter of the Nature of Code book by Daniel Shiffman. Extending the mover demo, this one point the direction of an rectangle mesh towards its destination.'
   },
   {
+    name: 'Spring',
+    description: 'This demo is based on the third chapter of the Nature of Code book by Daniel Shiffman. A simple spring (here I didnt use the particle version).'
+  },
+  {
     name: 'Walker',
     description: 'This demo is based on the first chapter of the Nature of Code book by Daniel Shiffman. It simulates a random steps around the canvas.',
   },
