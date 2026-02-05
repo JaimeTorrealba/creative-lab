@@ -78,6 +78,10 @@ const shaders_routes = [
     basedOn: 'https://github.com/agargaro/instanced-mesh'
   },
   {
+    name: 'MorphingParticles',
+    description: 'From the threejs journey course, a morphing particles shader demo.'
+  },
+  {
     name: 'MouseReveal',
     description: 'An interesting effect of how to use transparency in combination with the mouse to reveal the content behind'
   },
