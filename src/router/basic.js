@@ -79,6 +79,10 @@ const basic_routes = [
     description: 'A simple Mirror modifier from scrath'
   },
   {
+    name: 'Moon',
+    description: ''
+  },
+  {
     name: 'Nebula',
     description: 'A nebula generator using smoke abstraction with colored point lights and fog effects.',
     basedOn: 'https://youtu.be/5f5wwQb22tE'

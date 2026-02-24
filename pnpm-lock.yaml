@@ -27,8 +27,8 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3(three@0.182.0)(vue@3.5.27)
       '@tresjs/post-processing':
-        specifier: ^2.4.0
-        version: 2.4.0(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)
+        specifier: ^3.4.0
+        version: 3.4.0(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)
       '@tweakpane/plugin-essentials':
         specifier: ^0.2.1
         version: 0.2.1(tweakpane@4.0.5)
@@ -716,10 +716,10 @@ packages:
       three: '>=0.133'
       vue: '>=3.4'
 
-  '@tresjs/post-processing@2.4.0':
-    resolution: {integrity: sha512-4l18DTLkn0Y/abyn+FD/gSJ6/SC01oXn+/qPgUxMgxZ8zGaw4PZbOi4yorhbSbOTp0gO4D1X7lNOvNUokqJwFw==}
+  '@tresjs/post-processing@3.4.0':
+    resolution: {integrity: sha512-sWis5h/s0pquZHWFc9boU/SrPhM31uz+wnSf1Lm2PBxqo6WRkCG+HFbEA+fUtAEEAXHrTBcL6du3gnBhwu8IIw==}
     peerDependencies:
-      '@tresjs/core': '>=4.0'
+      '@tresjs/core': 5.5.0
       three: '>=0.169'
       vue: '>=3.4'
 
@@ -2236,15 +2236,13 @@ snapshots:
       three: 0.182.0
       vue: 3.5.27
 
-  '@tresjs/post-processing@2.4.0(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)':
+  '@tresjs/post-processing@3.4.0(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)':
     dependencies:
       '@tresjs/core': 5.3.3(three@0.182.0)(vue@3.5.27)
-      '@vueuse/core': 12.8.2
+      '@vueuse/core': 13.9.0(vue@3.5.27)
       postprocessing: 6.38.2(three@0.182.0)
       three: 0.182.0
       vue: 3.5.27
-    transitivePeerDependencies:
-      - typescript
 
   '@tweakpane/plugin-essentials@0.2.1(tweakpane@4.0.5)':
     dependencies:
