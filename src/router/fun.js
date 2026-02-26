@@ -79,6 +79,10 @@ const fun_routes = [
     basedOn: 'https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW'
   },
   {
+    name: 'Vfx',
+    description: ''
+  },
+  {
     name: 'Voxel',
     description: 'Convert 3D models into voxel art using raycasting and instance meshes.',
     basedOn: 'https://tympanus.net/codrops/2023/03/28/turning-3d-models-to-voxel-art-with-three-js/'

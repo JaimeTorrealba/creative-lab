@@ -115,6 +115,11 @@ const shaders_routes = [
     name: 'Volumetric',
     description: 'Following the Scratchapixel tutorial about volumetric rendering.',
   },
+  {
+    name: 'Voronoid',
+    description: 'A Voronoi diagram shader example.',
+    basedOn: "https://thebookofshaders.com/12/",
+  },
   // {
   //   name: 'WaterReflector',
   //   description: 'A test to try how the water reflection works on Tresjs, using the ReflectorMesh addons. Based on this video: https://youtu.be/PAy5aQK2pSg?si=4dCtEjHRNGG9tQIH'

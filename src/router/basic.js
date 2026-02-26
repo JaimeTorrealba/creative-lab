@@ -44,11 +44,6 @@ const basic_routes = [
     description:
       'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.'
   },
-  // {
-  //   name: 'GlobalIlluminationNode',
-  //   description:
-  //     'In this demo I show how to use the Global Illumination Node using webgpu TSL in TresJs.'
-  // },
   {
     name: 'Guide',
     description: ' Helpers to understand the 3D world with status'
@@ -77,10 +72,6 @@ const basic_routes = [
   {
     name: 'MirrorModifier',
     description: 'A simple Mirror modifier from scrath'
-  },
-  {
-    name: 'Moon',
-    description: ''
   },
   {
     name: 'Nebula',

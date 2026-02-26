@@ -59,6 +59,9 @@ importers:
       three-bvh-csg:
         specifier: ^0.0.16
         version: 0.0.16(three-mesh-bvh@0.9.0(three@0.182.0))(three@0.182.0)
+      tres-vfx:
+        specifier: ^0.6.0
+        version: 0.6.0(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)
       vue:
         specifier: ^3.5.27
         version: 3.5.27
@@ -971,6 +974,15 @@ packages:
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
+  core-vfx@0.5.0:
+    resolution: {integrity: sha512-FGtUc41S/yf8h67rgAnyYKRBlKJnaLVf6f3WCxpSQHxTBAM42LJBcKU5dH2tO5DXSdZlx4oJcod+6XeuhPbhvA==}
+    peerDependencies:
+      makio-meshline: '>=1.0.0'
+      three: '>=0.182.0'
+    peerDependenciesMeta:
+      makio-meshline:
+        optional: true
+
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
@@ -982,6 +994,11 @@ packages:
 
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
+
+  debug-vfx@0.5.0:
+    resolution: {integrity: sha512-nipnmLA54j8t3qdfoTVTg09xhg/CSAg0sSvZW+ruhuXeqICVR/sCJ4uI9mz0UfwbUhhZrpPlzJ7UJj5Iqb0MSg==}
+    peerDependencies:
+      three: '>=0.182.0'
 
   debug@4.4.3:
     resolution: {integrity: sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==}
@@ -1611,6 +1628,13 @@ packages:
     resolution: {integrity: sha512-KYad6Vy5VDWV4GH3fjpseMQ/XU2BhIYP7Vzd0LG44qRWm/Yt2WCOTicFdvmgo6gWaqooMQCawTtILVQJupKu7A==}
     engines: {node: '>=14.0.0'}
 
+  tres-vfx@0.6.0:
+    resolution: {integrity: sha512-tgGKs0XFV/brgIw5cDjcKyDqluO9nf6nVvDDykS52M7IB15aDcg+BN3fnHTcv3ue6N3AzoN3BybQi8qNF2t7bQ==}
+    peerDependencies:
+      '@tresjs/core': '>=5.0.0'
+      three: '>=0.182.0'
+      vue: '>=3.5.0'
+
   tweakpane@4.0.5:
     resolution: {integrity: sha512-rxEXdSI+ArlG1RyO6FghC4ZUX8JkEfz8F3v1JuteXSV0pEtHJzyo07fcDG+NsJfN5L39kSbCYbB9cBGHyuI/tQ==}
 
@@ -1802,6 +1826,24 @@ packages:
   yocto-queue@1.2.2:
     resolution: {integrity: sha512-4LCcse/U2MHZ63HAJVE+v71o7yOdIe4cZ70Wpf8D/IyjDKYQLV5GD46B+hSTjJsvV5PztjvHoU580EftxjDZFQ==}
     engines: {node: '>=12.20'}
+
+  zustand@5.0.10:
+    resolution: {integrity: sha512-U1AiltS1O9hSy3rul+Ub82ut2fqIAefiSuwECWt6jlMVUGejvf+5omLcRBSzqbRagSM3hQZbtzdeRc6QVScXTg==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
 
 snapshots:
 
@@ -2549,6 +2591,16 @@ snapshots:
 
   core-util-is@1.0.3: {}
 
+  core-vfx@0.5.0(three@0.182.0):
+    dependencies:
+      three: 0.182.0
+      zustand: 5.0.10
+    transitivePeerDependencies:
+      - '@types/react'
+      - immer
+      - react
+      - use-sync-external-store
+
   cross-spawn@7.0.6:
     dependencies:
       path-key: 3.1.1
@@ -2558,6 +2610,17 @@ snapshots:
   cssesc@3.0.0: {}
 
   csstype@3.2.3: {}
+
+  debug-vfx@0.5.0(three@0.182.0):
+    dependencies:
+      core-vfx: 0.5.0(three@0.182.0)
+      three: 0.182.0
+    transitivePeerDependencies:
+      - '@types/react'
+      - immer
+      - makio-meshline
+      - react
+      - use-sync-external-store
 
   debug@4.4.3:
     dependencies:
@@ -3236,6 +3299,20 @@ snapshots:
 
   tinyspy@2.2.1: {}
 
+  tres-vfx@0.6.0(@tresjs/core@5.3.3(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27):
+    dependencies:
+      '@tresjs/core': 5.3.3(three@0.182.0)(vue@3.5.27)
+      core-vfx: 0.5.0(three@0.182.0)
+      debug-vfx: 0.5.0(three@0.182.0)
+      three: 0.182.0
+      vue: 3.5.27
+    transitivePeerDependencies:
+      - '@types/react'
+      - immer
+      - makio-meshline
+      - react
+      - use-sync-external-store
+
   tweakpane@4.0.5: {}
 
   type-check@0.4.0:
@@ -3410,3 +3487,5 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   yocto-queue@1.2.2: {}
+
+  zustand@5.0.10: {}
