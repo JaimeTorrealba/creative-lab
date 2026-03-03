@@ -12,11 +12,26 @@ const { data } = toRefs(props);
 
 const imageRef = ref(null);
 const shouldLoadImage = ref(false);
+const imageSrc = ref(undefined);
 let imageObserver;
+
+const getImageFallbackSrc = (src) => {
+  if (!src) return src;
+  if (src.endsWith('.gif')) return src.replace(/\.gif$/i, '.jpg');
+  return src;
+};
+
+const handleImageError = () => {
+  const fallbackSrc = getImageFallbackSrc(props.data.meta.img);
+  if (fallbackSrc !== imageSrc.value) {
+    imageSrc.value = fallbackSrc;
+  }
+};
 
 onMounted(() => {
   if (!("IntersectionObserver" in window)) {
     shouldLoadImage.value = true;
+    imageSrc.value = props.data.meta.img;
     return;
   }
 
@@ -25,6 +40,7 @@ onMounted(() => {
       const isVisible = entries.some((entry) => entry.isIntersecting);
       if (isVisible) {
         shouldLoadImage.value = true;
+        imageSrc.value = props.data.meta.img;
         imageObserver.disconnect();
       }
     },
@@ -73,10 +89,11 @@ const mapTagName = (tag) => {
       <img
       ref="imageRef"
       class="img border_radius_top_card"
-      :src="shouldLoadImage ? props.data.meta.img : undefined"
+      :src="shouldLoadImage ? imageSrc : undefined"
       :alt="props.data.name"
       loading="lazy"
       decoding="async"
+      @error="handleImageError"
       width="300"
       height="200"
       />
