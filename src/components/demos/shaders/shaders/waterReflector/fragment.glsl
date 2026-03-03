@@ -2,15 +2,14 @@ uniform vec3 color;
 uniform sampler2D tDiffuse;
 uniform sampler2D tDudv;
 uniform float time;
+uniform float waveStrength;
+uniform float waveSpeed;
 varying vec4 vUv;
 
 		#include <logdepthbuf_pars_fragment>
 
 void main() {
     			#include <logdepthbuf_fragment>
-
-    float waveStrength = 0.5;
-    float waveSpeed = 0.03;
 
 			// simple distortion (ripple) via dudv map (see https://www.youtube.com/watch?v=6B7IF6GOu7s)
 
@@ -25,7 +24,6 @@ void main() {
 
     vec4 base = texture2DProj(tDiffuse, uv);
     gl_FragColor = vec4(mix(base.rgb, color, 0.5), 1.0);
-
 			#include <tonemapping_fragment>
 			#include <colorspace_fragment>
 

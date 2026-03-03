@@ -1,38 +1,76 @@
 <script setup>
-import { shallowRef } from "vue";
+import { onUnmounted, reactive, shallowRef, watch } from "vue";
 import { useLoop } from "@tresjs/core";
 import { Reflector, MeshWobbleMaterial, useTexture } from "@tresjs/cientos";
 import vertex from "./shaders/waterReflector/vertex.glsl";
 import fragment from "./shaders/waterReflector/fragment.glsl";
-import { RepeatWrapping } from "three";
-import { watchOnce } from "@vueuse/core";
+import { Color, RepeatWrapping, UniformsUtils } from "three";
+import { Reflector as ThreeReflector } from "three/examples/jsm/objects/Reflector.js";
+import { Pane } from "tweakpane";
 
 const { state:texture, isLoading } = useTexture("/textures/waterdudv.jpg");
 
-watchOnce(isLoading, (value) => {
-  if (!value) {
-    texture.value.wrapS = texture.value.wrapT = RepeatWrapping;
-    // customShader.uniforms.tDudv.value = texture.value;
-  }
+const mirrorRef = shallowRef();
+const customShader = {
+  ...ThreeReflector.ReflectorShader,
+  uniforms: UniformsUtils.clone(ThreeReflector.ReflectorShader.uniforms),
+  vertexShader: vertex,
+  fragmentShader: fragment,
+};
+
+customShader.uniforms.color.value = new Color("#222");
+customShader.uniforms.tDudv = { value: null };
+customShader.uniforms.time = { value: 0 };
+customShader.uniforms.waveStrength = { value: 0.5 };
+customShader.uniforms.waveSpeed = { value: 0.03 };
+
+const pane = new Pane({ title: "Water Reflector" });
+const options = reactive({
+  waveStrength: customShader.uniforms.waveStrength.value,
+  waveSpeed: customShader.uniforms.waveSpeed.value,
 });
 
-const mirrorRef = shallowRef();
-// const customShader = {
-//   uniforms: {
-//     color: { value: null },
-//     tDiffuse: { value: null },
-//     textureMatrix: { value: null },
-//     tDudv: { value: null },
-//     time: { value: 0 },
-//   },
-//   vertexShader: vertex,
-//   fragmentShader: fragment,
-// };
+pane
+  .addBinding(options, "waveStrength", {
+    label: "Wave Strength",
+    min: 0,
+    max: 2,
+    step: 0.01,
+  })
+  .on("change", ({ value }) => {
+    mirrorRef.value.instance.material.uniforms.waveStrength.value = value;
+  });
+
+pane
+  .addBinding(options, "waveSpeed", {
+    label: "Wave Speed",
+    min: 0,
+    max: 0.2,
+    step: 0.001,
+  })
+  .on("change", ({ value }) => {
+    mirrorRef.value.instance.material.uniforms.waveSpeed.value = value;
+  });
+
+onUnmounted(() => {
+  pane.dispose();
+});
+
+watch(
+  isLoading,
+  (value) => {
+    if (!value) {
+         texture.value.wrapS = texture.value.wrapT = RepeatWrapping;
+         customShader.uniforms.tDudv.value = texture.value;
+    }
+  },
+  { immediate: true },
+);
 
 const { onBeforeRender } = useLoop();
 onBeforeRender(({ elapsed }) => {
   if (mirrorRef.value) {
-    // customShader.uniforms.time.value = elapsed;
+    mirrorRef.value.instance.material.uniforms.time.value = elapsed;
   }
 });
 </script>
@@ -49,13 +87,14 @@ onBeforeRender(({ elapsed }) => {
     <TresTorusGeometry />
     <MeshWobbleMaterial color="orange" :speed="1" :factor="2" />
   </TresMesh>
-  <!-- :shader="customShader" -->
-  <Reflector />
-    <!-- ref="mirrorRef"
-    :rotation="[-Math.PI * 0.5, 0, 0]"
+  <Reflector
+    v-if="!isLoading"
+    ref="mirrorRef"
+    :rotation-x="-Math.PI * 0.5"
     :position="[0, -2, 0]"
     color="#222"
+    :shader="customShader"
   >
     <TresCircleGeometry :args="[10, 16]" />
-  </Reflector> -->
+  </Reflector>
 </template>
