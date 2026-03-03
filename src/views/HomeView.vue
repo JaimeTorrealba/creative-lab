@@ -9,8 +9,6 @@ import RRSS from "@/components/RRSS.vue";
 import { BLACK_LIST_PATHS } from "../utils";
 import NavBar from "../components/NavBar.vue";
 
-//TODO route query params for filter by tag
-
 const router = useRouter();
 const data = ref();
 const allRoutes = computed(() => router.options.routes);
@@ -37,7 +35,6 @@ const updateSearch = (value) => {
   <div>
     <NavBar class="sticky-nav" @searchResult="(value) => updateSearch(value)" />
     <!-- BODY -->
-     <!-- grid is-col-min-13 is-gap-2 -->
     <div class="masonry py-4">
       <div class="cell" v-for="route in data" :key="route.path">
         <Cards :data="route" />

@@ -13,12 +13,15 @@ const Random = [
   },
   {
     name: 'PlainWebgpu',
-    description: 'Using plain webGPU to create the most simple demo, a triangle with colors'
+    description: 'Using plain webGPU to create the most simple demo, a triangle with colors',
+    webGPU: true
   },
 ]
 
 export const random_demos = () => {
   return Random.map((route) => {
-    return generateRoute(route.name, 'Random', route.description, route.link, route.basedOn)
+    return generateRoute(route.name, 'Random', route.description, route.link, route.basedOn, {
+      webGPU: route.webGPU
+    })
   })
 }

@@ -1,9 +1,43 @@
 <script setup>
-defineProps({
+import { ref, toRefs, onMounted, onBeforeUnmount } from "vue";
+
+const props = defineProps({
   data: {
     type: Object,
     required: true,
   },
+});
+
+const { data } = toRefs(props);
+
+const imageRef = ref(null);
+const shouldLoadImage = ref(false);
+let imageObserver;
+
+onMounted(() => {
+  if (!("IntersectionObserver" in window)) {
+    shouldLoadImage.value = true;
+    return;
+  }
+
+  imageObserver = new IntersectionObserver(
+    (entries) => {
+      const isVisible = entries.some((entry) => entry.isIntersecting);
+      if (isVisible) {
+        shouldLoadImage.value = true;
+        imageObserver.disconnect();
+      }
+    },
+    { threshold: 0.01 }
+  );
+
+  if (imageRef.value) {
+    imageObserver.observe(imageRef.value);
+  }
+});
+
+onBeforeUnmount(() => {
+  imageObserver?.disconnect();
 });
 
 const mapTagType = (tag) => {
@@ -37,14 +71,20 @@ const mapTagName = (tag) => {
       :style="{ '--my-content': `'${data.meta.description}'` }"
     >
       <img
+      ref="imageRef"
       class="img border_radius_top_card"
-      :src="data.meta.img"
-      :alt="data.name"
+      :src="shouldLoadImage ? props.data.meta.img : undefined"
+      :alt="props.data.name"
+      loading="lazy"
+      decoding="async"
       width="300"
       height="200"
       />
       <div class="tag-wrapper">
-        <span class="tag" :class="mapTagType(data.meta.section)">{{ mapTagName(data.meta.section) }}</span>
+        <div class="tags mb-0">
+          <span class="tag" :class="mapTagType(data.meta.section)">{{ mapTagName(data.meta.section) }}</span>
+          <span v-if="data.meta.webGPU" class="tag is-warning is-light">WebGPU</span>
+        </div>
       </div>
       <div
         class="has-text-centered has-background-light has-text-black-ter py-1 has-text-weight-medium border_radius_bottom_card"
@@ -74,6 +114,7 @@ const mapTagName = (tag) => {
   left: 0;
   right: 0;
   padding: 0.5rem;
+  display: flex;
 }
 
 .overflow:first-child {

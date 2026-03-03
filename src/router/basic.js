@@ -29,7 +29,8 @@ const basic_routes = [
   {
     name: 'CornelBox',
     description: 'Famous Cornel Box scene template',
-    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/CornelBoxView.vue'
+    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/CornelBoxView.vue',
+    webGPU: true
   },
   {
     name: 'Earth',
@@ -59,11 +60,13 @@ const basic_routes = [
   },
   {
     name: 'LeomonLights',
-    description: 'Using and experimenting with different spot lights. all the lights are from leomon'
+    description: 'Using and experimenting with different spot lights. all the lights are from leomon',
+    webGPU: true
   },
   {
     name: 'MaterialX',
-    description: 'Using MaterialX materials in TresJS'
+    description: 'Using MaterialX materials in TresJS',
+    webGPU: true
   },
     {
     name: 'MeshLine',
@@ -123,6 +126,8 @@ const basic_routes = [
 
 export const basic = () => {
   return basic_routes.map((route) => {
-    return generateRoute(route.name, 'Basics', route.description, route.link, route.basedOn)
+    return generateRoute(route.name, 'Basics', route.description, route.link, route.basedOn, {
+      webGPU: route.webGPU
+    })
   })
 }
