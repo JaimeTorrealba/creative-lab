@@ -6,11 +6,11 @@ const html_routes = [
     description: 'Blend HTML and WebGL using pixel-matched camera coordinates with hover effects and 3D icons.',
     link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/HtmlMixView.vue'
   },
-  // {
-  //   name: 'PamCanvas',
-  //   description: 'Canvas effect pam, which you can move through it and search for your images',
-  // link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/PamCanvasView.vue'
-  // },
+  {
+    name: 'PamCanvas',
+    description: 'Canvas effect pam, which you can move through it and search for your images',
+    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/PamCanvasView.vue'
+  },
   {
     name: 'HoverButton',
     description: 'Interactive button with 3D hover effects and animations.',

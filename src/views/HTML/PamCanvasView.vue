@@ -1,6 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { Image, Stars, OrbitControls } from "@tresjs/cientos";
+import { MOUSE } from "three";
 </script>
 <template>
   <section class="is-flex is-flex-direction-column is-justify-content-space-between h-screen">
@@ -28,6 +29,11 @@ import { Image, Stars, OrbitControls } from "@tresjs/cientos";
             :enableRotate="false"
             :enableZoom="false"
             :keyPanSpeed="10"
+            :mouseButtons="{
+              LEFT: MOUSE.PAN,
+              MIDDLE: MOUSE.DOLLY,
+              RIGHT: MOUSE.ROTATE,
+            }"
             :keys="{
               LEFT: 'ArrowRight',
             }"
@@ -35,14 +41,14 @@ import { Image, Stars, OrbitControls } from "@tresjs/cientos";
           />
           <Stars />
 
-          <!-- <Image
+          <Image
             v-for="num in 9"
             :key="num"
             :url="`https://picsum.photos/200/${num * 100}`"
             :radius="0.2"
             :transparent="true"
             :position="[num * Math.random() + num, num * Math.random() + num, 0]"
-          /> -->
+          />
         </TresCanvas>
       </div>
     </div>
