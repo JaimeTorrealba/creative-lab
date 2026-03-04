@@ -12,6 +12,11 @@ const fun_routes = [
     basedOn: 'https://youtu.be/0ZW3xrFhY3w?si=QkvzEikyeuv6H1Mb'
   },
   {
+    name: 'CheapWater',
+    description: 'Not so realistic water simulation with ripples.',
+    basedOn: "https://github.com/mqnc/cheapwater/tree/main"
+  },
+  {
     name: 'FollowPath',
     description: 'Model follows an SVG path with automatic bending and rotation.',
     basedOn: 'https://youtu.be/NH4rSzHLCp4',
