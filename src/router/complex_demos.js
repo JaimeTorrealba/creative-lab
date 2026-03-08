@@ -12,18 +12,6 @@ const complex_routes = [
     basedOn: 'https://threejs-journey.com/'
   },
   {
-    name: 'RayMarching',
-    description: 'Ray marching fundamentals with signed distance functions (SDFs) for 3D rendering.'
-  },
-  {
-    name: 'RayMarchingOperations',
-    description: 'Advanced ray marching with boolean operations (union, subtraction, intersection) on SDFs.'
-  },
-  {
-    name: 'RayMarchingTweaks',
-    description: 'Interactive ray marching template with tweakable parameters for distance functions.'
-  },
-  {
     name: 'ShaderStar',
     description: 'Complex star shader combining Fresnel effects, matrix rotation, and multi-layer color techniques.',
     basedOn: 'https://www.youtube.com/live/3krH52AhPqk?feature=share'

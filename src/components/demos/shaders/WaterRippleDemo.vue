@@ -2,8 +2,8 @@
 import { onUnmounted, reactive, shallowRef, watch } from "vue";
 import { useLoop } from "@tresjs/core";
 import { Reflector, MeshWobbleMaterial, useTexture } from "@tresjs/cientos";
-import vertex from "./shaders/waterRipple/vertex.glsl";
-import fragment from "./shaders/waterRipple/fragment.glsl";
+import vertex from "./shaders/WaterRipple/vertex.glsl";
+import fragment from "./shaders/WaterRipple/fragment.glsl";
 import { Color, RepeatWrapping, UniformsUtils } from "three";
 import { Reflector as ThreeReflector } from "three/examples/jsm/objects/Reflector.js";
 import { Pane } from "tweakpane";

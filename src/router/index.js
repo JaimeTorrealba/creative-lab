@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
 import { basic } from './basic.js'
-import { textures_demos } from './textures_effects.js'
+import { fragment_routes } from './fragment.js'
 import { fun } from './fun.js'
 import { shaders } from './shaders'
 import { html_demos } from './html_demos'
@@ -28,7 +28,7 @@ const router = createRouter({
     ...fun(),
     ...html_demos(),
     ...controls_demos(),
-    ...textures_demos(),
+    ...fragment_routes(),
     ...shaders(),
     ...complex(),
     ...noc_demos(),

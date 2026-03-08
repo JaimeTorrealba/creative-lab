@@ -31,7 +31,7 @@ Example:
 - Files: **PascalCase** (`WaveDemo.vue`, `GlowView.vue`)
 - Components end with: **Demo** (`WaveDemo.vue`)
 - Pages end with: **View** (`WaveView.vue`)
-- Section folders use mixed case: `Basics/`, `Complex/`, `Textures_effects/`, `HTML/`
+- Section folders use mixed case: `Basics/`, `Complex/`, `Fragment/`, `HTML/`
 
 ### Router System
 Routes are auto-generated from metadata objects:
