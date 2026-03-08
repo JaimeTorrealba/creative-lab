@@ -29,11 +29,15 @@ const fragment_demos = [
   },
   {
     name: 'RayMarching',
-    description: 'Ray marching fundamentals with signed distance functions (SDFs) for 3D rendering.'
+    description: 'Basic ray marching implementation on fragment shader'
   },
   {
     name: 'RayMarchingOperations',
     description: 'Advanced ray marching with boolean operations (union, subtraction, intersection) on SDFs.'
+  },
+  {
+    name: 'RayMarchingOrbit',
+    description: ''
   },
   {
     name: 'RayMarchingTweaks',
