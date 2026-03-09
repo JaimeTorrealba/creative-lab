@@ -6,7 +6,6 @@ const fragment_demos = [
     description: 'Texture distortion effect simulating a black hole using shaders.',
     basedOn: 'https://codepen.io/darrylhuffman/pen/gRZrpv?editors=1010'
   },
-
   {
     name: 'BlurPixels',
     description: 'Mouse-driven texture blur effect using custom shaders.',
@@ -28,6 +27,10 @@ const fragment_demos = [
     basedOn: 'https://tympanus.net/codrops/2019/02/20/how-to-create-a-fake-3d-image-effect-with-webgl/'
   },
   {
+    name: 'FragmentTemplate',
+    description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)'
+  },
+  {
     name: 'RayMarching',
     description: 'Basic ray marching implementation on fragment shader'
   },
@@ -44,9 +47,23 @@ const fragment_demos = [
     description: 'Interactive ray marching template with tweakable parameters for distance functions.'
   },
   {
+    name: 'Rinnegan',
+    description: 'A naive play with fragments draws, a rinnegan design.',
+  },
+  {
     name: 'Slider',
     description: 'WebGL image slider with distortion transitions between images.',
     basedOn: 'https://github.com/akella/webGLImageTransitions'
+  },
+  {
+    name: 'Voronoid',
+    description: 'A Voronoi diagram shader example.',
+    basedOn: "https://thebookofshaders.com/12/",
+  },
+  {
+    name: 'Wave',
+    description: 'WebGL ripple effect (Material Design style) implemented with custom shaders.',
+    basedOn: 'https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
   },
 ]
 

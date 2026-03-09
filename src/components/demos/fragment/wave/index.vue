@@ -4,13 +4,17 @@ import { Vector2 } from 'three';
 import { useWindowSize } from '@vueuse/core';
 import { watch } from 'vue';
 import { Pane } from 'tweakpane';
-import fragment from './shaders/wave/fragment.glsl'
-import vertex from './shaders/wave/vertex.glsl'
+import fragment from './fragment.glsl'
 
 const { width, height } = useWindowSize();
 
 const shader = {
-  vertexShader: vertex,
+  vertexShader: `
+  varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    }`,
   fragmentShader: fragment,
   uniforms: {
     uTime: { value: 0 },

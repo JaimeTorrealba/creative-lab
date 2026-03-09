@@ -1,6 +1,6 @@
 <script setup>
 import { watch, reactive } from "vue";
-import fragment from "./shaders/voronoid/fragment.glsl";
+import fragment from "./fragment.glsl";
 import { Vector2 } from "three";
 import { useWindowSize } from "@vueuse/core";
 import { useLoop } from "@tresjs/core";

@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
-import TheExperience from "@/components/demos/shaders/VoronoidDemo.vue";
+import TheExperience from "@/components/demos/fragment/voronoid/index.vue";
 
 const gl = {
   clearColor: "#111",

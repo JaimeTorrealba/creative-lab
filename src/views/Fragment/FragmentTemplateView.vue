@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
-import TheExperience from "@/components/demos/shaders/TemplateDemo.vue";
+import TheExperience from "@/components/demos/fragment/template/index.vue";
 </script>
 <template>
   <TresCanvas antialias clear-color="#111">

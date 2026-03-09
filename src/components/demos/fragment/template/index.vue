@@ -1,15 +1,11 @@
 <script setup>
 import { watchEffect } from 'vue'
-import { useLoop, useTresContext } from '@tresjs/core'
+import { useLoop } from '@tresjs/core'
 import { useWindowSize } from '@vueuse/core'
 import { Vector2 } from 'three'
-import fragment from './shaders/template/fragment.glsl'
+import fragment from './fragment.glsl'
 
-const { width, height } = useWindowSize()
-const { scene, renderer, camera} = useTresContext()
-console.log('jaime ~ renderer:', renderer.value);
-console.log('jaime ~ scene:', scene.value);
-console.log('jaime ~ camera:', camera.value);
+const { width, height } = useWindowSize();
 
 const shader = {
   fragmentShader: fragment,

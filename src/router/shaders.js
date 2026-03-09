@@ -57,10 +57,6 @@ const shaders_routes = [
     description: 'My attempt to create a force field effect using shaders.'
   },
   {
-    name: 'FragmentTemplate',
-    description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)'
-  },
-  {
     name: 'Glow',
     description: 'Glowing effect using shader materials.',
     basedOn: 'https://stemkoski.github.io/Three.js/Shader-Glow.html'
@@ -96,10 +92,6 @@ const shaders_routes = [
     basedOn: 'https://threejsroadmap.com/blog/rim-lighting-shader'
   },
   {
-    name: 'Rinnegan',
-    description: 'A naive play with fragments draws, a rinnegan design.',
-  },
-  {
     name: 'Slash',
     description: 'My own attempt to create a vfx slash effect using shaders.',
   },
@@ -116,11 +108,6 @@ const shaders_routes = [
     name: 'Volumetric',
     description: 'Following the Scratchapixel tutorial about volumetric rendering.',
   },
-  {
-    name: 'Voronoid',
-    description: 'A Voronoi diagram shader example.',
-    basedOn: "https://thebookofshaders.com/12/",
-  },
  {
    name: 'WaterReflector',
    description: 'A test to try how the water reflection works on Tresjs, using the ReflectorMesh addons. Based on this video: https://youtu.be/PAy5aQK2pSg?si=4dCtEjHRNGG9tQIH'
@@ -128,11 +115,6 @@ const shaders_routes = [
   {
     name: 'WaterRipple',
     description: ''
-  },
-  {
-    name: 'Wave',
-    description: 'WebGL ripple effect (Material Design style) implemented with custom shaders.',
-    basedOn: 'https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
   },
 ]
 

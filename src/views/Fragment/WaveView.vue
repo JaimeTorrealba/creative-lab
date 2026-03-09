@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
-import TheExperience from "@/components/demos/shaders/WaveDemo.vue";
+import TheExperience from "@/components/demos/fragment/wave/index.vue";
 </script>
 <template>
   <TresCanvas window-size clear-color="#111">

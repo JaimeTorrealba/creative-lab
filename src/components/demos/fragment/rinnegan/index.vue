@@ -3,7 +3,7 @@ import { watch } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import { useLoop } from '@tresjs/core'
 import { Vector2 } from 'three'
-import fragment from './shaders/rinnegan/fragment.glsl'
+import fragment from './fragment.glsl'
 
 const { width, height } = useWindowSize()
 
