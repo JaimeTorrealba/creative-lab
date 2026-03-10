@@ -132,6 +132,10 @@ const basic_routes = [
     description:
       'We can use the Vue Transition API to create some cool effects. Here I left you a simple example.',
   },
+  {
+    name: 'WorldCreator',
+    description: 'World creator is a software for the creation of terrains. World creator generate meshes or heightsmaps, I am using heightmaps here',
+  },
 ]
 
 export const basic = () => {
