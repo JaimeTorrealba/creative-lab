@@ -33,13 +33,23 @@ const basic_routes = [
     webGPU: true
   },
   {
+    name: 'CSG',
+    description: 'Constructive Solid Geometry operations using three-bvh-csg library for boolean mesh operations.',
+    basedOn: 'https://github.com/gkjohnson/three-bvh-csg'
+  },
+  {
+    name: 'CSS2DRenderer',
+    description: 'Alternative method for adding HTML elements to 3D scenes using CSS2DRenderer.',
+    basedOn: 'https://youtu.be/0ZW3xrFhY3w?si=QkvzEikyeuv6H1Mb'
+  },
+  {
     name: 'Earth',
     description: 'Interactive 3D Earth with draggable rotation, parallax clouds, city markers, stars, and GUI controls for rotation speed.'
   },
-  {
-    name: 'Fbos',
-    description: 'WIP. working with the FBO component, it look like have an error so I need to check that'
-  },
+  // {
+  //   name: 'Fbos',
+  //   description: 'WIP. working with the FBO component, it look like have an error so I need to check that'
+  // },
   {
     name: 'Gaea',
     description:
@@ -68,7 +78,7 @@ const basic_routes = [
     description: 'Using MaterialX materials in TresJS',
     webGPU: true
   },
-    {
+  {
     name: 'MeshLine',
     description: 'Inspired on: https://tympanus.net/codrops/2019/01/08/animated-mesh-lines/ from Yuri. I actually couldnt install the library so I ended with this demo instead. a line that follows the mouse (very smoothly)'
   },
@@ -110,17 +120,17 @@ const basic_routes = [
     description: 'Using the edgeSplitModifier to smooth the edges of a Icosahedron.'
   },
   {
-    name: 'Transition',
-    description:
-      'We can use the Vue Transition API to create some cool effects. Here I left you a simple example.',
-  },
-  {
     name: 'SixSides',
     description: 'Six textures Demo Illusion'
   },
   {
     name: 'SphericalCoords',
     description: 'Simple pendulum using spherical coordinates.'
+  },
+  {
+    name: 'Transition',
+    description:
+      'We can use the Vue Transition API to create some cool effects. Here I left you a simple example.',
   },
 ]
 

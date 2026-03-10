@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/fun/CSGDemo.vue'
+import TheExperience from '@/components/demos/basics/CSGDemo.vue'
 
 </script>
 <template>

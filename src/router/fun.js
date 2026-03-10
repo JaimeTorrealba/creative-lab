@@ -2,16 +2,6 @@ import { generateRoute } from '../utils'
 
 const fun_routes = [
   {
-    name: 'CSG',
-    description: 'Constructive Solid Geometry operations using three-bvh-csg library for boolean mesh operations.',
-    basedOn: 'https://github.com/gkjohnson/three-bvh-csg'
-  },
-  {
-    name: 'CSS2DRenderer',
-    description: 'Alternative method for adding HTML elements to 3D scenes using CSS2DRenderer.',
-    basedOn: 'https://youtu.be/0ZW3xrFhY3w?si=QkvzEikyeuv6H1Mb'
-  },
-  {
     name: 'CheapWater',
     description: 'Not so realistic water simulation with ripples.',
     basedOn: "https://github.com/mqnc/cheapwater/tree/main"
@@ -26,11 +16,6 @@ const fun_routes = [
     name: 'Glass',
     description: 'Glass and plastic transparency effects using MeshPhysicalMaterial.',
     basedOn: 'https://tympanus.net/codrops/2021/10/27/creating-the-effect-of-transparent-glass-and-plastic-in-three-js/'
-  },
-  {
-    name: 'InfiniteBeam',
-    description: 'Infinite particle flow effect without shaders, using native Three.js.',
-    basedOn: 'https://cientos.tresjs.org/guide/abstractions/precipitation.html'
   },
   {
     name: 'InfiniteTube',
@@ -83,10 +68,10 @@ const fun_routes = [
     description: 'Nested scenes using render targets - one scene rendered inside another.',
     basedOn: 'https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW'
   },
-  {
-    name: 'Vfx',
-    description: ''
-  },
+  // {
+  //   name: 'Vfx',
+  //   description: ''
+  // },
   {
     name: 'Voxel',
     description: 'Convert 3D models into voxel art using raycasting and instance meshes.',
