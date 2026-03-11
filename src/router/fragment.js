@@ -47,6 +47,10 @@ const fragment_demos = [
     description: 'Interactive ray marching template with tweakable parameters for distance functions.'
   },
   {
+    name: 'RayTracing',
+    description: 'Most basic ray tracing implementation is created on the fragment shader (ignoring the rest of the graphic pipeline)'
+  },
+  {
     name: 'Rinnegan',
     description: 'A naive play with fragments draws, a rinnegan design.',
   },
