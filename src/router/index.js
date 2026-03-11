@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
 import { basic } from './basic.js'
 import { fragment_routes } from './fragment.js'
-import { fun } from './fun.js'
+import { intermediate } from './intermediate.js'
 import { shaders } from './shaders'
 import { html_demos } from './html_demos'
 import { controls_demos } from './controls_demos'
@@ -25,7 +25,7 @@ const router = createRouter({
     generateRoute('template', 'Playground', ''),
     generateRoute('CartesianCoords', 'Playground', ''),
     ...basic(),
-    ...fun(),
+    ...intermediate(),
     ...html_demos(),
     ...controls_demos(),
     ...fragment_routes(),

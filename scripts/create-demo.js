@@ -12,7 +12,7 @@ const args = process.argv.slice(2);
 
 if (args.length < 2) {
   console.error('Usage: pnpm demo <section> <name>');
-  console.error('Example: pnpm demo fun MyDemo');
+  console.error('Example: pnpm demo intermediate MyDemo');
   process.exit(1);
 }
 
@@ -33,7 +33,7 @@ const sectionMap = {
   basic: { router: 'basic.js', viewFolder: 'Basics', componentFolder: 'basics' },
   complex: { router: 'complex_demos.js', viewFolder: 'Complex', componentFolder: 'complex' },
   controls: { router: 'controls_demos.js', viewFolder: 'Controls', componentFolder: 'controls' },
-  fun: { router: 'fun.js', viewFolder: 'Fun', componentFolder: 'fun' },
+  intermediate: { router: 'intermediate.js', viewFolder: 'Intermediate', componentFolder: 'intermediate' },
   html: { router: 'html_demos.js', viewFolder: 'HTML', componentFolder: 'html_demos' },
   shaders: { router: 'shaders.js', viewFolder: 'Shaders', componentFolder: 'shaders' },
   fragment: { router: 'fragment.js', viewFolder: 'Fragment', componentFolder: 'fragment' }

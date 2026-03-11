@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls, Stats } from '@tresjs/cientos';
-import TheExperience from '@/components/demos/basics/MirrorModifierDemo.vue'
+import TheExperience from '@/components/demos/basics/mirror-modifier/index.vue'
 
 </script>
 <template>
