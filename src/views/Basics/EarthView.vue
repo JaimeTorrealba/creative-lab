@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/basics/EarthDemo.vue'
+import TheExperience from '@/components/demos/basics/Earth.vue'
 
 </script>
 <template>

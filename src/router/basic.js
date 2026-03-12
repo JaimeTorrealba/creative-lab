@@ -1,4 +1,5 @@
 import { generateRoute } from '../utils'
+import { TAGS } from '../utils/constants'
 
 const basic_routes = [
   {
@@ -30,7 +31,7 @@ const basic_routes = [
     name: 'CornelBox',
     description: 'Famous Cornel Box scene template',
     link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/CornelBoxView.vue',
-    webGPU: true
+    tag: TAGS.WEBGPU
   },
   {
     name: 'CSG',
@@ -60,7 +61,7 @@ const basic_routes = [
     description: ' Helpers to understand the 3D world with status'
   },
   {
-    name: 'IsComponent',
+    name: 'DynamicComponent',
     description: 'Simple experiment using <component :is /> built in vue feature'
   },
   {
@@ -71,12 +72,12 @@ const basic_routes = [
   {
     name: 'LeomonLights',
     description: 'Using and experimenting with different spot lights. all the lights are from leomon',
-    webGPU: true
+    tag: TAGS.WEBGPU
   },
   {
     name: 'MaterialX',
     description: 'Using MaterialX materials in TresJS',
-    webGPU: true
+    tag: TAGS.WEBGPU
   },
   {
     name: 'MeshLine',
@@ -141,7 +142,7 @@ const basic_routes = [
 export const basic = () => {
   return basic_routes.map((route) => {
     return generateRoute(route.name, 'Basics', route.description, route.link, route.basedOn, {
-      webGPU: route.webGPU
+      tag: route.tag
     })
   })
 }

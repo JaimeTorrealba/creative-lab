@@ -3,7 +3,7 @@ import { toValue } from "vue";
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
 import { WebGPURenderer } from "three/webgpu";
-import TheExperience from "@/components/demos/basics/LeomonDemo.vue";
+import TheExperience from "@/components/demos/basics/Leomon.vue";
 
 // Create renderer with WebGPU if available, otherwise fall back to WebGL
 const createRenderer = (ctx) => {

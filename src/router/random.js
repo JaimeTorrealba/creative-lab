@@ -1,4 +1,5 @@
 import { generateRoute } from '../utils'
+import { TAGS } from '../utils/constants'
 
 const Random = [
   {
@@ -12,16 +13,16 @@ const Random = [
     description: 'Using plain webGL to create the most simple demo, a triangle with colors'
   },
   {
-    name: 'PlainWebgpu',
-    description: 'Using plain webGPU to create the most simple demo, a triangle with colors',
-    webGPU: true
+    name: 'Plaintag',
+    description: 'Using plain tag to create the most simple demo, a triangle with colors',
+    tag: TAGS.WEBGPU
   },
 ]
 
 export const random_demos = () => {
   return Random.map((route) => {
     return generateRoute(route.name, 'Random', route.description, route.link, route.basedOn, {
-      webGPU: route.webGPU
+      tag: route.tag
     })
   })
 }

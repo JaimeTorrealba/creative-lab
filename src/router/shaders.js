@@ -1,4 +1,5 @@
 import { generateRoute } from '../utils'
+import { TAGS } from '../utils/constants'
 
 const shaders_routes = [
   {
@@ -46,7 +47,7 @@ const shaders_routes = [
   {
     name: 'DissolveTsl',
     description: 'Same as Dissolve but using the TSL shader language.',
-    webGPU: true
+    tag: TAGS.WEBGPU
   },
   {
     name: 'Fireworks',
@@ -122,7 +123,7 @@ const shaders_routes = [
 export const shaders = () => {
   return shaders_routes.map((route) => {
     return generateRoute(route.name, 'Shaders', route.description, route.link, route.basedOn, {
-      webGPU: route.webGPU
+      tag: route.tag
     })
   })
 }

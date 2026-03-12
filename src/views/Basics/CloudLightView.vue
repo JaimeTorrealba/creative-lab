@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import TheExperience from '@/components/demos/basics/CloudLightDemo.vue'
+import TheExperience from '@/components/demos/basics/CloudLight.vue'
 
 </script>
 <template>

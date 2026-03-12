@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/basics/QuaternionsDemo.vue";
+import TheExperience from "@/components/demos/basics/Quaternions.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#333">

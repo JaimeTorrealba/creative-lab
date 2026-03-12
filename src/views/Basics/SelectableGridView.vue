@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import TheExperience from '@/components/demos/basics/SelectableGridDemo.vue'
+import TheExperience from '@/components/demos/basics/SelectableGrid.vue'
 
 </script>
 <template>

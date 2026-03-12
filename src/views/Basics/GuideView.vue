@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from 'vue'
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/basics/MiniMapDemo.vue'
+import TheExperience from '@/components/demos/basics/MiniMap.vue'
 
 const stats = reactive({
     objects: 0,

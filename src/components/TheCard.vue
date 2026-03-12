@@ -100,7 +100,7 @@ const mapTagName = (tag) => {
       <div class="tag-wrapper">
         <div class="tags mb-0">
           <span class="tag" :class="mapTagType(data.meta.section)">{{ mapTagName(data.meta.section) }}</span>
-          <span v-if="data.meta.webGPU" class="tag is-warning is-light">WebGPU</span>
+          <span v-if="data.meta.tag" class="tag is-info is-light">{{ data.meta.tag}}</span>
         </div>
       </div>
       <div
