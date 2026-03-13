@@ -2,21 +2,7 @@
 import { watch } from "vue";
 import { useTexture } from "@tresjs/cientos";
 import { MeshStandardNodeMaterial, RepeatWrapping, LinearFilter } from "three/webgpu";
-import {
-  uniform,
-  texture,
-  select,
-  lessThan,
-  float,
-  vec4,
-  vec3,
-  mix,
-  step,
-  add,
-  mul,
-  vec2,
-  uv,
-} from "three/tsl";
+import { uniform, wgslFn, uv, texture } from "three/tsl";
 import { Pane } from "tweakpane";
 
 const uBorderSize = uniform(0.03);
@@ -27,25 +13,34 @@ const material = new MeshStandardNodeMaterial();
 const { state: colorTex } = useTexture("/textures/8k_earth_daymap.jpg");
 const { state: tex, isLoading } = useTexture("/perlin.png");
 
+const dissolve = wgslFn(`
+  fn dissolve(
+    noiseVal: f32,
+    colorRgb: vec3f,
+    alphaThreshold: f32,
+    borderSize: f32
+  ) -> vec4f {
+    let mask: f32 = step(alphaThreshold + borderSize, noiseVal);
+    let alpha: f32 = select(0.0, 1.0, noiseVal >= alphaThreshold);
+    let finalColor: vec3f = mix(vec3f(0.0), colorRgb, mask);
+    return vec4f(finalColor, alpha);
+  }
+`);
+
 watch(tex, (_tex) => {
   if (_tex) {
     _tex.wrapS = _tex.wrapT = RepeatWrapping;
     _tex.minFilter = LinearFilter;
-    material.colorNode = texture(_tex, vec2(mul(uv().x, uTextureScale), mul(uv().y, uTextureScale))).r;
-    const colorMap = texture(colorTex.value, uv());
 
-    const mask = step(add(uAlphaThreshold, uBorderSize), material.colorNode);
+    const noiseVal = texture(_tex, uv().mul(uTextureScale)).r;
+    const colorRgb = texture(colorTex.value, uv()).rgb;
 
-    const alpha = select(
-      lessThan(material.colorNode, uAlphaThreshold),
-      float(0.0),
-      float(1.0)
-    );
-
-    const color1 = vec3(0.0);
-    const color2 = colorMap.rgb;
-    const finalColor = vec4(mix(color1, color2, mask), alpha);
-    material.colorNode = finalColor;
+    material.colorNode = dissolve({
+      noiseVal,
+      colorRgb,
+      alphaThreshold: uAlphaThreshold,
+      borderSize: uBorderSize,
+    });
     material.transparent = true;
   }
 });

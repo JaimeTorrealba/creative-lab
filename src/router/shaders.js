@@ -50,6 +50,11 @@ const shaders_routes = [
     tag: TAGS.WEBGPU
   },
   {
+    name: 'DissolveWGSL',
+    description: 'Same as Dissolve but using the WGSL shader language.',
+    tag: TAGS.WEBGPU
+  },
+  {
     name: 'Fireworks',
     description: 'Three.js journey lesson fireworks on tres.js'
   },
