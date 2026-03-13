@@ -137,7 +137,25 @@ const basic_routes = [
     name: 'WorldCreator',
     description: 'World creator is a software for the creation of terrains. World creator generate meshes or heightsmaps, I am using heightmaps here',
   },
-]
+    {
+    name: 'PamCanvas',
+    description: 'Canvas effect pam, which you can move through it and search for your images',
+    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/PamCanvasView.vue',
+    tag: TAGS.HTML,
+  },
+  {
+    name: 'HoverButton',
+    description: 'Interactive button with 3D hover effects and animations.',
+    basedOn: 'https://dribbble.com/shots/11386939-Play-with-Magic-Motion',
+    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/HoverButtonView.vue',
+    tag: TAGS.HTML,
+  },
+  {
+    name: 'Carousel3D',
+    description: 'Custom 3D carousel implementation with TresJS and Vue.',
+    tag: TAGS.HTML,
+  }
+].sort((a, b) => a.name.localeCompare(b.name))
 
 export const basic = () => {
   return basic_routes.map((route) => {

@@ -1,4 +1,5 @@
 import { generateRoute } from '../utils'
+import { TAGS } from '../utils/constants'
 
 const intermediate_routes = [
   {
@@ -92,7 +93,13 @@ const intermediate_routes = [
     description:
       'Using different parallax map types in three.js.'
   },
-]
+    {
+    name: 'HtmlMix',
+    description: 'Blend HTML and WebGL using pixel-matched camera coordinates with hover effects and 3D icons.',
+    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/HtmlMixView.vue',
+    tag: TAGS.HTML,
+  },
+].sort((a, b) => a.name.localeCompare(b.name))
 
 export const intermediate = () => {
   return intermediate_routes.map((route) => {

@@ -34,7 +34,6 @@ const sectionMap = {
   complex: { router: 'complex_demos.js', viewFolder: 'Complex', componentFolder: 'complex' },
   controls: { router: 'controls_demos.js', viewFolder: 'Controls', componentFolder: 'controls' },
   intermediate: { router: 'intermediate.js', viewFolder: 'Intermediate', componentFolder: 'intermediate' },
-  html: { router: 'html_demos.js', viewFolder: 'HTML', componentFolder: 'html_demos' },
   shaders: { router: 'shaders.js', viewFolder: 'Shaders', componentFolder: 'shaders' },
   fragment: { router: 'fragment.js', viewFolder: 'Fragment', componentFolder: 'fragment' }
   ,noc: { router: 'nature_of_code.js', viewFolder: 'Noc', componentFolder: 'noc' }

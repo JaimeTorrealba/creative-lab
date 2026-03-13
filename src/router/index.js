@@ -4,7 +4,6 @@ import { basic } from './basic.js'
 import { fragment_routes } from './fragment.js'
 import { intermediate } from './intermediate.js'
 import { shaders } from './shaders'
-import { html_demos } from './html_demos'
 import { controls_demos } from './controls_demos'
 import { complex } from './complex_demos.js'
 import { noc_demos } from './nature_of_code.js'
@@ -26,7 +25,6 @@ const router = createRouter({
     generateRoute('CartesianCoords', 'Playground', ''),
     ...basic(),
     ...intermediate(),
-    ...html_demos(),
     ...controls_demos(),
     ...fragment_routes(),
     ...shaders(),

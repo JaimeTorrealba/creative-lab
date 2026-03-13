@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import { TresCanvas } from "@tresjs/core";
-// import { EffectComposerPmndrs, VignettePmndrs } from "@tresjs/post-processing";
+import { EffectComposerPmndrs, VignettePmndrs } from "@tresjs/post-processing";
 import { SRGBColorSpace } from "three";
-import TheExperience from "@/components/demos/html_demos/CustomCarousel.vue";
+import TheExperience from "@/components/demos/basics/CustomCarousel.vue";
 
 const canvasConfig = {
   cleaColor: "#111",
@@ -31,9 +31,9 @@ const activeCS = ref(0)
     <TresAmbientLight :intensity="1" />
     <TresDirectionalLight :position="[0, 5, 0]" :intensity="2" />
     <TresFog color="#000" :near="1" :far="15" />
-    <!-- <EffectComposerPmndrs>
+    <EffectComposerPmndrs>
       <VignettePmndrs :darkness="1" :offset="0.5" />
-    </EffectComposerPmndrs> -->
+    </EffectComposerPmndrs>
     <Suspense>
       <TheExperience v-model="activeCS" :items="URLS" />
     </Suspense>
