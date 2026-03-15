@@ -28,8 +28,8 @@ const basic_routes = [
     description: 'Simple collision detection demo using a reusable composable.'
   },
   {
-    name: 'CornelBox',
-    description: 'Famous Cornel Box scene template',
+    name: 'CornelBoxGI',
+    description: 'Famous Cornel Box scene template with Global Illumination',
     link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/CornelBoxView.vue',
     tag: TAGS.WEBGPU
   },
