@@ -12,6 +12,10 @@ const basic_routes = [
     description: 'Using the tweak pane to modify the bones of a 3D model. just for fun.'
   },
   {
+    name: 'CameraFollowPath',
+    description: 'Camera follows a curve path with smooth transitions using the scroll and a scene created with world creator.'
+  },
+  {
     name: 'ChangedPivot',
     description: 'I tried to change the pivot of a 3D primitive. isn´t that straightforward as I thought?'
   },
@@ -137,7 +141,7 @@ const basic_routes = [
     name: 'WorldCreator',
     description: 'World creator is a software for the creation of terrains. World creator generate meshes or heightsmaps, I am using heightmaps here',
   },
-    {
+  {
     name: 'PamCanvas',
     description: 'Canvas effect pam, which you can move through it and search for your images',
     link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/PamCanvasView.vue',
