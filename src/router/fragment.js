@@ -27,6 +27,10 @@ const fragment_demos = [
     basedOn: 'https://tympanus.net/codrops/2019/02/20/how-to-create-a-fake-3d-image-effect-with-webgl/'
   },
   {
+    name: 'Fbm',
+    description: 'SImple implementation of fractal brownian motion (FBM) using shaders, with interactive parameters for octaves, lacunarity, and gain.'
+  },
+  {
     name: 'FragmentTemplate',
     description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)'
   },
