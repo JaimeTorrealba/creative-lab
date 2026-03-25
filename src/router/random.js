@@ -3,6 +3,12 @@ import { TAGS } from '../utils/constants'
 
 const Random = [
   {
+    name: 'Hyphae',
+    description: 'A generative art demo inspired by fungal growth patterns.',
+    basedOn: 'https://github.com/inconvergent/hyphae/blob/master/hyphae.py'
+  },
+
+  {
     name: 'Logomatic',
     description: 'Extract from the original clojure language, is a tool that create creative logos, created by Jack Rusher.',
     link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/Random/LogomaticView.vue',
@@ -10,11 +16,11 @@ const Random = [
   },
   {
     name: 'PlainWebgl',
-    description: 'Using plain webGL to create the most simple demo, a triangle with colors'
+    description: 'Using plain WebGL to create the most simple demo, a triangle with colors'
   },
   {
-    name: 'Plaintag',
-    description: 'Using plain tag to create the most simple demo, a triangle with colors',
+    name: 'PlainWebgpu',
+    description: 'Using plain WebGPU to create the most simple demo, a triangle with colors',
     tag: TAGS.WEBGPU
   },
 ]
