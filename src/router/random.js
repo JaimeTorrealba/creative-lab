@@ -3,6 +3,11 @@ import { TAGS } from '../utils/constants'
 
 const Random = [
   {
+    name: 'GenerativeTree',
+    description: ''
+  },
+
+  {
     name: 'Hyphae',
     description: 'A generative art demo inspired by fungal growth patterns.',
     basedOn: 'https://github.com/inconvergent/hyphae/blob/master/hyphae.py'
