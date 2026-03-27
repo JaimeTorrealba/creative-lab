@@ -3,6 +3,12 @@ import { TAGS } from '../utils/constants'
 
 const Random = [
   {
+    name: 'Fracture',
+    description: 'Generative crack patterns: fractures seek attractor points and stop when they collide, mimicking broken glass or craquelure.',
+    basedOn: 'https://github.com/inconvergent/fracture'
+  },
+
+  {
     name: 'GenerativeTree',
     description: ''
   },
