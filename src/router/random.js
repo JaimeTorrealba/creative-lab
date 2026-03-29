@@ -3,6 +3,12 @@ import { TAGS } from '../utils/constants'
 
 const Random = [
   {
+    name: 'DifferentialLattice',
+    description: 'Nodes form a dynamic lattice through spring forces and relative-neighborhood connections, growing outward like slime mold or biological tissue.',
+    basedOn: 'https://github.com/inconvergent/differential-lattice'
+  },
+
+  {
     name: 'Fracture',
     description: 'Generative crack patterns: fractures seek attractor points and stop when they collide, mimicking broken glass or craquelure.',
     basedOn: 'https://github.com/inconvergent/fracture'
