@@ -28,6 +28,7 @@ class BasicMover {
   update() {
     this.position.add(this.velocity);
     this.updateWorldPosition();
+    this.checkEdges();
   }
   checkEdges() {
     // Wrap within screen-space bounds [0, width] and [0, height]
@@ -59,6 +60,7 @@ class SimpleAccMover extends BasicMover {
     this.velocity.add(this.acceleration);
     this.position.add(this.velocity);
     this.updateWorldPosition();
+    this.checkEdges();
   }
 }
 class RandomAccMover extends BasicMover {
@@ -71,6 +73,7 @@ class RandomAccMover extends BasicMover {
     clampVector(this.velocity, -5, 5);
     this.position.add(this.velocity);
     this.updateWorldPosition();
+    this.checkEdges();
   }
 }
 class FollowingMouseMover extends BasicMover {
@@ -83,6 +86,7 @@ class FollowingMouseMover extends BasicMover {
     this.mousePos.set(x.value, y.value);
     this.position.lerp(this.mousePos, 0.05);
     this.updateWorldPosition();
+    this.checkEdges();
   }
 }
 class MouseDirectionMover extends BasicMover {
@@ -98,10 +102,12 @@ class MouseDirectionMover extends BasicMover {
     clampVector(this.velocity, -5, 5);
     this.position.add(this.velocity);
     this.updateWorldPosition();
+    this.checkEdges();
   }
 }
 
 let mover = new BasicMover();
+mover.updateWorldPosition(); // Initialize world position for correct initial rendering
 
 const options = reactive({
   moverType: "BasicMover",
@@ -137,10 +143,8 @@ const { onBeforeRender } = useLoop();
 
 onBeforeRender(() => {
   mover.update();
-  mover.checkEdges();
   if (sphereRef.value) {
-    sphereRef.value.position.x = mover.worldPosition.x;
-    sphereRef.value.position.y = mover.worldPosition.y;
+    sphereRef.value.position.set(mover.worldPosition.x, mover.worldPosition.y, 0);
   }
 });
 </script>

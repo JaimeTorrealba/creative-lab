@@ -18,6 +18,10 @@ const nature_of_code = [
     description: 'This demo is based on the second chapter of the Nature of Code book by Daniel Shiffman. Extenending the Attractor demo this is just a simple step forward where each sphere attract another sphere.'
   },
   {
+    name: 'Particles',
+    description: 'Chapter 4 of the Nature of Code book by Daniel Shiffman is all about particle systems. This demo is a simple implementation of a particle with three.js.'
+  },
+  {
     name: 'Pendulum',
     description: 'Last excercise of the third chapter of the Nature of Code book by Daniel Shiffman. It simulates a pendulum movement using angular motion equations.'
   },

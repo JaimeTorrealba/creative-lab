@@ -1,6 +1,5 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
-import { OrbitControls } from "@tresjs/cientos";
 import TheExperience from "@/components/demos/noc/MoverDemo.vue";
 import { computed } from "vue";
 import { useWindowSize } from "@vueuse/core";
@@ -16,7 +15,6 @@ const bottom = computed(() => -height.value / 2);
 <template>
   <TresCanvas window-size clear-color="#333">
     <TresOrthographicCamera :args="[left, right, top, bottom, 0.1, 2000]" :position="[0, 0, 600]" />
-    <OrbitControls />
     <Suspense>
       <TheExperience />
     </Suspense>
