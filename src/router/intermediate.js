@@ -65,6 +65,11 @@ const intermediate_routes = [
     description: 'Nested scenes using render targets - one scene rendered inside another.',
     basedOn: 'https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW'
   },
+  {
+    name: 'VolumeSmoke',
+    description: 'Volumetric lighting with animated Perlin-noise smoke using VolumeNodeMaterial and post-processing ray-marching pass.',
+    basedOn: 'https://github.com/mrdoob/three.js/blob/master/examples/webgpu_volume_lighting.html'
+  },
   // {
   //   name: 'Vfx',
   //   description: ''
