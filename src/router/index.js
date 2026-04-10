@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
+import NotFound from '../views/NotFoundView.vue'
 import { basic } from './basic.js'
 import { fragment_routes } from './fragment.js'
 import { intermediate } from './intermediate.js'
@@ -30,12 +31,8 @@ const router = createRouter({
     ...shaders(),
     ...complex(),
     ...noc_demos(),
-    ...random_demos()
-    // }
-    // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
-    //     meta: {
-    //   layout: 'errorLayout'
-    // },
+    ...random_demos(),
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ]
 })
 

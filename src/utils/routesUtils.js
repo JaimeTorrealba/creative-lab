@@ -1,6 +1,6 @@
 import defaultLayout from '@/layouts/defaultLayout.vue'
 
-export const BLACK_LIST_PATHS = ['/', '/template', '/cartesiancoords']
+export const BLACK_LIST_PATHS = ['/', '/template', '/cartesiancoords', '/:pathMatch(.*)*']
 
 export const generateRoute = (name, section, description, url, basedOn, extraMeta = {}) => {
   const lowerCase = name.toLocaleLowerCase()

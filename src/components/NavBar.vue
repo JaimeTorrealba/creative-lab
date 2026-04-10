@@ -24,7 +24,7 @@ const goAllRoutes = () => {
   emit("searchResult", data.value);
 };
 
-const tags = new Set(data.value.map((route) => route.meta.section));
+const tags = new Set(data.value.filter((route) => route.meta?.section).map((route) => route.meta.section));
 
 const mapTagName = (tag) => {
   return tag.replaceAll("_", " ").replaceAll(/\b\w/g, (char) => char.toUpperCase());
