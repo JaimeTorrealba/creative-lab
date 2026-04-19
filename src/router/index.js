@@ -7,7 +7,6 @@ import { intermediate } from './intermediate.js'
 import { shaders } from './shaders'
 import { controls_demos } from './controls_demos'
 import { complex } from './complex_demos.js'
-import { noc_demos } from './nature_of_code.js'
 import { random_demos } from './random.js'
 import { generateRoute } from '../utils'
 
@@ -30,7 +29,6 @@ const router = createRouter({
     ...fragment_routes(),
     ...shaders(),
     ...complex(),
-    ...noc_demos(),
     ...random_demos(),
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ]

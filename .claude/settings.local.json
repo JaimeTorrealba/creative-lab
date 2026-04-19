@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp c:/Users/Jaime/Code/Projects/creative-lab/src/components/demos/noc/*.vue c:/Users/Jaime/Code/Projects/creative-lab/src/components/demos/intermediate/)",
+      "Bash(cp c:/Users/Jaime/Code/Projects/creative-lab/src/views/Noc/*.vue c:/Users/Jaime/Code/Projects/creative-lab/src/views/Intermediate/)",
+      "Bash(cp c:/Users/Jaime/Code/Projects/creative-lab/public/gifs/Noc/*.gif c:/Users/Jaime/Code/Projects/creative-lab/public/gifs/Intermediate/)"
+    ]
+  }
+}

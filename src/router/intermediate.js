@@ -104,10 +104,55 @@ const intermediate_routes = [
     link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/HtmlMixView.vue',
     tag: TAGS.HTML,
   },
+  {
+    name: 'Attractor',
+    description: 'This demo is based on the second chapter of the Nature of Code book by Daniel Shiffman. It simulates an attractors that pull other objects towards it.',
+    tag: TAGS.NOC,
+  },
+  {
+    name: 'Forces',
+    description: 'This demo is based on the second chapter of the Nature of Code book by Daniel Shiffman. It simulates some basics forces like gravity and wind.',
+    tag: TAGS.NOC,
+  },
+  {
+    name: 'Mover',
+    description: 'This demo is based on the first chapter of the Nature of Code book by Daniel Shiffman. It simulates a random a ball with different movements.',
+    tag: TAGS.NOC,
+  },
+  {
+    name: 'NBody',
+    description: 'This demo is based on the second chapter of the Nature of Code book by Daniel Shiffman. Extenending the Attractor demo this is just a simple step forward where each sphere attract another sphere.',
+    tag: TAGS.NOC,
+  },
+  {
+    name: 'Particles',
+    description: 'Chapter 4 of the Nature of Code book by Daniel Shiffman is all about particle systems. This demo is a simple implementation of a particle with three.js.',
+    tag: TAGS.NOC,
+  },
+  {
+    name: 'Pendulum',
+    description: 'Last excercise of the third chapter of the Nature of Code book by Daniel Shiffman. It simulates a pendulum movement using angular motion equations.',
+    tag: TAGS.NOC,
+  },
+  {
+    name: 'PointingDirectionMotion',
+    description: 'This demo is based on the third chapter of the Nature of Code book by Daniel Shiffman. Extending the mover demo, this one point the direction of an rectangle mesh towards its destination.',
+    tag: TAGS.NOC,
+  },
+  {
+    name: 'Spring',
+    description: 'This demo is based on the third chapter of the Nature of Code book by Daniel Shiffman. A simple spring (here I didnt use the particle version).',
+    tag: TAGS.NOC,
+  },
+  {
+    name: 'Walker',
+    description: 'This demo is based on the first chapter of the Nature of Code book by Daniel Shiffman. It simulates a random steps around the canvas.',
+    tag: TAGS.NOC,
+  },
 ].sort((a, b) => a.name.localeCompare(b.name))
 
 export const intermediate = () => {
   return intermediate_routes.map((route) => {
-    return generateRoute(route.name, 'Intermediate', route.description, route.link, route.basedOn)
+    return generateRoute(route.name, 'Intermediate', route.description, route.link, route.basedOn, route.tag ? { tag: route.tag } : {})
   })
 }

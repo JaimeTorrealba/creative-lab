@@ -3,7 +3,7 @@ import { useLoop } from "@tresjs/core";
 import { useWindowSize, useMouse, useMousePressed } from "@vueuse/core";
 import { Vector2 } from "three";
 import { shallowRef, ref } from "vue";
-import { convertToScreenCoords } from "./utils.js";
+import { convertToScreenCoords } from "./utils_noc.js";
 import { Line2 } from "three/examples/jsm/lines/Line2.js";
 import { LineGeometry } from "three/examples/jsm/lines/LineGeometry.js";
 import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";

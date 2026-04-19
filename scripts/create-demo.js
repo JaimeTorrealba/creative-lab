@@ -35,9 +35,8 @@ const sectionMap = {
   controls: { router: 'controls_demos.js', viewFolder: 'Controls', componentFolder: 'controls' },
   intermediate: { router: 'intermediate.js', viewFolder: 'Intermediate', componentFolder: 'intermediate' },
   shaders: { router: 'shaders.js', viewFolder: 'Shaders', componentFolder: 'shaders' },
-  fragment: { router: 'fragment.js', viewFolder: 'Fragment', componentFolder: 'fragment' }
-  ,noc: { router: 'nature_of_code.js', viewFolder: 'Noc', componentFolder: 'noc' }
-  ,random: { router: 'random.js', viewFolder: 'Random', componentFolder: 'random' }
+  fragment: { router: 'fragment.js', viewFolder: 'Fragment', componentFolder: 'fragment' },
+  random: { router: 'random.js', viewFolder: 'Random', componentFolder: 'random' }
 };
 
 if (!sectionMap[section]) {
