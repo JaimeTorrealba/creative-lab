@@ -13,7 +13,7 @@ const complex_routes = [
   },
   {
     name: 'HeightmapGenerator',
-    description: ''
+    description: 'Creating a texture programmatically using the diamond algorithm, using Tres.js'
   },
   {
     name: 'ShaderStar',

@@ -133,6 +133,10 @@ const basic_routes = [
     description: 'Simple pendulum using spherical coordinates.'
   },
   {
+    name: 'TextureBombing',
+    description: 'Basic example of texture bombing technique, in this case to simulate random decals'
+  },
+  {
     name: 'Transition',
     description:
       'We can use the Vue Transition API to create some cool effects. Here I left you a simple example.',
