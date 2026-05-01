@@ -1,12 +1,16 @@
 <script setup>
 import { useGLTF } from "@tresjs/cientos";
 import { Pane } from "tweakpane";
-import { computed } from "vue";
+import { computed, onUnmounted } from "vue";
 import { watchOnce } from "@vueuse/core";
+
+let pane
 
 const { state: model, isLoading } = useGLTF("/models/ant.glb");
 
 const modelNode = computed(() => model.value?.scene);
+
+onUnmounted(() => pane?.dispose())
 
 watchOnce(isLoading, (loading) => {
   if (!loading) {
@@ -21,7 +25,7 @@ watchOnce(isLoading, (loading) => {
     const hornTipL_Armature = bones.find((bone) => bone.name === "hornTipL_Armature");
     const hornBaseL_Armature = bones.find((bone) => bone.name === "hornBaseL_Armature");
 
-    const pane = new Pane();
+    pane = new Pane();
     // left horn
     const hornTipL_ArmatureFolder = pane.addFolder({ title: "Horn Tip L" });
     hornTipL_ArmatureFolder.addBinding(hornTipL_Armature.rotation, "x", {

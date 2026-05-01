@@ -2,7 +2,7 @@
 import { useLoop } from "@tresjs/core";
 import { Vector2 } from 'three';
 import { useWindowSize } from '@vueuse/core';
-import { watch } from 'vue';
+import { watch, onUnmounted } from 'vue';
 import { Pane } from 'tweakpane';
 import fragment from './fragment.glsl'
 
@@ -49,6 +49,7 @@ const fadeFolder = pane.addFolder({ title: 'Fade Parameters' });
 fadeFolder.addBinding(shader.uniforms.uFadeStart, 'value', { min: 0, max: 2, step: 0.1, label: 'Fade Start' });
 fadeFolder.addBinding(shader.uniforms.uFadeEnd, 'value', { min: 0, max: 2, step: 0.1, label: 'Fade End' });
 
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
       <TresMesh>

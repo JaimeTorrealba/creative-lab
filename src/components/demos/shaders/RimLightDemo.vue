@@ -1,8 +1,9 @@
 <script setup>
+import { onUnmounted } from 'vue'
 import { Color } from 'three'
 import fragment from './shaders/RimLight/fragment.glsl'
 import vertex from './shaders/RimLight/vertex.glsl'
-import { Pane } from 'tweakpane'; 
+import { Pane } from 'tweakpane';
 
 const shader = {
   vertexShader: vertex,
@@ -28,7 +29,7 @@ pane.addBinding(shader.uniforms.rimIntensity, 'value', {
   step: 0.1,
 })
 
-
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
    <TresMesh>

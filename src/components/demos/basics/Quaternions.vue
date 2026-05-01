@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, shallowRef } from "vue";
+import { reactive, shallowRef, onUnmounted } from "vue";
 import { Pane } from "tweakpane";
 
 const boxRef = shallowRef(null);
@@ -41,6 +41,8 @@ pane
       boxRef.value.quaternion.set(options.x, options.y, options.z, options.w);
     }
   });
+
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
   <TresMesh ref="boxRef">

@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, watch, computed } from "vue";
+import { shallowRef, watch, computed, onUnmounted } from "vue";
 import { useLoop } from "@tresjs/core";
 import { useGLTF, CustomShaderMaterial } from "@tresjs/cientos";
 import { Pane } from "tweakpane";
@@ -100,6 +100,8 @@ watch(isLoading, (newVal) => {
     console.log("GLTF Model Loaded:", model.value);
   }
 });
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 

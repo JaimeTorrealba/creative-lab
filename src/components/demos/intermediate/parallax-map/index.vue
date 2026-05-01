@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, onUnmounted } from "vue";
 import { useLoop, useTres } from "@tresjs/core";
 import { useTextures } from "@tresjs/cientos";
 import { watchOnce } from "@vueuse/core";
@@ -94,6 +94,8 @@ const perPixelParallaxMaterial = new THREE.ShaderMaterial({
 });
 
 const { camera } = useTres();
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 onBeforeRender(() => {

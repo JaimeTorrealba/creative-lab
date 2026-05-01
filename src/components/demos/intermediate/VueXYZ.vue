@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, watch, onUnmounted } from 'vue'
 import { useTriangle, usePolygon, useEllipse } from 'vuexyz'
 import { BufferGeometry, ExtrudeGeometry, DoubleSide } from 'three'
 import { Pane } from 'tweakpane';
@@ -95,6 +95,8 @@ const generateEllipseGeo = () => {
   ellipseGeometry.value = new BufferGeometry().setFromPoints(ellipseShape.value.getSpacedPoints(50))
 }
 generateEllipseGeo()
+
+onUnmounted(() => pane?.dispose())
 
 </script>
 <template>

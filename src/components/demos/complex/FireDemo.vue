@@ -4,7 +4,7 @@ import { Box, useTexture } from "@tresjs/cientos";
 import { Vector4, Color, Matrix4, Vector3 } from "three";
 import vertex from "./shaders/fire/vertex.glsl";
 import fragment from "./shaders/fire/fragment.glsl";
-import { reactive, ref } from "vue";
+import { reactive, ref, onUnmounted } from "vue";
 import { Pane } from "tweakpane";
 import { watchOnce } from "@vueuse/core";
 
@@ -133,6 +133,8 @@ const fireShader = {
   depthTest: true,
   depthWrite: false,
 };
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 

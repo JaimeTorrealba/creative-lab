@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, onUnmounted } from "vue";
 import { useLoader, useTres } from "@tresjs/core";
 import { IESLoader } from "three/addons/loaders/IESLoader.js";
 import { IESSpotLight } from "three/webgpu";
@@ -75,6 +75,8 @@ pane.addBinding(options, "topPostLightIntensity", {
   label: "Top Post Light Intensity",
 });
 pane.addBinding(options, "topPostLightColor", { label: "Top Post Light Color" });
+
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
   <TresIESSpotLight

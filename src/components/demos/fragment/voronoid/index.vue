@@ -1,5 +1,5 @@
 <script setup>
-import { watch, reactive } from "vue";
+import { watch, reactive, onUnmounted } from "vue";
 import fragment from "./fragment.glsl";
 import { Vector2 } from "three";
 import { useWindowSize } from "@vueuse/core";
@@ -56,6 +56,8 @@ pane.addBinding(shader.uniforms.u_debug, "value", {
  const updateUniforms = (ev) => {
    ev.object.material.uniforms.u_mouse.value.set(ev.uv.x * width.value, (ev.uv.y) * height.value)
  }
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop()
 onBeforeRender(({ elapsed }) => {

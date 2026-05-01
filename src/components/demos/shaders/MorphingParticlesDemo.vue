@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, computed, watch, shallowRef } from "vue";
+import { reactive, computed, watch, shallowRef, onUnmounted } from "vue";
 import { useLoop } from "@tresjs/core";
 import { useGLTF } from "@tresjs/cientos";
 import vertexShader from "./shaders/MorphingParticles/vertex.glsl";
@@ -130,6 +130,8 @@ watch(
     }
   }
 );
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 

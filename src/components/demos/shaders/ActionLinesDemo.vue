@@ -6,7 +6,7 @@ import fragment from "@/components/demos/shaders/shaders/ActionLines/fragment.gl
 import { LinearFilter, RepeatWrapping, Vector2 } from "three";
 import { watchOnce, useWindowSize } from "@vueuse/core";
 import { Pane } from "tweakpane";
-import { shallowRef, reactive } from "vue";
+import { shallowRef, reactive, onUnmounted } from "vue";
 
 const { state: texture, isLoading } = useTexture("/perlin.png");
 
@@ -46,6 +46,8 @@ pane.addBinding(shader.uniforms.uRadios, 'value', { min: -0.5, max: 0.75, step: 
 pane.addBinding(shader.uniforms.uNoiseRadios, 'value', { min: 0, max: 1, step: 0.01, label: 'Noise Radio' });
 pane.addBinding(options, 'speed', { min: 0, max: 5, step: 0.01, label: 'Speed' });
 
+
+onUnmounted(() => pane?.dispose())
 
 const boxRef = shallowRef(null);
 const { onBeforeRender } = useLoop();

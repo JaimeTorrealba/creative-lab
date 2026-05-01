@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, nextTick } from 'vue'
+import { onMounted, onUnmounted, nextTick } from 'vue'
 import { shallowRef, watch, reactive, computed, ref } from 'vue'
 import { useTresContext } from '@tresjs/core'
 import { MeshLambertMaterial, BoxGeometry, Object3D, InstancedMesh, Color } from 'three';
@@ -70,6 +70,7 @@ watch([size, options], () => {
     generateTerrain()
     uploadInstanceMatrix()
 })
+onUnmounted(() => pane?.dispose())
 onMounted(async () => {
     await nextTick()
     initializedTerrain()

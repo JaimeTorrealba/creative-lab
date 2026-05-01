@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, watch, reactive } from "vue";
+import { shallowRef, watch, reactive, onUnmounted } from "vue";
 import { useLoop, useTres } from "@tresjs/core";
 import { useTexture } from "@tresjs/cientos";
 import * as THREE from "three";
@@ -238,6 +238,8 @@ onBeforeRender(({ delta }) => {
     shader.uniforms.uDepthTexture.value = depthTarget.depthTexture;
   }
 });
+
+onUnmounted(() => pane?.dispose())
 
 // Keep resolution uniform in sync
 watch([width, height], ([w, h]) => {

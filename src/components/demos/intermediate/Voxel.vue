@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, shallowRef, watch } from 'vue';
+import { reactive, shallowRef, watch, onUnmounted } from 'vue';
 import { Box3, Vector3, Raycaster, Object3D } from 'three';
 import { Pane } from 'tweakpane';
 import { RoundedBox } from '@tresjs/cientos'
@@ -83,6 +83,8 @@ watch(() => params.gridSize, () => {
     voxelizeMesh()
     setInstanceMesh()
 })
+
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
     <TresMesh ref="torusRef" :visible="false">

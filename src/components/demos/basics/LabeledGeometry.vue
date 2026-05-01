@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, shallowRef, watch } from "vue";
+import { reactive, shallowRef, watch, onUnmounted } from "vue";
 import { useLoop, useTres } from "@tresjs/core";
 import { Text3D } from "@tresjs/cientos";
 import { mergeVertices } from "three/examples/jsm/utils/BufferGeometryUtils.js";
@@ -76,6 +76,8 @@ const options = reactive({
 pane.addBinding(options, "showLabels");
 pane.addBinding(options, "showFaceLabels");
 pane.addBinding(options, "wireframe");
+
+onUnmounted(() => pane?.dispose())
 
 const verticesRef = shallowRef();
 const { onBeforeRender } = useLoop();

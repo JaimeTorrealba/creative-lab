@@ -1,7 +1,7 @@
 <script setup>
 import { useLoop } from "@tresjs/core";
 import { Pane } from "tweakpane";
-import { computed } from "vue";
+import { computed, onUnmounted } from "vue";
 import { useAnimations, useGLTF } from "@tresjs/cientos";
 import { PerspectiveCamera, Vector4, Vector3 } from "three";
 import { useWindowSize, useDevicePixelRatio, watchOnce } from "@vueuse/core";
@@ -108,6 +108,8 @@ animationList.on("change", (value) => {
   currentAction = actions[value.value];
   currentAction.play();
 });
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 

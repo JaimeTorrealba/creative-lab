@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, watch, reactive } from "vue";
+import { shallowRef, watch, reactive, onUnmounted } from "vue";
 import { BufferAttribute } from "three";
 import { Pane } from 'tweakpane';
 
@@ -10,6 +10,8 @@ const options = reactive ({
 });
 
 pane.addBinding(options, 'color');
+
+onUnmounted(() => pane?.dispose())
 
 const MeshRef = shallowRef(null);
 

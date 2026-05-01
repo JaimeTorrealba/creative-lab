@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, watch } from "vue";
+import { shallowRef, watch, onUnmounted } from "vue";
 import { SphereGeometry, BufferAttribute } from "three";
 import { TessellateModifier } from "three/addons/modifiers/TessellateModifier.js";
 import fragment from "@/components/shaders/destroyGeos/fragment.glsl";
@@ -75,7 +75,7 @@ pane.addBinding(tessellatedSphereShader.uniforms.uProgress, "value", {
   label: "Tessellated Sphere progress",
 });
 
-
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
   <TresMesh ref="sphereRef" :position="[2, 0, 0]">

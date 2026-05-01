@@ -10,7 +10,7 @@ import {
 } from "three";
 import { useTextures } from "@tresjs/cientos";
 import { Pane } from "tweakpane";
-import { reactive, shallowRef, watch, ref } from "vue";
+import { reactive, shallowRef, watch, ref, onUnmounted } from "vue";
 import { watchOnce } from "@vueuse/core";
 
 const pane = new Pane();
@@ -20,6 +20,8 @@ const options = reactive({
 });
 
 pane.addBinding(options, "debugCurve");
+
+onUnmounted(() => pane?.dispose())
 
 const { textures, isLoading } = useTextures([
   "/textures/front_ribbon.png",

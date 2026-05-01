@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive } from 'vue'
+import { computed, reactive, onUnmounted } from 'vue'
 import { useLoop } from '@tresjs/core'
 import { useTexture } from '@tresjs/cientos'
 import { watchOnce } from '@vueuse/core'
@@ -46,6 +46,8 @@ pane.addBinding(options, 'progress', {
 }).on('change', (progress) => {
     shader.uniforms.uProgress.value = progress.value
 });
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop()
 onBeforeRender(({elapsed}) => {

@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue';
+import { reactive, onUnmounted } from 'vue';
 import { useTexture } from "@tresjs/cientos";
 import vertex from "./vertex.glsl";
 import fragment from "./fragment.glsl";
@@ -46,6 +46,8 @@ const shader = {
 };
 
 const { width, height } = useWindowSize();
+
+onUnmounted(() => pane?.dispose())
 
 const handleMove = (e) => {
   if (width.value < 768) return;

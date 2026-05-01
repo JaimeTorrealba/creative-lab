@@ -1,5 +1,5 @@
 <script setup>
-import { watch, reactive } from "vue";
+import { watch, reactive, onUnmounted } from "vue";
 import { useLoop } from "@tresjs/core";
 import { useWindowSize, watchOnce } from "@vueuse/core";
 import { useTexture } from "@tresjs/cientos";
@@ -53,6 +53,8 @@ const handleMove = (e) => {
   if (width.value < 768) return;
   shader.uniforms.u_mouse.value = new Vector2(e.x / width.value, (e.y / height.value) * -1 + 1);
 };
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 

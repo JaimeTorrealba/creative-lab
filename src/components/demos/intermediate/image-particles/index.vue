@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onUnmounted } from "vue";
 import { useTexture } from "@tresjs/cientos";
 import { watchOnce } from "@vueuse/core";
 import { randFloat } from "three/src/math/MathUtils";
@@ -71,6 +71,8 @@ watch(wallRef, (value) => {
 
 pane.addBinding(shader.uniforms.uSize, 'value', { min: 1, max: 21, step: 0.1, label: 'Point Size' });
 pane.addBinding(shader.uniforms.uProgress, 'value', { min: 0, max: 1, step: 0.01, label: 'Progress' });
+
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
   <TresPoints ref="wallRef">

@@ -2,7 +2,7 @@
 import { useLoop } from "@tresjs/core";
 import { useWindowSize } from "@vueuse/core";
 import { Vector2 } from "three";
-import { shallowRef, reactive } from "vue";
+import { shallowRef, reactive, onUnmounted } from "vue";
 import { Pane } from "tweakpane";
 import { convertToScreenCoords } from "./utils_noc.js";
 import { Line2 } from "three/examples/jsm/lines/Line2.js";
@@ -74,6 +74,8 @@ const bob = new Bob();
 pane.addBinding(options, "gravity", { min: -1, max: 1, step: 0.01 });
 pane.addBinding(options, "length", { min: 50, max: 500, step: 1 });
 pane.addBinding(options, "damping");
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 onBeforeRender(() => {

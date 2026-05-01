@@ -2,7 +2,7 @@
 import { useLoop } from "@tresjs/core";
 import { useWindowSize } from "@vueuse/core";
 import { Vector2 } from "three";
-import { shallowRef, reactive } from "vue";
+import { shallowRef, reactive, onUnmounted } from "vue";
 import { Pane } from "tweakpane";
 
 const { width, height } = useWindowSize();
@@ -112,6 +112,8 @@ pane.addBinding(options, "showFluidResistance", {
   value: false,
 });
 pane.addBinding(options, "fluidResistance", { min: 0, max: 0.1, step: 0.001 });
+
+onUnmounted(() => pane?.dispose())
 
 // ANIMATION LOOP
 const { onBeforeRender } = useLoop();

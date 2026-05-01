@@ -1,5 +1,5 @@
 <script setup>
-import { watch, reactive, ref,computed } from "vue";
+import { watch, reactive, ref, computed, onUnmounted } from "vue";
 import { extend } from "@tresjs/core";
 import { useGLTF, useTextures } from "@tresjs/cientos";
 import { ThreeScatter } from "@jaimebboyjt/three-scatter";
@@ -59,6 +59,8 @@ watch(
     });
   }
 );
+
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
   <TresMesh v-if="geometry" :geometry="geometry">

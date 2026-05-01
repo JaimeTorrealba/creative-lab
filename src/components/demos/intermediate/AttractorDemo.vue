@@ -3,7 +3,7 @@ import { useLoop, useTres } from "@tresjs/core";
 import { useWindowSize } from "@vueuse/core";
 import { Vector2, SphereGeometry, MeshStandardMaterial, Mesh } from "three";
 import { TransformControls } from "@tresjs/cientos";
-import { reactive } from "vue";
+import { reactive, onUnmounted } from "vue";
 import { Pane } from "tweakpane";
 
 const { width, height } = useWindowSize();
@@ -137,6 +137,8 @@ const updateAttractorPos = () => {
   const screenY = height.value / 2 - worldPos.y;
   attractor.position.set(screenX, screenY);
 };
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 onBeforeRender(() => {

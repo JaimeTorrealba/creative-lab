@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { Pane } from "tweakpane";
 
 const canvas = ref<HTMLCanvasElement | null>(null);
@@ -12,6 +12,7 @@ const limit = 36;
 interface Connection extends Array<number> {}
 
 let logos: Connection[][] = [];
+let pane: any
 
 // ------------------------------------------------------------
 // Utility
@@ -209,6 +210,8 @@ function loop() {
 // Lifecycle
 // ------------------------------------------------------------
 
+onUnmounted(() => pane?.dispose())
+
 onMounted(() => {
   if (canvas.value) {
     ctx = canvas.value.getContext("2d");
@@ -216,7 +219,7 @@ onMounted(() => {
     loop();
 
     // Initialize Tweakpane
-    const pane = new Pane();
+    pane = new Pane();
 
     pane.addBinding(connections, "value", {
       min: 1,

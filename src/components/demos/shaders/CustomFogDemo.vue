@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, shallowRef } from 'vue'
+import { onMounted, onUnmounted, shallowRef } from 'vue'
 import { useLoop, useTres } from '@tresjs/core'
 import { Pane } from 'tweakpane'
 import {
@@ -327,6 +327,7 @@ function createInstancedForest(numTrees = 700, radius = 110) {
 
 /* ---------- Fog + Controls ---------- */
 let fog
+let pane
 function setupFogAndControls() {
   fog = new HeightFog(scene.value, {
     radius: 500.0,
@@ -344,7 +345,7 @@ function setupFogAndControls() {
     verticalBillow: 0.5,
   })
 
-  const pane = new Pane()
+  pane = new Pane()
   const f = pane.addFolder({ title: 'Height FBM Fog' })
   f.addBinding({ value: fog.radius }, 'value', { min: 0, max: 500, step: 1, label: 'Fog Radius' }).on('change', ({ value }) => fog.setRadius(value))
   f.addBinding({ color: '#E3EAF2' }, 'color', { label: 'Fog Color' }).on('change', ({ value }) => fog.setColor(value))
@@ -406,6 +407,8 @@ function updateShadowQuality(quality) {
     renderer.value.shadowMap.needsUpdate = true
   }
 }
+
+onUnmounted(() => pane?.dispose())
 
 onMounted(() => {
   // renderer defaults for nicer lighting/shadows

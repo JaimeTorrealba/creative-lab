@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onUnmounted } from "vue";
 import { useLoop } from "@tresjs/core";
 import { useTextures } from "@tresjs/cientos";
 import { RepeatWrapping } from "three";
@@ -91,6 +91,8 @@ const bushesRef = ref(null);
 const forestRef = ref(null);
 const forest2Ref = ref(null);
 const bushRef = ref(null);
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 

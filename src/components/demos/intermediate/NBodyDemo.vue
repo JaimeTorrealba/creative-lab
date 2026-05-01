@@ -1,7 +1,7 @@
 <script setup>
 import { useLoop, useTres } from "@tresjs/core";
 import { useWindowSize } from "@vueuse/core";
-import { Vector2, SphereGeometry, MeshStandardMaterial, Mesh } from "three";import { reactive } from "vue";
+import { Vector2, SphereGeometry, MeshStandardMaterial, Mesh } from "three";import { reactive, onUnmounted } from "vue";
 import { Pane } from "tweakpane";
 
 const { width, height } = useWindowSize();
@@ -97,6 +97,8 @@ function createMoverAtWorldPoint(worldX, worldY) {
   scene.value.add(newMover.createMesh());
   movers.push(newMover);
 }
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 onBeforeRender(() => {

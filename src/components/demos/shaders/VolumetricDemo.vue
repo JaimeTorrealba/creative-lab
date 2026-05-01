@@ -4,7 +4,7 @@ import { useTexture } from "@tresjs/cientos";
 import { Pane } from "tweakpane";
 import vertex from "./shaders/Volumetric/vertex.glsl";
 import fragment from "./shaders/Volumetric/fragment.glsl";
-import { shallowRef, watch } from "vue";
+import { shallowRef, watch, onUnmounted } from "vue";
 
 const { state: texture, isLoading } = useTexture("/images/stars.jpg");
 const { camera } = useTres();
@@ -40,6 +40,8 @@ pane.addBinding(shader.uniforms.sigma_a, "value", {
   step: 0.01,
   label: "Absorption Coefficient",
 });
+
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
   <TresMesh ref="icoRef">

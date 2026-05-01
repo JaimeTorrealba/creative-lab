@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, reactive, watch } from "vue";
+import { shallowRef, reactive, watch, onUnmounted } from "vue";
 import { useLoop } from "@tresjs/core";
 import { MouseParallax, Sphere, Stars, useTextures } from "@tresjs/cientos";
 import { useEventListener } from "@vueuse/core";
@@ -123,6 +123,8 @@ useEventListener(document, "mousemove", (e) => {
   xDrag.target += xDrag.position + distance;
 });
 // END DRAG AND DROP
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 

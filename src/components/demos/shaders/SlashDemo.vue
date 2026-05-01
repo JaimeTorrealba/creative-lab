@@ -5,7 +5,7 @@ import vertex from "./shaders/Slash/vertex.glsl";
 import fragment from "./shaders/Slash/fragment.glsl";
 import { Pane } from "tweakpane";
 import { gsap } from "gsap";
-import { computed, shallowRef, ref } from "vue";
+import { computed, shallowRef, ref, onUnmounted } from "vue";
 import { useGLTF, useAnimations } from "@tresjs/cientos";
 import { watchOnce } from "@vueuse/core";
 
@@ -103,6 +103,8 @@ const onSlash = () => {
         },
       })
 };
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 onBeforeRender(({ elapsed, delta }) => {

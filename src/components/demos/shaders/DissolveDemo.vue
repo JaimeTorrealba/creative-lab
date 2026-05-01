@@ -1,5 +1,5 @@
 <script setup>
-import { watch, reactive } from "vue";
+import { watch, reactive, onUnmounted } from "vue";
 import { useTexture } from "@tresjs/cientos";
 import { LinearFilter, RepeatWrapping } from "three";
 import { Pane } from "tweakpane";
@@ -57,6 +57,8 @@ const shader = {
   transparent: true,
   // side: DoubleSide,
 };
+
+onUnmounted(() => pane?.dispose())
 
 watch(texture, (_tex) => {
   if (_tex) {

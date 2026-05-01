@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, reactive } from 'vue'
+import { shallowRef, reactive, onUnmounted } from 'vue'
 import { useTexture, Environment } from '@tresjs/cientos'
 import { EquirectangularReflectionMapping } from 'three'
 import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader";
@@ -88,6 +88,8 @@ const chgNormalButton = pane.addButton({
 chgNormalButton.on('click', () => {
     options.clearcoatNormalMap = options.clearcoatNormalMap.uuid === normalMap.value.uuid ? earthNormalMap.value : normalMap.value
 });
+
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
   <Environment files="/textures/empty_warehouse_01_2k.hdr" :background="true" />

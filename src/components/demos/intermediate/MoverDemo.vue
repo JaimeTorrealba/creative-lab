@@ -2,7 +2,7 @@
 import { useLoop } from "@tresjs/core";
 import { useMouse, useWindowSize } from "@vueuse/core";
 import { Vector2 } from "three";
-import { shallowRef, reactive } from "vue";
+import { shallowRef, reactive, onUnmounted } from "vue";
 import { Pane } from "tweakpane";
 
 const { width, height } = useWindowSize();
@@ -138,6 +138,8 @@ const moverClasses = {
   MouseDirectionMover,
   FollowingMouseMover,
 };
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 

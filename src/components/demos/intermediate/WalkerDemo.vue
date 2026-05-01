@@ -1,6 +1,6 @@
 <script setup>
 import * as THREE from "three";
-import { onMounted, shallowRef, reactive } from "vue";
+import { onMounted, onUnmounted, shallowRef, reactive } from "vue";
 import { Pane } from "tweakpane";
 
 //TODO: add other random funtions like, noise and randomGaussian
@@ -82,6 +82,8 @@ btn.on("click", () => {
   cleanWalkers();
   startWalkers();
 });
+
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
   <TresGroup ref="wrapperRef" />

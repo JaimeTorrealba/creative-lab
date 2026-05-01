@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef } from "vue";
+import { shallowRef, onUnmounted } from "vue";
 import { useTres, useLoop } from "@tresjs/core";
 import { useGLTF } from "@tresjs/cientos";
 // import { BloomPmndrs, EffectComposerPmndrs } from "@tresjs/post-processing";
@@ -138,6 +138,8 @@ const start = () => {
   geometry.value.setAttribute("aSize", new BufferAttribute(particlesSize, 1));
   geometry.value.setAttribute("aColor", baseGeometry.instance.attributes.color);
 };
+
+onUnmounted(() => pane?.dispose())
 
 // Wait until the model is loaded, then start when renderer is ready
 watchOnce(isLoading, (v) => {

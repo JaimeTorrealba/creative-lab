@@ -1,5 +1,5 @@
 <script setup>
-import { watch } from "vue";
+import { watch, onUnmounted } from "vue";
 import { useTexture } from "@tresjs/cientos";
 import { MeshStandardNodeMaterial, RepeatWrapping, LinearFilter } from "three/webgpu";
 import { uniform, wgslFn, uv, texture } from "three/tsl";
@@ -65,6 +65,8 @@ pane.addBinding(uTextureScale, "value", {
   step: 0.1,
   label: "texture scale",
 });
+
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
   <TresMesh v-if="!isLoading" :material="material">

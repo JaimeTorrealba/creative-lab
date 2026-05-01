@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onUnmounted } from 'vue'
 import { useTexture } from '@tresjs/cientos'
 import { Vector4 } from 'three'
 import { useWindowSize, watchOnce } from '@vueuse/core'
@@ -45,6 +45,8 @@ pane.addBinding(shader.uniforms.blue, 'value',
  { min: 0, max: 0.1, label: 'blue' })
 pane.addBinding(shader.uniforms.green, 'value',
  { min: 0, max: 0.1, label: 'green' })
+
+onUnmounted(() => pane?.dispose())
 
 watch(sliderRef, () => {
   resize()

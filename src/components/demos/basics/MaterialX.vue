@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, onUnmounted } from "vue";
 import { useLoader } from "@tresjs/core";
 import { Environment, Lightformer } from "@tresjs/cientos";
 import { watchOnce } from "@vueuse/core";
@@ -30,6 +30,8 @@ pane.addBinding(options, "environmentIntensity", {
   step: 0.1,
   label: "Environment Intensity",
 });
+
+onUnmounted(() => pane?.dispose())
 
 const { state: material, isLoading } = useLoader(
   MaterialXLoader,

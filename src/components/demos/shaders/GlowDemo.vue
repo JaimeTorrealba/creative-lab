@@ -6,7 +6,7 @@ import { Pane } from "tweakpane";
 import vertex from "./shaders/glow/vertex.glsl";
 import fragment from "./shaders/glow/fragment.glsl";
 import { useTexture } from "@tresjs/cientos";
-import { reactive, shallowRef } from "vue";
+import { reactive, shallowRef, onUnmounted } from "vue";
 
 const fontPath =
   "https://raw.githubusercontent.com/Tresjs/assets/main/fonts/FiraCodeRegular.json";
@@ -98,6 +98,8 @@ glowFolderNoShader
       spriteMaterialRef.value.color.b = value.b / 255;
     }
   });
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 

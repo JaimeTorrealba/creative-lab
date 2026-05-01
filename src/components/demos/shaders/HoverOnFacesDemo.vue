@@ -1,5 +1,5 @@
 <script setup>
-  import { shallowRef } from "vue";
+  import { shallowRef, onUnmounted } from "vue";
 import { Vector2 } from "three";
 import { Pane } from "tweakpane";
 import { gsap } from "gsap";
@@ -50,6 +50,7 @@ folder.addBinding(shader, "wireframe", { label: "Wireframe" }).on("change", () =
   }
 });
 
+onUnmounted(() => pane?.dispose())
 </script>
 <template>
   <TresMesh @pointermove="onMove" @pointerleave="onMouseDown" @pointerenter="onMouseUp">

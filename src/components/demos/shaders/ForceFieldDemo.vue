@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef } from "vue";
+import { shallowRef, onUnmounted } from "vue";
 import { useLoop } from "@tresjs/core";
 import { Pane } from "tweakpane";
 import vertex from "./shaders/ForceField/vertex.glsl";
@@ -57,6 +57,8 @@ function updateContact() {
     shader.uniforms.uContactStrength.value = 0.0;
   }
 }
+
+onUnmounted(() => pane?.dispose())
 
 const { onBeforeRender } = useLoop();
 
