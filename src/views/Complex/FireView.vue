@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/complex/FireDemo.vue'
+import TheExperience from '@/components/demos/complex/fire/index.vue'
 import { OrbitControls } from '@tresjs/cientos'
 </script>
 <template>

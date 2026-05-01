@@ -26,13 +26,13 @@ vec3 lambertLight(vec3 normal, vec3 viewDir, vec3 lightDir, vec3 lightColour) {
   float wrap = 0.5;
   float dotNL = saturate((dot(normal, lightDir) + wrap) / (1.0 + wrap));
   vec3 lighting = vec3(dotNL);
-  
+
   float backlight = saturate((dot(viewDir, -lightDir) + wrap) / (1.0 + wrap));
   vec3 scatter = vec3(pow(backlight, 2.0));
 
   lighting += scatter;
 
-  return lighting * lightColour;  
+  return lighting * lightColour;
 }
 
 void main() {

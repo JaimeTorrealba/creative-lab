@@ -3,17 +3,15 @@ import { shallowRef, watch, reactive, onUnmounted } from "vue";
 import { useLoop, useTres } from "@tresjs/core";
 import { useTexture } from "@tresjs/cientos";
 import * as THREE from "three";
-import { VolumetricMaskController } from "./shaders/volumetricSmoke/utils";
-import VERTEX_SHADER from "./shaders/volumetricSmoke/vertex.glsl";
-import FRAGMENT_SHADER from "./shaders/volumetricSmoke/fragment.glsl";
+import { VolumetricMaskController } from "./utils";
+import VERTEX_SHADER from "./vertex.glsl";
+import FRAGMENT_SHADER from "./fragment.glsl";
 import { useWindowSize, watchOnce } from "@vueuse/core";
 import { Pane } from "tweakpane";
 
 const pane = new Pane();
 
-// TODO: check bake3Dtexture
 const parameters = reactive({
-  // Texture Generation
   textureSize: 96,
   cloudCoverage: 0.55,
   cloudSoftness: 0.05,
@@ -23,79 +21,39 @@ const parameters = reactive({
   lacunarity: 3.0,
   noiseIntensity: 1.0,
   seed: Math.random() * 1000.0,
-
-  // Cloud Shape (Shader)
   textureTiling: 2.0,
-
-  // Material & Rendering (Shader)
   densityThreshold: 0.5,
   densityMultiplier: 5.0,
   opacity: 6.0,
   raymarchSteps: 44,
   lightSteps: 1,
-
-  // Scale & Animation
   containerScale: 512.0,
   isAnimating: true,
   animationSpeedX: 0.2,
   animationSpeedY: 0.0,
   animationSpeedZ: 0.01,
-
-  // Lighting
   ambientLightIntensity: 1.2,
   directionalLightIntensity: 2.5,
 });
 
-pane.addBinding(parameters, "animationSpeedX", {
-  label: "Animation Speed X",
-  min: -1,
-  max: 1,
-  step: 0.01,
-});
-pane.addBinding(parameters, "animationSpeedY", {
-  label: "Animation Speed Y",
-  min: -1,
-  max: 1,
-  step: 0.01,
-});
-pane.addBinding(parameters, "animationSpeedZ", {
-  label: "Animation Speed Z",
-  min: -1,
-  max: 1,
-  step: 0.01,
-});
-pane.addBinding(parameters, "containerScale", {
-  label: "Container Scale",
-  min: 0,
-  max: 2024,
-  step: 1,
-});
+pane.addBinding(parameters, "animationSpeedX", { label: "Animation Speed X", min: -1, max: 1, step: 0.01 });
+pane.addBinding(parameters, "animationSpeedY", { label: "Animation Speed Y", min: -1, max: 1, step: 0.01 });
+pane.addBinding(parameters, "animationSpeedZ", { label: "Animation Speed Z", min: -1, max: 1, step: 0.01 });
+pane.addBinding(parameters, "containerScale", { label: "Container Scale", min: 0, max: 2024, step: 1 });
 pane
-  .addBinding(parameters, "densityThreshold", {
-    label: "Density Threshold",
-    min: 0,
-    max: 1,
-    step: 0.01,
-  })
-  .on("change", () => {
-    shader.uniforms.uDensityThreshold.value = parameters.densityThreshold;
-  });
-pane.addBinding(parameters, "isAnimating", {
-  label: "Is Animating",
-});
+  .addBinding(parameters, "densityThreshold", { label: "Density Threshold", min: 0, max: 1, step: 0.01 })
+  .on("change", () => { shader.uniforms.uDensityThreshold.value = parameters.densityThreshold });
+pane.addBinding(parameters, "isAnimating", { label: "Is Animating" });
 
-// ------- Refs & Context -------
 const { width, height } = useWindowSize();
 const { camera, renderer, scene } = useTres();
 const directionalLightRef = shallowRef();
 const ambientLightRef = shallowRef();
 const smokeRef = shallowRef();
 
-// A tiny 1x1 fallback texture for unused sampler uniforms
 const fallbackTexture = new THREE.DataTexture(new Uint8Array([0, 0, 0, 255]), 1, 1);
 fallbackTexture.needsUpdate = true;
 
-// Use a blue-noise-like texture (we reuse an available asset for jitter)
 const { state: blueNoise, isLoading } = useTexture("/textures/Cloud.png");
 watchOnce(isLoading, (v) => {
   if (!v) {
@@ -112,10 +70,8 @@ watchOnce(isLoading, (v) => {
   }
 });
 
-// Mask controller creates u_mask_* uniforms and 3D shape noise textures
 const maskController = new VolumetricMaskController();
 
-// ------- Shader Material -------
 const shader = {
   uniforms: {
     ...maskController.uniforms,
@@ -123,9 +79,7 @@ const shader = {
     uTextureOffset: { value: new THREE.Vector3(0, 0, 0) },
     uTextureTiling: { value: parameters.textureTiling },
     uBlueNoise: { value: null },
-    uBlueNoiseSize: {
-      value: new THREE.Vector2(32, 32),
-    },
+    uBlueNoiseSize: { value: new THREE.Vector2(32, 32) },
     uResolution: { value: new THREE.Vector2(width.value, height.value) },
     cameraPos: { value: camera.value.position },
     uSunColor: { value: new THREE.Color(0xffffff) },
@@ -157,7 +111,7 @@ const shader = {
   depthTest: false,
 };
 
-const myWorker = new Worker(new URL("worker-smoke.js", import.meta.url));
+const myWorker = new Worker(new URL("./worker-smoke.js", import.meta.url));
 
 myWorker.onmessage = (e) => {
   const size = parameters.textureSize;
@@ -170,15 +124,9 @@ myWorker.onmessage = (e) => {
   texture.wrapT = THREE.RepeatWrapping;
   texture.wrapR = THREE.RepeatWrapping;
   texture.needsUpdate = true;
-
-  set3DTexture(texture);
-};
-
-const set3DTexture = (texture) => {
   shader.uniforms.uVolumeTexture.value = texture;
 };
 
-// Create a depth render target for occlusion
 let depthTarget = new THREE.WebGLRenderTarget(width.value, height.value);
 depthTarget.depthTexture = new THREE.DepthTexture(width.value, height.value);
 depthTarget.depthTexture.format = THREE.DepthFormat;
@@ -186,14 +134,10 @@ depthTarget.depthTexture.type = THREE.UnsignedShortType;
 depthTarget.depthBuffer = true;
 shader.uniforms.uDepthTexture.value = depthTarget.depthTexture;
 
-// Animate offsets + update matrices and light dir
 const animatedOffset = new THREE.Vector3();
 const { onBeforeRender } = useLoop();
 onBeforeRender(({ delta }) => {
-  // matrices and camera
-  shader.uniforms.uProjectionMatrixInverse.value.copy(
-    camera.value.projectionMatrixInverse
-  );
+  shader.uniforms.uProjectionMatrixInverse.value.copy(camera.value.projectionMatrixInverse);
   shader.uniforms.uViewMatrixInverse.value.copy(camera.value.matrixWorld);
   if (smokeRef.value) {
     shader.uniforms.uModelMatrix.value.copy(smokeRef.value.matrixWorld);
@@ -201,14 +145,12 @@ onBeforeRender(({ delta }) => {
   shader.uniforms.uProjectionMatrix.value.copy(camera.value.projectionMatrix);
   shader.uniforms.cameraPos.value.copy(camera.value.position);
 
-  // light direction as normalized vector
   if (directionalLightRef.value?.position) {
     shader.uniforms.uLightDir.value.copy(
       directionalLightRef.value.position.clone().normalize()
     );
   }
 
-  // animate volume offset
   if (parameters.isAnimating) {
     const dt = delta ?? 0.016;
     animatedOffset.x += parameters.animationSpeedX * dt;
@@ -217,34 +159,28 @@ onBeforeRender(({ delta }) => {
     shader.uniforms.uTextureOffset.value.copy(animatedOffset);
   }
 
-  // Depth pre-pass: render scene without the volumetric mesh into the depth target
   if (renderer && scene?.value && smokeRef.value) {
     const r = renderer;
     const s = scene.value;
     const prevTarget = r.getRenderTarget();
     const prevAutoClear = r.autoClear;
     const prevVisible = smokeRef.value.visible;
-    // Hide the volume for depth pre-pass
     smokeRef.value.visible = false;
     r.setRenderTarget(depthTarget);
     r.autoClear = true;
     r.clear(true, true, true);
     r.render(s, camera.value);
-    // Restore
     smokeRef.value.visible = prevVisible;
     r.setRenderTarget(prevTarget);
     r.autoClear = prevAutoClear;
-    // Provide the freshly rendered depth texture to the shader
     shader.uniforms.uDepthTexture.value = depthTarget.depthTexture;
   }
 });
 
 onUnmounted(() => pane?.dispose())
 
-// Keep resolution uniform in sync
 watch([width, height], ([w, h]) => {
   shader.uniforms.uResolution.value.set(w, h);
-  // Resize the depth render target to match the canvas size
   if (depthTarget) {
     depthTarget.setSize(w, h);
   }
@@ -252,7 +188,6 @@ watch([width, height], ([w, h]) => {
 </script>
 
 <template>
-  <!-- Lights -->
   <TresDirectionalLight
     ref="directionalLightRef"
     :args="[0xffffff, parameters.directionalLightIntensity]"
@@ -271,7 +206,6 @@ watch([width, height], ([w, h]) => {
     :args="[0xffffff, parameters.ambientLightIntensity]"
   />
 
-  <!-- Some solid scene objects -->
   <TresMesh :position="[0, -40, 0]" :rotation="[-Math.PI / 2, 0, 0]">
     <TresPlaneGeometry :args="[200, 200]" />
     <TresMeshStandardMaterial :args="[{ color: 0x666666, roughness: 0.8 }]" />
@@ -279,18 +213,13 @@ watch([width, height], ([w, h]) => {
 
   <TresMesh :position="[0, 0, 0]">
     <TresSphereGeometry :args="[15, 32, 16]" />
-    <TresMeshStandardMaterial
-      :args="[{ color: 0x00ff00, roughness: 0.3, metalness: 0.1 }]"
-    />
+    <TresMeshStandardMaterial :args="[{ color: 0x00ff00, roughness: 0.3, metalness: 0.1 }]" />
   </TresMesh>
   <TresMesh :position="[0, 0, -50]">
     <TresSphereGeometry :args="[15, 32, 16]" />
-    <TresMeshStandardMaterial
-      :args="[{ color: 0xff00ff, roughness: 0.3, metalness: 0.1 }]"
-    />
+    <TresMeshStandardMaterial :args="[{ color: 0xff00ff, roughness: 0.3, metalness: 0.1 }]" />
   </TresMesh>
 
-  <!-- Volumetric Cloud Container (unit cube scaled up) -->
   <TresMesh ref="smokeRef" :scale="parameters.containerScale">
     <TresBoxGeometry :args="[1, 1, 1]" />
     <TresShaderMaterial v-bind="shader" />

@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/complex/SimonGrassDemo.vue";
+import TheExperience from "@/components/demos/complex/simon-grass/index.vue";
 </script>
 <template>
   <TresCanvas window-size antialias clear-color="#e4e4e4">

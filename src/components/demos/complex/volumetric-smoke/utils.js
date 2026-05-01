@@ -92,25 +92,21 @@ export function createNoiseGeneratorFromPermutation(permTable) {
 
 export class VolumetricMaskController {
     constructor() {
-        // Default parameters to control the mask's shape
         this.parameters = {
             seed: 1,
-            raio: 0.52,                 // Radius
-            achatamentoCima: 0.7,       // Flatten Top
-            achatamentoBaixo: 0.3,      // Flatten Bottom
-            achatamentoXpos: 0.9,       // Flatten X positive
-            achatamentoXneg: 0.9,       // Flatten X negative
-            achatamentoZpos: 0.9,       // Flatten Z positive
-            achatamentoZneg: 0.9,       // Flatten Z negative
+            raio: 0.52,
+            achatamentoCima: 0.7,
+            achatamentoBaixo: 0.3,
+            achatamentoXpos: 0.9,
+            achatamentoXneg: 0.9,
+            achatamentoZpos: 0.9,
+            achatamentoZneg: 0.9,
             maskSoftness: 0.17,
-            forcaRuido: 0.05,           // Noise Strength
-            frequenciaRuido: 2.7,       // Noise Frequency
-
-            // Parameters for the new detail noise
-            seedDetalhe: 10,                // Detail Seed
-            forcaRuidoDetalhe: 0.036,       // Detail Noise Strength
-            frequenciaRuidoDetalhe: 10.5,   // Detail Noise Frequency
-
+            forcaRuido: 0.05,
+            frequenciaRuido: 2.7,
+            seedDetalhe: 10,
+            forcaRuidoDetalhe: 0.036,
+            frequenciaRuidoDetalhe: 10.5,
             visualizeMask: false
         };
 
@@ -118,10 +114,10 @@ export class VolumetricMaskController {
         this.noiseGenerator = null;
         this.detailNoiseTexture = null;
         this.detailNoiseGenerator = null;
-        this.uniforms = {}; // Object that will hold the uniforms for the shader.
+        this.uniforms = {};
 
-        this.regenerateNoise(); // Generate the initial noise and 3D texture for deformation.
-        this._createUniforms(); // Create the uniforms to be passed to the shader.
+        this.regenerateNoise();
+        this._createUniforms();
     }
 
     _createSeededRandom(seed) {
@@ -133,7 +129,6 @@ export class VolumetricMaskController {
         }
     }
 
-    // Creates and populates the `uniforms` object with parameter values.
     _createUniforms() {
         this.uniforms = {
             u_mask_raio: { value: this.parameters.raio },
@@ -152,7 +147,6 @@ export class VolumetricMaskController {
         };
     }
 
-    // Sets up the Perlin noise generator with a specific seed.
     setupNoiseGenerator() {
         const seededRandom = this._createSeededRandom(this.parameters.seed);
         const p = new Uint8Array(256);
@@ -166,9 +160,8 @@ export class VolumetricMaskController {
         this.noiseGenerator = createNoiseGeneratorFromPermutation(permTable);
     }
 
-    // Generates the 3D texture used in the shader to deform the sphere.
     updateNoiseMaskTexture() {
-        const noiseMaskSize = 128; // Resolution of the mask's noise texture.
+        const noiseMaskSize = 128;
         const noiseMaskData = new Uint8Array(noiseMaskSize * noiseMaskSize * noiseMaskSize);
         const directionVector = new THREE.Vector3();
 
@@ -202,12 +195,7 @@ export class VolumetricMaskController {
         this.noiseTexture.needsUpdate = true;
     }
 
-    // --- METHODS FOR DETAIL NOISE ---
-    // These methods are copies of the main noise methods, but adapted
-    // to use the "detail" parameters.
-
     setupDetailNoiseGenerator() {
-        // Uses the "seedDetalhe" to create a different noise generator from the main one.
         const seededRandom = this._createSeededRandom(this.parameters.seedDetalhe);
         const p = new Uint8Array(256);
         for (let i = 0; i < 256; i++) { p[i] = i; }
@@ -221,7 +209,6 @@ export class VolumetricMaskController {
     }
 
     updateDetailNoiseMaskTexture() {
-        // Generates the 3D texture for details, using "frequenciaRuidoDetalhe".
         const noiseMaskSize = 128;
         const noiseMaskData = new Uint8Array(noiseMaskSize * noiseMaskSize * noiseMaskSize);
         const directionVector = new THREE.Vector3();
@@ -237,7 +224,6 @@ export class VolumetricMaskController {
 
                     if (directionVector.lengthSq() > 0) {
                         directionVector.normalize();
-                        // HERE is the main difference: uses the detail generator and frequency.
                         const noiseValue = this.detailNoiseGenerator(directionVector.multiplyScalar(this.parameters.frequenciaRuidoDetalhe));
                         noiseMaskData[(z * noiseMaskSize * noiseMaskSize) + (y * noiseMaskSize) + x] = noiseValue * 128 + 128;
                     }
@@ -245,14 +231,12 @@ export class VolumetricMaskController {
             }
         }
 
-        // Create or update the detail texture.
         if (!this.detailNoiseTexture) {
             this.detailNoiseTexture = new THREE.Data3DTexture(noiseMaskData, noiseMaskSize, noiseMaskSize, noiseMaskSize);
             this.detailNoiseTexture.format = THREE.RedFormat;
             this.detailNoiseTexture.minFilter = THREE.LinearFilter;
             this.detailNoiseTexture.magFilter = THREE.LinearFilter;
             this.detailNoiseTexture.unpackAlignment = 1;
-            // Important: pass the new texture to the uniform.
             if (this.uniforms.u_mask_noiseDetailMap) {
                 this.uniforms.u_mask_noiseDetailMap.value = this.detailNoiseTexture;
             }
@@ -262,23 +246,14 @@ export class VolumetricMaskController {
         this.detailNoiseTexture.needsUpdate = true;
     }
 
-    // NEW: Specific function to regenerate only the detail noise.
-    // This is more efficient as it doesn't recalculate the main noise unnecessarily.
     regenerateDetailNoise() {
         this.setupDetailNoiseGenerator();
         this.updateDetailNoiseMaskTexture();
     }
 
-    // Public function to regenerate noise when seed or frequency changes.
     regenerateNoise() {
-        // Main Noise
         this.setupNoiseGenerator();
         this.updateNoiseMaskTexture();
-
-        // Also generate the detail noise.
         this.regenerateDetailNoise();
     }
 }
-
-
-

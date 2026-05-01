@@ -1,12 +1,11 @@
 <script setup>
-import vertex from "./shaders/simonGrass/vertex.glsl";
-import fragment from "./shaders/simonGrass/fragment.glsl";
+import vertex from "./vertex.glsl";
+import fragment from "./fragment.glsl";
 import { InstancedBufferGeometry, BufferAttribute, Sphere, Vector3, Vector2, Vector4 } from "three";
 import { useLoop } from "@tresjs/core";
 
 const NUM_GRASS = 7500;
 const GRASS_SEGMENTS = 6;
-// const GRASS_VERTICES = (GRASS_SEGMENTS + 1) * 2;
 const GRASS_PATCH_SIZE = 5;
 const GRASS_HEIGHT = 2;
 const GRASS_WIDTH = 0.25;
@@ -41,7 +40,6 @@ geo.setIndex(indices);
 const maxIndex = Math.max(...indices);
 const positions = new Float32Array((maxIndex + 1) * 3);
 geo.setAttribute("position", new BufferAttribute(positions, 3));
-
 
 geo.boundingSphere = new Sphere(new Vector3(0, 0, 0), 1 + GRASS_PATCH_SIZE * 2);
 

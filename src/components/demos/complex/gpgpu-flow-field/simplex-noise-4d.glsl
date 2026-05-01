@@ -1,4 +1,4 @@
-//	Simplex 4D Noise 
+//	Simplex 4D Noise
 //	by Ian McEwan, Ashima Arts
 //
 vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
@@ -13,7 +13,7 @@ vec4 grad4(float j, vec4 ip){
   p.xyz = floor( fract (vec3(j) * ip.xyz) * 7.0) * ip.z - 1.0;
   p.w = 1.5 - dot(abs(p.xyz), ones.xyz);
   s = vec4(lessThan(p, vec4(0.0)));
-  p.xyz = p.xyz + (s.xyz*2.0 - 1.0) * s.www; 
+  p.xyz = p.xyz + (s.xyz*2.0 - 1.0) * s.www;
 
   return p;
 }
@@ -48,14 +48,14 @@ float simplexNoise4d(vec4 v){
   vec4 i2 = clamp( i0-1.0, 0.0, 1.0 );
   vec4 i1 = clamp( i0-2.0, 0.0, 1.0 );
 
-  //  x0 = x0 - 0.0 + 0.0 * C 
+  //  x0 = x0 - 0.0 + 0.0 * C
   vec4 x1 = x0 - i1 + 1.0 * C.xxxx;
   vec4 x2 = x0 - i2 + 2.0 * C.xxxx;
   vec4 x3 = x0 - i3 + 3.0 * C.xxxx;
   vec4 x4 = x0 - 1.0 + 4.0 * C.xxxx;
 
 // Permutations
-  i = mod(i, 289.0); 
+  i = mod(i, 289.0);
   float j0 = permute( permute( permute( permute(i.w) + i.z) + i.y) + i.x);
   vec4 j1 = permute( permute( permute( permute (
              i.w + vec4(i1.w, i2.w, i3.w, 1.0 ))

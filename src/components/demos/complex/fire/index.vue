@@ -2,8 +2,8 @@
 import { useLoop } from "@tresjs/core";
 import { Box, useTexture } from "@tresjs/cientos";
 import { Vector4, Color, Matrix4, Vector3 } from "three";
-import vertex from "./shaders/fire/vertex.glsl";
-import fragment from "./shaders/fire/fragment.glsl";
+import vertex from "./vertex.glsl";
+import fragment from "./fragment.glsl";
 import { reactive, ref, onUnmounted } from "vue";
 import { Pane } from "tweakpane";
 import { watchOnce } from "@vueuse/core";
@@ -39,15 +39,11 @@ const options = reactive({
 
 pane
   .addBinding(options, "magnitude", { min: 0, max: 5, step: 0.1 })
-  .on("change", (ev) => {
-    fireShader.uniforms.magnitude.value = ev.value;
-  });
+  .on("change", (ev) => { fireShader.uniforms.magnitude.value = ev.value });
 
 pane
   .addBinding(options, "lacunarity", { min: 1, max: 5, step: 0.1 })
-  .on("change", (ev) => {
-    fireShader.uniforms.lacunarity.value = ev.value;
-  });
+  .on("change", (ev) => { fireShader.uniforms.lacunarity.value = ev.value });
 
 pane.addBinding(options, "gain", { min: 0, max: 5, step: 0.1 }).on("change", (ev) => {
   fireShader.uniforms.gain.value = ev.value;
@@ -69,24 +65,16 @@ pane.addBinding(options, "scaleZ", { min: 0.1, max: 5, step: 0.1 }).on("change",
 });
 pane
   .addBinding(options, "noiseScaleX", { min: 0.1, max: 5, step: 0.1 })
-  .on("change", (ev) => {
-    fireShader.uniforms.noiseScale.value.x = ev.value;
-  });
+  .on("change", (ev) => { fireShader.uniforms.noiseScale.value.x = ev.value });
 pane
   .addBinding(options, "noiseScaleY", { min: 0.1, max: 5, step: 0.1 })
-  .on("change", (ev) => {
-    fireShader.uniforms.noiseScale.value.y = ev.value;
-  });
+  .on("change", (ev) => { fireShader.uniforms.noiseScale.value.y = ev.value });
 pane
   .addBinding(options, "noiseScaleZ", { min: 0.1, max: 5, step: 0.1 })
-  .on("change", (ev) => {
-    fireShader.uniforms.noiseScale.value.z = ev.value;
-  });
+  .on("change", (ev) => { fireShader.uniforms.noiseScale.value.z = ev.value });
 pane
   .addBinding(options, "noiseScaleW", { min: 0.1, max: 5, step: 0.1 })
-  .on("change", (ev) => {
-    fireShader.uniforms.noiseScale.value.w = ev.value;
-  });
+  .on("change", (ev) => { fireShader.uniforms.noiseScale.value.w = ev.value });
 pane.addBinding(options, "seed", { min: 0, max: 20, step: 0.01 }).on("change", (ev) => {
   fireShader.uniforms.seed.value = ev.value;
 });
@@ -145,10 +133,8 @@ onBeforeRender(() => {
   fireShader.uniforms.time.value += 0.01;
   const m = fireMeshRef.value;
   if (m) {
-    // Keep inverse model matrix up to date (world to local)
     m.updateMatrixWorld();
     fireShader.uniforms.invModelMatrix.value.copy(m.matrixWorld).invert();
-    // Keep world scale for consistent ray step size relative to world size
     m.getWorldScale(_worldScale);
     fireShader.uniforms.scale.value.copy(_worldScale);
   }

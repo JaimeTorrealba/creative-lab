@@ -2,7 +2,7 @@
 import { TresCanvas } from '@tresjs/core'
 import { MouseParallax, Stars } from '@tresjs/cientos'
 import { BasicShadowMap, NoToneMapping } from 'three'
-import TheExperience from '@/components/demos/complex/ShaderStarDemo.vue'
+import TheExperience from '@/components/demos/complex/shader-star/index.vue'
 
 const gl = {
   clearColor: '#111',

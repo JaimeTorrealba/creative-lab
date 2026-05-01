@@ -3,7 +3,12 @@
     "allow": [
       "Bash(cp c:/Users/Jaime/Code/Projects/creative-lab/src/components/demos/noc/*.vue c:/Users/Jaime/Code/Projects/creative-lab/src/components/demos/intermediate/)",
       "Bash(cp c:/Users/Jaime/Code/Projects/creative-lab/src/views/Noc/*.vue c:/Users/Jaime/Code/Projects/creative-lab/src/views/Intermediate/)",
-      "Bash(cp c:/Users/Jaime/Code/Projects/creative-lab/public/gifs/Noc/*.gif c:/Users/Jaime/Code/Projects/creative-lab/public/gifs/Intermediate/)"
+      "Bash(cp c:/Users/Jaime/Code/Projects/creative-lab/public/gifs/Noc/*.gif c:/Users/Jaime/Code/Projects/creative-lab/public/gifs/Intermediate/)",
+      "Bash(Remove-Item \"c:\\\\Users\\\\Jaime\\\\Code\\\\Projects\\\\creative-lab\\\\src\\\\components\\\\demos\\\\complex\\\\ShaderStarDemo.vue\")",
+      "Bash(Remove-Item \"c:\\\\Users\\\\Jaime\\\\Code\\\\Projects\\\\creative-lab\\\\src\\\\components\\\\demos\\\\complex\\\\GPGPUFlowFieldDemo.vue\")",
+      "Bash(Remove-Item \"c:\\\\Users\\\\Jaime\\\\Code\\\\Projects\\\\creative-lab\\\\src\\\\components\\\\demos\\\\complex\\\\SimonGrassDemo.vue\")",
+      "Bash(Remove-Item \"c:\\\\Users\\\\Jaime\\\\Code\\\\Projects\\\\creative-lab\\\\src\\\\components\\\\demos\\\\complex\\\\VolumetricSmokeDemo.vue\")",
+      "Bash(Remove-Item \"c:\\\\Users\\\\Jaime\\\\Code\\\\Projects\\\\creative-lab\\\\src\\\\components\\\\demos\\\\complex\\\\FireDemo.vue\")"
     ]
   }
 }

@@ -1,7 +1,7 @@
 <script setup>
 import { useLoop } from '@tresjs/core'
-import Vertex from './shaders/star/vertex.glsl'
-import Fragment from './shaders/star/fragment.glsl'
+import Vertex from './vertex.glsl'
+import Fragment from './fragment.glsl'
 
 const shader = {
   vertexShader: Vertex,

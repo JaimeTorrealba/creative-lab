@@ -1,4 +1,4 @@
-#include ./simplexNoise4d.glsl
+#include "./simplex-noise-4d.glsl"
 
 uniform float uTime;
 uniform float uDelta;
@@ -20,7 +20,7 @@ void main()
         // this fix the change tab issue, with delta time
         particle.a = mod(particle.a, 1.0);
         particle.xyz = base.xyz;
-    } 
+    }
     else { // alive
 
     float strength = simplexNoise4d(vec4(base.xyz *0.2, time + 1.0));
