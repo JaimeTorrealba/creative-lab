@@ -108,7 +108,6 @@ onMounted(() => {
     </div>
 
     <div class="navbar-menu" :class="{ 'is-active': isOpen }">
-      <div class="navbar-end">
         <div class="navbar-item is-flex is-flex-direction-column is-align-items-flex-start gap-2">
           <!-- Section tabs -->
           <div class="tabs is-boxed section-tabs">
@@ -131,7 +130,6 @@ onMounted(() => {
               </li>
             </ul>
           </div>
-        </div>
       </div>
     </div>
   </nav>

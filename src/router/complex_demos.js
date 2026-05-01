@@ -12,6 +12,10 @@ const complex_routes = [
     basedOn: 'https://threejs-journey.com/'
   },
   {
+    name: 'HeightmapGenerator',
+    description: ''
+  },
+  {
     name: 'ShaderStar',
     description: 'Complex star shader combining Fresnel effects, matrix rotation, and multi-layer color techniques.',
     basedOn: 'https://www.youtube.com/live/3krH52AhPqk?feature=share'
