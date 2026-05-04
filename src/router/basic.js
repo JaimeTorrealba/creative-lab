@@ -79,6 +79,10 @@ const basic_routes = [
     tag: TAGS.WEBGPU
   },
   {
+    name: 'LightProbes',
+    description: ''
+  },
+  {
     name: 'MaterialX',
     description: 'Using MaterialX materials in TresJS',
     tag: TAGS.WEBGPU
