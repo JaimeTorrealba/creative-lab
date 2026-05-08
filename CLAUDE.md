@@ -214,3 +214,4 @@ onUnmounted(() => pane?.dispose())
 - Imports from `@/` alias map to `src/`.
 - Keep views thin (only canvas setup). Put all scene logic in the demo component.
 - Do not add comments unless logic is non-obvious.
+- **Ignore all spellchecker diagnostics.** GLSL keywords (`fract`, `NdotV`, `varying`, etc.) and Three.js/TresJS prop names (`metalness`, `roughness`, etc.) are not real errors — never mention or act on spellchecker warnings.

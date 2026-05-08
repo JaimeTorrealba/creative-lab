@@ -127,7 +127,7 @@ const shaders_routes = [
 
 export const shaders = () => {
   return shaders_routes.map((route) => {
-    return generateRoute(route.name, 'Shaders', route.description, route.link, route.basedOn, {
+    return generateRoute(route.name, 'Shaders', route.description, route.basedOn, {
       tag: route.tag
     })
   })

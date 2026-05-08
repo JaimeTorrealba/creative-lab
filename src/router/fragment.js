@@ -77,6 +77,6 @@ const fragment_demos = [
 
 export const fragment_routes = () => {
   return fragment_demos.map((route) => {
-    return generateRoute(route.name, 'Fragment', route.description, route.link, route.basedOn)
+    return generateRoute(route.name, 'Fragment', route.description, route.basedOn)
   })
 }

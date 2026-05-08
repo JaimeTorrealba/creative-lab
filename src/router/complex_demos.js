@@ -7,6 +7,10 @@ const complex_routes = [
     basedOn: 'https://github.com/mattatz/THREE.Fire'
   },
   {
+    name: 'FireSprites',
+    description: ''
+  },
+  {
     name: 'GPGPUFlowField',
     description: 'GPU-accelerated particle flow field simulation from Three.js Journey course.',
     basedOn: 'https://threejs-journey.com/'
@@ -35,6 +39,6 @@ const complex_routes = [
 
 export const complex = () => {
   return complex_routes.map((route) => {
-    return generateRoute(route.name, 'Complex', route.description, route.link, route.basedOn)
+    return generateRoute(route.name, 'Complex', route.description, route.basedOn)
   })
 }

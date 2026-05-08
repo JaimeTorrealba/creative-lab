@@ -34,7 +34,6 @@ const basic_routes = [
   {
     name: 'CornelBoxGI',
     description: 'Famous Cornel Box scene template with Global Illumination',
-    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/CornelBoxView.vue',
     tag: TAGS.WEBGPU
   },
   {
@@ -152,14 +151,12 @@ const basic_routes = [
   {
     name: 'PamCanvas',
     description: 'Canvas effect pam, which you can move through it and search for your images',
-    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/PamCanvasView.vue',
     tag: TAGS.HTML,
   },
   {
     name: 'HoverButton',
     description: 'Interactive button with 3D hover effects and animations.',
     basedOn: 'https://dribbble.com/shots/11386939-Play-with-Magic-Motion',
-    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/HoverButtonView.vue',
     tag: TAGS.HTML,
   },
   {
@@ -171,7 +168,7 @@ const basic_routes = [
 
 export const basic = () => {
   return basic_routes.map((route) => {
-    return generateRoute(route.name, 'Basics', route.description, route.link, route.basedOn, {
+    return generateRoute(route.name, 'Basics', route.description, route.basedOn, {
       tag: route.tag
     })
   })

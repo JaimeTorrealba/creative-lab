@@ -11,7 +11,6 @@ const intermediate_routes = [
     name: 'FollowPath',
     description: 'Model follows an SVG path with automatic bending and rotation.',
     basedOn: 'https://youtu.be/NH4rSzHLCp4',
-    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/Demos/FollowPathView.vue'
   },
   {
     name: 'Glass',
@@ -105,7 +104,6 @@ const intermediate_routes = [
     {
     name: 'HtmlMix',
     description: 'Blend HTML and WebGL using pixel-matched camera coordinates with hover effects and 3D icons.',
-    link: 'https://github.com/JaimeTorrealba/creative-lab/blob/main/src/views/HTML/HtmlMixView.vue',
     tag: TAGS.HTML,
   },
   {
@@ -157,6 +155,6 @@ const intermediate_routes = [
 
 export const intermediate = () => {
   return intermediate_routes.map((route) => {
-    return generateRoute(route.name, 'Intermediate', route.description, route.link, route.basedOn, route.tag ? { tag: route.tag } : {})
+    return generateRoute(route.name, 'Intermediate', route.description, route.basedOn, route.tag ? { tag: route.tag } : {})
   })
 }

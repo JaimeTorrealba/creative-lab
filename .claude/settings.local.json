@@ -8,7 +8,8 @@
       "Bash(Remove-Item \"c:\\\\Users\\\\Jaime\\\\Code\\\\Projects\\\\creative-lab\\\\src\\\\components\\\\demos\\\\complex\\\\GPGPUFlowFieldDemo.vue\")",
       "Bash(Remove-Item \"c:\\\\Users\\\\Jaime\\\\Code\\\\Projects\\\\creative-lab\\\\src\\\\components\\\\demos\\\\complex\\\\SimonGrassDemo.vue\")",
       "Bash(Remove-Item \"c:\\\\Users\\\\Jaime\\\\Code\\\\Projects\\\\creative-lab\\\\src\\\\components\\\\demos\\\\complex\\\\VolumetricSmokeDemo.vue\")",
-      "Bash(Remove-Item \"c:\\\\Users\\\\Jaime\\\\Code\\\\Projects\\\\creative-lab\\\\src\\\\components\\\\demos\\\\complex\\\\FireDemo.vue\")"
+      "Bash(Remove-Item \"c:\\\\Users\\\\Jaime\\\\Code\\\\Projects\\\\creative-lab\\\\src\\\\components\\\\demos\\\\complex\\\\FireDemo.vue\")",
+      "mcp__chrome-devtools__take_screenshot"
     ]
   }
 }
