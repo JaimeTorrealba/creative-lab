@@ -19,6 +19,10 @@ const intermediate_routes = [
     basedOn: 'https://tympanus.net/codrops/2021/10/27/creating-the-effect-of-transparent-glass-and-plastic-in-three-js/'
   },
   {
+    name: 'GratingDiffraction',
+    description: 'A spinning CD disc with a physics-based diffraction grating shader that produces iridescent rainbow sweeps over a metallic silver surface.'
+  },
+  {
     name: 'InfiniteTube',
     description: 'Animated tube with organic alien flesh textures creating an infinite tunnel illusion.'
   },
