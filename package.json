@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
-    "@jaimebboyjt/three-scatter": "^0.0.6",
+    "@jaimebboyjt/three-scatter": "^0.5.0",
     "@jaimebboyjt/tres-fps-controls": "^0.0.55",
     "@three.ez/instanced-mesh": "^0.3.13",
     "@tresjs/cientos": "^5.4.0",

@@ -12,8 +12,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(vue@3.5.27)
       '@jaimebboyjt/three-scatter':
-        specifier: ^0.0.6
-        version: 0.0.6(three@0.182.0)
+        specifier: ^0.5.0
+        version: 0.5.0(three@0.182.0)
       '@jaimebboyjt/tres-fps-controls':
         specifier: ^0.0.55
         version: 0.0.55(@tresjs/core@5.5.0(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)
@@ -431,8 +431,8 @@ packages:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     deprecated: Use @eslint/object-schema instead
 
-  '@jaimebboyjt/three-scatter@0.0.6':
-    resolution: {integrity: sha512-TgGsqa8kSC2w5eKrt6u1FPkIq/6DgA0Trl28DubU1ShMBDRJ56rL10KAFFLO3Rma7b7pPfZGFXpW3CgdVElXuA==}
+  '@jaimebboyjt/three-scatter@0.5.0':
+    resolution: {integrity: sha512-Rq2AVsV5Qftygb6Sow30BjfdSeqSh1nXskKWosrom0StGFh0DPzfySpk1WEoYLcfR+7xPw7Mcqmsy2gKUYV0wg==}
     peerDependencies:
       three: '>=0.165.0'
 
@@ -2038,11 +2038,9 @@ snapshots:
 
   '@humanwhocodes/object-schema@2.0.3': {}
 
-  '@jaimebboyjt/three-scatter@0.0.6(three@0.182.0)':
+  '@jaimebboyjt/three-scatter@0.5.0(three@0.182.0)':
     dependencies:
-      '@three.ez/instanced-mesh': 0.3.13(three@0.182.0)
       alea: 1.0.1
-      simplex-noise: 4.0.3
       three: 0.182.0
 
   '@jaimebboyjt/tres-fps-controls@0.0.55(@tresjs/core@5.5.0(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)':
