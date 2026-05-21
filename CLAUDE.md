@@ -68,11 +68,11 @@ Drop a GIF at `public/gifs/{Section}/{Name}.gif` (e.g., `public/gifs/Basics/Boun
 
 | Item | Convention | Example |
 |------|-----------|---------|
-| Demo component | `{Name}Demo.vue` in `src/components/demos/{section}/` | `BouncingBallDemo.vue` |
+| Demo component | `{name}/index.vue` in `src/components/demos/{section}/` (kebab-case folder) | `bouncing-ball/index.vue` |
 | View (canvas wrapper) | `{Name}View.vue` in `src/views/{Section}/` | `BouncingBallView.vue` |
 | Section folder (components) | lowercase | `basics/`, `shaders/` |
 | Section folder (views) | PascalCase | `Basics/`, `Shaders/` |
-| Demo-specific shaders | `src/components/demos/{section}/{Name}/shaders/vertex.glsl` + `fragment.glsl` | |
+| Demo-specific shaders | `src/components/demos/{section}/{name}/vertex.glsl` + `fragment.glsl` (same folder as `index.vue`) | |
 | Shared shader utils | `src/components/shaders/SHARED/` | `noise2D.glsl` |
 
 Always name components with two words when required by Vue (exceptions are whitelisted in `.eslintrc.cjs`).
@@ -86,7 +86,7 @@ Always name components with two words when required by Vue (exceptions are white
 ```vue
 <script setup>
 import { OrbitControls } from '@tresjs/cientos'
-import BouncingBallDemo from '@/components/demos/basics/BouncingBallDemo.vue'
+import BouncingBallDemo from '@/components/demos/basics/bouncing-ball/index.vue'
 </script>
 
 <template>
@@ -143,8 +143,8 @@ Always wrap async demos in `<Suspense>` inside the view.
 
 ```vue
 <script setup>
-import vertex from './shaders/vertex.glsl'
-import fragment from './shaders/fragment.glsl'
+import vertex from './vertex.glsl'
+import fragment from './fragment.glsl'
 import { shallowRef, reactive } from 'vue'
 import { useLoop } from '@tresjs/core'
 
@@ -206,6 +206,7 @@ onUnmounted(() => pane?.dispose())
 - **Linting**: `pnpm lint` runs ESLint with autofix. `pnpm format` runs Prettier. Run both before committing.
 - **No TypeScript**: The project uses plain `.js` and `.vue` with no tsconfig. Do not introduce TypeScript.
 - **No test suite**: There are no unit or e2e tests. Do not add a test runner.
+- **No dev-server checks**: Do not run `pnpm dev` to verify changes. Import correctness is sufficient for file-structure tasks.
 
 ## Code Style
 

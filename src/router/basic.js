@@ -124,10 +124,6 @@ const basic_routes = [
     basedOn: 'https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG'
   },
   {
-    name: 'ShadeSmooth',
-    description: 'Using the edgeSplitModifier to smooth the edges of a Icosahedron.'
-  },
-  {
     name: 'SixSides',
     description: 'Six textures Demo Illusion'
   },

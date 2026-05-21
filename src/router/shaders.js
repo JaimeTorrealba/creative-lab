@@ -59,17 +59,9 @@ const shaders_routes = [
     description: 'Three.js journey lesson fireworks on tres.js'
   },
   {
-    name: 'ForceField',
-    description: 'My attempt to create a force field effect using shaders.'
-  },
-  {
     name: 'Glow',
     description: 'Glowing effect using shader materials.',
     basedOn: 'https://stemkoski.github.io/Three.js/Shader-Glow.html'
-  },
-  {
-    name: 'HoverOnFaces',
-    description: 'This is my attempt to create a hover effect on each face of a geometry using shaders.'
   },
   {
     name: 'InstanceMesh',
@@ -91,11 +83,6 @@ const shaders_routes = [
   {
     name: 'ParticlesRing',
     description: 'A simple ring made of particles using shaders'
-  },
-  {
-    name: 'RimLight',
-    description: 'Rim lighting effect using custom shaders to highlight object edges.',
-    basedOn: 'https://threejsroadmap.com/blog/rim-lighting-shader'
   },
   {
     name: 'Slash',
