@@ -4,7 +4,7 @@ uniform vec3 uColor;
 
 varying vec2 vUv;
 
-#include '../../../../shaders/SHARED/noise3D.glsl;
+#include '../../../shaders/SHARED/noise3D.glsl';
 void main() {
   vec4 texColor = texture2D(uTexture, vUv);
 

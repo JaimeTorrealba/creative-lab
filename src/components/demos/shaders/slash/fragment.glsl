@@ -4,7 +4,7 @@ uniform float uTime;
 
 varying vec2 vUv;
 
-#include '../../../../shaders/SHARED/noise3D.glsl';
+#include '../../../shaders/SHARED/noise3D.glsl';
 
 void main() {
     vec2 uv = vUv;

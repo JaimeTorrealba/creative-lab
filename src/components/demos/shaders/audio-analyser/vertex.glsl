@@ -3,7 +3,7 @@ varying vec2 vUv;
 uniform float uTime;
 uniform float uFrequency;
 
-#include '../../../../shaders/SHARED/noise3D.glsl;
+#include '../../../shaders/SHARED/noise3D.glsl';
 
 void main() {
     float noise = 2.5 * snoise(position + uTime);
