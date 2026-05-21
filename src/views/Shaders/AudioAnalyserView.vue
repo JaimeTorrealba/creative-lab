@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import TheExperience from '@/components/demos/shaders/AudioAnalyserDemo.vue'
+import TheExperience from '@/components/demos/shaders/audio-analyser/index.vue'
 
 </script>
 <template>

@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/shaders/HoverOnFacesDemo.vue";
+import TheExperience from "@/components/demos/shaders/hover-on-faces/index.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#333">

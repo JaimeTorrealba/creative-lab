@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos';
-import TheExperience from '@/components/demos/shaders/RimLightDemo.vue'
+import TheExperience from '@/components/demos/shaders/rim-light/index.vue'
 
 </script>
 <template>

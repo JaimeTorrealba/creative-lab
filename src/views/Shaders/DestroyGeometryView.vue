@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
-import TheExperience from "@/components/demos/shaders/DestroyGeometriesDemo.vue";
+import TheExperience from "@/components/demos/shaders/destroy-geometries/index.vue";
 </script>
 <template>
   <Suspense>

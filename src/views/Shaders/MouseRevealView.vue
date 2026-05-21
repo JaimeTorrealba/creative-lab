@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { BasicShadowMap } from 'three'
-import TheExperience from '@/components/demos/shaders/MouseRevealDemo.vue'
+import TheExperience from '@/components/demos/shaders/mouse-reveal/index.vue'
 </script>
 <template>
   <TresCanvas

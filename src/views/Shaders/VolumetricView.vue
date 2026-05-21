@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/shaders/VolumetricDemo.vue";
+import TheExperience from "@/components/demos/shaders/volumetric/index.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#111">

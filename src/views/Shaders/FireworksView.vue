@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls, Sky } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/shaders/FireworksDemo.vue";
+import TheExperience from "@/components/demos/shaders/fireworks/index.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#111">

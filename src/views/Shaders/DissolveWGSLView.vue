@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/shaders/DissolveWGSLDemo.vue";
+import TheExperience from "@/components/demos/shaders/dissolve-wgsl/index.vue";
 import { toValue } from "vue";
 import { WebGPURenderer } from "three/webgpu";
 

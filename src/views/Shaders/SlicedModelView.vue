@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
-import TheExperience from "@/components/demos/shaders/SlicedModelDemo.vue";
+import TheExperience from "@/components/demos/shaders/sliced-model/index.vue";
 import { OrbitControls, Environment } from "@tresjs/cientos";
 import { useWindowSize } from "@vueuse/core";
 import { PCFSoftShadowMap, ACESFilmicToneMapping } from "three";

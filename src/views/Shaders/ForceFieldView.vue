@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
-import TheExperience from "@/components/demos/shaders/ForceFieldDemo.vue";
+import TheExperience from "@/components/demos/shaders/force-field/index.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#333">

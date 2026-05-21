@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import TheExperience from '@/components/demos/shaders/BubbleDemo.vue'
+import TheExperience from '@/components/demos/shaders/bubble/index.vue'
 
 </script>
 <template>

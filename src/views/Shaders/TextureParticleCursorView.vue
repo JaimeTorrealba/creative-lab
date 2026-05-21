@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/shaders/TextureParticleCursorDemo.vue";
+import TheExperience from "@/components/demos/shaders/texture-particle-cursor/index.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#111">

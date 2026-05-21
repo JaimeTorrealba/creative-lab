@@ -2,7 +2,7 @@
 import { TresCanvas } from '@tresjs/core'
 import { MapControls } from '@tresjs/cientos'
 // import { useWindowSize } from '@vueuse/core'
-import TheExperience from '@/components/demos/shaders/InstanceMeshDemo2.vue'
+import TheExperience from '@/components/demos/shaders/instance-mesh-2/index.vue'
 
 // const { width, height } = useWindowSize()
 

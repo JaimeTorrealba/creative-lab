@@ -6,7 +6,7 @@ import {
   SRGBColorSpace,
   NoToneMapping,
 } from 'three'
-import TheExperience from '@/components/demos/shaders/ParticlesRingDemo.vue'
+import TheExperience from '@/components/demos/shaders/particles-ring/index.vue'
 
 const gl = {
   clearColor: '#111',

@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/shaders/GlowDemo.vue";
+import TheExperience from "@/components/demos/shaders/glow/index.vue";
 </script>
 <template>
   <Suspense>

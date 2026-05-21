@@ -2,7 +2,7 @@
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
 import { ACESFilmicToneMapping } from 'three'
-import TheExperience from "@/components/demos/shaders/MorphingParticlesDemo.vue";
+import TheExperience from "@/components/demos/shaders/morphing-particles/index.vue";
 </script>
 <template>
   <TresCanvas window-size :clear-color="0x333333" :antialias="true" :tone-mapping="ACESFilmicToneMapping">

@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/shaders/CustomFogDemo.vue";
+import TheExperience from "@/components/demos/shaders/custom-fog/index.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#111">

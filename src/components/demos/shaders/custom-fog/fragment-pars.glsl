@@ -1,0 +1,14 @@
+varying vec3 vWorldPos;
+uniform float uFogRadius;
+uniform vec3 uFogColor;
+uniform float uFogTop;
+uniform float uFogDepth;
+uniform float uFogOpacity;
+uniform float uFogExponent;
+uniform float uNoiseScale;
+uniform float uNoiseStrength;
+uniform int uNoiseOctaves;
+uniform vec2 uWindDir;
+uniform float uWindSpeed;
+uniform float uVerticalBillow;
+uniform float uTime;

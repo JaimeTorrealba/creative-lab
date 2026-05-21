@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls, Stars } from '@tresjs/cientos'
-import TheExperience from '@/components/demos/shaders/WaterReflectorDemo.vue'
+import TheExperience from '@/components/demos/shaders/water-reflector/index.vue'
 </script>
 <template>
   <TresCanvas window-size clear-color="#111" ref="canvasRef">
