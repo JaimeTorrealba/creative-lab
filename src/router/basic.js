@@ -1,54 +1,43 @@
-import { generateRoute } from '../utils'
+﻿import { generateRoute } from '../utils'
 import { TAGS } from '../utils/constants'
 
 const basic_routes = [
   {
     name: 'Avatar',
-    description: '3D avatar model created and exported from Ready Player Me.',
     basedOn: 'https://readyplayer.me/'
   },
   {
     name: 'BoneTweaks',
-    description: 'Using the tweak pane to modify the bones of a 3D model. just for fun.'
   },
   {
     name: 'CameraFollowPath',
-    description: 'Camera follows a curve path with smooth transitions using the scroll and a scene created with world creator.'
   },
   {
     name: 'ChangedPivot',
-    description: 'I tried to change the pivot of a 3D primitive. isn´t that straightforward as I thought?'
   },
   {
     name: 'ClickFace',
-    description: 'Interesting and simple experiment on how to detect clicks on different faces of a 3D model.'
   },
   {
     name: 'CloudLight',
-    description: 'Simple imitation of the light being blocked by clouds.'
   },
   {
     name: 'Collision',
-    description: 'Simple collision detection demo using a reusable composable.'
   },
   {
     name: 'CornelBoxGI',
-    description: 'Famous Cornel Box scene template with Global Illumination',
-    tag: TAGS.WEBGPU
+    tags: [TAGS.WEBGPU]
   },
   {
     name: 'CSG',
-    description: 'Constructive Solid Geometry operations using three-bvh-csg library for boolean mesh operations.',
     basedOn: 'https://github.com/gkjohnson/three-bvh-csg'
   },
   {
     name: 'CSS2DRenderer',
-    description: 'Alternative method for adding HTML elements to 3D scenes using CSS2DRenderer.',
     basedOn: 'https://youtu.be/0ZW3xrFhY3w?si=QkvzEikyeuv6H1Mb'
   },
   {
     name: 'Earth',
-    description: 'Interactive 3D Earth with draggable rotation, parallax clouds, city markers, stars, and GUI controls for rotation speed.'
   },
   // {
   //   name: 'Fbos',
@@ -56,116 +45,89 @@ const basic_routes = [
   // },
   {
     name: 'Gaea',
-    description:
-      'Gaea is a software for the creation of terrains, in this demo I show how to export a terrain from Gaea to TresJs.'
   },
   {
     name: 'Guide',
-    description: ' Helpers to understand the 3D world with status'
   },
   {
     name: 'DynamicComponent',
-    description: 'Simple experiment using <component :is /> built in vue feature'
   },
   {
     name: 'LabeledGeometry',
-    description: 'A component that can show a label over any 3D geometry in the scene.',
     basedOn: 'https://stemkoski.github.io/Three.js/Labeled-Geometry.html'
   },
   {
     name: 'LeomonLights',
-    description: 'Using and experimenting with different spot lights. all the lights are from leomon',
-    tag: TAGS.WEBGPU
+    tags: [TAGS.WEBGPU]
   },
   {
     name: 'LightProbes',
-    description: ''
   },
   {
     name: 'MaterialX',
-    description: 'Using MaterialX materials in TresJS',
-    tag: TAGS.WEBGPU
+    tags: [TAGS.WEBGPU]
   },
   {
     name: 'MeshLine',
-    description: 'Inspired on: https://tympanus.net/codrops/2019/01/08/animated-mesh-lines/ from Yuri. I actually couldnt install the library so I ended with this demo instead. a line that follows the mouse (very smoothly)'
   },
   {
     name: 'MirrorModifier',
-    description: 'A simple Mirror modifier from scrath'
   },
   {
     name: 'Nebula',
-    description: 'A nebula generator using smoke abstraction with colored point lights and fog effects.',
     basedOn: 'https://youtu.be/5f5wwQb22tE'
   },
   {
     name: 'ProceduralDC',
-    description: 'Basic procedural animation using the DC (distance constraint) technique.',
     basedOn: 'https://www.youtube.com/watch?v=qlfh_rv6khY'
   },
   {
     name: 'Quaternions',
-    description: 'Extra simple demo to understand quaternions and how they work. Panel tweaking values',
   },
   {
     name: 'RandomPoints',
-    description: 'Plane with randomly distributed points for particle effects.',
     basedOn: 'https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
   },
   {
     name: 'Scatter',
-    description: 'Demo showcasing the three-scatter library for distributing objects across surfaces.',
     basedOn: 'https://github.com/JaimeTorrealba/three-scatter'
   },
   {
     name: 'SelectableGrid',
-    description: 'Interactive grid system with mouse-based tile selection.',
     basedOn: 'https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG'
   },
   {
     name: 'SixSides',
-    description: 'Six textures Demo Illusion'
   },
   {
     name: 'SphericalCoords',
-    description: 'Simple pendulum using spherical coordinates.'
   },
   {
     name: 'TextureBombing',
-    description: 'Basic example of texture bombing technique, in this case to simulate random decals'
   },
   {
     name: 'Transition',
-    description:
-      'We can use the Vue Transition API to create some cool effects. Here I left you a simple example.',
   },
   {
     name: 'WorldCreator',
-    description: 'World creator is a software for the creation of terrains. World creator generate meshes or heightsmaps, I am using heightmaps here',
   },
   {
     name: 'PamCanvas',
-    description: 'Canvas effect pam, which you can move through it and search for your images',
-    tag: TAGS.HTML,
+    tags: [TAGS.HTML],
   },
   {
     name: 'HoverButton',
-    description: 'Interactive button with 3D hover effects and animations.',
     basedOn: 'https://dribbble.com/shots/11386939-Play-with-Magic-Motion',
-    tag: TAGS.HTML,
+    tags: [TAGS.HTML],
   },
   {
     name: 'Carousel3D',
-    description: 'Custom 3D carousel implementation with TresJS and Vue.',
-    tag: TAGS.HTML,
+    tags: [TAGS.HTML],
   }
 ].sort((a, b) => a.name.localeCompare(b.name))
 
 export const basic = () => {
   return basic_routes.map((route) => {
-    return generateRoute(route.name, 'Basics', route.description, route.basedOn, {
-      tag: route.tag
-    })
+    return generateRoute(route.name, 'Basics', route.basedOn, route.tags ? { tags: route.tags } : {})
   })
 }

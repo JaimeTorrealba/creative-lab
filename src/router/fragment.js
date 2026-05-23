@@ -1,82 +1,81 @@
 import { generateRoute } from '../utils'
+import { TAGS } from '../utils/constants'
 
 const fragment_demos = [
   {
     name: 'BlackHole',
-    description: 'Texture distortion effect simulating a black hole using shaders.',
+    tags: [TAGS.FRAGMENT],
     basedOn: 'https://codepen.io/darrylhuffman/pen/gRZrpv?editors=1010'
   },
   {
     name: 'BlurPixels',
-    description: 'Mouse-driven texture blur effect using custom shaders.',
+    tags: [TAGS.FRAGMENT],
     basedOn: 'https://t.co/3mIyS58Cyd'
   },
   {
     name: 'ChromaticAberration',
-    description:
-      'Simple chromatic aberration effect using shaders, over a texture'
+    tags: [TAGS.FRAGMENT],
   },
   {
     name: 'Displacement',
-    description:
-      'A AI generated shader that displace the texture based on the mouse position.'
+    tags: [TAGS.FRAGMENT],
   },
   {
     name: 'Fake3DImage',
-    description: 'Parallax depth effect using texture and depth map with mouse interaction.',
+    tags: [TAGS.FRAGMENT],
     basedOn: 'https://tympanus.net/codrops/2019/02/20/how-to-create-a-fake-3d-image-effect-with-webgl/'
   },
   {
     name: 'Fbm',
-    description: 'SImple implementation of fractal brownian motion (FBM) using shaders, with interactive parameters for octaves, lacunarity, and gain.'
+    tags: [TAGS.FRAGMENT],
   },
   {
     name: 'FragmentTemplate',
-    description: 'My personal fragment shader template. (There is a problem in Tres.js so this template should have orthographic camera and a plane to work)'
+    tags: [TAGS.FRAGMENT],
   },
   {
     name: 'RayMarching',
-    description: 'Basic ray marching implementation on fragment shader'
+    tags: [TAGS.FRAGMENT],
   },
   {
     name: 'RayMarchingOperations',
-    description: 'Advanced ray marching with boolean operations (union, subtraction, intersection) on SDFs.'
+    tags: [TAGS.FRAGMENT],
   },
   {
     name: 'RayMarchingOrbit',
-    description: ''
+    tags: [TAGS.FRAGMENT],
   },
   {
     name: 'RayMarchingTweaks',
-    description: 'Interactive ray marching template with tweakable parameters for distance functions.'
+    tags: [TAGS.FRAGMENT],
   },
   {
     name: 'RayTracing',
-    description: 'Most basic ray tracing implementation is created on the fragment shader (ignoring the rest of the graphic pipeline)'
+    tags: [TAGS.FRAGMENT],
   },
   {
     name: 'Rinnegan',
-    description: 'A naive play with fragments draws, a rinnegan design.',
+    tags: [TAGS.FRAGMENT],
   },
   {
     name: 'Slider',
-    description: 'WebGL image slider with distortion transitions between images.',
+    tags: [TAGS.FRAGMENT],
     basedOn: 'https://github.com/akella/webGLImageTransitions'
   },
   {
     name: 'Voronoid',
-    description: 'A Voronoi diagram shader example.',
-    basedOn: "https://thebookofshaders.com/12/",
+    tags: [TAGS.FRAGMENT],
+    basedOn: 'https://thebookofshaders.com/12/',
   },
   {
     name: 'Wave',
-    description: 'WebGL ripple effect (Material Design style) implemented with custom shaders.',
+    tags: [TAGS.FRAGMENT],
     basedOn: 'https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
   },
 ]
 
 export const fragment_routes = () => {
   return fragment_demos.map((route) => {
-    return generateRoute(route.name, 'Fragment', route.description, route.basedOn)
+    return generateRoute(route.name, 'Fragment', route.basedOn, route.tags ? { tags: route.tags } : {})
   })
 }

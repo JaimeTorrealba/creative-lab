@@ -4,47 +4,40 @@ import { TAGS } from '../utils/constants'
 const Random = [
   {
     name: 'DifferentialLattice',
-    description: 'Nodes form a dynamic lattice through spring forces and relative-neighborhood connections, growing outward like slime mold or biological tissue.',
+    tags: [TAGS.RANDOM],
     basedOn: 'https://github.com/inconvergent/differential-lattice'
   },
-
   {
     name: 'Fracture',
-    description: 'Generative crack patterns: fractures seek attractor points and stop when they collide, mimicking broken glass or craquelure.',
+    tags: [TAGS.RANDOM],
     basedOn: 'https://github.com/inconvergent/fracture'
   },
-
   {
     name: 'GenerativeTree',
-    description: ''
+    tags: [TAGS.RANDOM],
   },
-
   {
     name: 'Hyphae',
-    description: 'A generative art demo inspired by fungal growth patterns.',
+    tags: [TAGS.RANDOM],
     basedOn: 'https://github.com/inconvergent/hyphae/blob/master/hyphae.py'
   },
-
   {
     name: 'Logomatic',
-    description: 'Extract from the original clojure language, is a tool that create creative logos, created by Jack Rusher.',
+    tags: [TAGS.RANDOM],
     basedOn: 'https://github.com/jackrusher/logomatic/tree/master/src/logomatic'
   },
   {
     name: 'PlainWebgl',
-    description: 'Using plain WebGL to create the most simple demo, a triangle with colors'
+    tags: [TAGS.RANDOM],
   },
   {
     name: 'PlainWebgpu',
-    description: 'Using plain WebGPU to create the most simple demo, a triangle with colors',
-    tag: TAGS.WEBGPU
+    tags: [TAGS.RANDOM, TAGS.WEBGPU],
   },
 ]
 
 export const random_demos = () => {
   return Random.map((route) => {
-    return generateRoute(route.name, 'Random', route.description, route.basedOn, {
-      tag: route.tag
-    })
+    return generateRoute(route.name, 'Random', route.basedOn, route.tags ? { tags: route.tags } : {})
   })
 }

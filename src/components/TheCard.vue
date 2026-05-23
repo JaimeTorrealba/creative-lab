@@ -84,7 +84,6 @@ const mapTagName = (tag) => {
   <router-link :to="data.path">
     <div
       class="is-flex is-flex-direction-column is-clickable is-relative border_radius_top_card border_radius_bottom_card overflow"
-      :style="{ '--my-content': `'${data.meta.description}'` }"
     >
       <img
       ref="imageRef"
@@ -100,7 +99,7 @@ const mapTagName = (tag) => {
       <div class="tag-wrapper">
         <div class="tags mb-0">
           <span class="tag" :class="mapTagType(data.meta.section)">{{ mapTagName(data.meta.section) }}</span>
-          <span v-if="data.meta.tag" class="tag is-info is-light">{{ data.meta.tag}}</span>
+          <span v-for="tag in data.meta.tags" :key="tag" class="tag is-info is-light">{{ tag }}</span>
         </div>
       </div>
       <div
@@ -137,24 +136,5 @@ const mapTagName = (tag) => {
 .overflow:first-child {
   position: relative;
   overflow: hidden;
-  &:before {
-    content: var(--my-content);
-    position: absolute;
-    top: 0;
-    padding: 0.5rem;
-    color: black;
-    left: 0;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    border-radius: 4px;
-    transform: translate(0, 100%);
-    transform-origin: center center;
-    transition: 0.3s;
-  }
-  &:hover:before {
-    background: rgba(222, 222, 222, 0.75);
-    transform: translate(0);
-  }
 }
 </style>
