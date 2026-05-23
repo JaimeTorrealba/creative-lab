@@ -6,9 +6,6 @@ const complex_routes = [
     basedOn: 'https://github.com/mattatz/THREE.Fire'
   },
   {
-    name: 'FireSprites',
-  },
-  {
     name: 'GPGPUFlowField',
     basedOn: 'https://threejs-journey.com/'
   },

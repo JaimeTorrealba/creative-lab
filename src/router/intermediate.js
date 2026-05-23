@@ -7,6 +7,9 @@ const intermediate_routes = [
     basedOn: "https://github.com/mqnc/cheapwater/tree/main"
   },
   {
+    name: 'FireSprites',
+  },
+  {
     name: 'FollowPath',
     basedOn: 'https://youtu.be/NH4rSzHLCp4',
   },

@@ -56,28 +56,6 @@ onBeforeUnmount(() => {
   imageObserver?.disconnect();
 });
 
-const mapTagType = (tag) => {
-  switch (tag) {
-    case "Basics":
-      return "is-white";
-    case "Demos":
-      return "is-success";
-    case "Controls":
-      return "is-info";
-    case "HTML":
-      return "is-info is-light";
-    case "Fragment":
-      return "is-link is-light";
-    case "Shaders":
-      return "is-success is-light";
-    default:
-      break;
-  }
-};
-
-const mapTagName = (tag) => {
-  return tag.replaceAll("_", " ").replaceAll(/\b\w/g, (char) => char.toUpperCase());
-};
 
 </script>
 <template>
@@ -98,7 +76,6 @@ const mapTagName = (tag) => {
       />
       <div class="tag-wrapper">
         <div class="tags mb-0">
-          <span class="tag" :class="mapTagType(data.meta.section)">{{ mapTagName(data.meta.section) }}</span>
           <span v-for="tag in data.meta.tags" :key="tag" class="tag is-info is-light">{{ tag }}</span>
         </div>
       </div>
