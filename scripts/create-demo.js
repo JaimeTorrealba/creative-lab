@@ -112,8 +112,7 @@ const addRouteEntry = (routerPath, name) => {
   }
   
   const newEntry = `  {
-    name: '${name}',
-    description: ''
+    name: '${name}'
   },`;
   
   // Parse existing routes to maintain alphabetical order
@@ -175,7 +174,6 @@ if (viewCreated && componentCreated && routeAdded) {
   console.log(`  - ${path.relative(projectRoot, viewPath)}`);
   console.log(`  - ${path.relative(projectRoot, componentPath)}`);
   console.log(`  - Updated: ${routerFile}`);
-  console.log(`\nDon't forget to add a description in ${routerFile}!`);
 } else {
   console.log('\n✗ Demo creation failed. Please check the errors above.');
   process.exit(1);

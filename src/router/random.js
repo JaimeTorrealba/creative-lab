@@ -3,6 +3,11 @@ import { TAGS } from '../utils/constants'
 
 const Random = [
   {
+    name: 'BitonicSort',
+    tags: [TAGS.RANDOM],
+  },
+
+  {
     name: 'DifferentialLattice',
     tags: [TAGS.RANDOM],
     basedOn: 'https://github.com/inconvergent/differential-lattice'

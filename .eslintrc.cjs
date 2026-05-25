@@ -11,6 +11,12 @@ module.exports = {
   rules: {
     'vue/multi-word-component-names': 0,
   },
+  globals: {
+    GPUBufferUsage: 'readonly',
+    GPUShaderStage: 'readonly',
+    GPUMapMode: 'readonly',
+    GPUTextureUsage: 'readonly',
+  },
   parserOptions: {
     ecmaVersion: 'latest'
   }
