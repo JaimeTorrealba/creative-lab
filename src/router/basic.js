@@ -25,6 +25,9 @@ const basic_routes = [
     name: 'Collision',
   },
   {
+    name: 'ControlsCurve'
+  },
+  {
     name: 'CornelBoxGI',
     tags: [TAGS.WEBGPU]
   },
