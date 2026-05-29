@@ -48,6 +48,8 @@ const basic_routes = [
   // },
   {
     name: 'Gaea',
+    img: '/thumbnails/Basics/Gaea.jpg',
+    tags: [TAGS.NATURE],
   },
   {
     name: 'Guide',
@@ -89,7 +91,8 @@ const basic_routes = [
   },
   {
     name: 'RandomPoints',
-    basedOn: 'https://www.youtube.com/live/JaXb-hH2BIg?feature=share'
+    basedOn: 'https://www.youtube.com/live/JaXb-hH2BIg?feature=share',
+    img: '/thumbnails/Basics/RandomPoints.jpg',
   },
   {
     name: 'Scatter',
@@ -113,6 +116,8 @@ const basic_routes = [
   },
   {
     name: 'WorldCreator',
+    img: '/thumbnails/Basics/WorldCreator.jpg',
+    tags: [TAGS.NATURE],
   },
   {
     name: 'PamCanvas',
@@ -131,6 +136,7 @@ const basic_routes = [
 
 export const basic = () => {
   return basic_routes.map((route) => {
-    return generateRoute(route.name, 'Basics', route.basedOn, route.tags ? { tags: route.tags } : {})
+    const tags = [TAGS.BASIC, ...(route.tags ?? [])]
+    return generateRoute(route.name, 'Basics', route.basedOn, { tags, ...(route.img ? { img: route.img } : {}) })
   })
 }

@@ -1,7 +1,14 @@
 export const TAGS = Object.freeze({
-  WEBGPU: 'WebGPU',
-  HTML: 'HTML',
-  NOC: 'Nature of code',
+  BASIC: 'Basic',
+  CONTROLS: 'Controls',
   FRAGMENT: 'Fragment',
+  HTML: 'HTML',
+  NATURE: 'Nature',
+  NOC: 'Nature of code',
+  PARTICLES: 'Particles',
   RANDOM: 'Random',
+  RAYMARCH: 'Ray march',
+  RAYTRACE: 'Ray tracing',
+  VOLUMETRICS: 'Volumetrics',
+  WEBGPU: 'WebGPU',
 })

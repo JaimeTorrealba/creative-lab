@@ -35,27 +35,28 @@ const fragment_demos = [
   },
   {
     name: 'RayMarching',
-    tags: [TAGS.FRAGMENT],
+    tags: [TAGS.FRAGMENT, TAGS.RAYMARCH],
   },
   {
     name: 'RayMarchingOperations',
-    tags: [TAGS.FRAGMENT],
+    tags: [TAGS.FRAGMENT, TAGS.RAYMARCH],
   },
   {
     name: 'RayMarchingOrbit',
-    tags: [TAGS.FRAGMENT],
+    tags: [TAGS.FRAGMENT, TAGS.RAYMARCH],
   },
   {
     name: 'RayMarchingTweaks',
-    tags: [TAGS.FRAGMENT],
+    tags: [TAGS.FRAGMENT, TAGS.RAYMARCH],
   },
   {
     name: 'RayTracing',
-    tags: [TAGS.FRAGMENT],
+    tags: [TAGS.FRAGMENT, TAGS.RAYTRACE],
   },
   {
     name: 'Rinnegan',
     tags: [TAGS.FRAGMENT],
+    img: '/thumbnails/Fragment/Rinnegan.jpg',
   },
   {
     name: 'Slider',
@@ -76,6 +77,9 @@ const fragment_demos = [
 
 export const fragment_routes = () => {
   return fragment_demos.map((route) => {
-    return generateRoute(route.name, 'Fragment', route.basedOn, route.tags ? { tags: route.tags } : {})
+    return generateRoute(route.name, 'Fragment', route.basedOn, {
+      ...(route.tags ? { tags: route.tags } : {}),
+      ...(route.img ? { img: route.img } : {}),
+    })
   })
 }

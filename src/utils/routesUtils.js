@@ -13,11 +13,11 @@ export const generateRoute = (name, section, basedOn, extraMeta = {}) => {
 
   return {
     path,
-    name: `${name} ${section}`,
+    name,
     meta: {
       layout: defaultLayout,
       section,
-      img: `/gifs/${section}/${name}.gif`,
+      img: `/thumbnails/${section}/${name}.mp4`,
       sourceCode: sourceCodePath,
       basedOn,
       ...extraMeta

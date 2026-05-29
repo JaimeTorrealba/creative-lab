@@ -15,6 +15,7 @@ const shaders_routes = [
   },
   {
     name: 'Caustics',
+    tags: [TAGS.NATURE],
   },
   {
     name: 'CoffeeCup',
@@ -22,7 +23,8 @@ const shaders_routes = [
   },
   {
     name: 'CustomFog',
-    basedOn: 'https://codepen.io/the-red-reddington/pen/wBGQQwO?editors=1000'
+    basedOn: 'https://codepen.io/the-red-reddington/pen/wBGQQwO?editors=1000',
+    tags: [TAGS.NATURE],
   },
   {
     name: 'CSM',
@@ -44,6 +46,7 @@ const shaders_routes = [
   },
   {
     name: 'Fireworks',
+    tags: [TAGS.PARTICLES],
   },
   {
     name: 'Glow',
@@ -58,31 +61,33 @@ const shaders_routes = [
   },
   {
     name: 'MorphingParticles',
+    tags: [TAGS.PARTICLES],
   },
   {
     name: 'MouseReveal',
   },
   {
     name: 'ParticlesRing',
+    tags: [TAGS.PARTICLES],
   },
-  {
-    name: 'Slash',
-  },
-
   {
     name: 'SlicedModel',
   },
   {
     name: 'TextureParticleCursor',
+    tags: [TAGS.PARTICLES],
   },
   {
     name: 'Volumetric',
+    tags: [TAGS.VOLUMETRICS],
   },
- {
-   name: 'WaterReflector',
+  {
+    name: 'WaterReflector',
+    tags: [TAGS.NATURE],
   },
   {
     name: 'WaterRipple',
+    tags: [TAGS.NATURE],
   },
 ]
 

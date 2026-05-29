@@ -1,5 +1,5 @@
 ﻿import { generateRoute } from '../utils'
-
+import { TAGS } from '../utils/constants'
 
 const controls_routes = [
   {
@@ -32,6 +32,7 @@ const controls_routes = [
 
 export const controls_demos = () => {
   return controls_routes.map((route) => {
-    return generateRoute(route.name, 'Controls', route.basedOn)
+    const tags = [TAGS.CONTROLS, ...(route.tags ?? [])]
+    return generateRoute(route.name, 'Controls', route.basedOn, { tags })
   })
 }

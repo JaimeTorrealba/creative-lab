@@ -1,5 +1,5 @@
 <script setup>
-import { ref, toRefs, onMounted, onBeforeUnmount } from "vue";
+import { ref, toRefs, onMounted, onBeforeUnmount, computed } from "vue";
 
 const props = defineProps({
   data: {
@@ -10,50 +10,39 @@ const props = defineProps({
 
 const { data } = toRefs(props);
 
-const imageRef = ref(null);
-const shouldLoadImage = ref(false);
-const imageSrc = ref(undefined);
-let imageObserver;
+const mediaRef = ref(null);
+const shouldLoad = ref(false);
+const mediaSrc = ref(undefined);
+let observer;
 
-const getImageFallbackSrc = (src) => {
-  if (!src) return src;
-  if (src.endsWith('.gif')) return src.replace(/\.gif$/i, '.jpg');
-  return src;
-};
-
-const handleImageError = () => {
-  const fallbackSrc = getImageFallbackSrc(props.data.meta.img);
-  if (fallbackSrc !== imageSrc.value) {
-    imageSrc.value = fallbackSrc;
-  }
-};
+const isVideo = computed(() => props.data.meta.img?.endsWith('.mp4'));
 
 onMounted(() => {
   if (!("IntersectionObserver" in window)) {
-    shouldLoadImage.value = true;
-    imageSrc.value = props.data.meta.img;
+    shouldLoad.value = true;
+    mediaSrc.value = props.data.meta.img;
     return;
   }
 
-  imageObserver = new IntersectionObserver(
+  observer = new IntersectionObserver(
     (entries) => {
       const isVisible = entries.some((entry) => entry.isIntersecting);
       if (isVisible) {
-        shouldLoadImage.value = true;
-        imageSrc.value = props.data.meta.img;
-        imageObserver.disconnect();
+        shouldLoad.value = true;
+        mediaSrc.value = props.data.meta.img;
+        observer.disconnect();
       }
     },
     { threshold: 0.01 }
   );
 
-  if (imageRef.value) {
-    imageObserver.observe(imageRef.value);
+  if (mediaRef.value) {
+    observer.observe(mediaRef.value);
   }
 });
 
 onBeforeUnmount(() => {
-  imageObserver?.disconnect();
+  observer?.disconnect();
 });
 
 
@@ -63,16 +52,28 @@ onBeforeUnmount(() => {
     <div
       class="is-flex is-flex-direction-column is-clickable is-relative border_radius_top_card border_radius_bottom_card overflow"
     >
+      <video
+        v-if="isVideo"
+        ref="mediaRef"
+        class="img border_radius_top_card"
+        :src="shouldLoad ? mediaSrc : undefined"
+        autoplay
+        loop
+        muted
+        playsinline
+        width="300"
+        height="200"
+      />
       <img
-      ref="imageRef"
-      class="img border_radius_top_card"
-      :src="shouldLoadImage ? imageSrc : undefined"
-      :alt="props.data.name"
-      loading="lazy"
-      decoding="async"
-      @error="handleImageError"
-      width="300"
-      height="200"
+        v-else
+        ref="mediaRef"
+        class="img border_radius_top_card"
+        :src="shouldLoad ? mediaSrc : undefined"
+        :alt="props.data.name"
+        loading="lazy"
+        decoding="async"
+        width="300"
+        height="200"
       />
       <div class="tag-wrapper">
         <div class="tags mb-0">

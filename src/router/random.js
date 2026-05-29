@@ -34,15 +34,20 @@ const Random = [
   {
     name: 'PlainWebgl',
     tags: [TAGS.RANDOM],
+    img: '/thumbnails/Random/PlainWebgl.jpg',
   },
   {
     name: 'PlainWebgpu',
     tags: [TAGS.RANDOM, TAGS.WEBGPU],
+    img: '/thumbnails/Random/PlainWebgpu.jpg',
   },
 ]
 
 export const random_demos = () => {
   return Random.map((route) => {
-    return generateRoute(route.name, 'Random', route.basedOn, route.tags ? { tags: route.tags } : {})
+    return generateRoute(route.name, 'Random', route.basedOn, {
+      ...(route.tags ? { tags: route.tags } : {}),
+      ...(route.img ? { img: route.img } : {}),
+    })
   })
 }

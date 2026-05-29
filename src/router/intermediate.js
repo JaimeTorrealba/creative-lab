@@ -4,10 +4,12 @@ import { TAGS } from '../utils/constants'
 const intermediate_routes = [
   {
     name: 'CheapWater',
-    basedOn: "https://github.com/mqnc/cheapwater/tree/main"
+    basedOn: "https://github.com/mqnc/cheapwater/tree/main",
+    tags: [TAGS.NATURE],
   },
   {
     name: 'FireSprites',
+    tags: [TAGS.NATURE],
   },
   {
     name: 'FollowPath',
@@ -24,8 +26,9 @@ const intermediate_routes = [
     name: 'InfiniteTube',
   },
   {
-    name: 'LightStrike',
-    basedOn: 'https://www.youtube.com/watch?v=fezzkdjHoiI'
+    name: 'Electricity',
+    basedOn: 'https://www.youtube.com/watch?v=fezzkdjHoiI',
+    tags: [TAGS.NATURE],
   },
   {
     name: 'Minecraft',
@@ -57,13 +60,10 @@ const intermediate_routes = [
   },
   {
     name: 'VolumeSmoke',
-    basedOn: 'https://github.com/mrdoob/three.js/blob/master/examples/webgpu_volume_lighting.html'
+    basedOn: 'https://github.com/mrdoob/three.js/blob/master/examples/webgpu_volume_lighting.html',
+    tags: [TAGS.VOLUMETRICS],
   },
-  // {
-  //   name: 'Vfx',
-  //   description: ''
-  // },
-  {
+{
     name: 'Voxel',
     basedOn: 'https://tympanus.net/codrops/2023/03/28/turning-3d-models-to-voxel-art-with-three-js/'
   },
@@ -72,7 +72,8 @@ const intermediate_routes = [
   },
   {
     name: 'ImageParticles',
-    basedOn: 'https://youtu.be/vEaAheMO0bo'
+    basedOn: 'https://youtu.be/vEaAheMO0bo',
+    tags: [TAGS.PARTICLES],
   },
   {
     name: 'ImageReveal',
@@ -80,6 +81,7 @@ const intermediate_routes = [
   },
   {
     name: 'ParallaxMap',
+    tags: [TAGS.FRAGMENT],
   },
     {
     name: 'HtmlMix',
@@ -103,7 +105,7 @@ const intermediate_routes = [
   },
   {
     name: 'Particles',
-    tags: [TAGS.NOC],
+    tags: [TAGS.NOC, TAGS.PARTICLES],
   },
   {
     name: 'Pendulum',
@@ -125,6 +127,6 @@ const intermediate_routes = [
 
 export const intermediate = () => {
   return intermediate_routes.map((route) => {
-    return generateRoute(route.name, 'Intermediate', route.basedOn, route.tag ? route.tags ? { tags: route.tags } : {} : {})
+    return generateRoute(route.name, 'Intermediate', route.basedOn, route.tags ? { tags: route.tags } : {})
   })
 }

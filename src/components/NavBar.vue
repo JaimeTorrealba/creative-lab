@@ -8,6 +8,7 @@ const emit = defineEmits(["searchResult"]);
 const router = useRouter();
 const search = ref("");
 const activeTags = ref(new Set());
+const showUntagged = ref(false)
 
 const allRoutes = computed(() => router.options.routes);
 const filteredRoutes = allRoutes.value.filter(
@@ -24,7 +25,9 @@ const availableTags = computed(() => {
 
 const applyFilters = () => {
   let result = filteredRoutes
-  if (activeTags.value.size > 0) {
+  if (showUntagged.value) {
+    result = result.filter((r) => !r.meta?.tags?.length)
+  } else if (activeTags.value.size > 0) {
     result = result.filter((r) => r.meta?.tags?.some((t) => activeTags.value.has(t)))
   }
   if (search.value) {
@@ -42,6 +45,12 @@ const toggleTag = (tag) => {
   applyFilters()
 }
 
+const toggleUntagged = () => {
+  showUntagged.value = !showUntagged.value
+  if (showUntagged.value) activeTags.value = new Set()
+  applyFilters()
+}
+
 watch(search, () => applyFilters())
 
 onMounted(() => {
@@ -54,6 +63,8 @@ onMounted(() => {
       <input
         class="input is-medium search-input"
         type="text"
+        id="search"
+        name="search"
         placeholder="Search"
         v-model="search"
       />
@@ -66,6 +77,13 @@ onMounted(() => {
           @click="toggleTag(tag)"
         >
           {{ tag }}
+        </span>
+        <span
+          class="tag is-medium is-clickable tag-badge"
+          :class="showUntagged ? 'is-warning' : 'is-dark'"
+          @click="toggleUntagged"
+        >
+          Untagged
         </span>
       </div>
     </div>
@@ -85,7 +103,6 @@ onMounted(() => {
   gap: 1rem;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  flex-wrap: wrap;
 }
 
 .search-input {

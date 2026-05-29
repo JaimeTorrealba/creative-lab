@@ -1,16 +1,20 @@
 ﻿import { generateRoute } from '../utils'
+import { TAGS } from '../utils/constants'
 
 const complex_routes = [
   {
     name: 'Fire',
-    basedOn: 'https://github.com/mattatz/THREE.Fire'
+    basedOn: 'https://github.com/mattatz/THREE.Fire',
+    tags: [TAGS.NATURE],
   },
   {
     name: 'GPGPUFlowField',
-    basedOn: 'https://threejs-journey.com/'
+    basedOn: 'https://threejs-journey.com/',
+    tags: [TAGS.PARTICLES],
   },
   {
     name: 'HeightmapGenerator',
+    tags: [TAGS.NATURE],
   },
   {
     name: 'ShaderStar',
@@ -18,15 +22,17 @@ const complex_routes = [
   },
   {
     name: 'SimonGrass',
+    tags: [TAGS.NATURE],
   },
   {
     name: 'VolumetricSmoke',
+    tags: [TAGS.RAYMARCH, TAGS.VOLUMETRICS],
   },
 
 ]
 
 export const complex = () => {
   return complex_routes.map((route) => {
-    return generateRoute(route.name, 'Complex', route.basedOn)
+    return generateRoute(route.name, 'Complex', route.basedOn, route.tags ? { tags: route.tags } : {})
   })
 }
