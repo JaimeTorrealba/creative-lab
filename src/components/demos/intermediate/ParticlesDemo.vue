@@ -9,7 +9,7 @@
 import { useLoop } from "@tresjs/core";
 import { useWindowSize } from "@vueuse/core";
 import { Vector2 } from "three";
-import { ref, reactive, onMounted, onUnmounted } from "vue";
+import { ref, shallowRef, reactive, onMounted, onUnmounted } from "vue";
 import { Pane } from "tweakpane";
 
 const { width, height } = useWindowSize();
@@ -21,6 +21,14 @@ const params = reactive({
   gravity: 0.2,
 });
 
+const repellerOpts = reactive({
+  visible: true,
+  power: 150,
+  size: 16,
+  posX: 0,
+  posY: 0,
+});
+
 let pane;
 onMounted(() => {
   pane = new Pane({ title: "Particles" });
@@ -28,6 +36,19 @@ onMounted(() => {
   pane.addBinding(params, "speed", { min: 0.1, max: 5, step: 0.1, label: "speed" });
   pane.addBinding(params, "size", { min: 1, max: 30, step: 1, label: "size" });
   pane.addBinding(params, "gravity", { min: 0, max: 1, step: 0.01, label: "gravity" });
+
+  const rf = pane.addFolder({ title: "Repeller" });
+  rf.addBinding(repellerOpts, "visible", { label: "Visible" });
+  rf.addBinding(repellerOpts, "power", { min: 0, max: 500, step: 1, label: "Power" });
+  rf.addBinding(repellerOpts, "size", { min: 14, max: 60, step: 1, label: "Size" });
+  rf.addBinding(repellerOpts, "posX", { min: -960, max: 960, step: 1, label: "X" }).on("change", ({ value }) => {
+    repeller.position.x = width.value / 2 + value;
+    repeller.updateWorldPosition();
+  });
+  rf.addBinding(repellerOpts, "posY", { min: -540, max: 540, step: 1, label: "Y" }).on("change", ({ value }) => {
+    repeller.position.y = height.value / 2 - value;
+    repeller.updateWorldPosition();
+  });
 });
 onUnmounted(() => pane?.dispose());
 
@@ -89,6 +110,51 @@ class Particle {
   }
 }
 
+class Repeller {
+  constructor(x, y) {
+    this.position = new Vector2(x, y)
+    this.worldPosition = new Vector2()
+    this.updateWorldPosition()
+  }
+
+  repel(particle) {
+    const dir = this.position.clone().sub(particle.pos)
+    let distance = dir.length()
+    distance = Math.max(5, Math.min(repellerOpts.size * 3, distance))
+    const strength = repellerOpts.power / (distance * distance)
+    return dir.normalize().multiplyScalar(-strength)
+  }
+
+  collide(particle) {
+    const dx = particle.pos.x - this.position.x
+    const dy = particle.pos.y - this.position.y
+    const dist = Math.sqrt(dx * dx + dy * dy)
+    const minDist = repellerOpts.size + particle.r
+    if (dist < minDist && dist > 0) {
+      const nx = dx / dist
+      const ny = dy / dist
+      particle.pos.x = this.position.x + nx * minDist
+      particle.pos.y = this.position.y + ny * minDist
+      const dot = particle.vel.x * nx + particle.vel.y * ny
+      if (dot < 0) {
+        particle.vel.x -= 2 * dot * nx
+        particle.vel.y -= 2 * dot * ny
+      }
+      particle.updateWorldPosition()
+    }
+  }
+
+  updateWorldPosition() {
+    this.worldPosition.set(
+      this.position.x - width.value / 2,
+      height.value / 2 - this.position.y
+    )
+  }
+}
+
+const repellerRef = shallowRef(null)
+const repeller = new Repeller(width.value / 2, height.value / 2)
+
 const particles = ref([]);
 
 const { onBeforeRender } = useLoop();
@@ -102,7 +168,9 @@ onBeforeRender(() => {
 
   for (const particle of particles.value) {
     particle.applyForce(gravity);
+    if (repellerOpts.visible) particle.applyForce(repeller.repel(particle));
     particle.update();
+    if (repellerOpts.visible) repeller.collide(particle);
   }
 
   for (let i = particles.value.length - 1; i >= 0; i--) {
@@ -110,10 +178,19 @@ onBeforeRender(() => {
       particles.value.splice(i, 1);
     }
   }
+
+  if (repellerRef.value) {
+    repellerRef.value.position.set(repeller.worldPosition.x, repeller.worldPosition.y, 0);
+  }
 });
 </script>
 
 <template>
+  <TresMesh v-if="repellerOpts.visible" ref="repellerRef">
+    <TresSphereGeometry :args="[repellerOpts.size, 16, 16]" />
+    <TresMeshLambertMaterial color="#808080" />
+  </TresMesh>
+
   <TresMesh
     v-for="particle in particles"
     :key="particle.id"
