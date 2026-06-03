@@ -10,7 +10,7 @@ const complex_routes = [
   {
     name: 'GPGPUFlowField',
     basedOn: 'https://threejs-journey.com/',
-    tags: [TAGS.PARTICLES],
+    tags: [TAGS.PARTICLES, TAGS.THREEJS_JOURNEY],
   },
   {
     name: 'HeightmapGenerator',

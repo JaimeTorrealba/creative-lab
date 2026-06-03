@@ -59,6 +59,10 @@ const intermediate_routes = [
     basedOn: 'https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW'
   },
   {
+    name: 'VehicleSteering',
+    tags: [TAGS.NOC],
+  },
+  {
     name: 'VolumeSmoke',
     basedOn: 'https://github.com/mrdoob/three.js/blob/master/examples/webgpu_volume_lighting.html',
     tags: [TAGS.VOLUMETRICS],

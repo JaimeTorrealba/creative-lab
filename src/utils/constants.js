@@ -10,5 +10,6 @@ export const TAGS = Object.freeze({
   RAYMARCH: 'Ray march',
   RAYTRACE: 'Ray tracing',
   VOLUMETRICS: 'Volumetrics',
+  THREEJS_JOURNEY: 'ThreejsJourney',
   WEBGPU: 'WebGPU',
 })

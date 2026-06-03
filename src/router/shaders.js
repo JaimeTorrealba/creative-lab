@@ -19,7 +19,8 @@ const shaders_routes = [
   },
   {
     name: 'CoffeeCup',
-    basedOn: 'https://threejs-journey.com/'
+    basedOn: 'https://threejs-journey.com/',
+    tags: [TAGS.THREEJS_JOURNEY],
   },
   {
     name: 'CustomFog',
@@ -46,7 +47,7 @@ const shaders_routes = [
   },
   {
     name: 'Fireworks',
-    tags: [TAGS.PARTICLES],
+    tags: [TAGS.PARTICLES, TAGS.THREEJS_JOURNEY],
   },
   {
     name: 'Glow',
@@ -61,7 +62,7 @@ const shaders_routes = [
   },
   {
     name: 'MorphingParticles',
-    tags: [TAGS.PARTICLES],
+    tags: [TAGS.PARTICLES, TAGS.THREEJS_JOURNEY],
   },
   {
     name: 'MouseReveal',
@@ -72,10 +73,11 @@ const shaders_routes = [
   },
   {
     name: 'SlicedModel',
+    tags: [TAGS.THREEJS_JOURNEY],
   },
   {
     name: 'TextureParticleCursor',
-    tags: [TAGS.PARTICLES],
+    tags: [TAGS.PARTICLES, TAGS.THREEJS_JOURNEY],
   },
   {
     name: 'Volumetric',
