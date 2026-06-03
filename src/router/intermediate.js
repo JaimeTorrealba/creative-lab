@@ -12,6 +12,11 @@ const intermediate_routes = [
     tags: [TAGS.NATURE],
   },
   {
+    name: 'FlowField',
+    basedOn: 'https://natureofcode.com/autonomous-agents/',
+    tags: [TAGS.NOC],
+  },
+  {
     name: 'FollowPath',
     basedOn: 'https://youtu.be/NH4rSzHLCp4',
   },
@@ -110,6 +115,11 @@ const intermediate_routes = [
   {
     name: 'Particles',
     tags: [TAGS.NOC, TAGS.PARTICLES],
+  },
+  {
+    name: 'PathFollowing',
+    basedOn: 'https://natureofcode.com/autonomous-agents/',
+    tags: [TAGS.NOC],
   },
   {
     name: 'Pendulum',
