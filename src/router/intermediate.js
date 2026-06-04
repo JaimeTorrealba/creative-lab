@@ -64,6 +64,11 @@ const intermediate_routes = [
     basedOn: 'https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW'
   },
   {
+    name: 'VehicleSeparation',
+    basedOn: 'https://natureofcode.com/autonomous-agents/#example-59-separation',
+    tags: [TAGS.NOC],
+  },
+  {
     name: 'VehicleSteering',
     tags: [TAGS.NOC],
   },
