@@ -12,9 +12,9 @@ const complex_routes = [
     basedOn: 'https://threejs-journey.com/',
     tags: [TAGS.PARTICLES, TAGS.THREEJS_JOURNEY],
   },
-  {
-    name: 'GaussianSplat',
-  },
+  // {
+  //   name: 'GaussianSplat',
+  // },
   {
     name: 'HeightmapGenerator',
     tags: [TAGS.NATURE],

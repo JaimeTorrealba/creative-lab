@@ -27,3 +27,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Large assets not tracked in git
+public/splats/
