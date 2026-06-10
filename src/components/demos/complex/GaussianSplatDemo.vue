@@ -13,4 +13,7 @@ splatMesh.value.rotation.x = Math.PI
 <template>
   <primitive :object="spark" />
   <primitive :object="splatMesh" />
+  <TresMesh>
+    <TresSphereGeometry :args="[1, 16]" />
+  </TresMesh>
 </template>
