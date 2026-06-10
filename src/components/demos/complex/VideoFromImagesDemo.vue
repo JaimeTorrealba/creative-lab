@@ -12,12 +12,17 @@ const images = Array.from({ length: 300 }, (_, i) =>
 const progress = ref(0)
 const meshRef = shallowRef()
 const materialRef = shallowRef()
+const loadedCount = ref(0)
+const isLoading = ref(true)
 
 const { width, height } = useWindowSize()
 
 const loader = new TextureLoader()
 const textures = images.map(path => {
-  const t = loader.load(path)
+  const t = loader.load(path, () => {
+    loadedCount.value++
+    if (loadedCount.value === images.length) isLoading.value = false
+  })
   t.colorSpace = SRGBColorSpace
   return t
 })
@@ -39,6 +44,8 @@ onBeforeRender(() => {
   materialRef.value.map = textures[index]
   materialRef.value.needsUpdate = true
 })
+
+defineExpose({ isLoading, loadedCount, total: images.length })
 </script>
 
 <template>
