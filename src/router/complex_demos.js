@@ -28,6 +28,9 @@ const complex_routes = [
     tags: [TAGS.NATURE],
   },
   {
+    name: 'VideoFromImages'
+  },
+  {
     name: 'VolumetricSmoke',
     tags: [TAGS.RAYMARCH, TAGS.VOLUMETRICS],
   },
