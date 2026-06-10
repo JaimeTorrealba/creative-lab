@@ -17,6 +17,9 @@ importers:
       '@jaimebboyjt/tres-fps-controls':
         specifier: ^0.0.55
         version: 0.0.55(@tresjs/core@5.5.0(three@0.182.0)(vue@3.5.27))(three@0.182.0)(vue@3.5.27)
+      '@sparkjsdev/spark':
+        specifier: ^2.1.0
+        version: 2.1.0(three@0.182.0)
       '@three.ez/instanced-mesh':
         specifier: ^0.3.13
         version: 0.3.13(three@0.182.0)
@@ -686,6 +689,11 @@ packages:
 
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
+
+  '@sparkjsdev/spark@2.1.0':
+    resolution: {integrity: sha512-BRw+MuMzx0B3K8fDLQygt2OHEhYUV+41RX7btq9pZ3rCVrq42o57jW34VAIvC7JO/84DJh/1AutACV9ym6BfVg==}
+    peerDependencies:
+      three: '>=0.180.0'
 
   '@three.ez/instanced-mesh@0.3.13':
     resolution: {integrity: sha512-gYG88+ttNbbMlFAScNtN3KLuLGdq3uA387PqaLBmPaq6lBFcQihnhILBDq4aW3CPHF7/c4Usf4yYDjF3E+SjWA==}
@@ -2217,6 +2225,11 @@ snapshots:
   '@rushstack/eslint-patch@1.15.0': {}
 
   '@sinclair/typebox@0.27.8': {}
+
+  '@sparkjsdev/spark@2.1.0(three@0.182.0)':
+    dependencies:
+      fflate: 0.8.2
+      three: 0.182.0
 
   '@three.ez/instanced-mesh@0.3.13(three@0.182.0)':
     dependencies:

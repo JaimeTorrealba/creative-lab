@@ -13,6 +13,9 @@ const complex_routes = [
     tags: [TAGS.PARTICLES, TAGS.THREEJS_JOURNEY],
   },
   {
+    name: 'GaussianSplat',
+  },
+  {
     name: 'HeightmapGenerator',
     tags: [TAGS.NATURE],
   },
