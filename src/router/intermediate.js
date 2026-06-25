@@ -12,11 +12,6 @@ const intermediate_routes = [
     tags: [TAGS.NATURE],
   },
   {
-    name: 'FlowField',
-    basedOn: 'https://natureofcode.com/autonomous-agents/',
-    tags: [TAGS.NOC],
-  },
-  {
     name: 'FollowPath',
     basedOn: 'https://youtu.be/NH4rSzHLCp4',
   },
@@ -64,15 +59,6 @@ const intermediate_routes = [
     basedOn: 'https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW'
   },
   {
-    name: 'VehicleSeparation',
-    basedOn: 'https://natureofcode.com/autonomous-agents/#example-59-separation',
-    tags: [TAGS.NOC],
-  },
-  {
-    name: 'VehicleSteering',
-    tags: [TAGS.NOC],
-  },
-  {
     name: 'VolumeSmoke',
     basedOn: 'https://github.com/mrdoob/three.js/blob/master/examples/webgpu_volume_lighting.html',
     tags: [TAGS.VOLUMETRICS],
@@ -100,47 +86,6 @@ const intermediate_routes = [
     {
     name: 'HtmlMix',
     tags: [TAGS.HTML],
-  },
-  {
-    name: 'Attractor',
-    tags: [TAGS.NOC],
-  },
-  {
-    name: 'Forces',
-    tags: [TAGS.NOC],
-  },
-  {
-    name: 'Mover',
-    tags: [TAGS.NOC],
-  },
-  {
-    name: 'NBody',
-    tags: [TAGS.NOC],
-  },
-  {
-    name: 'Particles',
-    tags: [TAGS.NOC, TAGS.PARTICLES],
-  },
-  {
-    name: 'PathFollowing',
-    basedOn: 'https://natureofcode.com/autonomous-agents/',
-    tags: [TAGS.NOC],
-  },
-  {
-    name: 'Pendulum',
-    tags: [TAGS.NOC],
-  },
-  {
-    name: 'PointingDirectionMotion',
-    tags: [TAGS.NOC],
-  },
-  {
-    name: 'Spring',
-    tags: [TAGS.NOC],
-  },
-  {
-    name: 'Walker',
-    tags: [TAGS.NOC],
   },
 ].sort((a, b) => a.name.localeCompare(b.name))
 

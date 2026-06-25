@@ -8,6 +8,7 @@ import { shaders } from './shaders'
 import { controls_demos } from './controls_demos'
 import { complex } from './complex_demos.js'
 import { random_demos } from './random.js'
+import { noc } from './noc.js'
 import { generateRoute } from '../utils'
 
 //playground is a route
@@ -30,6 +31,7 @@ const router = createRouter({
     ...shaders(),
     ...complex(),
     ...random_demos(),
+    ...noc(),
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ]
 })
