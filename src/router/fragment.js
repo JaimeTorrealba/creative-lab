@@ -34,6 +34,11 @@ const fragment_demos = [
     tags: [TAGS.FRAGMENT],
   },
   {
+    name: 'InteriorPlane',
+    tags: [TAGS.FRAGMENT],
+    basedOn: 'https://github.com/emirhanyener/three-interior-plane',
+  },
+  {
     name: 'RayMarching',
     tags: [TAGS.FRAGMENT, TAGS.RAYMARCH],
   },

@@ -6,7 +6,7 @@ import { SparkRenderer, SplatMesh } from '@sparkjsdev/spark'
 const { renderer } = useTres()
 
 const spark = shallowRef(new SparkRenderer({ renderer }))
-const splatMesh = shallowRef(new SplatMesh({ url: '/splats/San_Jer_nimo_el_Real_Facade.ply' }))
+const splatMesh = shallowRef(new SplatMesh({ url: '/splats/San_Jer_nimo_el_Real_Facade.spz' }))
 splatMesh.value.rotation.x = Math.PI
 </script>
 
