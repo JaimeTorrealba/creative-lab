@@ -3,6 +3,12 @@ import { TAGS } from '../utils/constants'
 
 const Random = [
   {
+    name: 'BabylonScene',
+    description: 'Babylon.js WebGPU scene — PBR ground with textures, a sphere with a custom GLSL shader, and volumetric light scattering (god rays).',
+    tags: [TAGS.RANDOM, TAGS.WEBGPU],
+  },
+
+  {
     name: 'BitonicSort',
     tags: [TAGS.RANDOM],
   },
