@@ -1,5 +1,11 @@
 <script setup>
-import * as THREE from "three";
+import {
+  Color, Scene, PlaneGeometry, MeshBasicMaterial, CustomBlending,
+  ReverseSubtractEquation, SrcAlphaFactor, OneFactor, AddEquation,
+  DoubleSide, RepeatWrapping, WebGLRenderTarget, NoColorSpace,
+  ColorManagement, PMREMGenerator, MeshStandardMaterial, TextureLoader,
+  ObjectSpaceNormalMap, Vector2, Mesh, Object3D,
+} from 'three'
 import { watch } from "vue";
 import { useTres, useLoop } from "@tresjs/core";
 import { useTexture } from "@tresjs/cientos";
@@ -10,23 +16,23 @@ const { renderer, camera, scene: colorScene } = useTres();
 const { width, height } = useWindowSize();
 
 camera.value.up.set(0, 0, 1);
-let normalScene = new THREE.Scene();
-let gray50 = new THREE.Color(0.5, 0.5, 0.5);
+let normalScene = new Scene();
+let gray50 = new Color(0.5, 0.5, 0.5);
 normalScene.background = gray50;
 
-let squareGeometry = new THREE.PlaneGeometry(10, 10);
+let squareGeometry = new PlaneGeometry(10, 10);
 
-let minusMaterial = new THREE.MeshBasicMaterial({
+let minusMaterial = new MeshBasicMaterial({
   color: gray50,
-  blending: THREE.CustomBlending,
-  blendEquation: THREE.ReverseSubtractEquation,
-  blendSrc: THREE.SrcAlphaFactor,
-  blendDst: THREE.OneFactor,
-  blendEquationAlpha: THREE.AddEquation,
+  blending: CustomBlending,
+  blendEquation: ReverseSubtractEquation,
+  blendSrc: SrcAlphaFactor,
+  blendDst: OneFactor,
+  blendEquationAlpha: AddEquation,
   depthTest: false,
   depthWrite: false,
   transparent: true,
-  side: THREE.DoubleSide,
+  side: DoubleSide,
 });
 
 const { state: texture, isLoading } = useTexture("/textures/ripple.png");
@@ -35,50 +41,50 @@ watch(isLoading, (v) => {
   if (!v) {
     plusMaterial.map = texture.value;
     texture.value.flipY = true;
-    texture.value.wrapS = THREE.RepeatWrapping;
-    texture.value.wrapT = THREE.RepeatWrapping;
+    texture.value.wrapS = RepeatWrapping;
+    texture.value.wrapT = RepeatWrapping;
   }
 });
-let plusMaterial = new THREE.MeshBasicMaterial({
+let plusMaterial = new MeshBasicMaterial({
   map: null,
-  blending: THREE.CustomBlending,
-  blendEquation: THREE.AddEquation,
-  blendSrc: THREE.SrcAlphaFactor,
-  blendDst: THREE.OneFactor,
+  blending: CustomBlending,
+  blendEquation: AddEquation,
+  blendSrc: SrcAlphaFactor,
+  blendDst: OneFactor,
   depthTest: false,
   depthWrite: false,
   transparent: true,
-  side: THREE.DoubleSide,
+  side: DoubleSide,
 });
 
-let normalTarget = new THREE.WebGLRenderTarget(width.value, height.value);
-normalTarget.texture.colorSpace = THREE.NoColorSpace;
-normalTarget.texture.wrapS = THREE.RepeatWrapping;
-normalTarget.texture.wrapT = THREE.RepeatWrapping;
+let normalTarget = new WebGLRenderTarget(width.value, height.value);
+normalTarget.texture.colorSpace = NoColorSpace;
+normalTarget.texture.wrapS = RepeatWrapping;
+normalTarget.texture.wrapT = RepeatWrapping;
 let normalTextureUniform = { value: normalTarget.texture };
-THREE.ColorManagement.enabled = true;
+ColorManagement.enabled = true;
 
-const pmremGenerator = new THREE.PMREMGenerator(renderer);
+const pmremGenerator = new PMREMGenerator(renderer);
 pmremGenerator.compileCubemapShader();
 
 /* WATER MATERIAL */
-let waterMaterial = new THREE.MeshStandardMaterial({
+let waterMaterial = new MeshStandardMaterial({
   color: 0x5a75a0,
   metalness: 1,
   roughness: 0.27,
-  normalMap: new THREE.TextureLoader().load("/textures/water_normal.png", (texture) => {
+  normalMap: new TextureLoader().load("/textures/water_normal.png", (texture) => {
     texture.flipY = false;
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
+    texture.wrapS = RepeatWrapping;
+    texture.wrapT = RepeatWrapping;
     texture.repeat.set(10, 10);
   }),
-  normalMapType: THREE.ObjectSpaceNormalMap,
-  side: THREE.DoubleSide,
+  normalMapType: ObjectSpaceNormalMap,
+  side: DoubleSide,
 });
 
 let timeUniform = { value: 0 };
 let resolutionUniform = {
-  value: new THREE.Vector2(width.value, height.value),
+  value: new Vector2(width.value, height.value),
 };
 
 waterMaterial.onBeforeCompile = (shader) => {
@@ -125,7 +131,7 @@ let ripples = [];
 let order = 0;
 
 function makeRipple(x, y, strength) {
-  let minusSquare = new THREE.Mesh(squareGeometry, minusMaterial.clone());
+  let minusSquare = new Mesh(squareGeometry, minusMaterial.clone());
   normalScene.add(minusSquare);
   minusSquare.renderOrder = order++;
   minusSquare.position.set(x, y, 0);
@@ -133,7 +139,7 @@ function makeRipple(x, y, strength) {
   minusSquare.material.opacity = strength;
   minusSquare.rotation.x =  Math.PI * 2;
 
-  let plusSquare = new THREE.Mesh(squareGeometry, plusMaterial.clone());
+  let plusSquare = new Mesh(squareGeometry, plusMaterial.clone());
   normalScene.add(plusSquare);
   plusSquare.renderOrder = order++;
   plusSquare.position.set(x, y, 0);
@@ -162,7 +168,7 @@ function updateRipples(dt) {
 
 let drops = [];
 function makeDrop(x, y, z) {
-  let drop = new THREE.Object3D();
+  let drop = new Object3D();
   drop.position.set(x, y, z);
   drop.userData.vz = 0;
   colorScene.value.add(drop);

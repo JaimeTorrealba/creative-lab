@@ -3,7 +3,7 @@ import { reactive, onUnmounted } from "vue";
 import { useLoop, useTres } from "@tresjs/core";
 import { useTextures } from "@tresjs/cientos";
 import { watchOnce } from "@vueuse/core";
-import * as THREE from "three";
+import { RepeatWrapping, ShaderMaterial, Vector3 } from 'three'
 import { Pane } from "tweakpane";
 import vertex from './vertex.glsl'
 import simpleFragment from './simple_fragment.glsl'
@@ -23,8 +23,8 @@ const { textures, isLoading } = useTextures([
 watchOnce(isLoading, (newVal) => {
   if (!newVal) {
     textures.value.forEach((texture) => {
-      texture.wrapS = THREE.RepeatWrapping;
-      texture.wrapT = THREE.RepeatWrapping;
+      texture.wrapS = RepeatWrapping;
+      texture.wrapT = RepeatWrapping;
       texture.repeat.set(2, 2);
     });
     simpleParallaxMaterial.uniforms.uDiffuseMap.value = textures.value[0];
@@ -45,49 +45,49 @@ watchOnce(isLoading, (newVal) => {
   }
 });
 
-const simpleParallaxMaterial = new THREE.ShaderMaterial({
+const simpleParallaxMaterial = new ShaderMaterial({
   uniforms: {
     uDiffuseMap: { value: null },
     uNormalMap: { value: null },
     uHeightMap: { value: null },
     uHeightScale: { value: 0.1 },
-    uViewPos: { value: new THREE.Vector3() },
+    uViewPos: { value: new Vector3() },
   },
   vertexShader: vertex,
   fragmentShader: simpleFragment,
 });
 
-const steepParallaxMaterial = new THREE.ShaderMaterial({
+const steepParallaxMaterial = new ShaderMaterial({
   uniforms: {
     uDiffuseMap: { value: null },
     uNormalMap: { value: null },
     uHeightMap: { value: null },
     uHeightScale: { value: 0.1 },
-    uViewPos: { value: new THREE.Vector3() },
+    uViewPos: { value: new Vector3() },
   },
   vertexShader: vertex,
   fragmentShader: steepFragment,
 });
 
-const occlusionParallaxMaterial = new THREE.ShaderMaterial({
+const occlusionParallaxMaterial = new ShaderMaterial({
   uniforms: {
     uDiffuseMap: { value: null },
     uNormalMap: { value: null },
     uHeightMap: { value: null },
     uHeightScale: { value: 0.1 },
-    uViewPos: { value: new THREE.Vector3() },
+    uViewPos: { value: new Vector3() },
   },
   vertexShader: vertex,
   fragmentShader: occlusionFragment,
 });
 
-const perPixelParallaxMaterial = new THREE.ShaderMaterial({
+const perPixelParallaxMaterial = new ShaderMaterial({
   uniforms: {
     uDiffuseMap: { value: null },
     uNormalMap: { value: null },
     uHeightMap: { value: null },
     uHeightScale: { value: 0.1 },
-    uViewPos: { value: new THREE.Vector3() },
+    uViewPos: { value: new Vector3() },
   },
   vertexShader: vertex,
   fragmentShader: perPixelFragment,

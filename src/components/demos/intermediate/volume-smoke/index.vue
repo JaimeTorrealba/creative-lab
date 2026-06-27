@@ -1,6 +1,10 @@
 <script setup>
 import { onBeforeUnmount } from 'vue'
-import * as THREE from 'three/webgpu'
+import {
+  Data3DTexture, RedFormat, LinearFilter, RepeatWrapping, NeutralToneMapping,
+  VolumeNodeMaterial, Mesh, BoxGeometry, TorusKnotGeometry, MeshStandardMaterial,
+  DoubleSide, PlaneGeometry, PointLight, SpotLight, PostProcessing, Layers,
+} from 'three/webgpu'
 import {
   vec3,
   Fn,
@@ -39,12 +43,12 @@ function createTexture3D() {
     }
   }
 
-  const tex = new THREE.Data3DTexture(data, size, size, size)
-  tex.format = THREE.RedFormat
-  tex.minFilter = THREE.LinearFilter
-  tex.magFilter = THREE.LinearFilter
-  tex.wrapS = THREE.RepeatWrapping
-  tex.wrapT = THREE.RepeatWrapping
+  const tex = new Data3DTexture(data, size, size, size)
+  tex.format = RedFormat
+  tex.minFilter = LinearFilter
+  tex.magFilter = LinearFilter
+  tex.wrapS = RepeatWrapping
+  tex.wrapT = RepeatWrapping
   tex.unpackAlignment = 1
   tex.needsUpdate = true
   return tex
@@ -54,14 +58,14 @@ function createTexture3D() {
 const { scene, camera, renderer } = useTres()
 
 renderer.shadowMap.enabled = true
-renderer.toneMapping = THREE.NeutralToneMapping
+renderer.toneMapping = NeutralToneMapping
 renderer.toneMappingExposure = 2
 
 // -------------------------------------------------- Volumetric material
 const noiseTexture3D = createTexture3D()
 const smokeAmount = uniform(2)
 
-const volumetricMaterial = new THREE.VolumeNodeMaterial()
+const volumetricMaterial = new VolumeNodeMaterial()
 volumetricMaterial.steps = 12
 volumetricMaterial.offsetNode = bayer16(screenCoordinate)
 volumetricMaterial.scatteringNode = Fn(({ positionRay }) => {
@@ -76,23 +80,23 @@ volumetricMaterial.scatteringNode = Fn(({ positionRay }) => {
 })
 
 // -------------------------------------------------- Scene objects
-const volumetricMesh = new THREE.Mesh(new THREE.BoxGeometry(20, 10, 20), volumetricMaterial)
+const volumetricMesh = new Mesh(new BoxGeometry(20, 10, 20), volumetricMaterial)
 volumetricMesh.receiveShadow = true
 volumetricMesh.position.y = 2
 volumetricMesh.layers.disableAll()
 volumetricMesh.layers.enable(LAYER_VOLUMETRIC)
 scene.value.add(volumetricMesh)
 
-const torusKnot = new THREE.Mesh(
-  new THREE.TorusKnotGeometry(0.8, 0.3, 100, 16),
-  new THREE.MeshStandardMaterial({ color: 0xffffff, side: THREE.DoubleSide }),
+const torusKnot = new Mesh(
+  new TorusKnotGeometry(0.8, 0.3, 100, 16),
+  new MeshStandardMaterial({ color: 0xffffff, side: DoubleSide }),
 )
 torusKnot.castShadow = true
 scene.value.add(torusKnot)
 
-const floor = new THREE.Mesh(
-  new THREE.PlaneGeometry(100, 100),
-  new THREE.MeshStandardMaterial({ color: 0xffffff }),
+const floor = new Mesh(
+  new PlaneGeometry(100, 100),
+  new MeshStandardMaterial({ color: 0xffffff }),
 )
 floor.rotation.x = -Math.PI / 2
 floor.position.y = -3
@@ -100,13 +104,13 @@ floor.receiveShadow = true
 scene.value.add(floor)
 
 // -------------------------------------------------- Lights
-const pointLight = new THREE.PointLight(0xf9bb50, 3, 100)
+const pointLight = new PointLight(0xf9bb50, 3, 100)
 pointLight.castShadow = true
 pointLight.position.set(0, 1.4, 0)
 pointLight.layers.enable(LAYER_VOLUMETRIC)
 scene.value.add(pointLight)
 
-const spotLight = new THREE.SpotLight(0xffffff, 100)
+const spotLight = new SpotLight(0xffffff, 100)
 spotLight.position.set(2.5, 5, 2.5)
 spotLight.angle = Math.PI / 6
 spotLight.penumbra = 1
@@ -123,11 +127,11 @@ spotLight.layers.enable(LAYER_VOLUMETRIC)
 scene.value.add(spotLight)
 
 // -------------------------------------------------- Post-processing
-const postProcessing = new THREE.PostProcessing(renderer)
+const postProcessing = new PostProcessing(renderer)
 
 const volumetricLightingIntensity = uniform(1)
 
-const volumetricLayer = new THREE.Layers()
+const volumetricLayer = new Layers()
 volumetricLayer.disableAll()
 volumetricLayer.enable(LAYER_VOLUMETRIC)
 

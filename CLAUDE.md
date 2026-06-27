@@ -210,6 +210,7 @@ onUnmounted(() => pane?.dispose())
 
 ## Code Style
 
+- Prefer named imports from Three.js: `import { Mesh, BoxGeometry } from 'three'`. Never use `import * as THREE from 'three'`.
 - No semicolons, 2-space indent, single quotes, 100-char line width, no trailing commas (enforced by Prettier).
 - `<script setup>` syntax for all components.
 - Imports from `@/` alias map to `src/`.

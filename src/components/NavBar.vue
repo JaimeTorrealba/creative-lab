@@ -20,7 +20,7 @@ const availableTags = computed(() => {
   filteredRoutes.forEach((r) => {
     r.meta?.tags?.forEach((t) => tags.add(t))
   })
-  return tags
+  return new Set([...tags].sort())
 })
 
 const applyFilters = () => {

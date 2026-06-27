@@ -1,5 +1,5 @@
 <script setup>
-import * as THREE from "three";
+import { PlaneGeometry, MeshBasicMaterial, Mesh, Vector3 } from 'three'
 import { onMounted, onUnmounted, shallowRef, reactive } from "vue";
 import { Pane } from "tweakpane";
 
@@ -16,9 +16,9 @@ const wrapperRef = shallowRef(null);
 
 class Walker {
   constructor() {
-    const planeGeometry = new THREE.PlaneGeometry(1, 1);
-    const planeMaterial = new THREE.MeshBasicMaterial({ color: "#222" });
-    this.mesh = new THREE.Mesh(planeGeometry, planeMaterial);
+    const planeGeometry = new PlaneGeometry(1, 1);
+    const planeMaterial = new MeshBasicMaterial({ color: "#222" });
+    this.mesh = new Mesh(planeGeometry, planeMaterial);
     this.mesh.rotation.set(-Math.PI / 2, 0, 0);
     this.mesh.position.y = 0.1;
   }
@@ -26,7 +26,7 @@ class Walker {
   move() {
     const lastChildren = wrapperRef.value.children;
     const lastMesh = lastChildren.at(-1);
-    const lastPos = lastMesh?.position || new THREE.Vector3(0, 0, 0);
+    const lastPos = lastMesh?.position || new Vector3(0, 0, 0);
 
     // Copy last position to current mesh
     this.mesh.position.copy(lastPos);
