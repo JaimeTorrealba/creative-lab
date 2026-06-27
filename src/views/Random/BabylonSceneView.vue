@@ -25,11 +25,6 @@ onMounted(async () => {
     Effect,
   } = await import('@babylonjs/core')
 
-  // @babylonjs/inspector is a side-effect import — importing it patches the
-  // scene.debugLayer API so show() / hide() become available.
-  // It's large (~2 MB), so we load it lazily only when the component mounts.
-  await import('@babylonjs/inspector')
-
   const el = canvas.value
   if (!el) return
 
@@ -231,23 +226,7 @@ onMounted(async () => {
     sphereMat.setVector3('uCameraPos', camera.position)
   })
 
-  // ─── 8. INSPECTOR ─────────────────────────────────────────────────────────
-  // debugLayer.show() opens the Babylon Inspector panel embedded in the canvas
-  // wrapper. embedMode: true keeps it inside the div instead of a pop-up window.
-  // Press I to toggle it on/off while the demo is running.
-  scene.debugLayer.show({ embedMode: true })
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'i' || e.key === 'I') {
-      if (scene.debugLayer.isVisible()) {
-        scene.debugLayer.hide()
-      } else {
-        scene.debugLayer.show({ embedMode: true })
-      }
-    }
-  })
-
-  // ─── 9. RENDER LOOP ───────────────────────────────────────────────────────
+  // ─── 8. RENDER LOOP ───────────────────────────────────────────────────────
   // runRenderLoop fires at the display refresh rate (typically 60 fps).
   // scene.render() processes the scene graph, runs shaders, and presents the frame.
   engine.runRenderLoop(() => scene.render())
