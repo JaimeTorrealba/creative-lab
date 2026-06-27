@@ -16,6 +16,7 @@ const { camera } = useTres();
 const vertices = reactive([]);
 const faces = reactive([]);
 const facesCentroid = reactive([]);
+const edgesMidpoint = reactive([]);
 
 watch(meshRef, (mesh) => {
   extractFaces(mesh.geometry);
@@ -35,9 +36,33 @@ watch(meshRef, (mesh) => {
     const z = mesh.geometry.attributes.position.getZ(i);
     vertices.push(new Vector3(x, y, z).multiplyScalar(1.1));
   }
+  extractEdges(mergedGeometry);
 });
 
-// Faces 
+// Edges
+const extractEdges = (geometry) => {
+  const positionAttribute = geometry.getAttribute('position')
+  const indexAttribute = geometry.index
+  if (!indexAttribute) return
+  const seen = new Set()
+  const totalFaces = indexAttribute.count / 3
+  for (let i = 0; i < totalFaces; i++) {
+    const i0 = indexAttribute.getX(3 * i)
+    const i1 = indexAttribute.getX(3 * i + 1)
+    const i2 = indexAttribute.getX(3 * i + 2)
+    for (const [a, b] of [[i0, i1], [i1, i2], [i0, i2]]) {
+      const key = `${Math.min(a, b)}_${Math.max(a, b)}`
+      if (!seen.has(key)) {
+        seen.add(key)
+        const va = new Vector3().fromBufferAttribute(positionAttribute, a)
+        const vb = new Vector3().fromBufferAttribute(positionAttribute, b)
+        edgesMidpoint.push(new Vector3().addVectors(va, vb).multiplyScalar(0.5).multiplyScalar(1.1))
+      }
+    }
+  }
+}
+
+// Faces
 const extractFaces = (geometry) => {
         const _face = new Triangle();
         const positionAttribute = geometry.getAttribute('position');
@@ -68,13 +93,15 @@ const extractFaces = (geometry) => {
 
 const pane = new Pane();
 const options = reactive({
-  showLabels: true,
+  showVertexLabels: true,
   showFaceLabels: true,
+  showEdgeLabels: true,
   wireframe: false,
 });
 
-pane.addBinding(options, "showLabels");
+pane.addBinding(options, "showVertexLabels");
 pane.addBinding(options, "showFaceLabels");
+pane.addBinding(options, "showEdgeLabels");
 pane.addBinding(options, "wireframe");
 
 onUnmounted(() => pane?.dispose())
@@ -117,6 +144,18 @@ onBeforeRender(() => {
       :text="`F${index}`"
       :key="index"
       :position="facesCentroid[index]"
+      :font="fontPath"
+      :size="0.15"
+    />
+  </Suspense>
+  <Suspense>
+    <Text3D
+      ref="verticesRef"
+      :visible="options.showEdgeLabels"
+      v-for="(_, index) in edgesMidpoint"
+      :text="`E${index}`"
+      :key="index"
+      :position="edgesMidpoint[index]"
       :font="fontPath"
       :size="0.15"
     />
