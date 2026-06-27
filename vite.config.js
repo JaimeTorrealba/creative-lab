@@ -10,10 +10,18 @@ import { templateCompilerOptions } from '@tresjs/core'
 export default defineConfig({
   plugins: [ vue({
     ...templateCompilerOptions
-  }), glsl()],  
+  }), glsl()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  build: {
+    rollupOptions: {
+      onwarn(warning, handler) {
+        if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return
+        handler(warning)
+      }
     }
   }
 })
