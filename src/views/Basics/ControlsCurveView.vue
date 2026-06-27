@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
-import TheExperience from "@/components/demos/basics/ControlsCurveDemo.vue";
+import TheExperience from "@/components/demos/basics/ControlsCurve.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#111">

@@ -4,7 +4,7 @@ import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
 import { WebGPURenderer } from "three/webgpu";
 import { ACESFilmicToneMapping } from "three";
-import TheExperience from "@/components/demos/intermediate/FireSpritesDemo.vue";
+import TheExperience from "@/components/demos/intermediate/FireSprites.vue";
 
 const createRenderer = (ctx) => {
   const renderer = new WebGPURenderer({

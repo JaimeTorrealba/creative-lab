@@ -1,5 +1,5 @@
 <script setup>
-import GenerativeTreeDemo from "@/components/demos/random/GenerativeTreeDemo.vue";
+import GenerativeTreeDemo from "@/components/demos/random/GenerativeTree.vue";
 </script>
 <template>
   <div class="tree-wrapper">

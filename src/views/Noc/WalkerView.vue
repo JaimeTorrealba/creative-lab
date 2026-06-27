@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { MapControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/noc/WalkerDemo.vue";
+import TheExperience from "@/components/demos/noc/Walker.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#e7e7e7">

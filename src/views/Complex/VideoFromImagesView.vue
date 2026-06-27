@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { TresCanvas } from '@tresjs/core'
-import VideoFromImagesDemo from '@/components/demos/complex/VideoFromImagesDemo.vue'
+import VideoFromImagesDemo from '@/components/demos/complex/VideoFromImages.vue'
 
 const demoRef = ref()
 const isLoading = computed(() => demoRef.value?.isLoading ?? true)

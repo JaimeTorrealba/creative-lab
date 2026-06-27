@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/noc/CellularAutomataDemo.vue'
+import TheExperience from '@/components/demos/noc/CellularAutomata.vue'
 import { computed } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 

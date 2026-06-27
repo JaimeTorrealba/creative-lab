@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas} from '@tresjs/core'
 import { useWindowSize } from '@vueuse/core'
-import TheExperience from '@/components/demos/controls/ThirdPersonDemo.vue'
+import TheExperience from '@/components/demos/controls/ThirdPerson.vue'
 
 const { width, height } = useWindowSize()
 </script>

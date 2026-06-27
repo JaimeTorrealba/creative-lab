@@ -1,7 +1,7 @@
 
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/controls/FourFaceModelDemo.vue'
+import TheExperience from '@/components/demos/controls/FourFaceModel.vue'
 </script>
 <template>
   <TresCanvas window-size clear-color="#333" >

@@ -20,8 +20,8 @@ The user may invoke this as `/new-demo` with optional args like `/new-demo inter
 pnpm new-demo <section> <DemoName>
 ```
 
-3. **Report what was created** — list the three paths the script printed (View, Demo component, router entry).
+3. **Report what was created** — list the three paths the script printed (View, component, router entry).
 
 4. **Remind the user of the two manual steps**:
    - Open the router file (`src/router/<section>.js`) and fill in the `description` field (and optionally `basedOn`) for the new entry.
-   - Drop a GIF thumbnail at `public/gifs/<Section>/<DemoName>.gif`.
+   - Drop a GIF thumbnail at `public/gifs/<Section>/<Name>.gif`.

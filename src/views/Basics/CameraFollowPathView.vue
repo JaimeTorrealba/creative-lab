@@ -1,6 +1,6 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
-import TheExperience from "@/components/demos/basics/CameraFollowPathDemo.vue";
+import TheExperience from "@/components/demos/basics/CameraFollowPath.vue";
 import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
 import { EffectComposerPmndrs, VignettePmndrs, DepthOfFieldPmndrs } from '@tresjs/post-processing'
 

@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { KeyboardControls, Stats } from '@tresjs/cientos'
-import GaussianSplatDemo from '@/components/demos/complex/GaussianSplatDemo.vue'
+import GaussianSplatDemo from '@/components/demos/complex/GaussianSplat.vue'
 </script>
 
 <template>

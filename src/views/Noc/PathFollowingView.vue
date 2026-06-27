@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/noc/PathFollowingDemo.vue";
+import TheExperience from "@/components/demos/noc/PathFollowing.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#111">

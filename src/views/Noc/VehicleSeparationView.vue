@@ -1,7 +1,7 @@
 <script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/noc/VehicleSeparationDemo.vue";
+import TheExperience from "@/components/demos/noc/VehicleSeparation.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#111">

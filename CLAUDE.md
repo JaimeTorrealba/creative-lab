@@ -27,7 +27,7 @@ pnpm build            # production build → dist/
 pnpm preview          # preview production build
 pnpm lint             # ESLint --fix (.vue/.js)
 pnpm format           # Prettier (src/ only)
-pnpm new-demo <section> <DemoName>   # scaffold a new demo (see below)
+pnpm new-demo <section> <Name>        # scaffold a new demo (see below)
 ```
 
 ## Adding a New Demo
@@ -40,7 +40,7 @@ pnpm new-demo basics BouncingBall
 
 This creates three files:
 - `src/views/Basics/BouncingBallView.vue` — canvas wrapper
-- `src/components/demos/basics/BouncingBallDemo.vue` — scene content
+- `src/components/demos/basics/BouncingBall.vue` — scene content
 - Updates `src/router/basic.js` — adds a route metadata entry (alphabetically sorted)
 
 Sections: `basic`, `intermediate`, `shaders`, `complex`, `controls`, `fragment`, `noc`, `random`
@@ -86,7 +86,7 @@ Always name components with two words when required by Vue (exceptions are white
 ```vue
 <script setup>
 import { OrbitControls } from '@tresjs/cientos'
-import BouncingBallDemo from '@/components/demos/basics/bouncing-ball/index.vue'
+import BouncingBall from '@/components/demos/basics/bouncing-ball/index.vue'
 </script>
 
 <template>
@@ -94,7 +94,7 @@ import BouncingBallDemo from '@/components/demos/basics/bouncing-ball/index.vue'
     <TresPerspectiveCamera :position="[5, 5, 5]" />
     <OrbitControls />
     <Suspense>
-      <BouncingBallDemo />
+      <BouncingBall />
     </Suspense>
   </TresCanvas>
 </template>

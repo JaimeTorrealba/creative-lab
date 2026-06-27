@@ -1,7 +1,7 @@
 
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/controls/SnapDragDemo.vue'
+import TheExperience from '@/components/demos/controls/SnapDrag.vue'
 </script>
 <template>
   <TresCanvas window-size clear-color="#111" >

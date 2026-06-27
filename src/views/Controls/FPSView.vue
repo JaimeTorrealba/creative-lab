@@ -1,7 +1,7 @@
 
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import TheExperience from '@/components/demos/controls/FPSDemo.vue'
+import TheExperience from '@/components/demos/controls/FPS.vue'
 </script>
 <template>
   <TresCanvas window-size clear-color="#f7f7f7" >

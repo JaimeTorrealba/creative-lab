@@ -1,5 +1,5 @@
 <script setup>
-import FractureDemo from "@/components/demos/random/FractureDemo.vue";
+import FractureDemo from "@/components/demos/random/Fracture.vue";
 </script>
 <template>
   <div class="fracture-wrapper">

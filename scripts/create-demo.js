@@ -50,14 +50,14 @@ const { router: routerFile, viewFolder, componentFolder } = sectionMap[section];
 // Define paths
 const projectRoot = path.join(__dirname, '..');
 const viewPath = path.join(projectRoot, 'src', 'views', viewFolder, `${pascalName}View.vue`);
-const componentPath = path.join(projectRoot, 'src', 'components', 'demos', componentFolder, `${pascalName}Demo.vue`);
+const componentPath = path.join(projectRoot, 'src', 'components', 'demos', componentFolder, `${pascalName}.vue`);
 const routerPath = path.join(projectRoot, 'src', 'router', routerFile);
 
 // Create View template
 const viewTemplate = `<script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/${componentFolder}/${pascalName}Demo.vue";
+import TheExperience from "@/components/demos/${componentFolder}/${pascalName}.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#111">

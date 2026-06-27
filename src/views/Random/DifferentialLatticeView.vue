@@ -1,5 +1,5 @@
 <script setup>
-import DifferentialLatticeDemo from "@/components/demos/random/DifferentialLatticeDemo.vue";
+import DifferentialLatticeDemo from "@/components/demos/random/DifferentialLattice.vue";
 </script>
 
 <template>
