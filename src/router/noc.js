@@ -13,6 +13,11 @@ const noc_routes = [
     tags: [TAGS.NOC],
   },
   {
+    name: 'GameOfLife',
+    basedOn: 'https://natureofcode.com/cellular-automata/#the-game-of-life',
+    tags: [TAGS.NOC],
+  },
+  {
     name: 'FlowField',
     basedOn: 'https://natureofcode.com/autonomous-agents/',
     tags: [TAGS.NOC],
