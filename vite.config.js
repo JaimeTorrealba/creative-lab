@@ -21,6 +21,13 @@ export default defineConfig({
       onwarn(warning, handler) {
         if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return
         handler(warning)
+      },
+      output: {
+        manualChunks(id) {
+          if (id.includes('@babylonjs')) return 'vendor-babylon'
+          if (id.includes('@sparkjsdev')) return 'vendor-spark'
+          if (id.includes('node_modules/three/') || id.includes('@tresjs')) return 'vendor-three'
+        }
       }
     }
   }
