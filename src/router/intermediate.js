@@ -59,6 +59,11 @@ const intermediate_routes = [
     basedOn: 'https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW'
   },
   {
+    name: 'UberLight',
+    basedOn: 'https://developer.nvidia.com/gpugems/gpugems/part-ii-lighting-and-shadows/chapter-10-cinematic-lighting',
+    tags: [TAGS.GPU_GEMS]
+  },
+  {
     name: 'VolumeSmoke',
     basedOn: 'https://github.com/mrdoob/three.js/blob/master/examples/webgpu_volume_lighting.html',
     tags: [TAGS.VOLUMETRICS],

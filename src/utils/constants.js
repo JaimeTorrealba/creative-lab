@@ -2,6 +2,7 @@ export const TAGS = Object.freeze({
   BASIC: 'Basic',
   CONTROLS: 'Controls',
   FRAGMENT: 'Fragment',
+  GPU_GEMS: 'GPUGems',
   HTML: 'HTML',
   NATURE: 'Nature',
   NOC: 'Nature of code',
