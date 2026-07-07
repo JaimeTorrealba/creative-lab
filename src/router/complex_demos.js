@@ -26,6 +26,11 @@ const complex_routes = [
     tags: [TAGS.NATURE]
   },
   {
+    name: 'JackknifeTransmittanceCloud',
+    basedOn: 'https://momentsingraphics.de/SiggraphAsia2025.html',
+    tags: [TAGS.NATURE]
+  },
+  {
     name: 'ShaderStar',
     basedOn: 'https://www.youtube.com/live/3krH52AhPqk?feature=share'
   },
