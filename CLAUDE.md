@@ -22,13 +22,15 @@ A personal 3D graphics playground built with Vue 3 + TresJS (Three.js wrapper). 
 ## Commands
 
 ```bash
-pnpm dev              # dev server with hot reload (Claude: never run this — see Architecture Notes)
+pnpm dev              # dev server with hot reload
 pnpm build            # production build → dist/
 pnpm preview          # preview production build
 pnpm lint             # ESLint --fix (.vue/.js)
 pnpm format           # Prettier (src/ only)
 pnpm new-demo <section> <Name>        # scaffold a new demo (see below)
 ```
+
+> **Claude: never run dev/build/lint/format/test commands** — the user runs them. See Architecture Notes.
 
 ## Adding a New Demo
 
@@ -203,10 +205,9 @@ onUnmounted(() => pane?.dispose())
 - **Route auto-generation**: `generateRoute()` in `src/utils/routesUtils.js` derives path, image URL, and GitHub source link from a metadata object. Avoid hand-crafting route objects.
 - **Performance**: Use `shallowRef()` for Three.js objects, not `ref()`, to avoid deep reactivity overhead.
 - **Assets**: Models → `public/models/`, textures → `public/textures/{category}/`, thumbnails → `public/gifs/{Section}/`.
-- **Linting**: `pnpm lint` runs ESLint with autofix. `pnpm format` runs Prettier. Run both before committing.
 - **No TypeScript**: The project uses plain `.js` and `.vue` with no tsconfig. Do not introduce TypeScript.
 - **No test suite**: There are no unit or e2e tests. Do not add a test runner.
-- **No dev-server checks**: Never run `pnpm dev`, under any circumstances, even to verify a change works. Import/structure correctness is sufficient.
+- **No command verification**: Never run `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm format`, or any test command — not even to verify a change works. The user runs these themselves. Import/structure correctness is sufficient.
 
 ## Code Style
 
