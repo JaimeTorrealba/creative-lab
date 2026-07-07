@@ -22,23 +22,23 @@ const { state: map } = await useTexture('/textures/Evil Druid.png')
 map.value.magFilter = NearestFilter
 map.value.repeat.set(1 / tilesHorizontal, 1 / tilesVertical)
 
-
 const updateSprites = () => {
-  elapsedTimeGlobal.value = 0;
-  runningTileArrayIndex.value = (runningTileArrayIndex.value + 1) % playSpriteIndicesGlobal.value.length;
-  currentTile.value = playSpriteIndicesGlobal.value[runningTileArrayIndex.value];
-  const offsetX = ((currentTile.value % tilesHorizontal) / tilesHorizontal)
+  elapsedTimeGlobal.value = 0
+  runningTileArrayIndex.value =
+    (runningTileArrayIndex.value + 1) % playSpriteIndicesGlobal.value.length
+  currentTile.value = playSpriteIndicesGlobal.value[runningTileArrayIndex.value]
+  const offsetX = (currentTile.value % tilesHorizontal) / tilesHorizontal
   // const offsetY = (tilesVertical - Math.floor(currentTile / tilesHorizontal) -1 ) / tilesVertical
   map.value.offset.x = offsetX
-   map.value.offset.y = 0.885
+  map.value.offset.y = 0.885
   // map.offset.y = 0.77 // factor of 0.115
 }
 const spritesLoop = (playSpriteIndices, totalDuration) => {
   playSpriteIndicesGlobal.value = playSpriteIndices
-  runningTileArrayIndex.value = 0;
-  currentTile.value = playSpriteIndicesGlobal.value[runningTileArrayIndex.value];
-  maxDisplayTime.value = totalDuration / playSpriteIndicesGlobal.value.length;
-  elapsedTimeGlobal.value = maxDisplayTime.value; // force to play new animation
+  runningTileArrayIndex.value = 0
+  currentTile.value = playSpriteIndicesGlobal.value[runningTileArrayIndex.value]
+  maxDisplayTime.value = totalDuration / playSpriteIndicesGlobal.value.length
+  elapsedTimeGlobal.value = maxDisplayTime.value // force to play new animation
 }
 spritesLoop([0, 1, 2, 3, 4, 5], 0.65)
 
@@ -71,7 +71,7 @@ const getOffset = () => {
     if (a.value) {
       directionOffset = Math.PI / 4 // w+a
     } else if (d.value) {
-      directionOffset = - Math.PI / 4 // w+d
+      directionOffset = -Math.PI / 4 // w+d
     }
   } else if (s.value) {
     if (a.value) {
@@ -84,7 +84,7 @@ const getOffset = () => {
   } else if (a.value) {
     directionOffset = Math.PI / 2 // a
   } else if (d.value) {
-    directionOffset = - Math.PI / 2 // d
+    directionOffset = -Math.PI / 2 // d
   }
 
   return directionOffset
@@ -111,16 +111,21 @@ onBeforeRender(({ delta }) => {
   if (camera.value && orbitControlsRef.value && hasPressed.value) {
     updateCamera(camera.value, delta)
   }
-
 })
 </script>
 <template>
-    <OrbitControls enableDamping :enable-pan="false" :min-distance="5" :max-distance="15"
-        :max-polar-angle="Math.PI / 2 - 0.05" ref="orbitControlsRef" />
-    <TresSprite ref="spriteRef" :scale="2">
-        <TresSpriteMaterial :map="map" />
-    </TresSprite>
-    <TresGridHelper position-y="-1" :size="50" :divisions="50" />
-    <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
-    <TresAmbientLight />
+  <OrbitControls
+    enableDamping
+    :enable-pan="false"
+    :min-distance="5"
+    :max-distance="15"
+    :max-polar-angle="Math.PI / 2 - 0.05"
+    ref="orbitControlsRef"
+  />
+  <TresSprite ref="spriteRef" :scale="2">
+    <TresSpriteMaterial :map="map" />
+  </TresSprite>
+  <TresGridHelper position-y="-1" :size="50" :divisions="50" />
+  <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
+  <TresAmbientLight />
 </template>

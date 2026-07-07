@@ -69,21 +69,23 @@ onMounted(async () => {
     fragment: {
       module: device.createShaderModule({ code: fragmentWGSL }),
       entryPoint: 'main',
-      targets: [{ format }],
+      targets: [{ format }]
     },
-    primitive: { topology: 'triangle-list' },
+    primitive: { topology: 'triangle-list' }
   })
 
   const draw = () => {
     const encoder = device.createCommandEncoder()
     const view = context.getCurrentTexture().createView()
     const pass = encoder.beginRenderPass({
-      colorAttachments: [{
-        view,
-        clearValue: { r: 0.07, g: 0.07, b: 0.07, a: 1.0 },
-        loadOp: 'clear',
-        storeOp: 'store',
-      }],
+      colorAttachments: [
+        {
+          view,
+          clearValue: { r: 0.07, g: 0.07, b: 0.07, a: 1.0 },
+          loadOp: 'clear',
+          storeOp: 'store'
+        }
+      ]
     })
     pass.setPipeline(pipeline)
     pass.draw(3, 1, 0, 0)
@@ -107,8 +109,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div style="width:100%;height:100vh;background:#111;">
-    <canvas ref="canvas" style="display:block;width:100%;height:100%;"></canvas>
+  <div style="width: 100%; height: 100vh; background: #111">
+    <canvas ref="canvas" style="display: block; width: 100%; height: 100%"></canvas>
   </div>
-  
 </template>

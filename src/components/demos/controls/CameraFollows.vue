@@ -21,12 +21,12 @@ watchOnce(isLoading, (v) => {
 //constants
 const fadeDuration = 0.3
 
-const decceleration = new Vector3(-0.0005, -0.0001, -5.0);
-const acceleration = new Vector3(1, 0.25, 50.0);
-const velocity = new Vector3(0, 0, 0);
+const decceleration = new Vector3(-0.0005, -0.0001, -5.0)
+const acceleration = new Vector3(1, 0.25, 50.0)
+const velocity = new Vector3(0, 0, 0)
 
 // template ref
-const { camera} = useTres()
+const { camera } = useTres()
 
 const currentAction = ref(null)
 
@@ -61,94 +61,92 @@ document.addEventListener('click', () => {
   changeAnimation(actions.SwordAndShieldSlash)
 })
 
-
 const onMovement = (delta) => {
   const frameDecceleration = new Vector3(
     velocity.x * decceleration.x,
     velocity.y * decceleration.y,
     velocity.z * decceleration.z
-  );
-  frameDecceleration.multiplyScalar(delta);
-  frameDecceleration.z = Math.sign(frameDecceleration.z) * Math.min(
-    Math.abs(frameDecceleration.z), Math.abs(velocity.z));
+  )
+  frameDecceleration.multiplyScalar(delta)
+  frameDecceleration.z =
+    Math.sign(frameDecceleration.z) * Math.min(Math.abs(frameDecceleration.z), Math.abs(velocity.z))
 
-  velocity.add(frameDecceleration);
+  velocity.add(frameDecceleration)
 
-  const controlObject = model.value;
-  const _Q = new Quaternion();
-  const _A = new Vector3();
-  const _R = controlObject.quaternion.clone();
-  const acc = acceleration.clone();
+  const controlObject = model.value
+  const _Q = new Quaternion()
+  const _A = new Vector3()
+  const _R = controlObject.quaternion.clone()
+  const acc = acceleration.clone()
   if (w.value) {
-    velocity.z += acc.z * delta;
+    velocity.z += acc.z * delta
   }
   if (s.value) {
-    velocity.z -= acc.z * delta;
+    velocity.z -= acc.z * delta
   }
   if (a.value) {
-    _A.set(0, 1, 0);
-    _Q.setFromAxisAngle(_A, 4.0 * Math.PI * delta * acceleration.y);
-    _R.multiply(_Q);
+    _A.set(0, 1, 0)
+    _Q.setFromAxisAngle(_A, 4.0 * Math.PI * delta * acceleration.y)
+    _R.multiply(_Q)
   }
   if (d.value) {
-    _A.set(0, 1, 0);
-    _Q.setFromAxisAngle(_A, 4.0 * -Math.PI * delta * acceleration.y);
-    _R.multiply(_Q);
+    _A.set(0, 1, 0)
+    _Q.setFromAxisAngle(_A, 4.0 * -Math.PI * delta * acceleration.y)
+    _R.multiply(_Q)
   }
 
-  controlObject.quaternion.copy(_R);
+  controlObject.quaternion.copy(_R)
 
-  const oldPosition = new Vector3();
-  oldPosition.copy(controlObject.position);
+  const oldPosition = new Vector3()
+  oldPosition.copy(controlObject.position)
 
-  const forward = new Vector3(0, 0, 1);
-  forward.applyQuaternion(controlObject.quaternion);
-  forward.normalize();
+  const forward = new Vector3(0, 0, 1)
+  forward.applyQuaternion(controlObject.quaternion)
+  forward.normalize()
 
-  const sideways = new Vector3(1, 0, 0);
-  sideways.applyQuaternion(controlObject.quaternion);
-  sideways.normalize();
+  const sideways = new Vector3(1, 0, 0)
+  sideways.applyQuaternion(controlObject.quaternion)
+  sideways.normalize()
 
-  sideways.multiplyScalar(velocity.x * delta);
-  forward.multiplyScalar(velocity.z * delta);
+  sideways.multiplyScalar(velocity.x * delta)
+  forward.multiplyScalar(velocity.z * delta)
 
-  controlObject.position.add(forward);
-  controlObject.position.add(sideways);
+  controlObject.position.add(forward)
+  controlObject.position.add(sideways)
 
-  oldPosition.copy(controlObject.position);
-
+  oldPosition.copy(controlObject.position)
 }
 
 //CAMERA
-const currentPosition = new Vector3();
-const currentLookat = new Vector3();
+const currentPosition = new Vector3()
+const currentLookat = new Vector3()
 
 const calculateIdealOffset = (model3D) => {
-  const idealOffset = new Vector3(0, 2.5, -10);
-  idealOffset.applyQuaternion(model3D.quaternion);
-  idealOffset.add(model3D.position);
-  return idealOffset;
+  const idealOffset = new Vector3(0, 2.5, -10)
+  idealOffset.applyQuaternion(model3D.quaternion)
+  idealOffset.add(model3D.position)
+  return idealOffset
 }
 
 const calculateIdealLookat = (model3D) => {
-  const idealLookat = new Vector3(0, 0, 0);
-  idealLookat.applyQuaternion(model3D.quaternion);
-  idealLookat.add(model3D.position);
-  return idealLookat;
+  const idealLookat = new Vector3(0, 0, 0)
+  idealLookat.applyQuaternion(model3D.quaternion)
+  idealLookat.add(model3D.position)
+  return idealLookat
 }
 const thirdPersonCamera = (elapsed, model3D, camera) => {
-  const idealOffset = calculateIdealOffset(model3D);
-  const idealLookat = calculateIdealLookat(model3D);
+  const idealOffset = calculateIdealOffset(model3D)
+  const idealLookat = calculateIdealLookat(model3D)
 
   // const t = 0.05;
   // const t = 4.0 * timeElapsed;
-  const t = 1.0 - Math.pow(0.001, elapsed);
+  const t = 1.0 - Math.pow(0.001, elapsed)
 
-  currentPosition.lerp(idealOffset, t);
-  currentLookat.lerp(idealLookat, t);
+  currentPosition.lerp(idealOffset, t)
+  currentLookat.lerp(idealLookat, t)
 
-  camera.position.copy(currentPosition);
-  camera.lookAt(currentLookat);
+  camera.position.copy(currentPosition)
+  camera.lookAt(currentLookat)
 }
 const { onBeforeRender } = useLoop()
 
@@ -159,11 +157,10 @@ onBeforeRender(({ delta, elapsed }) => {
     thirdPersonCamera(elapsed, model.value, camera.value)
   }
 })
-  
 </script>
 <template>
-    <primitive v-if="model" :object="model" />
-    <TresGridHelper :size="100" :divisions="100" />
-    <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
-    <TresAmbientLight />
+  <primitive v-if="model" :object="model" />
+  <TresGridHelper :size="100" :divisions="100" />
+  <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
+  <TresAmbientLight />
 </template>

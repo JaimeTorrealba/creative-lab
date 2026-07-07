@@ -66,11 +66,7 @@ onMounted(() => {
   gl.useProgram(program)
 
   // Triangle positions (clip space)
-  const positions = new Float32Array([
-    0.0, 0.6,
-    -0.6, -0.6,
-    0.6, -0.6,
-  ])
+  const positions = new Float32Array([0.0, 0.6, -0.6, -0.6, 0.6, -0.6])
 
   const positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
@@ -102,8 +98,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div style="width:100%;height:100vh;background:#111;">
-    <canvas ref="canvas" style="display:block;width:100%;height:100%;"></canvas>
+  <div style="width: 100%; height: 100vh; background: #111">
+    <canvas ref="canvas" style="display: block; width: 100%; height: 100%"></canvas>
   </div>
-  
 </template>

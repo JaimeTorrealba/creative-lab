@@ -1,35 +1,35 @@
 <script setup>
-import { useLoop } from "@tresjs/core";
-import { Ocean, useTexture } from "@tresjs/cientos";
-import vertex from "./vertex.glsl";
-import fragment from "./fragment.glsl";
-import { Color } from "three";
-import { watchOnce } from "@vueuse/core";
+import { useLoop } from '@tresjs/core'
+import { Ocean, useTexture } from '@tresjs/cientos'
+import vertex from './vertex.glsl'
+import fragment from './fragment.glsl'
+import { Color } from 'three'
+import { watchOnce } from '@vueuse/core'
 
 const { state: texture, isLoading } = useTexture(
-  "/textures/floor_textures/Ground_Wet_002_basecolor.jpg"
-);
+  '/textures/floor_textures/Ground_Wet_002_basecolor.jpg'
+)
 
 watchOnce(isLoading, (value) => {
   if (!value) {
-    shader.uniforms.uTexture.value = texture.value;
+    shader.uniforms.uTexture.value = texture.value
   }
-});
+})
 
 const shader = {
   uniforms: {
     uTime: { value: 0 },
     uTexture: { value: null },
-    uColor: { value: new Color(0xffffff) },
+    uColor: { value: new Color(0xffffff) }
   },
   vertexShader: vertex,
-  fragmentShader: fragment,
-};
-const { onBeforeRender } = useLoop();
+  fragmentShader: fragment
+}
+const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ elapsed }) => {
-  shader.uniforms.uTime.value = elapsed;
-});
+  shader.uniforms.uTime.value = elapsed
+})
 </script>
 <template>
   <Ocean />

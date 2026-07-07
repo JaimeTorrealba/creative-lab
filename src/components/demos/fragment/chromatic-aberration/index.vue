@@ -9,9 +9,9 @@ import fragment from './fragment.glsl'
 const { state: texture, isLoading } = useTexture('/images/photo_slider1.jpg')
 
 watchOnce(isLoading, (value) => {
-    if (!value) {
-        shader.uniforms.difftexture.value = texture.value;
-    }
+  if (!value) {
+    shader.uniforms.difftexture.value = texture.value
+  }
 })
 
 const sliderRef = ref(null)
@@ -37,14 +37,10 @@ const shader = {
   fragmentShader: fragment
 }
 
-
 //debugs
-pane.addBinding(shader.uniforms.red, 'value',
- { min: 0, max: 0.1, label: 'red' })
-pane.addBinding(shader.uniforms.blue, 'value',
- { min: 0, max: 0.1, label: 'blue' })
-pane.addBinding(shader.uniforms.green, 'value',
- { min: 0, max: 0.1, label: 'green' })
+pane.addBinding(shader.uniforms.red, 'value', { min: 0, max: 0.1, label: 'red' })
+pane.addBinding(shader.uniforms.blue, 'value', { min: 0, max: 0.1, label: 'blue' })
+pane.addBinding(shader.uniforms.green, 'value', { min: 0, max: 0.1, label: 'green' })
 
 onUnmounted(() => pane?.dispose())
 
@@ -64,12 +60,11 @@ const resize = () => {
     a2 = height.value / width.value / imageAspect
   }
 
-  sliderRef.value.material.uniforms.resolution.value.x = width.value;
-  sliderRef.value.material.uniforms.resolution.value.y = height.value;
-  sliderRef.value.material.uniforms.resolution.value.z = a1;
-  sliderRef.value.material.uniforms.resolution.value.w = a2;
+  sliderRef.value.material.uniforms.resolution.value.x = width.value
+  sliderRef.value.material.uniforms.resolution.value.y = height.value
+  sliderRef.value.material.uniforms.resolution.value.z = a1
+  sliderRef.value.material.uniforms.resolution.value.w = a2
 }
-
 </script>
 <template>
   <TresMesh ref="sliderRef">

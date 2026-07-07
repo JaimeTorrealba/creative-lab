@@ -1,5 +1,5 @@
 <script setup>
-import { TresCanvas} from '@tresjs/core'
+import { TresCanvas } from '@tresjs/core'
 import { useWindowSize } from '@vueuse/core'
 import TheExperience from '@/components/demos/controls/ThirdPerson.vue'
 

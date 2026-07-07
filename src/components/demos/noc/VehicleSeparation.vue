@@ -11,7 +11,7 @@ const { x: mouseX, y: mouseY } = useMouse()
 const options = reactive({
   maxspeed: 4,
   maxforce: 0.15,
-  separationFactor: 2,
+  separationFactor: 2
 })
 
 // ── Vehicle ───────────────────────────────────────────────────────────────────
@@ -79,10 +79,7 @@ class Vehicle {
   }
 
   updateWorldPosition() {
-    this.worldPosition.set(
-      this.position.x - width.value / 2,
-      height.value / 2 - this.position.y
-    )
+    this.worldPosition.set(this.position.x - width.value / 2, height.value / 2 - this.position.y)
   }
 }
 
@@ -102,7 +99,12 @@ const vehicles = Array.from({ length: COUNT }, () => new Vehicle())
 const pane = new Pane()
 pane.addBinding(options, 'maxspeed', { min: 1, max: 10, step: 0.1, label: 'Max Speed' })
 pane.addBinding(options, 'maxforce', { min: 0.01, max: 0.5, step: 0.01, label: 'Max Force' })
-pane.addBinding(options, 'separationFactor', { min: 1, max: 5, step: 0.1, label: 'Separation Radius' })
+pane.addBinding(options, 'separationFactor', {
+  min: 1,
+  max: 5,
+  step: 0.1,
+  label: 'Separation Radius'
+})
 
 onUnmounted(() => pane?.dispose())
 

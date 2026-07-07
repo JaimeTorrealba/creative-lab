@@ -7,8 +7,8 @@ const shader = {
   vertexShader: Vertex,
   fragmentShader: Fragment,
   uniforms: {
-    uTime: { value: 0 },
-  },
+    uTime: { value: 0 }
+  }
 }
 const { onBeforeRender } = useLoop()
 
@@ -17,8 +17,8 @@ onBeforeRender(() => {
 })
 </script>
 <template>
-    <TresMesh :scale="2" :position="[0.5, 0.5, 0]" cast-shadow>
-        <TresSphereGeometry :args="[1, 30, 30]" />
-        <TresShaderMaterial v-bind="shader" />
-      </TresMesh>
+  <TresMesh :scale="2" :position="[0.5, 0.5, 0]" cast-shadow>
+    <TresSphereGeometry :args="[1, 30, 30]" />
+    <TresShaderMaterial v-bind="shader" />
+  </TresMesh>
 </template>

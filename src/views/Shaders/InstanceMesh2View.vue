@@ -5,7 +5,6 @@ import { MapControls } from '@tresjs/cientos'
 import TheExperience from '@/components/demos/shaders/instance-mesh-2/index.vue'
 
 // const { width, height } = useWindowSize()
-
 </script>
 <template>
   <TresCanvas window-size clear-color="#333">

@@ -26,7 +26,7 @@ const shader = {
     uHover: { value: new Vector2(0.5, 0.5) },
     uResolution: { value: new Vector2(width.value, height.value) }
   },
-  transparent: true,
+  transparent: true
 }
 
 watch([width, height], () => {
@@ -39,12 +39,12 @@ onBeforeRender(({ elapsed }) => {
 })
 
 const updateUniforms = (ev) => {
-   ev.object.material.uniforms.uHover.value = ev.uv
- }
+  ev.object.material.uniforms.uHover.value = ev.uv
+}
 </script>
 <template>
-    <TresMesh @pointer-move="(ev) => updateUniforms(ev)">
-        <TresPlaneGeometry :args="[4, 4]" />
-        <TresShaderMaterial v-bind="shader" />
-      </TresMesh>
+  <TresMesh @pointer-move="(ev) => updateUniforms(ev)">
+    <TresPlaneGeometry :args="[4, 4]" />
+    <TresShaderMaterial v-bind="shader" />
+  </TresMesh>
 </template>

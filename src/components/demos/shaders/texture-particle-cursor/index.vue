@@ -1,11 +1,19 @@
 <script setup>
-import { Vector2, Uniform, ShaderMaterial, PlaneGeometry, DoubleSide, CanvasTexture, BufferAttribute } from 'three';
+import {
+  Vector2,
+  Uniform,
+  ShaderMaterial,
+  PlaneGeometry,
+  DoubleSide,
+  CanvasTexture,
+  BufferAttribute
+} from 'three'
 import { computed, watch, shallowRef } from 'vue'
 import { useLoop, useTres } from '@tresjs/core'
 import { useTexture } from '@tresjs/cientos'
-import { useDevicePixelRatio,  } from '@vueuse/core';
-import vertexShader from './vertex.glsl';
-import fragmentShader from './fragment.glsl';
+import { useDevicePixelRatio } from '@vueuse/core'
+import vertexShader from './vertex.glsl'
+import fragmentShader from './fragment.glsl'
 
 const { state: texture, isLoading } = useTexture('/images/image_particles.jpg')
 
@@ -21,10 +29,12 @@ const displacement = {
   screenCursor: null,
   canvasCursor: null,
   canvasPreviousCursor: null,
-  texture: null,
+  texture: null
 }
 
-const canRender = computed(() => !isLoading.value && sizes.width.value > 0 && sizes.height.value > 0)
+const canRender = computed(
+  () => !isLoading.value && sizes.width.value > 0 && sizes.height.value > 0
+)
 
 // 2D Canvas
 
@@ -70,14 +80,17 @@ const onMouseMove = (event) => {
 
   const uv = intersection?.uv
   if (uv && displacement.canvas) {
-    displacement.canvasCursor.set(uv.x * displacement.canvas.width, (1 - uv.y) * displacement.canvas.height)
+    displacement.canvasCursor.set(
+      uv.x * displacement.canvas.width,
+      (1 - uv.y) * displacement.canvas.height
+    )
   }
 }
 
 displacement.texture = new CanvasTexture(displacement.canvas)
 
 /** Particles */
-const particlesGeometry = new PlaneGeometry(10,10,128,128)
+const particlesGeometry = new PlaneGeometry(10, 10, 128, 128)
 // Performance tweak
 particlesGeometry.setIndex(null)
 particlesGeometry.deleteAttribute('normal')
@@ -99,8 +112,8 @@ const particlesMaterial = new ShaderMaterial({
     uResolution: new Uniform(new Vector2(1, 1)),
     uTime: new Uniform(0),
     uPictureTexture: new Uniform(texture),
-    uDisplacementTexture: new Uniform(displacement.texture),
-  },
+    uDisplacementTexture: new Uniform(displacement.texture)
+  }
 })
 
 watch(texture, (newTexture) => {
@@ -110,21 +123,25 @@ watch(texture, (newTexture) => {
   }
 })
 
-
-watch(sizes.height, () => {
-  if (sizes.width.value > 0 && sizes.height.value > 0) {
-    particlesMaterial.uniforms.uResolution.value = new Vector2(sizes.width.value * pixelRatio.value, sizes.height.value * pixelRatio.value)
-  }
-}, { immediate: true })
-
-
+watch(
+  sizes.height,
+  () => {
+    if (sizes.width.value > 0 && sizes.height.value > 0) {
+      particlesMaterial.uniforms.uResolution.value = new Vector2(
+        sizes.width.value * pixelRatio.value,
+        sizes.height.value * pixelRatio.value
+      )
+    }
+  },
+  { immediate: true }
+)
 
 // Tick
 
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ elapsed }) => {
-  particlesMaterial.uniforms.uTime.value = elapsed 
+  particlesMaterial.uniforms.uTime.value = elapsed
 
   if (displacement.canvas && displacement.context && displacement.glowImage) {
     displacement.context.globalCompositeOperation = 'source-over'
@@ -144,12 +161,12 @@ onBeforeRender(({ elapsed }) => {
       displacement.glowImage,
       displacement.canvasCursor.x - glowSize * 0.5,
       displacement.canvasCursor.y - glowSize * 0.5,
-      glowSize, glowSize,
+      glowSize,
+      glowSize
     )
   }
   displacement.texture.needsUpdate = true
 })
-
 </script>
 <template>
   <TresPoints v-if="canRender" :geometry="particlesGeometry" :material="particlesMaterial" />

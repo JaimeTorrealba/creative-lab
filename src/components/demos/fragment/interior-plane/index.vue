@@ -40,14 +40,14 @@ const uniforms = {
 
   uFrontWallTexture: { value: null },
   uFrontWallHasTexture: { value: false },
-  uFrontWallTextureEnabled: { value: false },
+  uFrontWallTextureEnabled: { value: false }
 }
 
 const { textures, isLoading } = useTextures([
   '/textures/interior_plane/back.png',
   '/textures/interior_plane/wall.png',
   '/textures/interior_plane/ceiling.png',
-  '/textures/interior_plane/floor.png',
+  '/textures/interior_plane/floor.png'
 ])
 
 watchOnce(isLoading, (v) => {
@@ -79,7 +79,7 @@ const params = {
   depth: 1.5,
   rows: 1,
   cols: 1,
-  shadow: 0.5,
+  shadow: 0.5
 }
 
 let pane
@@ -87,17 +87,29 @@ let pane
 onMounted(() => {
   pane = new Pane({ title: 'Interior Plane' })
 
-  pane.addBinding(params, 'depth', { min: 0.1, max: 5, step: 0.01, label: 'Depth' })
-    .on('change', ({ value }) => { uniforms.uInteriorDepth.value = value })
+  pane
+    .addBinding(params, 'depth', { min: 0.1, max: 5, step: 0.01, label: 'Depth' })
+    .on('change', ({ value }) => {
+      uniforms.uInteriorDepth.value = value
+    })
 
-  pane.addBinding(params, 'rows', { min: 1, max: 6, step: 1, label: 'Rows' })
-    .on('change', ({ value }) => { uniforms.uInteriorRowCount.value = value })
+  pane
+    .addBinding(params, 'rows', { min: 1, max: 6, step: 1, label: 'Rows' })
+    .on('change', ({ value }) => {
+      uniforms.uInteriorRowCount.value = value
+    })
 
-  pane.addBinding(params, 'cols', { min: 1, max: 6, step: 1, label: 'Cols' })
-    .on('change', ({ value }) => { uniforms.uInteriorColCount.value = value })
+  pane
+    .addBinding(params, 'cols', { min: 1, max: 6, step: 1, label: 'Cols' })
+    .on('change', ({ value }) => {
+      uniforms.uInteriorColCount.value = value
+    })
 
-  pane.addBinding(params, 'shadow', { min: 0, max: 1, step: 0.01, label: 'Shadow' })
-    .on('change', ({ value }) => { uniforms.uShadowIntensity.value = value })
+  pane
+    .addBinding(params, 'shadow', { min: 0, max: 1, step: 0.01, label: 'Shadow' })
+    .on('change', ({ value }) => {
+      uniforms.uShadowIntensity.value = value
+    })
 })
 
 onUnmounted(() => pane?.dispose())
@@ -106,10 +118,6 @@ onUnmounted(() => pane?.dispose())
 <template>
   <TresMesh :scale="[2, 2, 1]">
     <TresPlaneGeometry :args="[1, 1]" />
-    <TresShaderMaterial
-      :vertex-shader="vertex"
-      :fragment-shader="fragment"
-      :uniforms="uniforms"
-    />
+    <TresShaderMaterial :vertex-shader="vertex" :fragment-shader="fragment" :uniforms="uniforms" />
   </TresMesh>
 </template>

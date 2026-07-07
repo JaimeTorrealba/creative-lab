@@ -14,7 +14,7 @@ import {
   DoubleSide,
   InstancedMesh,
   PCFShadowMap,
-  PCFSoftShadowMap,
+  PCFSoftShadowMap
 } from 'three'
 import { ImprovedNoise } from 'three/addons/math/ImprovedNoise.js'
 import noise from './noise.glsl'
@@ -26,7 +26,7 @@ class HeightFog {
   constructor(scene, options = {}) {
     this.scene = scene
     this.radius = options.radius ?? 500.0
-    this.color = new Color(options.color ?? 0xE3EAF2)
+    this.color = new Color(options.color ?? 0xe3eaf2)
     this.fogTop = options.fogTop ?? 4.0
     this.fogDepth = options.fogDepth ?? 6.0
     this.opacity = options.opacity ?? 0.8
@@ -123,18 +123,42 @@ class HeightFog {
     }
   }
 
-  setRadius(v) { this.radius = v }
-  setFogTop(v){ this.fogTop = v }
-  setFogDepth(v){ this.fogDepth = v }
-  setColor(c){ this.color.set(c) }
-  setOpacity(v){ this.opacity = v }
-  setExponent(v){ this.exponent = v }
-  setNoiseScale(v){ this.noiseScale = v }
-  setNoiseStrength(v){ this.noiseStrength = v }
-  setNoiseOctaves(v){ this.noiseOctaves = Math.max(1, Math.min(8, Math.floor(v))) }
-  setWind(dirX, dirZ){ this.windDir.set(dirX, dirZ).normalize() }
-  setWindSpeed(v){ this.windSpeed = v }
-  setVerticalBillow(v){ this.verticalBillow = v }
+  setRadius(v) {
+    this.radius = v
+  }
+  setFogTop(v) {
+    this.fogTop = v
+  }
+  setFogDepth(v) {
+    this.fogDepth = v
+  }
+  setColor(c) {
+    this.color.set(c)
+  }
+  setOpacity(v) {
+    this.opacity = v
+  }
+  setExponent(v) {
+    this.exponent = v
+  }
+  setNoiseScale(v) {
+    this.noiseScale = v
+  }
+  setNoiseStrength(v) {
+    this.noiseStrength = v
+  }
+  setNoiseOctaves(v) {
+    this.noiseOctaves = Math.max(1, Math.min(8, Math.floor(v)))
+  }
+  setWind(dirX, dirZ) {
+    this.windDir.set(dirX, dirZ).normalize()
+  }
+  setWindSpeed(v) {
+    this.windSpeed = v
+  }
+  setVerticalBillow(v) {
+    this.verticalBillow = v
+  }
 }
 
 /* ---------- Tres setup ---------- */
@@ -142,7 +166,9 @@ const { scene, renderer } = useTres()
 const sunRef = shallowRef()
 
 // Terrain
-const SIZE = 200, SEG = 200, TERR_SCALE = 1.5
+const SIZE = 200,
+  SEG = 200,
+  TERR_SCALE = 1.5
 const inNoise = new ImprovedNoise()
 
 function createTerrain() {
@@ -176,7 +202,7 @@ function createInstancedForest(numTrees = 700, radius = 110) {
   const cones = [
     new InstancedMesh(coneGeo, leavesMat, numTrees),
     new InstancedMesh(coneGeo, leavesMat, numTrees),
-    new InstancedMesh(coneGeo, leavesMat, numTrees),
+    new InstancedMesh(coneGeo, leavesMat, numTrees)
   ]
   const trunks = new InstancedMesh(trunkGeo, trunkMat, numTrees)
 
@@ -232,7 +258,7 @@ let pane
 function setupFogAndControls() {
   fog = new HeightFog(scene.value, {
     radius: 500.0,
-    color: 0xE3EAF2,
+    color: 0xe3eaf2,
     fogTop: 5.0,
     fogDepth: 5.0,
     opacity: 0.75,
@@ -243,28 +269,92 @@ function setupFogAndControls() {
     windDirX: 0.5,
     windDirZ: 0.15,
     windSpeed: 1.0,
-    verticalBillow: 0.5,
+    verticalBillow: 0.5
   })
 
   pane = new Pane()
   const f = pane.addFolder({ title: 'Height FBM Fog' })
-  f.addBinding({ value: fog.radius }, 'value', { min: 0, max: 500, step: 1, label: 'Fog Radius' }).on('change', ({ value }) => fog.setRadius(value))
-  f.addBinding({ color: '#E3EAF2' }, 'color', { label: 'Fog Color' }).on('change', ({ value }) => fog.setColor(value))
-  f.addBinding({ value: fog.fogTop }, 'value', { min: -10, max: 40, step: 0.1, label: 'Fog Top Y' }).on('change', ({ value }) => fog.setFogTop(value))
-  f.addBinding({ value: fog.fogDepth }, 'value', { min: 0.1, max: 40, step: 0.1, label: 'Fog Depth' }).on('change', ({ value }) => fog.setFogDepth(value))
-  f.addBinding({ value: fog.opacity }, 'value', { min: 0, max: 1, step: 0.01, label: 'Opacity' }).on('change', ({ value }) => fog.setOpacity(value))
-  f.addBinding({ value: fog.exponent }, 'value', { min: 0.1, max: 6, step: 0.1, label: 'Exponent' }).on('change', ({ value }) => fog.setExponent(value))
-  f.addBinding({ value: fog.noiseScale }, 'value', { min: 0.01, max: 0.6, step: 0.01, label: 'Noise Scale' }).on('change', ({ value }) => fog.setNoiseScale(value))
-  f.addBinding({ value: fog.noiseStrength }, 'value', { min: 0, max: 1, step: 0.01, label: 'Noise Strength' }).on('change', ({ value }) => fog.setNoiseStrength(value))
-  f.addBinding({ value: fog.noiseOctaves }, 'value', { min: 1, max: 8, step: 1, label: 'Noise Octaves' }).on('change', ({ value }) => fog.setNoiseOctaves(value))
-  f.addBinding({ value: fog.windDir.x }, 'value', { min: -1, max: 1, step: 0.01, label: 'Wind Dir X' }).on('change', ({ value }) => fog.setWind(value, fog.windDir.y))
-  f.addBinding({ value: fog.windDir.y }, 'value', { min: -1, max: 1, step: 0.01, label: 'Wind Dir Z' }).on('change', ({ value }) => fog.setWind(fog.windDir.x, value))
-  f.addBinding({ value: fog.windSpeed }, 'value', { min: 0, max: 3, step: 0.01, label: 'Wind Speed' }).on('change', ({ value }) => fog.setWindSpeed(value))
-  f.addBinding({ value: fog.verticalBillow }, 'value', { min: 0, max: 2, step: 0.01, label: 'Vertical Billow' }).on('change', ({ value }) => fog.setVerticalBillow(value))
+  f.addBinding({ value: fog.radius }, 'value', {
+    min: 0,
+    max: 500,
+    step: 1,
+    label: 'Fog Radius'
+  }).on('change', ({ value }) => fog.setRadius(value))
+  f.addBinding({ color: '#E3EAF2' }, 'color', { label: 'Fog Color' }).on('change', ({ value }) =>
+    fog.setColor(value)
+  )
+  f.addBinding({ value: fog.fogTop }, 'value', {
+    min: -10,
+    max: 40,
+    step: 0.1,
+    label: 'Fog Top Y'
+  }).on('change', ({ value }) => fog.setFogTop(value))
+  f.addBinding({ value: fog.fogDepth }, 'value', {
+    min: 0.1,
+    max: 40,
+    step: 0.1,
+    label: 'Fog Depth'
+  }).on('change', ({ value }) => fog.setFogDepth(value))
+  f.addBinding({ value: fog.opacity }, 'value', {
+    min: 0,
+    max: 1,
+    step: 0.01,
+    label: 'Opacity'
+  }).on('change', ({ value }) => fog.setOpacity(value))
+  f.addBinding({ value: fog.exponent }, 'value', {
+    min: 0.1,
+    max: 6,
+    step: 0.1,
+    label: 'Exponent'
+  }).on('change', ({ value }) => fog.setExponent(value))
+  f.addBinding({ value: fog.noiseScale }, 'value', {
+    min: 0.01,
+    max: 0.6,
+    step: 0.01,
+    label: 'Noise Scale'
+  }).on('change', ({ value }) => fog.setNoiseScale(value))
+  f.addBinding({ value: fog.noiseStrength }, 'value', {
+    min: 0,
+    max: 1,
+    step: 0.01,
+    label: 'Noise Strength'
+  }).on('change', ({ value }) => fog.setNoiseStrength(value))
+  f.addBinding({ value: fog.noiseOctaves }, 'value', {
+    min: 1,
+    max: 8,
+    step: 1,
+    label: 'Noise Octaves'
+  }).on('change', ({ value }) => fog.setNoiseOctaves(value))
+  f.addBinding({ value: fog.windDir.x }, 'value', {
+    min: -1,
+    max: 1,
+    step: 0.01,
+    label: 'Wind Dir X'
+  }).on('change', ({ value }) => fog.setWind(value, fog.windDir.y))
+  f.addBinding({ value: fog.windDir.y }, 'value', {
+    min: -1,
+    max: 1,
+    step: 0.01,
+    label: 'Wind Dir Z'
+  }).on('change', ({ value }) => fog.setWind(fog.windDir.x, value))
+  f.addBinding({ value: fog.windSpeed }, 'value', {
+    min: 0,
+    max: 3,
+    step: 0.01,
+    label: 'Wind Speed'
+  }).on('change', ({ value }) => fog.setWindSpeed(value))
+  f.addBinding({ value: fog.verticalBillow }, 'value', {
+    min: 0,
+    max: 2,
+    step: 0.01,
+    label: 'Vertical Billow'
+  }).on('change', ({ value }) => fog.setVerticalBillow(value))
 
   const shadowSettings = { quality: 'high' }
-  f.addBinding(shadowSettings, 'quality', { options: { none: 'none', low: 'low', medium: 'medium', high: 'high' }, label: 'Shadow Quality' })
-    .on('change', ({ value }) => updateShadowQuality(value))
+  f.addBinding(shadowSettings, 'quality', {
+    options: { none: 'none', low: 'low', medium: 'medium', high: 'high' },
+    label: 'Shadow Quality'
+  }).on('change', ({ value }) => updateShadowQuality(value))
 }
 
 function updateShadowQuality(quality) {
@@ -340,7 +430,6 @@ onMounted(() => {
   // fog must patch after content too
   setupFogAndControls()
   fog.patchScene()
-
 })
 
 const { onBeforeRender } = useLoop()

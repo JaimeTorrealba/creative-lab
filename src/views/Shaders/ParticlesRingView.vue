@@ -1,11 +1,7 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls, MouseParallax } from '@tresjs/cientos'
-import {
-  BasicShadowMap,
-  SRGBColorSpace,
-  NoToneMapping,
-} from 'three'
+import { BasicShadowMap, SRGBColorSpace, NoToneMapping } from 'three'
 import TheExperience from '@/components/demos/shaders/particles-ring/index.vue'
 
 const gl = {
@@ -14,10 +10,8 @@ const gl = {
   alpha: false,
   shadowMapType: BasicShadowMap,
   outputColorSpace: SRGBColorSpace,
-  toneMapping: NoToneMapping,
+  toneMapping: NoToneMapping
 }
-
-
 </script>
 <template>
   <TresCanvas v-bind="gl">

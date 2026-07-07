@@ -1,19 +1,19 @@
 <script setup>
-import { toValue } from "vue";
-import { TresCanvas } from "@tresjs/core";
-import { OrbitControls } from "@tresjs/cientos";
-import { WebGPURenderer } from "three/webgpu";
-import TheExperience from "@/components/demos/basics/MaterialX.vue";
+import { toValue } from 'vue'
+import { TresCanvas } from '@tresjs/core'
+import { OrbitControls } from '@tresjs/cientos'
+import { WebGPURenderer } from 'three/webgpu'
+import TheExperience from '@/components/demos/basics/MaterialX.vue'
 
 // Create renderer with WebGPU if available, otherwise fall back to WebGL
 const createRenderer = (ctx) => {
   const renderer = new WebGPURenderer({
     canvas: toValue(ctx.canvas),
     alpha: true,
-    antialias: true,
+    antialias: true
   })
-  return renderer;
-};
+  return renderer
+}
 </script>
 <template>
   <TresCanvas window-size clear-color="#333" :renderer="createRenderer">

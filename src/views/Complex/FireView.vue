@@ -5,7 +5,7 @@ import { OrbitControls } from '@tresjs/cientos'
 </script>
 <template>
   <TresCanvas window-size clear-color="#111">
-    <TresPerspectiveCamera :position="[0, 0, 3]"  />
+    <TresPerspectiveCamera :position="[0, 0, 3]" />
     <OrbitControls />
     <Suspense>
       <TheExperience />

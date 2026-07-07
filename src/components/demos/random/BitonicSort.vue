@@ -6,7 +6,7 @@ const SIZE_OPTIONS = [
   { label: '8 K  (8,192)', value: 8192 },
   { label: '128 K  (131,072)', value: 131072 },
   { label: '1 M  (1,048,576)', value: 1048576 },
-  { label: '4 M  (4,194,304)', value: 4194304 },
+  { label: '4 M  (4,194,304)', value: 4194304 }
 ]
 
 const selectedSize = ref(1024)
@@ -94,13 +94,13 @@ async function sortGPU() {
 
     const dataBuffer = device.createBuffer({
       size: bytes,
-      usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST,
+      usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST
     })
     device.queue.writeBuffer(dataBuffer, 0, originalArray.value)
 
     const readBuffer = device.createBuffer({
       size: bytes,
-      usage: GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST,
+      usage: GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST
     })
 
     const shaderModule = device.createShaderModule({
@@ -122,19 +122,19 @@ async function sortGPU() {
             }
           }
         }
-      `,
+      `
     })
 
     const bindGroupLayout = device.createBindGroupLayout({
       entries: [
         { binding: 0, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'storage' } },
-        { binding: 1, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'uniform' } },
-      ],
+        { binding: 1, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'uniform' } }
+      ]
     })
 
     const pipeline = device.createComputePipeline({
       layout: device.createPipelineLayout({ bindGroupLayouts: [bindGroupLayout] }),
-      compute: { module: shaderModule, entryPoint: 'main' },
+      compute: { module: shaderModule, entryPoint: 'main' }
     })
 
     // Pre-create one bind group per (k, j) step — all uniform buffers written before submit
@@ -143,7 +143,7 @@ async function sortGPU() {
       for (let j = k >> 1; j >= 1; j >>= 1) {
         const paramsBuf = device.createBuffer({
           size: 8,
-          usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
+          usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
         })
         device.queue.writeBuffer(paramsBuf, 0, new Uint32Array([k, j]))
         bindGroups.push(
@@ -151,8 +151,8 @@ async function sortGPU() {
             layout: bindGroupLayout,
             entries: [
               { binding: 0, resource: { buffer: dataBuffer } },
-              { binding: 1, resource: { buffer: paramsBuf } },
-            ],
+              { binding: 1, resource: { buffer: paramsBuf } }
+            ]
           })
         )
       }
@@ -189,7 +189,10 @@ async function sortGPU() {
 }
 
 function fmt(arr, n) {
-  return arr.slice(0, n).map(v => v.toFixed(1)).join(', ')
+  return arr
+    .slice(0, n)
+    .map((v) => v.toFixed(1))
+    .join(', ')
 }
 </script>
 
@@ -210,12 +213,8 @@ function fmt(arr, n) {
       </div>
 
       <div class="btns">
-        <button class="btn cpu" :disabled="isSorting" @click="sortCPU">
-          A &nbsp; Sort on CPU
-        </button>
-        <button class="btn gpu" :disabled="isSorting" @click="sortGPU">
-          B &nbsp; Sort on GPU
-        </button>
+        <button class="btn cpu" :disabled="isSorting" @click="sortCPU">A &nbsp; Sort on CPU</button>
+        <button class="btn gpu" :disabled="isSorting" @click="sortGPU">B &nbsp; Sort on GPU</button>
       </div>
 
       <div v-if="gpuError" class="error">{{ gpuError }}</div>
@@ -311,8 +310,13 @@ select {
   outline: none;
 }
 
-select:disabled { opacity: 0.4; cursor: not-allowed; }
-select:focus { border-color: #555; }
+select:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+select:focus {
+  border-color: #555;
+}
 
 .note {
   font-size: 0.72rem;
@@ -335,11 +339,24 @@ select:focus { border-color: #555; }
   letter-spacing: 0.03em;
 }
 
-.btn:disabled { opacity: 0.35; cursor: not-allowed; }
-.btn.cpu { background: #1565c0; color: #fff; }
-.btn.cpu:hover:not(:disabled) { filter: brightness(1.2); }
-.btn.gpu { background: #2e7d32; color: #fff; }
-.btn.gpu:hover:not(:disabled) { filter: brightness(1.2); }
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.btn.cpu {
+  background: #1565c0;
+  color: #fff;
+}
+.btn.cpu:hover:not(:disabled) {
+  filter: brightness(1.2);
+}
+.btn.gpu {
+  background: #2e7d32;
+  color: #fff;
+}
+.btn.gpu:hover:not(:disabled) {
+  filter: brightness(1.2);
+}
 
 .stats {
   display: flex;
@@ -358,8 +375,12 @@ select:focus { border-color: #555; }
   transition: border-color 0.3s;
 }
 
-.stat.lit { border-color: #444; }
-.stat.winner { border-color: #ffd54f; }
+.stat.lit {
+  border-color: #444;
+}
+.stat.winner {
+  border-color: #ffd54f;
+}
 
 .stat-label {
   display: block;
@@ -420,8 +441,14 @@ select:focus { border-color: #555; }
   flex-shrink: 0;
 }
 
-.cpu-tag { background: #1565c0; color: #fff; }
-.gpu-tag { background: #2e7d32; color: #fff; }
+.cpu-tag {
+  background: #1565c0;
+  color: #fff;
+}
+.gpu-tag {
+  background: #2e7d32;
+  color: #fff;
+}
 
 .error {
   color: #ef5350;

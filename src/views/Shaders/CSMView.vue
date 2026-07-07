@@ -3,7 +3,7 @@ import { OrbitControls } from '@tresjs/cientos'
 import TheExperience from '@/components/demos/shaders/csm/index.vue'
 </script>
 <template>
-  <TresCanvas window-size clear-color="#333" >
+  <TresCanvas window-size clear-color="#333">
     <TresPerspectiveCamera :position="[0, 0, 5]" />
     <OrbitControls />
     <TresGridHelper :args="[30, 30]" :position="[0, -2.5, 0]" />

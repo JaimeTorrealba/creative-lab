@@ -1,17 +1,17 @@
 <script setup>
-import { watch, onUnmounted } from "vue";
-import { useTexture } from "@tresjs/cientos";
-import { MeshStandardNodeMaterial, RepeatWrapping, LinearFilter } from "three/webgpu";
-import { uniform, wgslFn, uv, texture } from "three/tsl";
-import { Pane } from "tweakpane";
+import { watch, onUnmounted } from 'vue'
+import { useTexture } from '@tresjs/cientos'
+import { MeshStandardNodeMaterial, RepeatWrapping, LinearFilter } from 'three/webgpu'
+import { uniform, wgslFn, uv, texture } from 'three/tsl'
+import { Pane } from 'tweakpane'
 
-const uBorderSize = uniform(0.03);
-const uAlphaThreshold = uniform(0.5);
-const uTextureScale = uniform(1.0);
-const material = new MeshStandardNodeMaterial();
+const uBorderSize = uniform(0.03)
+const uAlphaThreshold = uniform(0.5)
+const uTextureScale = uniform(1.0)
+const material = new MeshStandardNodeMaterial()
 
-const { state: colorTex } = useTexture("/textures/8k_earth_daymap.jpg");
-const { state: tex, isLoading } = useTexture("/perlin.png");
+const { state: colorTex } = useTexture('/textures/8k_earth_daymap.jpg')
+const { state: tex, isLoading } = useTexture('/perlin.png')
 
 const dissolve = wgslFn(`
   fn dissolve(
@@ -25,46 +25,46 @@ const dissolve = wgslFn(`
     let finalColor: vec3f = mix(vec3f(0.0), colorRgb, mask);
     return vec4f(finalColor, alpha);
   }
-`);
+`)
 
 watch(tex, (_tex) => {
   if (_tex) {
-    _tex.wrapS = _tex.wrapT = RepeatWrapping;
-    _tex.minFilter = LinearFilter;
+    _tex.wrapS = _tex.wrapT = RepeatWrapping
+    _tex.minFilter = LinearFilter
 
-    const noiseVal = texture(_tex, uv().mul(uTextureScale)).r;
-    const colorRgb = texture(colorTex.value, uv()).rgb;
+    const noiseVal = texture(_tex, uv().mul(uTextureScale)).r
+    const colorRgb = texture(colorTex.value, uv()).rgb
 
     material.colorNode = dissolve({
       noiseVal,
       colorRgb,
       alphaThreshold: uAlphaThreshold,
-      borderSize: uBorderSize,
-    });
-    material.transparent = true;
+      borderSize: uBorderSize
+    })
+    material.transparent = true
   }
-});
+})
 
-const pane = new Pane();
+const pane = new Pane()
 
-pane.addBinding(uBorderSize, "value", {
+pane.addBinding(uBorderSize, 'value', {
   min: 0,
   max: 0.03,
   step: 0.01,
-  label: "border size",
-});
-pane.addBinding(uAlphaThreshold, "value", {
+  label: 'border size'
+})
+pane.addBinding(uAlphaThreshold, 'value', {
   min: 0,
   max: 1,
   step: 0.01,
-  label: "alpha threshold",
-});
-pane.addBinding(uTextureScale, "value", {
+  label: 'alpha threshold'
+})
+pane.addBinding(uTextureScale, 'value', {
   min: 0,
   max: 5,
   step: 0.1,
-  label: "texture scale",
-});
+  label: 'texture scale'
+})
 
 onUnmounted(() => pane?.dispose())
 </script>

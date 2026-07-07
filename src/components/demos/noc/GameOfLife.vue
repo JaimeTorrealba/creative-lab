@@ -10,10 +10,14 @@ const wrapperRef = shallowRef(null)
 
 const options = reactive({
   cellSize: 6,
-  stepsPerFrame: 1,
+  stepsPerFrame: 1
 })
 
-let board = [], prev = [], cols = 0, rows = 0, iMesh = null
+let board = [],
+  prev = [],
+  cols = 0,
+  rows = 0,
+  iMesh = null
 const mat4 = new Matrix4()
 const color = new Color()
 
@@ -26,15 +30,13 @@ function generate() {
   for (let i = 1; i < cols - 1; i++) {
     for (let j = 1; j < rows - 1; j++) {
       let neighborSum = 0
-      for (let k = -1; k <= 1; k++)
-        for (let l = -1; l <= 1; l++)
-          neighborSum += board[i + k][j + l]
+      for (let k = -1; k <= 1; k++) for (let l = -1; l <= 1; l++) neighborSum += board[i + k][j + l]
       neighborSum -= board[i][j]
 
-      if      (board[i][j] === 1 && neighborSum < 2)   next[i][j] = 0  // loneliness
-      else if (board[i][j] === 1 && neighborSum > 3)   next[i][j] = 0  // overpopulation
-      else if (board[i][j] === 0 && neighborSum === 3) next[i][j] = 1  // birth
-      else                                              next[i][j] = board[i][j] // stasis
+      if (board[i][j] === 1 && neighborSum < 2) next[i][j] = 0 // loneliness
+      else if (board[i][j] === 1 && neighborSum > 3) next[i][j] = 0 // overpopulation
+      else if (board[i][j] === 0 && neighborSum === 3) next[i][j] = 1 // birth
+      else next[i][j] = board[i][j] // stasis
     }
   }
   prev = board
@@ -45,10 +47,10 @@ function updateColors() {
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
       const idx = i * rows + j
-      if      (prev[i][j] === 0 && board[i][j] === 1) color.set('#3a86ff')
-      else if (board[i][j] === 1)                     color.set('#f8f9fa')
+      if (prev[i][j] === 0 && board[i][j] === 1) color.set('#3a86ff')
+      else if (board[i][j] === 1) color.set('#f8f9fa')
       else if (prev[i][j] === 1 && board[i][j] === 0) color.set('#e63946')
-      else                                             color.set('#1f2937')
+      else color.set('#1f2937')
       iMesh.setColorAt(idx, color)
     }
   }
@@ -64,14 +66,13 @@ function restart() {
     wrapperRef.value.clear()
   }
 
-  cols = Math.floor(width.value  / options.cellSize)
+  cols = Math.floor(width.value / options.cellSize)
   rows = Math.floor(height.value / options.cellSize)
 
   board = create2DArray(cols, rows)
-  prev  = create2DArray(cols, rows)
+  prev = create2DArray(cols, rows)
   for (let i = 0; i < cols; i++)
-    for (let j = 0; j < rows; j++)
-      board[i][j] = Math.random() > 0.5 ? 1 : 0
+    for (let j = 0; j < rows; j++) board[i][j] = Math.random() > 0.5 ? 1 : 0
 
   iMesh = new InstancedMesh(
     new PlaneGeometry(options.cellSize - 1, options.cellSize - 1),
@@ -82,7 +83,7 @@ function restart() {
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
       mat4.setPosition(
-        i * options.cellSize - width.value  / 2 + options.cellSize / 2,
+        i * options.cellSize - width.value / 2 + options.cellSize / 2,
         height.value / 2 - j * options.cellSize - options.cellSize / 2,
         0
       )
@@ -98,7 +99,7 @@ function restart() {
 onMounted(() => restart())
 
 const pane = new Pane()
-pane.addBinding(options, 'cellSize',      { min: 4, max: 20, step: 1, label: 'Cell Size (px)' })
+pane.addBinding(options, 'cellSize', { min: 4, max: 20, step: 1, label: 'Cell Size (px)' })
 pane.addBinding(options, 'stepsPerFrame', { min: 1, max: 10, step: 1, label: 'Speed' })
 pane.addButton({ title: 'Restart' }).on('click', restart)
 onUnmounted(() => pane?.dispose())

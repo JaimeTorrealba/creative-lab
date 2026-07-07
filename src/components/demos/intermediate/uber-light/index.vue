@@ -92,28 +92,73 @@ lightFolder.addBinding(params, 'showHelper', { label: 'helper' })
 
 const distanceFolder = pane.addFolder({ title: 'Distance shaping' })
 distanceFolder.addBinding(shared.uCutOn, 'value', { label: 'cut on', min: 0, max: 10, step: 0.01 })
-distanceFolder.addBinding(shared.uCutOff, 'value', { label: 'cut off', min: 0, max: 30, step: 0.01 })
-distanceFolder.addBinding(shared.uNearEdge, 'value', { label: 'near edge', min: 0, max: 5, step: 0.01 })
-distanceFolder.addBinding(shared.uFarEdge, 'value', { label: 'far edge', min: 0, max: 10, step: 0.01 })
+distanceFolder.addBinding(shared.uCutOff, 'value', {
+  label: 'cut off',
+  min: 0,
+  max: 30,
+  step: 0.01
+})
+distanceFolder.addBinding(shared.uNearEdge, 'value', {
+  label: 'near edge',
+  min: 0,
+  max: 5,
+  step: 0.01
+})
+distanceFolder.addBinding(shared.uFarEdge, 'value', {
+  label: 'far edge',
+  min: 0,
+  max: 10,
+  step: 0.01
+})
 
 const shapeFolder = pane.addFolder({ title: 'Superellipse' })
 shapeFolder.addBinding(shared.uWidth, 'value', { label: 'width', min: 0.05, max: 2, step: 0.01 })
 shapeFolder.addBinding(shared.uHeight, 'value', { label: 'height', min: 0.05, max: 2, step: 0.01 })
-shapeFolder.addBinding(shared.uWidthEdge, 'value', { label: 'width edge', min: 0, max: 1.5, step: 0.01 })
-shapeFolder.addBinding(shared.uHeightEdge, 'value', { label: 'height edge', min: 0, max: 1.5, step: 0.01 })
-shapeFolder.addBinding(shared.uRoundness, 'value', { label: 'roundness', min: 0, max: 1, step: 0.01 })
+shapeFolder.addBinding(shared.uWidthEdge, 'value', {
+  label: 'width edge',
+  min: 0,
+  max: 1.5,
+  step: 0.01
+})
+shapeFolder.addBinding(shared.uHeightEdge, 'value', {
+  label: 'height edge',
+  min: 0,
+  max: 1.5,
+  step: 0.01
+})
+shapeFolder.addBinding(shared.uRoundness, 'value', {
+  label: 'roundness',
+  min: 0,
+  max: 1,
+  step: 0.01
+})
 
 const surfaceFolder = pane.addFolder({ title: 'Surface' })
 surfaceFolder.addBinding(shared.uAmbient, 'value', { label: 'ambient', min: 0, max: 1, step: 0.01 })
 surfaceFolder.addBinding(shared.uDiffuse, 'value', { label: 'diffuse', min: 0, max: 2, step: 0.01 })
-surfaceFolder.addBinding(shared.uSpecular, 'value', { label: 'specular', min: 0, max: 2, step: 0.01 })
-surfaceFolder.addBinding(shared.uRoughness, 'value', { label: 'roughness', min: 0.05, max: 1, step: 0.01 })
+surfaceFolder.addBinding(shared.uSpecular, 'value', {
+  label: 'specular',
+  min: 0,
+  max: 2,
+  step: 0.01
+})
+surfaceFolder.addBinding(shared.uRoughness, 'value', {
+  label: 'roughness',
+  min: 0.05,
+  max: 1,
+  step: 0.01
+})
 
 const cookieFolder = pane.addFolder({ title: 'Cookie' })
 cookieFolder.addBinding(params, 'cookie', { label: 'enabled' }).on('change', ({ value }) => {
   shared.uCookie.value = value ? 1 : 0
 })
-cookieFolder.addBinding(shared.uCookieScale, 'value', { label: 'scale', min: 1, max: 16, step: 0.1 })
+cookieFolder.addBinding(shared.uCookieScale, 'value', {
+  label: 'scale',
+  min: 1,
+  max: 16,
+  step: 0.1
+})
 
 onUnmounted(() => pane?.dispose())
 

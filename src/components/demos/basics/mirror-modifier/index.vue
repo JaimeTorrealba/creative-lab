@@ -4,13 +4,9 @@ import MirrorModifier from './MirrorModifierComponent.vue'
 import { TransformControls } from '@tresjs/cientos'
 
 const cubeRef = shallowRef(null)
-
 </script>
 <template>
-  <TresMesh ref="cubeRef" 
-  :position="[3,0,0]"
-  :rotation="[0,0,0]"
-  >
+  <TresMesh ref="cubeRef" :position="[3, 0, 0]" :rotation="[0, 0, 0]">
     <TresBoxGeometry />
     <TresMeshStandardMaterial :color="0x00ff00" />
   </TresMesh>

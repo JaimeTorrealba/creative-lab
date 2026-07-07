@@ -1,11 +1,11 @@
 <script setup>
-import { useLoop, useTres } from "@tresjs/core";
-import { CubeCamera, Environment } from "@tresjs/cientos";
-import vertex from "./vertex.glsl";
-import fragment from "./fragment.glsl";
-import { shallowRef, watch } from "vue";
+import { useLoop, useTres } from '@tresjs/core'
+import { CubeCamera, Environment } from '@tresjs/cientos'
+import vertex from './vertex.glsl'
+import fragment from './fragment.glsl'
+import { shallowRef, watch } from 'vue'
 
-const { renderer, scene } = useTres();
+const { renderer, scene } = useTres()
 
 const shader = {
   vertexShader: vertex,
@@ -15,26 +15,26 @@ const shader = {
     mFresnelBias: { value: 0.1 },
     mFresnelPower: { value: 2.0 },
     mFresnelScale: { value: 1.0 },
-    tCube: { value: null }, //  textureCube TODO this }
-  },
-};
+    tCube: { value: null } //  textureCube TODO this }
+  }
+}
 
-const cubeCameraRef = shallowRef();
-const bubbleRef = shallowRef();
+const cubeCameraRef = shallowRef()
+const bubbleRef = shallowRef()
 
 watch(cubeCameraRef, (cubeCamera) => {
   if (cubeCamera) {
-    console.log("jaime ~ cubeCamera:", cubeCamera.camera);
-    shader.uniforms.tCube.value = cubeCamera.camera.renderTarget.texture;
+    console.log('jaime ~ cubeCamera:', cubeCamera.camera)
+    shader.uniforms.tCube.value = cubeCamera.camera.renderTarget.texture
   }
-});
+})
 
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(() => {
-  bubbleRef.value.visible = false;
-  cubeCameraRef.value.update(renderer, scene.value);
-  bubbleRef.value.visible = true;
+  bubbleRef.value.visible = false
+  cubeCameraRef.value.update(renderer, scene.value)
+  bubbleRef.value.visible = true
 })
 </script>
 <template>

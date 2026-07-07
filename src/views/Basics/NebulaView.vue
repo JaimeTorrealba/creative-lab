@@ -2,7 +2,6 @@
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import TheExperience from '@/components/demos/basics/Nebula.vue'
-
 </script>
 <template>
   <TresCanvas window-size clear-color="#333" ref="canvasRef">

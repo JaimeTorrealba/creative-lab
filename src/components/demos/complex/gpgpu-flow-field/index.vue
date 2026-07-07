@@ -1,30 +1,23 @@
 <script setup>
-import { shallowRef, onUnmounted } from "vue";
-import { useTres, useLoop } from "@tresjs/core";
-import { useGLTF } from "@tresjs/cientos";
-import {
-  Uniform,
-  Vector2,
-  BufferGeometry,
-  BufferAttribute,
-} from "three";
-import { GPUComputationRenderer } from "three/addons/misc/GPUComputationRenderer.js";
-import { useWindowSize, useDevicePixelRatio, watchOnce } from "@vueuse/core";
-import { Pane } from "tweakpane";
-import vertex from "./vertex.glsl";
-import fragment from "./fragment.glsl";
-import particlesShader from "./particles.glsl";
+import { shallowRef, onUnmounted } from 'vue'
+import { useTres, useLoop } from '@tresjs/core'
+import { useGLTF } from '@tresjs/cientos'
+import { Uniform, Vector2, BufferGeometry, BufferAttribute } from 'three'
+import { GPUComputationRenderer } from 'three/addons/misc/GPUComputationRenderer.js'
+import { useWindowSize, useDevicePixelRatio, watchOnce } from '@vueuse/core'
+import { Pane } from 'tweakpane'
+import vertex from './vertex.glsl'
+import fragment from './fragment.glsl'
+import particlesShader from './particles.glsl'
 
-const { state: model, isLoading } = useGLTF(
-  "/models/necronomicon_custom_vertex_colors.glb"
-);
+const { state: model, isLoading } = useGLTF('/models/necronomicon_custom_vertex_colors.glb')
 
-const { width, height } = useWindowSize();
-const { pixelRatio } = useDevicePixelRatio();
-const { renderer } = useTres();
-const geometry = shallowRef();
-const pane = new Pane();
-const gpgpu = {};
+const { width, height } = useWindowSize()
+const { pixelRatio } = useDevicePixelRatio()
+const { renderer } = useTres()
+const geometry = shallowRef()
+const pane = new Pane()
+const gpgpu = {}
 
 const shaders = {
   vertexShader: vertex,
@@ -34,106 +27,107 @@ const shaders = {
     uResolution: new Uniform(
       new Vector2(width.value * pixelRatio.value, height.value * pixelRatio.value)
     ),
-    uParticlesTexture: new Uniform(),
-  },
-};
+    uParticlesTexture: new Uniform()
+  }
+}
 
 const start = () => {
-  const baseGeometry = {};
-  baseGeometry.instance = model.value.scene.children[0].geometry;
-  baseGeometry.count = model.value.scene.children[0].geometry.attributes.position.count;
+  const baseGeometry = {}
+  baseGeometry.instance = model.value.scene.children[0].geometry
+  baseGeometry.count = model.value.scene.children[0].geometry.attributes.position.count
 
   // GPU Compute
-  gpgpu.size = Math.ceil(Math.sqrt(baseGeometry.count));
-  gpgpu.computation = new GPUComputationRenderer(gpgpu.size, gpgpu.size, renderer);
+  gpgpu.size = Math.ceil(Math.sqrt(baseGeometry.count))
+  gpgpu.computation = new GPUComputationRenderer(gpgpu.size, gpgpu.size, renderer)
 
   // Base particles
-  const baseParticlesTexture = gpgpu.computation.createTexture();
+  const baseParticlesTexture = gpgpu.computation.createTexture()
 
   for (let i = 0; i < baseGeometry.count; i++) {
-    const i3 = i * 3;
-    const i4 = i * 4;
+    const i3 = i * 3
+    const i4 = i * 4
 
     baseParticlesTexture.image.data[i4 + 0] =
-      baseGeometry.instance.attributes.position.array[i3 + 0];
+      baseGeometry.instance.attributes.position.array[i3 + 0]
     baseParticlesTexture.image.data[i4 + 1] =
-      baseGeometry.instance.attributes.position.array[i3 + 1];
+      baseGeometry.instance.attributes.position.array[i3 + 1]
     baseParticlesTexture.image.data[i4 + 2] =
-      baseGeometry.instance.attributes.position.array[i3 + 2];
-    baseParticlesTexture.image.data[i4 + 3] = Math.random();
+      baseGeometry.instance.attributes.position.array[i3 + 2]
+    baseParticlesTexture.image.data[i4 + 3] = Math.random()
   }
 
   // Particles variable
   gpgpu.particlesVariable = gpgpu.computation.addVariable(
-    "uParticles",
+    'uParticles',
     particlesShader,
     baseParticlesTexture
-  );
-  gpgpu.computation.setVariableDependencies(gpgpu.particlesVariable, [
-    gpgpu.particlesVariable,
-  ]);
+  )
+  gpgpu.computation.setVariableDependencies(gpgpu.particlesVariable, [gpgpu.particlesVariable])
 
-  gpgpu.particlesVariable.material.uniforms.uTime = new Uniform(0);
-  gpgpu.particlesVariable.material.uniforms.uDelta = new Uniform(0);
-  gpgpu.particlesVariable.material.uniforms.uBase = new Uniform(baseParticlesTexture);
-  gpgpu.particlesVariable.material.uniforms.uFlowFieldInfluence = new Uniform(0.5);
-  gpgpu.particlesVariable.material.uniforms.uFlowFieldStrength = new Uniform(2.0);
-  gpgpu.particlesVariable.material.uniforms.uFlowFieldFrequency = new Uniform(0.5);
+  gpgpu.particlesVariable.material.uniforms.uTime = new Uniform(0)
+  gpgpu.particlesVariable.material.uniforms.uDelta = new Uniform(0)
+  gpgpu.particlesVariable.material.uniforms.uBase = new Uniform(baseParticlesTexture)
+  gpgpu.particlesVariable.material.uniforms.uFlowFieldInfluence = new Uniform(0.5)
+  gpgpu.particlesVariable.material.uniforms.uFlowFieldStrength = new Uniform(2.0)
+  gpgpu.particlesVariable.material.uniforms.uFlowFieldFrequency = new Uniform(0.5)
 
-  gpgpu.computation.init();
+  gpgpu.computation.init()
 
   // Controls
-  pane.addBinding(
-    gpgpu.particlesVariable.material.uniforms.uFlowFieldInfluence,
-    "value",
-    { label: "Flow Field Influence", min: 0, max: 1 }
-  );
-  pane.addBinding(gpgpu.particlesVariable.material.uniforms.uFlowFieldStrength, "value", {
-    label: "Flow Field Strength", min: 0, max: 10,
-  });
-  pane.addBinding(
-    gpgpu.particlesVariable.material.uniforms.uFlowFieldFrequency,
-    "value",
-    { label: "Flow Field Frequency", min: 0, max: 1, step: 0.01 }
-  );
+  pane.addBinding(gpgpu.particlesVariable.material.uniforms.uFlowFieldInfluence, 'value', {
+    label: 'Flow Field Influence',
+    min: 0,
+    max: 1
+  })
+  pane.addBinding(gpgpu.particlesVariable.material.uniforms.uFlowFieldStrength, 'value', {
+    label: 'Flow Field Strength',
+    min: 0,
+    max: 10
+  })
+  pane.addBinding(gpgpu.particlesVariable.material.uniforms.uFlowFieldFrequency, 'value', {
+    label: 'Flow Field Frequency',
+    min: 0,
+    max: 1,
+    step: 0.01
+  })
 
   // particles
-  const particlesUVArray = new Float32Array(baseGeometry.count * 2);
-  const particlesSize = new Float32Array(baseGeometry.count);
+  const particlesUVArray = new Float32Array(baseGeometry.count * 2)
+  const particlesSize = new Float32Array(baseGeometry.count)
 
   for (let y = 0; y < gpgpu.size; y++) {
     for (let x = 0; x < gpgpu.size; x++) {
-      const i = x + y * gpgpu.size;
-      const i2 = i * 2;
-      particlesUVArray[i2 + 0] = (x + 0.5) / gpgpu.size;
-      particlesUVArray[i2 + 1] = (y + 0.5) / gpgpu.size;
-      particlesSize[i] = Math.random();
+      const i = x + y * gpgpu.size
+      const i2 = i * 2
+      particlesUVArray[i2 + 0] = (x + 0.5) / gpgpu.size
+      particlesUVArray[i2 + 1] = (y + 0.5) / gpgpu.size
+      particlesSize[i] = Math.random()
     }
   }
 
-  geometry.value = new BufferGeometry();
-  geometry.value.setDrawRange(0, baseGeometry.count);
-  geometry.value.setAttribute("aParticlesUv", new BufferAttribute(particlesUVArray, 2));
-  geometry.value.setAttribute("aSize", new BufferAttribute(particlesSize, 1));
-  geometry.value.setAttribute("aColor", baseGeometry.instance.attributes.color);
-};
+  geometry.value = new BufferGeometry()
+  geometry.value.setDrawRange(0, baseGeometry.count)
+  geometry.value.setAttribute('aParticlesUv', new BufferAttribute(particlesUVArray, 2))
+  geometry.value.setAttribute('aSize', new BufferAttribute(particlesSize, 1))
+  geometry.value.setAttribute('aColor', baseGeometry.instance.attributes.color)
+}
 
 onUnmounted(() => pane?.dispose())
 
 watchOnce(isLoading, (v) => {
-  if (!v) start();
-});
+  if (!v) start()
+})
 
-const { onBeforeRender } = useLoop();
+const { onBeforeRender } = useLoop()
 onBeforeRender(({ elapsed, delta }) => {
-  if(!gpgpu.computation) return;
-  gpgpu.particlesVariable.material.uniforms.uDelta.value = delta;
-  gpgpu.particlesVariable.material.uniforms.uTime.value = elapsed;
-  gpgpu.computation.compute();
+  if (!gpgpu.computation) return
+  gpgpu.particlesVariable.material.uniforms.uDelta.value = delta
+  gpgpu.particlesVariable.material.uniforms.uTime.value = elapsed
+  gpgpu.computation.compute()
   shaders.uniforms.uParticlesTexture.value = gpgpu.computation.getCurrentRenderTarget(
     gpgpu.particlesVariable
-  ).texture;
-});
+  ).texture
+})
 </script>
 <template>
   <TresPoints v-if="model && geometry" :geometry="geometry">

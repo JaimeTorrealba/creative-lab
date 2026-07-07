@@ -1,33 +1,29 @@
 <script setup>
-import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
-import Cards from "@/components/TheCard.vue";
-import RRSS from "@/components/RRSS.vue";
-import { BLACK_LIST_PATHS } from "../utils";
-import NavBar from "../components/NavBar.vue";
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
+import Cards from '@/components/TheCard.vue'
+import RRSS from '@/components/RRSS.vue'
+import { BLACK_LIST_PATHS } from '../utils'
+import NavBar from '../components/NavBar.vue'
 
-const router = useRouter();
-const data = ref();
-const allRoutes = computed(() => router.options.routes);
-const filteredRoutes = allRoutes.value.filter(
-  (route) => !BLACK_LIST_PATHS.includes(route.path)
-);
-data.value = filteredRoutes;
+const router = useRouter()
+const data = ref()
+const allRoutes = computed(() => router.options.routes)
+const filteredRoutes = allRoutes.value.filter((route) => !BLACK_LIST_PATHS.includes(route.path))
+data.value = filteredRoutes
 
 const updateSearch = (value) => {
-  data.value = value;
-};
+  data.value = value
+}
 </script>
 <template>
-  <h1 class="has-text-centered has-text-light is-size-1 mt-6">
-    Welcome to my creative lab
-  </h1>
+  <h1 class="has-text-centered has-text-light is-size-1 mt-6">Welcome to my creative lab</h1>
   <h2 class="is-size-4 has-text-centered py-4 max_subtitle_size has-text-light">
-    All the code is free, take what you like, and if you have questions please contact me,
-    also you can give me a github start if this repo have help you :D
+    All the code is free, take what you like, and if you have questions please contact me, also you
+    can give me a github start if this repo have help you :D
   </h2>
   <section class="is-flex is-justify-content-center pb-6">
     <RRSS />
@@ -62,7 +58,6 @@ a,
   z-index: 10;
 }
 
-
 .masonry {
   column-gap: var(--masonry-gap, 1.5rem);
   column-count: 6;
@@ -81,7 +76,6 @@ a,
   @media screen and (max-width: 480px) {
     column-count: 1;
   }
-
 }
 
 .masonry > .cell {

@@ -1,87 +1,86 @@
 <script setup>
 import { PlaneGeometry, MeshBasicMaterial, Mesh, Vector3 } from 'three'
-import { onMounted, onUnmounted, shallowRef, reactive } from "vue";
-import { Pane } from "tweakpane";
+import { onMounted, onUnmounted, shallowRef, reactive } from 'vue'
+import { Pane } from 'tweakpane'
 
 //TODO: add other random funtions like, noise and randomGaussian
 
 const options = reactive({
   walkerCount: 150,
   directions: 4,
-  randomFn: Math.random,
-});
+  randomFn: Math.random
+})
 
-const pane = new Pane();
-const wrapperRef = shallowRef(null);
+const pane = new Pane()
+const wrapperRef = shallowRef(null)
 
 class Walker {
   constructor() {
-    const planeGeometry = new PlaneGeometry(1, 1);
-    const planeMaterial = new MeshBasicMaterial({ color: "#222" });
-    this.mesh = new Mesh(planeGeometry, planeMaterial);
-    this.mesh.rotation.set(-Math.PI / 2, 0, 0);
-    this.mesh.position.y = 0.1;
+    const planeGeometry = new PlaneGeometry(1, 1)
+    const planeMaterial = new MeshBasicMaterial({ color: '#222' })
+    this.mesh = new Mesh(planeGeometry, planeMaterial)
+    this.mesh.rotation.set(-Math.PI / 2, 0, 0)
+    this.mesh.position.y = 0.1
   }
 
   move() {
-    const lastChildren = wrapperRef.value.children;
-    const lastMesh = lastChildren.at(-1);
-    const lastPos = lastMesh?.position || new Vector3(0, 0, 0);
+    const lastChildren = wrapperRef.value.children
+    const lastMesh = lastChildren.at(-1)
+    const lastPos = lastMesh?.position || new Vector3(0, 0, 0)
 
     // Copy last position to current mesh
-    this.mesh.position.copy(lastPos);
+    this.mesh.position.copy(lastPos)
 
     if (options.directions === 4) {
-      const random = options.randomFn();
-      if (random < 0.25) this.mesh.position.x += 1;
-      else if (random < 0.5) this.mesh.position.x -= 1;
-      else if (random < 0.75) this.mesh.position.z += 1;
-      else this.mesh.position.z -= 1;
+      const random = options.randomFn()
+      if (random < 0.25) this.mesh.position.x += 1
+      else if (random < 0.5) this.mesh.position.x -= 1
+      else if (random < 0.75) this.mesh.position.z += 1
+      else this.mesh.position.z -= 1
     }
     if (options.directions === 8) {
-
-      const randomX = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
-      const randomZ = Math.floor(Math.random() * 3) - 1;
-      this.mesh.position.x += randomX;
-      this.mesh.position.z += randomZ;
+      const randomX = Math.floor(Math.random() * 3) - 1 // -1, 0, or 1
+      const randomZ = Math.floor(Math.random() * 3) - 1
+      this.mesh.position.x += randomX
+      this.mesh.position.z += randomZ
     }
-    wrapperRef.value.add(this.mesh);
+    wrapperRef.value.add(this.mesh)
   }
 }
 
 const startWalkers = () => {
   for (let i = 0; i < options.walkerCount; i++) {
-    const walker = new Walker();
-    walker.move();
+    const walker = new Walker()
+    walker.move()
   }
-};
+}
 const cleanWalkers = () => {
   if (wrapperRef.value) {
-    wrapperRef.value.clear();
+    wrapperRef.value.clear()
   }
-};
+}
 
 onMounted(() => {
-  startWalkers();
-});
+  startWalkers()
+})
 
-pane.addBinding(options, "walkerCount", {
+pane.addBinding(options, 'walkerCount', {
   min: 10,
   max: 1000,
-  step: 10,
-});
+  step: 10
+})
 
-pane.addBinding(options, "directions", {
+pane.addBinding(options, 'directions', {
   min: 4,
   max: 8,
-  step: 4,
-});
+  step: 4
+})
 
-const btn = pane.addButton({ title: "Restart Walkers" });
-btn.on("click", () => {
-  cleanWalkers();
-  startWalkers();
-});
+const btn = pane.addButton({ title: 'Restart Walkers' })
+btn.on('click', () => {
+  cleanWalkers()
+  startWalkers()
+})
 
 onUnmounted(() => pane?.dispose())
 </script>

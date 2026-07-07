@@ -15,7 +15,7 @@ const params = {
   envIntensity: 1,
   showHelper: true,
   roughness: 0.25,
-  metalness: 1,
+  metalness: 1
 }
 
 let lp, helper, pane
@@ -51,27 +51,45 @@ watch(sphereRef, async (mesh) => {
   // --- Tweakpane ---
   pane = new Pane({ title: 'Light Probe' })
 
-  pane.addBinding(params, 'probeIntensity', { label: 'probe intensity', min: 0, max: 5, step: 0.05 })
-    .on('change', ({ value }) => { lp.intensity = value })
+  pane
+    .addBinding(params, 'probeIntensity', { label: 'probe intensity', min: 0, max: 5, step: 0.05 })
+    .on('change', ({ value }) => {
+      lp.intensity = value
+    })
 
   // environmentIntensity scales the specular IBL (scene.environment) independently
   // from the probe. Useful to balance diffuse bleed vs. specular reflections.
-  pane.addBinding(params, 'envIntensity', { label: 'env (specular) intensity', min: 0, max: 3, step: 0.05 })
-    .on('change', ({ value }) => { s.environmentIntensity = value })
+  pane
+    .addBinding(params, 'envIntensity', {
+      label: 'env (specular) intensity',
+      min: 0,
+      max: 3,
+      step: 0.05
+    })
+    .on('change', ({ value }) => {
+      s.environmentIntensity = value
+    })
 
-  pane.addBinding(params, 'showHelper', { label: 'show helper' })
-    .on('change', ({ value }) => { helper.visible = value })
+  pane.addBinding(params, 'showHelper', { label: 'show helper' }).on('change', ({ value }) => {
+    helper.visible = value
+  })
 
   const matFolder = pane.addFolder({ title: 'Sphere material' })
 
   // Roughness is the most educational knob here:
   // at 0 the sphere is a perfect mirror showing the env map (specular IBL).
   // at 1 it's fully diffuse and shows only the probe's SH color bleed.
-  matFolder.addBinding(params, 'roughness', { min: 0, max: 1, step: 0.01 })
-    .on('change', ({ value }) => { mesh.material.roughness = value })
+  matFolder
+    .addBinding(params, 'roughness', { min: 0, max: 1, step: 0.01 })
+    .on('change', ({ value }) => {
+      mesh.material.roughness = value
+    })
 
-  matFolder.addBinding(params, 'metalness', { min: 0, max: 1, step: 0.01 })
-    .on('change', ({ value }) => { mesh.material.metalness = value })
+  matFolder
+    .addBinding(params, 'metalness', { min: 0, max: 1, step: 0.01 })
+    .on('change', ({ value }) => {
+      mesh.material.metalness = value
+    })
 })
 
 onUnmounted(() => {
@@ -86,6 +104,10 @@ onUnmounted(() => {
 
   <TresMesh ref="sphereRef" :position="[0, 4, 0]">
     <TresSphereGeometry :args="[1, 64, 64]" />
-    <TresMeshStandardMaterial color="#ffffff" :roughness="params.roughness" :metalness="params.metalness" />
+    <TresMeshStandardMaterial
+      color="#ffffff"
+      :roughness="params.roughness"
+      :metalness="params.metalness"
+    />
   </TresMesh>
 </template>

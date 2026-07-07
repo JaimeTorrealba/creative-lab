@@ -5,8 +5,7 @@ import TheExperience from '@/components/demos/intermediate/RandomMovement.vue'
 </script>
 <template>
   <TresCanvas window-size clear-color="#333" ref="canvasRef">
-    <TresPerspectiveCamera :position="[0, 8, 12]" :look-at="[0, 0, 0]"
-      ref="cameraRef" />
+    <TresPerspectiveCamera :position="[0, 8, 12]" :look-at="[0, 0, 0]" ref="cameraRef" />
     <OrbitControls />
     <Suspense>
       <TheExperience />

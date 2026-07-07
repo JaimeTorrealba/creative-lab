@@ -4,7 +4,7 @@ import TheExperience from '@/components/demos/intermediate/parallax-map/index.vu
 import { OrbitControls } from '@tresjs/cientos'
 
 const gl = {
-  clearColor: '#333',
+  clearColor: '#333'
 }
 </script>
 <template>

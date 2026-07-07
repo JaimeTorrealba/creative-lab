@@ -5,8 +5,9 @@ import { ScrollControls } from '@tresjs/cientos'
 import { TextureLoader, SRGBColorSpace } from 'three'
 import { useWindowSize } from '@vueuse/core'
 
-const images = Array.from({ length: 300 }, (_, i) =>
-  `/images/video_sequence/${String(i + 1).padStart(4, '0')}.jpg`
+const images = Array.from(
+  { length: 300 },
+  (_, i) => `/images/video_sequence/${String(i + 1).padStart(4, '0')}.jpg`
 )
 
 const progress = ref(0)
@@ -18,7 +19,7 @@ const isLoading = ref(true)
 const { width, height } = useWindowSize()
 
 const loader = new TextureLoader()
-const textures = images.map(path => {
+const textures = images.map((path) => {
   const t = loader.load(path, () => {
     loadedCount.value++
     if (loadedCount.value === images.length) isLoading.value = false
@@ -34,7 +35,9 @@ function fitToViewport() {
   meshRef.value.scale.set(VIEW_H * (width.value / height.value), VIEW_H, 1)
 }
 
-watch(meshRef, (mesh) => { if (mesh) fitToViewport() })
+watch(meshRef, (mesh) => {
+  if (mesh) fitToViewport()
+})
 watch([width, height], fitToViewport)
 
 const { onBeforeRender } = useLoop()

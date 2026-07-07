@@ -1,5 +1,5 @@
 <script setup>
-import { TresCanvas } from "@tresjs/core";
+import { TresCanvas } from '@tresjs/core'
 import TheExperience from '@/components/demos/intermediate/MultiCamera.vue'
 </script>
 <template>

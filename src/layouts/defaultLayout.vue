@@ -1,15 +1,15 @@
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { HomeIcon, CodeBracketIcon, LinkIcon } from "@heroicons/vue/24/solid";
-import Tooltip from "@/components/Tooltip.vue";
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { HomeIcon, CodeBracketIcon, LinkIcon } from '@heroicons/vue/24/solid'
+import Tooltip from '@/components/Tooltip.vue'
 
-const router = useRouter();
-const data = router.currentRoute.value;
+const router = useRouter()
+const data = router.currentRoute.value
 
-const showTooltipBack = ref(false);
-const showTooltipCode = ref(false);
-const showTooltipBased = ref(false);
+const showTooltipBack = ref(false)
+const showTooltipCode = ref(false)
+const showTooltipBased = ref(false)
 </script>
 <template>
   <main style="min-height: 100vh">

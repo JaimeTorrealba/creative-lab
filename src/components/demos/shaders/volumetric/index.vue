@@ -1,25 +1,22 @@
 <script setup>
-import { useTres } from "@tresjs/core";
-import { useTexture } from "@tresjs/cientos";
-import { Pane } from "tweakpane";
-import vertex from "./vertex.glsl";
-import fragment from "./fragment.glsl";
-import { shallowRef, watch, onUnmounted } from "vue";
+import { useTres } from '@tresjs/core'
+import { useTexture } from '@tresjs/cientos'
+import { Pane } from 'tweakpane'
+import vertex from './vertex.glsl'
+import fragment from './fragment.glsl'
+import { shallowRef, watch, onUnmounted } from 'vue'
 
-const { state: texture, isLoading } = useTexture("/images/stars.jpg");
-const { camera } = useTres();
-const pane = new Pane();
-const icoRef = shallowRef();
+const { state: texture, isLoading } = useTexture('/images/stars.jpg')
+const { camera } = useTres()
+const pane = new Pane()
+const icoRef = shallowRef()
 
-const radius = 1.0;
+const radius = 1.0
 
-watch(
-  icoRef,
-  (sphere) => {
-    shader.uniforms.sphereCenter.value = sphere.position;
-    shader.uniforms.sphereRadius.value = radius;
-  },
-);
+watch(icoRef, (sphere) => {
+  shader.uniforms.sphereCenter.value = sphere.position
+  shader.uniforms.sphereRadius.value = radius
+})
 
 const shader = {
   uniforms: {
@@ -27,19 +24,19 @@ const shader = {
     camPos: { value: camera.value.position },
     sigma_a: { value: 0.1 }, // absorption coefficient
     sphereRadius: { value: 1.0 }, // sphere radius
-    sphereCenter: { value: [0, 0, 0] }, // sphere center in world space
+    sphereCenter: { value: [0, 0, 0] } // sphere center in world space
   },
   vertexShader: vertex,
   fragmentShader: fragment,
-  transparent: true,
-};
+  transparent: true
+}
 
-pane.addBinding(shader.uniforms.sigma_a, "value", {
+pane.addBinding(shader.uniforms.sigma_a, 'value', {
   min: 0.01,
   max: 5,
   step: 0.01,
-  label: "Absorption Coefficient",
-});
+  label: 'Absorption Coefficient'
+})
 
 onUnmounted(() => pane?.dispose())
 </script>

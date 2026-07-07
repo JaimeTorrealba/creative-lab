@@ -47,6 +47,12 @@ const complex_routes = [
     tags: [TAGS.RAYMARCH, TAGS.VOLUMETRICS]
   },
   {
+    name: 'VulcanFire',
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems/part-i-natural-effects/chapter-6-fire-vulcan-demo',
+    tags: [TAGS.NATURE, TAGS.GPU_GEMS]
+  },
+  {
     name: 'WavingGrass',
     basedOn:
       'https://developer.nvidia.com/gpugems/gpugems/part-i-natural-effects/chapter-7-rendering-countless-blades-waving-grass',

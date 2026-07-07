@@ -1,7 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import TheExperience from '@/components/demos/basics/Earth.vue'
-
 </script>
 <template>
   <TresCanvas window-size clear-color="#000" id="mouse-chg" ref="canvas">

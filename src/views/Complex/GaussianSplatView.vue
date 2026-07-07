@@ -9,6 +9,6 @@ import GaussianSplatDemo from '@/components/demos/complex/GaussianSplat.vue'
     <TresPerspectiveCamera :position="[0, 1, 5]" :look-at="[0, 0, 0]" />
     <Stats />
     <KeyboardControls />
-      <GaussianSplatDemo />
+    <GaussianSplatDemo />
   </TresCanvas>
 </template>

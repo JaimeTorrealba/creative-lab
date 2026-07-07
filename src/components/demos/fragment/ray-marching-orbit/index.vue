@@ -6,7 +6,6 @@ import { useWindowSize } from '@vueuse/core'
 import { Vector2, Vector3 } from 'three'
 import fragment from './fragment.glsl'
 
-
 const { width, height } = useWindowSize()
 const { camera } = useTres()
 const controlsRef = ref(null)
@@ -33,9 +32,9 @@ const shader = {
       value: new Vector2(window.innerWidth, window.innerHeight)
     },
     uCamPos: { value: camera.value.position },
-    uCamTarget: { value: new Vector3(0, 1, 6) },
+    uCamTarget: { value: new Vector3(0, 1, 6) }
   },
-  transparent: true,
+  transparent: true
 }
 
 watchEffect(() => {
@@ -55,12 +54,21 @@ const onChange = () => {
 }
 </script>
 <template>
-  <OrbitControls ref="controlsRef" :target="[0, 1, 6]" @change="onChange" :keyPanSpeed="2.5" :rotateSpeed="0.25"
-    :minPolarAngle="Math.PI * 0.45" :maxPolarAngle="Math.PI * 6"
-    :minAzimuthAngle="-Math.PI * 0.4" :maxAzimuthAngle="Math.PI * 0.4"
-    :minDistance="5" :maxDistance="30" />
-    <TresMesh>
-        <TresPlaneGeometry :args="[2, 2]" />
-        <TresShaderMaterial v-bind="shader" />
-      </TresMesh>
+  <OrbitControls
+    ref="controlsRef"
+    :target="[0, 1, 6]"
+    @change="onChange"
+    :keyPanSpeed="2.5"
+    :rotateSpeed="0.25"
+    :minPolarAngle="Math.PI * 0.45"
+    :maxPolarAngle="Math.PI * 6"
+    :minAzimuthAngle="-Math.PI * 0.4"
+    :maxAzimuthAngle="Math.PI * 0.4"
+    :minDistance="5"
+    :maxDistance="30"
+  />
+  <TresMesh>
+    <TresPlaneGeometry :args="[2, 2]" />
+    <TresShaderMaterial v-bind="shader" />
+  </TresMesh>
 </template>

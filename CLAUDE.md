@@ -22,7 +22,7 @@ A personal 3D graphics playground built with Vue 3 + TresJS (Three.js wrapper). 
 ## Commands
 
 ```bash
-pnpm dev              # dev server with hot reload
+pnpm dev              # dev server with hot reload (Claude: never run this — see Architecture Notes)
 pnpm build            # production build → dist/
 pnpm preview          # preview production build
 pnpm lint             # ESLint --fix (.vue/.js)
@@ -206,7 +206,7 @@ onUnmounted(() => pane?.dispose())
 - **Linting**: `pnpm lint` runs ESLint with autofix. `pnpm format` runs Prettier. Run both before committing.
 - **No TypeScript**: The project uses plain `.js` and `.vue` with no tsconfig. Do not introduce TypeScript.
 - **No test suite**: There are no unit or e2e tests. Do not add a test runner.
-- **No dev-server checks**: Do not run `pnpm dev` to verify changes. Import correctness is sufficient for file-structure tasks.
+- **No dev-server checks**: Never run `pnpm dev`, under any circumstances, even to verify a change works. Import/structure correctness is sufficient.
 
 ## Code Style
 

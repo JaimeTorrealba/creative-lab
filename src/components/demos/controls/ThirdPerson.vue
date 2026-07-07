@@ -9,10 +9,10 @@ const { state, isLoading } = useGLTF('/models/footman/source/Footman_RIG.glb')
 
 watchOnce(isLoading, (v) => {
   if (!v) {
-    currentAction.value = actions.Idle;
-    currentAction.value.play();
+    currentAction.value = actions.Idle
+    currentAction.value.play()
   }
-});
+})
 
 const animations = computed(() => state.value?.animations || [])
 const model = computed(() => state?.value?.scene)
@@ -35,8 +35,8 @@ const changeAnimation = (action) => {
   currentAction.value.fadeOut(fadeDuration)
   action.reset().fadeIn(fadeDuration).play()
   currentAction.value = action
-  if(action === actions.SwordAndShieldSlash){
-    mixer.value.addEventListener( 'loop', () => {
+  if (action === actions.SwordAndShieldSlash) {
+    mixer.value.addEventListener('loop', () => {
       changeAnimation(actions.Idle)
       waitForAnimation.value = false
     })
@@ -61,18 +61,17 @@ document.addEventListener('click', () => {
   changeAnimation(actions.SwordAndShieldSlash)
 })
 
-
 const updateCamera = (camera, delta) => {
   const angleYCameraDirection = Math.atan2(
-    (camera.position.x - model.value.position.x),
-    (camera.position.z - model.value.position.z))
+    camera.position.x - model.value.position.x,
+    camera.position.z - model.value.position.z
+  )
   const directionOffset = getOffset()
   let directionOffsetModel = getInvertOffset() // correct rotation model coordinates
 
   // rotate model
   rotateQuarternion.setFromAxisAngle(rotateAngle, angleYCameraDirection + directionOffsetModel)
   model.value.quaternion.rotateTowards(rotateQuarternion, 0.2)
-
 
   // calculate direction
   camera.getWorldDirection(walkDirection)
@@ -93,7 +92,7 @@ const getOffset = () => {
     if (a.value) {
       directionOffset = Math.PI / 4 // w+a
     } else if (d.value) {
-      directionOffset = - Math.PI / 4 // w+d
+      directionOffset = -Math.PI / 4 // w+d
     }
   } else if (s.value) {
     if (a.value) {
@@ -106,7 +105,7 @@ const getOffset = () => {
   } else if (a.value) {
     directionOffset = Math.PI / 2 // a
   } else if (d.value) {
-    directionOffset = - Math.PI / 2 // d
+    directionOffset = -Math.PI / 2 // d
   }
 
   return directionOffset
@@ -123,14 +122,14 @@ const getInvertOffset = () => {
     if (a.value) {
       directionOffset = -Math.PI / 4 // s+a
     } else if (d.value) {
-      directionOffset =  Math.PI / 4 // s+d
+      directionOffset = Math.PI / 4 // s+d
     } else {
       directionOffset = 0 // s
     }
   } else if (a.value) {
     directionOffset = -Math.PI / 2 // a
   } else if (d.value) {
-    directionOffset = + Math.PI / 2 // d
+    directionOffset = +Math.PI / 2 // d
   }
 
   return directionOffset
@@ -154,14 +153,19 @@ onBeforeRender(({ delta }) => {
   if (camera.value && orbitControlsRef.value && hasPressed.value) {
     updateCamera(camera.value, delta)
   }
-
 })
 </script>
 <template>
-    <OrbitControls enableDamping :enable-pan="false" :min-distance="5" :max-distance="15"
-        :max-polar-angle="Math.PI / 2 - 0.05" ref="orbitControlsRef" />
-    <primitive v-if="model" :object="model" />
-    <TresGridHelper :size="50" :divisions="50" />
-    <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
-    <TresAmbientLight />
+  <OrbitControls
+    enableDamping
+    :enable-pan="false"
+    :min-distance="5"
+    :max-distance="15"
+    :max-polar-angle="Math.PI / 2 - 0.05"
+    ref="orbitControlsRef"
+  />
+  <primitive v-if="model" :object="model" />
+  <TresGridHelper :size="50" :divisions="50" />
+  <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
+  <TresAmbientLight />
 </template>

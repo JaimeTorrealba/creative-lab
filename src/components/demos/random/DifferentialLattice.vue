@@ -4,8 +4,8 @@ import { Pane } from 'tweakpane'
 
 const canvas = ref(null)
 let animId = null
-let ctx    = null
-let pane   = null
+let ctx = null
+let pane = null
 
 // ── Canvas resolution ──────────────────────────────────────────────────────────
 const SIZE = 800
@@ -29,47 +29,47 @@ const SIZE = 800
 // All positions and radii use normalized [0, 1] coordinates.
 
 const params = {
-  stepsPerFrame:    3,        // simulation steps computed per animation frame
+  stepsPerFrame: 3, // simulation steps computed per animation frame
 
   // Node geometry — every spacing radius is derived from nodeRadius
-  nodeRadius:       0.0070,   // base unit; scale this to change mesh density
+  nodeRadius: 0.007, // base unit; scale this to change mesh density
 
   // Force multipliers (match the original Python stp / spring_stp / reject_stp / cohesion_stp)
-  moveStep:         0.00003,  // max displacement applied per simulation step
-  springForce:      5.0,      // attraction/repulsion strength between spring-linked pairs
-  rejectForce:      0.15,     // repulsion strength from unlinked nearby nodes
-  expansionForce:   1.2,      // outward pressure — nodes push away from local centroid
+  moveStep: 0.00003, // max displacement applied per simulation step
+  springForce: 5.0, // attraction/repulsion strength between spring-linked pairs
+  rejectForce: 0.15, // repulsion strength from unlinked nearby nodes
+  expansionForce: 1.2, // outward pressure — nodes push away from local centroid
 
   // Spawning
-  spawnRatio:       0.06,     // fraction of eligible outer nodes that spawn a child per frame
-  spawnThreshold:   28,       // a node can spawn when its neighbor count is below this
-  maxNodes:         2000,     // total node cap (performance guard)
+  spawnRatio: 0.06, // fraction of eligible outer nodes that spawn a child per frame
+  spawnThreshold: 28, // a node can spawn when its neighbor count is below this
+  maxNodes: 2000, // total node cap (performance guard)
 
   // Render
-  bgColor:   '#111118',
+  bgColor: '#111118',
   nodeColor: '#c8ddf4',
-  edgeColor: '#3460a0',
+  edgeColor: '#3460a0'
 }
 
 // ── Derived radii — recomputed from nodeRadius on every reset ──────────────────
-let springRejectRadius   = 0  // spring pushes apart when dist < this
-let springAttractRadius  = 0  // spring pulls together when dist > this
-let outerInfluenceRadius = 0  // maximum neighborhood search radius
-let linkIgnoreRadius     = 0  // nodes farther apart than this cannot be relative neighbors
-let CELL_SIZE            = 0  // spatial-hash cell side (= outerInfluenceRadius)
+let springRejectRadius = 0 // spring pushes apart when dist < this
+let springAttractRadius = 0 // spring pulls together when dist > this
+let outerInfluenceRadius = 0 // maximum neighborhood search radius
+let linkIgnoreRadius = 0 // nodes farther apart than this cannot be relative neighbors
+let CELL_SIZE = 0 // spatial-hash cell side (= outerInfluenceRadius)
 
 function computeDerivedRadii() {
-  springRejectRadius   = params.nodeRadius * 1.9
-  springAttractRadius  = params.nodeRadius * 2.0
+  springRejectRadius = params.nodeRadius * 1.9
+  springAttractRadius = params.nodeRadius * 2.0
   outerInfluenceRadius = params.nodeRadius * 10.0
-  linkIgnoreRadius     = params.nodeRadius * 5.0
+  linkIgnoreRadius = params.nodeRadius * 5.0
   // One cell covers exactly the influence radius, so a 3×3 cell search is sufficient.
   CELL_SIZE = outerInfluenceRadius
 }
 
 // ── Simulation state ───────────────────────────────────────────────────────────
-let nodes = []  // [{ x, y, dx, dy, neighborCount }, …]
-let edges = []  // [[idxA, idxB], …]  rebuilt each step for drawing
+let nodes = [] // [{ x, y, dx, dy, neighborCount }, …]
+let edges = [] // [[idxA, idxB], …]  rebuilt each step for drawing
 
 // ── Spatial hash ───────────────────────────────────────────────────────────────
 function buildSpatialHash() {
@@ -138,9 +138,9 @@ function simulationStep(spatialHash) {
 
     for (const j of candidatesOfI) {
       const nj = nodes[j]
-      const diffX = ni.x - nj.x  // vector pointing from j → i
+      const diffX = ni.x - nj.x // vector pointing from j → i
       const diffY = ni.y - nj.y
-      const dist  = Math.hypot(diffX, diffY)
+      const dist = Math.hypot(diffX, diffY)
       if (dist <= 0) continue
 
       // Accumulate positions for the local centroid (used by expansion force below)
@@ -148,11 +148,11 @@ function simulationStep(spatialHash) {
       centroidSumY += nj.y
       neighborCount++
 
-      const unitX = diffX / dist  // unit vector j → i
+      const unitX = diffX / dist // unit vector j → i
       const unitY = diffY / dist
 
       if (areRelativeNeighbors(ni, nj, dist, candidatesOfI)) {
-        if (i < j) edges.push([i, j])  // record edge once for drawing
+        if (i < j) edges.push([i, j]) // record edge once for drawing
 
         if (dist > springAttractRadius) {
           // Linked but too far → spring pulls i toward j
@@ -178,7 +178,7 @@ function simulationStep(spatialHash) {
     if (neighborCount > 0) {
       const towardCentroidX = centroidSumX / neighborCount - ni.x
       const towardCentroidY = centroidSumY / neighborCount - ni.y
-      const centroidDist    = Math.hypot(towardCentroidX, towardCentroidY)
+      const centroidDist = Math.hypot(towardCentroidX, towardCentroidY)
       if (centroidDist > 1e-9) {
         expansionForceX = -(towardCentroidX / centroidDist) * params.expansionForce
         expansionForceY = -(towardCentroidY / centroidDist) * params.expansionForce
@@ -216,7 +216,9 @@ function spawnNewNodes() {
     toAdd.push({
       x: node.x + Math.cos(angle) * spawnOffset,
       y: node.y + Math.sin(angle) * spawnOffset,
-      dx: 0, dy: 0, neighborCount: 0,
+      dx: 0,
+      dy: 0,
+      neighborCount: 0
     })
   }
 
@@ -230,7 +232,7 @@ function draw() {
 
   // Edges (drawn behind nodes)
   ctx.strokeStyle = params.edgeColor
-  ctx.lineWidth   = 0.7
+  ctx.lineWidth = 0.7
   ctx.globalAlpha = 0.65
   ctx.beginPath()
   for (const [a, b] of edges) {
@@ -240,7 +242,7 @@ function draw() {
   ctx.stroke()
 
   // Nodes
-  ctx.fillStyle   = params.nodeColor
+  ctx.fillStyle = params.nodeColor
   ctx.globalAlpha = 0.85
   const drawRadius = params.nodeRadius * SIZE * 0.55
   for (const { x, y } of nodes) {
@@ -260,13 +262,15 @@ function init() {
 
   // Seed: 20 nodes arranged in a tight circle at the canvas center
   const initialCount = 20
-  const seedRadius   = params.nodeRadius * 0.8
+  const seedRadius = params.nodeRadius * 0.8
   for (let k = 0; k < initialCount; k++) {
     const angle = (k / initialCount) * Math.PI * 2
     nodes.push({
       x: 0.5 + Math.cos(angle) * seedRadius,
       y: 0.5 + Math.sin(angle) * seedRadius,
-      dx: 0, dy: 0, neighborCount: 0,
+      dx: 0,
+      dy: 0,
+      neighborCount: 0
     })
   }
 }
@@ -294,10 +298,10 @@ function startLoop() {
 
 // ── Lifecycle ──────────────────────────────────────────────────────────────────
 onMounted(() => {
-  const el  = canvas.value
-  el.width  = SIZE
+  const el = canvas.value
+  el.width = SIZE
   el.height = SIZE
-  ctx       = el.getContext('2d')
+  ctx = el.getContext('2d')
 
   init()
   startLoop()
@@ -306,22 +310,62 @@ onMounted(() => {
   pane = new Pane({ title: 'Differential Lattice' })
 
   const simFolder = pane.addFolder({ title: 'Simulation' })
-  simFolder.addBinding(params, 'stepsPerFrame', { min: 1,      max: 15,     step: 1,        label: 'Steps / frame' })
-  simFolder.addBinding(params, 'nodeRadius',    { min: 0.003,  max: 0.015,  step: 0.0005,   label: 'Node radius' })
-  simFolder.addBinding(params, 'moveStep',      { min: 0.00001, max: 0.0001, step: 0.000005, label: 'Move step' })
-  simFolder.addBinding(params, 'maxNodes',      { min: 100,    max: 5000,   step: 100,      label: 'Max nodes' })
+  simFolder.addBinding(params, 'stepsPerFrame', {
+    min: 1,
+    max: 15,
+    step: 1,
+    label: 'Steps / frame'
+  })
+  simFolder.addBinding(params, 'nodeRadius', {
+    min: 0.003,
+    max: 0.015,
+    step: 0.0005,
+    label: 'Node radius'
+  })
+  simFolder.addBinding(params, 'moveStep', {
+    min: 0.00001,
+    max: 0.0001,
+    step: 0.000005,
+    label: 'Move step'
+  })
+  simFolder.addBinding(params, 'maxNodes', { min: 100, max: 5000, step: 100, label: 'Max nodes' })
 
   const forcesFolder = pane.addFolder({ title: 'Forces' })
-  forcesFolder.addBinding(params, 'springForce',    { min: 0.5,  max: 15,  step: 0.5, label: 'Spring force' })
-  forcesFolder.addBinding(params, 'rejectForce',    { min: 0.01, max: 1.0, step: 0.01, label: 'Reject force' })
-  forcesFolder.addBinding(params, 'expansionForce', { min: 0.1,  max: 5.0, step: 0.1,  label: 'Expansion force' })
+  forcesFolder.addBinding(params, 'springForce', {
+    min: 0.5,
+    max: 15,
+    step: 0.5,
+    label: 'Spring force'
+  })
+  forcesFolder.addBinding(params, 'rejectForce', {
+    min: 0.01,
+    max: 1.0,
+    step: 0.01,
+    label: 'Reject force'
+  })
+  forcesFolder.addBinding(params, 'expansionForce', {
+    min: 0.1,
+    max: 5.0,
+    step: 0.1,
+    label: 'Expansion force'
+  })
 
   const spawnFolder = pane.addFolder({ title: 'Spawning' })
-  spawnFolder.addBinding(params, 'spawnRatio',     { min: 0.005, max: 0.3, step: 0.005, label: 'Spawn ratio' })
-  spawnFolder.addBinding(params, 'spawnThreshold', { min: 5,     max: 60,  step: 1,     label: 'Spawn threshold' })
+  spawnFolder.addBinding(params, 'spawnRatio', {
+    min: 0.005,
+    max: 0.3,
+    step: 0.005,
+    label: 'Spawn ratio'
+  })
+  spawnFolder.addBinding(params, 'spawnThreshold', {
+    min: 5,
+    max: 60,
+    step: 1,
+    label: 'Spawn threshold'
+  })
 
   const renderFolder = pane.addFolder({ title: 'Render' })
-  renderFolder.addBinding(params, 'bgColor',   { label: 'Background' })
+  renderFolder.addBinding(params, 'bgColor', { label: 'Background' })
   renderFolder.addBinding(params, 'nodeColor', { label: 'Node colour' })
   renderFolder.addBinding(params, 'edgeColor', { label: 'Edge colour' })
 

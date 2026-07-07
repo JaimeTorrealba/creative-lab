@@ -28,20 +28,24 @@ const createSphere = () => {
   objects.push(sphere)
   highlighter.value.parent.add(sphere)
 }
-
 </script>
 <template>
-    <TresMesh name="ground" :rotation-x="-Math.PI * 0.5" :visible="false" @click="createSphere()"
-        @pointermove="(e) => onSelect(e)">
-        <TresPlaneGeometry :args="[10, 10, 32]" />
-        <TresMeshBasicMaterial :color="0x00ff00" :side="DoubleSide" />
-    </TresMesh>
-    <TresMesh ref="highlighter" :position="[0.5, 0, 0.5]" :rotation-x="-Math.PI * 0.5">
-        <TresPlaneGeometry :args="[1, 1]" />
-        <TresMeshBasicMaterial :color="0xf7f7f7" :side="DoubleSide" />
-    </TresMesh>
-    <Sphere ref="sphereBase" :args="[0.25, 16, 16]" :position-y="1" :visible="false">
-        <TresMeshBasicMaterial :color="0x00ff00" wireframe />
-    </Sphere>
-    <TresGridHelper :size="5" :divisions="10" />
+  <TresMesh
+    name="ground"
+    :rotation-x="-Math.PI * 0.5"
+    :visible="false"
+    @click="createSphere()"
+    @pointermove="(e) => onSelect(e)"
+  >
+    <TresPlaneGeometry :args="[10, 10, 32]" />
+    <TresMeshBasicMaterial :color="0x00ff00" :side="DoubleSide" />
+  </TresMesh>
+  <TresMesh ref="highlighter" :position="[0.5, 0, 0.5]" :rotation-x="-Math.PI * 0.5">
+    <TresPlaneGeometry :args="[1, 1]" />
+    <TresMeshBasicMaterial :color="0xf7f7f7" :side="DoubleSide" />
+  </TresMesh>
+  <Sphere ref="sphereBase" :args="[0.25, 16, 16]" :position-y="1" :visible="false">
+    <TresMeshBasicMaterial :color="0x00ff00" wireframe />
+  </Sphere>
+  <TresGridHelper :size="5" :divisions="10" />
 </template>

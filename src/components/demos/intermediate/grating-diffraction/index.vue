@@ -1,13 +1,13 @@
 <script setup>
 import { shallowRef, reactive } from 'vue'
-import vertex from "./vertex.glsl"
-import fragment from "./fragment.glsl"
+import vertex from './vertex.glsl'
+import fragment from './fragment.glsl'
 import { Vector3 } from 'three'
 
 const discRef = shallowRef()
 
 const uniforms = reactive({
-  uLightDir: { value: new Vector3(1.5, 2.5, 2).normalize() },
+  uLightDir: { value: new Vector3(1.5, 2.5, 2).normalize() }
 })
 </script>
 

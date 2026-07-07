@@ -1,7 +1,6 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import TheExperience from '@/components/demos/intermediate/image-reveal/index.vue'
-
 </script>
 <template>
   <TresCanvas clear-color="#111" window-size>

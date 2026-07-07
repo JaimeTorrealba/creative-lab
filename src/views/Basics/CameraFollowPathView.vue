@@ -1,18 +1,18 @@
 <script setup>
-import { TresCanvas } from "@tresjs/core";
-import TheExperience from "@/components/demos/basics/CameraFollowPath.vue";
-import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
+import { TresCanvas } from '@tresjs/core'
+import TheExperience from '@/components/demos/basics/CameraFollowPath.vue'
+import { ACESFilmicToneMapping, SRGBColorSpace } from 'three'
 import { EffectComposerPmndrs, VignettePmndrs, DepthOfFieldPmndrs } from '@tresjs/post-processing'
 
 const gl = {
   antialias: true,
   alpha: false,
   shadows: true,
-  clearColor: "#111",
+  clearColor: '#111',
   outputColorSpace: SRGBColorSpace,
   toneMapping: ACESFilmicToneMapping,
-  toneMappingExposure: 1.0,
-};
+  toneMappingExposure: 1.0
+}
 </script>
 <template>
   <TresCanvas window-size v-bind="gl">

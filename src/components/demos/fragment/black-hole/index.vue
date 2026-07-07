@@ -9,7 +9,8 @@ import vertex from './vertex.glsl'
 import fragment from './fragment.glsl'
 
 // Background image (same as original)
-const bgUrl = 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1427&q=80'
+const bgUrl =
+  'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1427&q=80'
 
 // Mass parameters
 let blackholeMass = 1500
@@ -29,7 +30,7 @@ watchOnce(isLoading, (value) => {
 })
 
 const shader = {
-  uniforms : {
+  uniforms: {
     u_resolution: { value: new Vector2(width.value, height.value) },
     u_mouse: { value: mouse },
     u_mass: { value: 0 },
@@ -44,38 +45,37 @@ const shader = {
 
 // Event listeners for pointer and click
 function onMove(e) {
-	mouse.set(e.clientX, height.value - e.clientY)
-	moved = true
+  mouse.set(e.clientX, height.value - e.clientY)
+  moved = true
 }
 
 // Keep resolution uniform in sync
 watch([width, height], ([w, h]) => {
-	shader.uniforms.u_resolution.value.set(w, h)
+  shader.uniforms.u_resolution.value.set(w, h)
 })
 
 const { onBeforeRender } = useLoop()
 onBeforeRender(({ elapsed }) => {
-	shader.uniforms.u_time.value = elapsed
+  shader.uniforms.u_time.value = elapsed
 
-	if (curBlackholeMass < blackholeMass - 50) {
-		curBlackholeMass += (blackholeMass - curBlackholeMass) * 0.03
-	}
-	shader.uniforms.u_mass.value = curBlackholeMass * 0.00001
+  if (curBlackholeMass < blackholeMass - 50) {
+    curBlackholeMass += (blackholeMass - curBlackholeMass) * 0.03
+  }
+  shader.uniforms.u_mass.value = curBlackholeMass * 0.00001
 
-	// Click-based swirl disabled; keep clicked time at 0
-	shader.uniforms.u_clickedTime.value = 0.0
+  // Click-based swirl disabled; keep clicked time at 0
+  shader.uniforms.u_clickedTime.value = 0.0
 
-	if (!moved) {
-		mouse.y = (-(height.value / 2) + Math.sin(elapsed * 0.7) * (height.value * 0.25)) + height.value
-		mouse.x = (width.value / 2) + Math.sin(elapsed * 0.6) * -(width.value * 0.35)
-	}
+  if (!moved) {
+    mouse.y = -(height.value / 2) + Math.sin(elapsed * 0.7) * (height.value * 0.25) + height.value
+    mouse.x = width.value / 2 + Math.sin(elapsed * 0.6) * -(width.value * 0.35)
+  }
 })
 </script>
 
-
 <template>
-	<TresMesh @pointermove="onMove">
-		<TresPlaneGeometry :args="[2, 2]" />
-		<TresShaderMaterial v-bind="shader" />
-	</TresMesh>
+  <TresMesh @pointermove="onMove">
+    <TresPlaneGeometry :args="[2, 2]" />
+    <TresShaderMaterial v-bind="shader" />
+  </TresMesh>
 </template>

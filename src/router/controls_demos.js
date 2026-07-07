@@ -7,17 +7,17 @@ const controls_routes = [
     basedOn: 'https://youtu.be/EkPfhzIbp2g?si=i7C69xj_Bs1YS7RL'
   },
   {
-    name: 'Click',
+    name: 'Click'
   },
   {
-    name: 'FourFaceModel',
+    name: 'FourFaceModel'
   },
   // {
   //   name: 'FPS',
   //   description: 'First person shooter controls, uses my tres-FPS-controls component. '
   // },
   {
-    name: 'SnapDrag',
+    name: 'SnapDrag'
   },
   {
     name: 'Sprites',
@@ -26,9 +26,8 @@ const controls_routes = [
   {
     name: 'ThirdPerson',
     basedOn: 'https://youtu.be/C3s0UHpwlf8?si=JdxnmkFwgAxoOdk7'
-  },
+  }
 ]
-
 
 export const controls_demos = () => {
   return controls_routes.map((route) => {

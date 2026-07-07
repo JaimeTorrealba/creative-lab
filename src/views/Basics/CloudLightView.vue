@@ -2,7 +2,6 @@
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import TheExperience from '@/components/demos/basics/CloudLight.vue'
-
 </script>
 <template>
   <TresCanvas shadows window-size clear-color="#111" ref="canvasRef">

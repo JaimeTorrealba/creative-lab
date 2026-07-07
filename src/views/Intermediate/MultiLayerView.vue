@@ -6,10 +6,7 @@ import TheExperience from '@/components/demos/intermediate/MultiLayer.vue'
 </script>
 <template>
   <TresCanvas window-size clear-color="#111">
-    <TresPerspectiveCamera
-      :position="[0, 0, 7.5]"
-      :look-at="[0, 0, 0]"
-    />
+    <TresPerspectiveCamera :position="[0, 0, 7.5]" :look-at="[0, 0, 0]" />
     <Suspense>
       <TheExperience />
     </Suspense>

@@ -27,9 +27,9 @@ const shader = {
   fragmentShader: fragment
 }
 
- const updateUniforms = (ev) => {
-   ev.object.material.uniforms.hover.value = ev.uv
- }
+const updateUniforms = (ev) => {
+  ev.object.material.uniforms.hover.value = ev.uv
+}
 
 const { onBeforeRender } = useLoop()
 
@@ -69,35 +69,35 @@ const boxes = [
 ]
 </script>
 <template>
-    <TresMesh :position="[0, 0, -3.5]" receive-shadow>
-        <TresPlaneGeometry :args="[10, 10]" />
-        <TresMeshStandardMaterial color="#C4C4C4" />
-      </TresMesh>
-      <!-- Shader wall -->
-      <TresMesh @pointermove="(ev) => updateUniforms(ev)" name="wall">
-        <TresPlaneGeometry :args="[2, 1]" />
-        <TresShaderMaterial v-bind="shader" :transparent="true" />
-      </TresMesh>
-      <Suspense>
-        <Text3D
-          text="Transparent"
-          :size="0.3"
-          :font="fontPath"
-          :center="true"
-          :position="[0, 0, -3]"
-          cast-shadow
-          name="text"
-        >
-          <TresMeshStandardMaterial />
-        </Text3D>
-      </Suspense>
-      <Box
-        v-for="{ color, position, name } in boxes"
-        :key="name"
-        ref="box"
-        :color="color"
-        :position="position"
-        :scale="[0.5, 0.5, 0.5]"
-      />
-      <TresPointLight ref="spotLightRef" :args="[0xffffff, 7.5]" cast-shadow name="light" />
+  <TresMesh :position="[0, 0, -3.5]" receive-shadow>
+    <TresPlaneGeometry :args="[10, 10]" />
+    <TresMeshStandardMaterial color="#C4C4C4" />
+  </TresMesh>
+  <!-- Shader wall -->
+  <TresMesh @pointermove="(ev) => updateUniforms(ev)" name="wall">
+    <TresPlaneGeometry :args="[2, 1]" />
+    <TresShaderMaterial v-bind="shader" :transparent="true" />
+  </TresMesh>
+  <Suspense>
+    <Text3D
+      text="Transparent"
+      :size="0.3"
+      :font="fontPath"
+      :center="true"
+      :position="[0, 0, -3]"
+      cast-shadow
+      name="text"
+    >
+      <TresMeshStandardMaterial />
+    </Text3D>
+  </Suspense>
+  <Box
+    v-for="{ color, position, name } in boxes"
+    :key="name"
+    ref="box"
+    :color="color"
+    :position="position"
+    :scale="[0.5, 0.5, 0.5]"
+  />
+  <TresPointLight ref="spotLightRef" :args="[0xffffff, 7.5]" cast-shadow name="light" />
 </template>

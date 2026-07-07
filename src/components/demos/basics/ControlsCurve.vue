@@ -2,12 +2,22 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { TransformControls, OrbitControls } from '@tresjs/cientos'
 import { useLoop } from '@tresjs/core'
-import { QuadraticBezierCurve3, CubicBezierCurve3, CatmullRomCurve3, Vector3, BufferGeometry, Line, LineBasicMaterial } from 'three'
+import {
+  QuadraticBezierCurve3,
+  CubicBezierCurve3,
+  CatmullRomCurve3,
+  Vector3,
+  BufferGeometry,
+  Line,
+  LineBasicMaterial
+} from 'three'
 import { Pane } from 'tweakpane'
 
 // ── Control points — stored as { id, pos } for stable v-for keys ──────────────
 let _uid = 0
-function mkPt(x, y, z) { return { id: _uid++, pos: [x, y, z] } }
+function mkPt(x, y, z) {
+  return { id: _uid++, pos: [x, y, z] }
+}
 
 const controlPts = ref([mkPt(-3, 0, 0), mkPt(0, 3, 0), mkPt(3, 0, 0)])
 
@@ -16,7 +26,9 @@ const meshRefs = ref([])
 
 const COLORS = ['#ff4444', '#44ff88', '#4488ff']
 const DEFAULT_COLOR = '#ffaa00'
-function getColor(i) { return COLORS[i] ?? DEFAULT_COLOR }
+function getColor(i) {
+  return COLORS[i] ?? DEFAULT_COLOR
+}
 
 // ── Curve ─────────────────────────────────────────────────────────────────────
 const orbitEnabled = ref(true)
@@ -68,7 +80,7 @@ function addPoint() {
 
 function removePoint() {
   if (controlPts.value.length <= 3) return
-  const idx = controlPts.value.reduce((best, pt, i, arr) => pt.id > arr[best].id ? i : best, 0)
+  const idx = controlPts.value.reduce((best, pt, i, arr) => (pt.id > arr[best].id ? i : best), 0)
   controlPts.value.splice(idx, 1)
   meshRefs.value.splice(idx, 1)
   rebuildCurve()
@@ -92,12 +104,13 @@ onMounted(() => {
 
   curveTypeBinding = pane.addBinding(params, 'curveType', {
     label: 'type',
-    options: { Bezier: 'bezier', CatmullRom: 'catmullrom' },
+    options: { Bezier: 'bezier', CatmullRom: 'catmullrom' }
   })
   curveTypeBinding.on('change', rebuildCurve)
 
-  pane.addBinding(params, 'orbit', { label: 'orbit controls' })
-    .on('change', ({ value }) => { orbitEnabled.value = value })
+  pane.addBinding(params, 'orbit', { label: 'orbit controls' }).on('change', ({ value }) => {
+    orbitEnabled.value = value
+  })
 
   pane.addButton({ title: 'Add Point' }).on('click', addPoint)
 
@@ -112,14 +125,18 @@ onUnmounted(() => pane?.dispose())
   <primitive :object="lineObj" />
 
   <template v-for="(pt, i) in controlPts" :key="pt.id">
-    <TresMesh :ref="el => { if (el) meshRefs[i] = el }" :position="pt.pos">
+    <TresMesh
+      :ref="
+        (el) => {
+          if (el) meshRefs[i] = el
+        }
+      "
+      :position="pt.pos"
+    >
       <TresSphereGeometry :args="[0.18, 16, 16]" />
       <TresMeshStandardMaterial :color="getColor(i)" />
     </TresMesh>
-    <TransformControls
-      v-if="meshRefs[i]"
-      :object="meshRefs[i]"
-    />
+    <TransformControls v-if="meshRefs[i]" :object="meshRefs[i]" />
   </template>
 
   <OrbitControls v-if="orbitEnabled" />

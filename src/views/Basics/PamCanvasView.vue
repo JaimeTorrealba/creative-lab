@@ -1,7 +1,7 @@
 <script setup>
-import { TresCanvas } from "@tresjs/core";
-import { Image, Stars, OrbitControls } from "@tresjs/cientos";
-import { MOUSE } from "three";
+import { TresCanvas } from '@tresjs/core'
+import { Image, Stars, OrbitControls } from '@tresjs/cientos'
+import { MOUSE } from 'three'
 </script>
 <template>
   <section class="is-flex is-flex-direction-column is-justify-content-space-between h-screen">
@@ -9,9 +9,9 @@ import { MOUSE } from "three";
       <div class="column is-half p-4">
         <h1 class="title-4 text-center">Pam Canvas</h1>
         <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus, quod. Rerum
-          quis molestiae, reiciendis officia nihil, fugit nisi tenetur et a error magnam
-          ipsam voluptatem ut atque totam! Omnis, facere.
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus, quod. Rerum quis
+          molestiae, reiciendis officia nihil, fugit nisi tenetur et a error magnam ipsam voluptatem
+          ut atque totam! Omnis, facere.
         </p>
       </div>
     </div>
@@ -32,10 +32,10 @@ import { MOUSE } from "three";
             :mouseButtons="{
               LEFT: MOUSE.PAN,
               MIDDLE: MOUSE.DOLLY,
-              RIGHT: MOUSE.ROTATE,
+              RIGHT: MOUSE.ROTATE
             }"
             :keys="{
-              LEFT: 'ArrowRight',
+              LEFT: 'ArrowRight'
             }"
             :dampingFactor="0.5"
           />
@@ -56,9 +56,9 @@ import { MOUSE } from "three";
       <div class="column is-half px-4">
         <h1 class="title-4 text-center">Pam Canvas</h1>
         <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus, quod. Rerum
-          quis molestiae, reiciendis officia nihil, fugit nisi tenetur et a error magnam
-          ipsam voluptatem ut atque totam! Omnis, facere.
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus, quod. Rerum quis
+          molestiae, reiciendis officia nihil, fugit nisi tenetur et a error magnam ipsam voluptatem
+          ut atque totam! Omnis, facere.
         </p>
       </div>
     </div>
@@ -68,8 +68,7 @@ import { MOUSE } from "three";
 .fullscreen {
   height: 70vh;
 }
-.h-screen{
+.h-screen {
   height: 100vh;
 }
-
 </style>

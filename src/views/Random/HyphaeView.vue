@@ -1,5 +1,5 @@
 <script setup>
-import HyphaeDemo from "@/components/demos/random/Hyphae.vue";
+import HyphaeDemo from '@/components/demos/random/Hyphae.vue'
 </script>
 <template>
   <div class="hyphae-wrapper">

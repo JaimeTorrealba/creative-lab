@@ -17,7 +17,9 @@ function diamondSquare(size, roughness) {
   const idx = (x, y) => y * size + x
   const clamp = (v) => Math.max(0, Math.min(1, v))
   const get = (x, y) => grid[idx((x + size) % size, (y + size) % size)]
-  const set = (x, y, v) => { grid[idx(x, y)] = clamp(v) }
+  const set = (x, y, v) => {
+    grid[idx(x, y)] = clamp(v)
+  }
   const last = size - 1
 
   set(0, 0, Math.random())
@@ -63,7 +65,7 @@ function buildTexture(size, roughness) {
 }
 
 // Valid sizes: 2^n + 1
-const SIZES = { '65 (fast)': 65, '129': 129, '257': 257, '513 (slow)': 513 }
+const SIZES = { '65 (fast)': 65, 129: 129, 257: 257, '513 (slow)': 513 }
 
 const params = reactive({
   gridSize: '257',
@@ -74,7 +76,7 @@ const params = reactive({
   displacement: 3.0,
   lowColor: '#0d3366',
   midColor: '#4d8c34',
-  highColor: '#e6e6e6',
+  highColor: '#e6e6e6'
 })
 
 const uniforms = reactive({
@@ -82,7 +84,7 @@ const uniforms = reactive({
   uDisplacement: { value: params.displacement },
   uLowColor: { value: hexToVec3(params.lowColor) },
   uMidColor: { value: hexToVec3(params.midColor) },
-  uHighColor: { value: hexToVec3(params.highColor) },
+  uHighColor: { value: hexToVec3(params.highColor) }
 })
 
 // Key forces TresPlaneGeometry to remount when segments or gridSize changes
@@ -95,34 +97,75 @@ function regenerate() {
   uniforms.uHeightmap.value = buildTexture(size, params.roughness)
 }
 
-watch(() => params.displacement, (v) => { uniforms.uDisplacement.value = v })
-watch(() => params.lowColor, (v) => { uniforms.uLowColor.value = hexToVec3(v) })
-watch(() => params.midColor, (v) => { uniforms.uMidColor.value = hexToVec3(v) })
-watch(() => params.highColor, (v) => { uniforms.uHighColor.value = hexToVec3(v) })
-watch(() => meshRef.value, (mesh) => { if (mesh) mesh.scale.setScalar(params.meshScale) })
+watch(
+  () => params.displacement,
+  (v) => {
+    uniforms.uDisplacement.value = v
+  }
+)
+watch(
+  () => params.lowColor,
+  (v) => {
+    uniforms.uLowColor.value = hexToVec3(v)
+  }
+)
+watch(
+  () => params.midColor,
+  (v) => {
+    uniforms.uMidColor.value = hexToVec3(v)
+  }
+)
+watch(
+  () => params.highColor,
+  (v) => {
+    uniforms.uHighColor.value = hexToVec3(v)
+  }
+)
+watch(
+  () => meshRef.value,
+  (mesh) => {
+    if (mesh) mesh.scale.setScalar(params.meshScale)
+  }
+)
 
 let pane
 onMounted(() => {
   pane = new Pane({ title: 'Heightmap Controls' })
 
   const terrain = pane.addFolder({ title: 'Terrain Generation' })
-  terrain.addBinding(params, 'gridSize', {
-    label: 'grid size',
-    options: Object.fromEntries(Object.keys(SIZES).map((k) => [k, k])),
-  }).on('change', () => { geoKey.value++; regenerate() })
-  terrain.addBinding(params, 'roughness', { label: 'roughness', min: 0.1, max: 1.5, step: 0.01 })
+  terrain
+    .addBinding(params, 'gridSize', {
+      label: 'grid size',
+      options: Object.fromEntries(Object.keys(SIZES).map((k) => [k, k]))
+    })
+    .on('change', () => {
+      geoKey.value++
+      regenerate()
+    })
+  terrain
+    .addBinding(params, 'roughness', { label: 'roughness', min: 0.1, max: 1.5, step: 0.01 })
     .on('change', regenerate)
   terrain.addButton({ title: 'New seed' }).on('click', regenerate)
 
   const geometry = pane.addFolder({ title: 'Geometry' })
-  geometry.addBinding(params, 'segments', {
-    label: 'segments',
-    options: { '64': 64, '128': 128, '256': 256, '512': 512 },
-  }).on('change', () => { geoKey.value++ })
-  geometry.addBinding(params, 'geoSize', { label: 'geo size', min: 1, max: 50, step: 0.5 })
-    .on('change', () => { geoKey.value++ })
-  geometry.addBinding(params, 'meshScale', { label: 'mesh scale', min: 0.1, max: 5.0, step: 0.01 })
-    .on('change', (e) => { if (meshRef.value) meshRef.value.scale.setScalar(e.value) })
+  geometry
+    .addBinding(params, 'segments', {
+      label: 'segments',
+      options: { 64: 64, 128: 128, 256: 256, 512: 512 }
+    })
+    .on('change', () => {
+      geoKey.value++
+    })
+  geometry
+    .addBinding(params, 'geoSize', { label: 'geo size', min: 1, max: 50, step: 0.5 })
+    .on('change', () => {
+      geoKey.value++
+    })
+  geometry
+    .addBinding(params, 'meshScale', { label: 'mesh scale', min: 0.1, max: 5.0, step: 0.01 })
+    .on('change', (e) => {
+      if (meshRef.value) meshRef.value.scale.setScalar(e.value)
+    })
 
   const shading = pane.addFolder({ title: 'Shading' })
   shading.addBinding(params, 'displacement', { label: 'displacement', min: 0, max: 10, step: 0.01 })
@@ -139,12 +182,11 @@ onUnmounted(() => {
 
 <template>
   <TresMesh ref="meshRef" :rotation="[-Math.PI / 2, 0, 0]">
-    <TresPlaneGeometry :key="geoKey" :args="[params.geoSize, params.geoSize, params.segments, params.segments]" />
-    <TresShaderMaterial
-      :vertex-shader="vertex"
-      :fragment-shader="fragment"
-      :uniforms="uniforms"
+    <TresPlaneGeometry
+      :key="geoKey"
+      :args="[params.geoSize, params.geoSize, params.segments, params.segments]"
     />
+    <TresShaderMaterial :vertex-shader="vertex" :fragment-shader="fragment" :uniforms="uniforms" />
   </TresMesh>
   <TresAmbientLight :intensity="0.5" />
   <TresDirectionalLight :position="[5, 10, 5]" :intensity="1.5" />

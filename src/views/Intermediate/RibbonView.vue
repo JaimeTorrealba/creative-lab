@@ -1,15 +1,14 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import TheExperience from '@/components/demos/intermediate/Ribbon.vue';
-
+import TheExperience from '@/components/demos/intermediate/Ribbon.vue'
 </script>
 <template>
-    <TresCanvas window-size clear-color='#e4e4e4'>
-        <TresPerspectiveCamera :position='[0, 0, 15]' />
-        <OrbitControls />
-        <Suspense>
-            <TheExperience />
-        </Suspense>
-    </TresCanvas>
+  <TresCanvas window-size clear-color="#e4e4e4">
+    <TresPerspectiveCamera :position="[0, 0, 15]" />
+    <OrbitControls />
+    <Suspense>
+      <TheExperience />
+    </Suspense>
+  </TresCanvas>
 </template>

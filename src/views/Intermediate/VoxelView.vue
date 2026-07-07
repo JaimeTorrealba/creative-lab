@@ -2,12 +2,10 @@
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import TheExperience from '@/components/demos/intermediate/Voxel.vue'
-
-
 </script>
 <template>
   <TresCanvas window-size clear-color="lightblue">
-    <TresPerspectiveCamera :position="[5, 5, 15]" :look-at="[0,0,0]" />
+    <TresPerspectiveCamera :position="[5, 5, 15]" :look-at="[0, 0, 0]" />
     <OrbitControls />
     <Suspense>
       <TheExperience />

@@ -1,7 +1,17 @@
 <script setup>
 import { useTres } from '@tresjs/core'
 import { useTextures } from '@tresjs/cientos'
-import { AdditiveBlending, BufferGeometry, Color, Float32BufferAttribute, Points, ShaderMaterial, Spherical, Uniform, Vector3 } from 'three'
+import {
+  AdditiveBlending,
+  BufferGeometry,
+  Color,
+  Float32BufferAttribute,
+  Points,
+  ShaderMaterial,
+  Spherical,
+  Uniform,
+  Vector3
+} from 'three'
 import { useDevicePixelRatio, useEventListener, useWindowSize } from '@vueuse/core'
 import gsap from 'gsap'
 import { ref, watch, onMounted } from 'vue'
@@ -25,7 +35,7 @@ const texturesPaths = [
   '/textures/particles/star_06.png',
   '/textures/particles/star_07.png',
   '/textures/particles/star_08.png',
-  '/textures/particles/star_09.png',
+  '/textures/particles/star_09.png'
 ]
 
 const { textures } = useTextures(texturesPaths)
@@ -44,7 +54,7 @@ function createFireworks(options) {
     const spherical = new Spherical(
       radius * (0.7 + Math.random() * 0.25),
       Math.random() * Math.PI,
-      Math.random() * Math.PI * 2,
+      Math.random() * Math.PI * 2
     )
     const position = new Vector3().setFromSpherical(spherical)
 
@@ -59,23 +69,21 @@ function createFireworks(options) {
   geometry.setAttribute('position', new Float32BufferAttribute(positionArray, 3))
   geometry.setAttribute('aSize', new Float32BufferAttribute(sizeArray, 1))
   geometry.setAttribute('aDecay', new Float32BufferAttribute(decayArray, 1))
-  material.value = new ShaderMaterial(
-    {
-      vertexShader,
-      fragmentShader,
-      uniforms: {
-        uTime: new Uniform(0),
-        uSize: new Uniform(size),
-        uResolution: new Uniform(new Vector3(width.value, height.value, pixelRatio.value)),
-        uTexture: new Uniform(textures.value?.[Math.floor(Math.random() * textures.value.length)]),
-        uColor: new Uniform(color),
-        uProgress: new Uniform(0),
-      },
-      transparent: true,
-      blending: AdditiveBlending,
-      depthWrite: false,
+  material.value = new ShaderMaterial({
+    vertexShader,
+    fragmentShader,
+    uniforms: {
+      uTime: new Uniform(0),
+      uSize: new Uniform(size),
+      uResolution: new Uniform(new Vector3(width.value, height.value, pixelRatio.value)),
+      uTexture: new Uniform(textures.value?.[Math.floor(Math.random() * textures.value.length)]),
+      uColor: new Uniform(color),
+      uProgress: new Uniform(0)
     },
-  )
+    transparent: true,
+    blending: AdditiveBlending,
+    depthWrite: false
+  })
 
   // Points
   const fireworks = new Points(geometry, material.value)
@@ -88,19 +96,20 @@ function createFireworks(options) {
     material.value?.dispose()
   }
 
-  gsap.to(
-    material.value?.uniforms.uProgress,
-    {
-      value: 1,
-      duration: 3,
-      onComplete: destroyFirework
-    },
-  )
+  gsap.to(material.value?.uniforms.uProgress, {
+    value: 1,
+    duration: 3,
+    onComplete: destroyFirework
+  })
 }
 
 watch([width, height, pixelRatio], () => {
   if (material.value) {
-    material.value.uniforms.uResolution.value = new Vector3(width.value, height.value, pixelRatio.value)
+    material.value.uniforms.uResolution.value = new Vector3(
+      width.value,
+      height.value,
+      pixelRatio.value
+    )
   }
 })
 
@@ -108,7 +117,7 @@ const rand = (min = 0, max = 1) => Math.random() * (max - min) + min
 
 const createRandomFirework = () => {
   const color = new Color()
-  color.setHSL(rand(0, 1),1, 0.7)
+  color.setHSL(rand(0, 1), 1, 0.7)
   const limit = 5
   const position = new Vector3(rand(-limit, limit), rand(-limit, limit), rand(-limit, limit))
   createFireworks({
@@ -124,9 +133,9 @@ useEventListener(renderer.domElement, 'click', createRandomFirework)
 
 watch(textures, (newTextures) => {
   if (material.value) {
-    material.value.uniforms.uTexture.value = newTextures?.[Math.floor(Math.random() * newTextures.length)]
+    material.value.uniforms.uTexture.value =
+      newTextures?.[Math.floor(Math.random() * newTextures.length)]
   }
-
 })
 
 onMounted(() => {

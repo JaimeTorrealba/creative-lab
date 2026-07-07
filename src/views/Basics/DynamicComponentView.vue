@@ -3,9 +3,9 @@ import { ref } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import { gsap } from 'gsap'
-import CubeMesh from '@/components/demos/basics/dynamic-components/CubeMesh.vue';
-import SphereMesh from '@/components/demos/basics/dynamic-components/SphereMesh.vue';
-import TorusMesh from '@/components/demos/basics/dynamic-components/TorusMesh.vue';
+import CubeMesh from '@/components/demos/basics/dynamic-components/CubeMesh.vue'
+import SphereMesh from '@/components/demos/basics/dynamic-components/SphereMesh.vue'
+import TorusMesh from '@/components/demos/basics/dynamic-components/TorusMesh.vue'
 
 const current = ref('CubeMesh')
 
@@ -26,7 +26,6 @@ const meshes = {
   SphereMesh,
   TorusMesh
 }
-
 </script>
 <template>
   <div class="floating-container">

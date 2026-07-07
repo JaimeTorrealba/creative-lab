@@ -4,13 +4,14 @@ import { TAGS } from '../utils/constants'
 const Random = [
   {
     name: 'BabylonScene',
-    description: 'Babylon.js WebGPU scene — PBR ground with textures, a sphere with a custom GLSL shader, and volumetric light scattering (god rays).',
-    tags: [TAGS.RANDOM, TAGS.WEBGPU],
+    description:
+      'Babylon.js WebGPU scene — PBR ground with textures, a sphere with a custom GLSL shader, and volumetric light scattering (god rays).',
+    tags: [TAGS.RANDOM, TAGS.WEBGPU]
   },
 
   {
     name: 'BitonicSort',
-    tags: [TAGS.RANDOM],
+    tags: [TAGS.RANDOM]
   },
 
   {
@@ -25,7 +26,7 @@ const Random = [
   },
   {
     name: 'GenerativeTree',
-    tags: [TAGS.RANDOM],
+    tags: [TAGS.RANDOM]
   },
   {
     name: 'Hyphae',
@@ -40,20 +41,20 @@ const Random = [
   {
     name: 'PlainWebgl',
     tags: [TAGS.RANDOM],
-    img: '/thumbnails/Random/PlainWebgl.jpg',
+    img: '/thumbnails/Random/PlainWebgl.jpg'
   },
   {
     name: 'PlainWebgpu',
     tags: [TAGS.RANDOM, TAGS.WEBGPU],
-    img: '/thumbnails/Random/PlainWebgpu.jpg',
-  },
+    img: '/thumbnails/Random/PlainWebgpu.jpg'
+  }
 ]
 
 export const random_demos = () => {
   return Random.map((route) => {
     return generateRoute(route.name, 'Random', route.basedOn, {
       ...(route.tags ? { tags: route.tags } : {}),
-      ...(route.img ? { img: route.img } : {}),
+      ...(route.img ? { img: route.img } : {})
     })
   })
 }

@@ -1,20 +1,24 @@
 <script setup>
 import { onBeforeUnmount } from 'vue'
 import {
-  Data3DTexture, RedFormat, LinearFilter, RepeatWrapping, NeutralToneMapping,
-  VolumeNodeMaterial, Mesh, BoxGeometry, TorusKnotGeometry, MeshStandardMaterial,
-  DoubleSide, PlaneGeometry, PointLight, SpotLight, PostProcessing, Layers,
+  Data3DTexture,
+  RedFormat,
+  LinearFilter,
+  RepeatWrapping,
+  NeutralToneMapping,
+  VolumeNodeMaterial,
+  Mesh,
+  BoxGeometry,
+  TorusKnotGeometry,
+  MeshStandardMaterial,
+  DoubleSide,
+  PlaneGeometry,
+  PointLight,
+  SpotLight,
+  PostProcessing,
+  Layers
 } from 'three/webgpu'
-import {
-  vec3,
-  Fn,
-  time,
-  texture3D,
-  screenUV,
-  uniform,
-  screenCoordinate,
-  pass,
-} from 'three/tsl'
+import { vec3, Fn, time, texture3D, screenUV, uniform, screenCoordinate, pass } from 'three/tsl'
 import { bayer16 } from 'three/addons/tsl/math/Bayer.js'
 import { gaussianBlur } from 'three/addons/tsl/display/GaussianBlurNode.js'
 import { ImprovedNoise } from 'three/addons/math/ImprovedNoise.js'
@@ -71,7 +75,9 @@ volumetricMaterial.offsetNode = bayer16(screenCoordinate)
 volumetricMaterial.scatteringNode = Fn(({ positionRay }) => {
   const timeScaled = vec3(time, 0, time.mul(0.3))
   const sampleGrain = (sc, timeScale = 1) =>
-    texture3D(noiseTexture3D, positionRay.add(timeScaled.mul(timeScale)).mul(sc).mod(1), 0).r.add(0.5)
+    texture3D(noiseTexture3D, positionRay.add(timeScaled.mul(timeScale)).mul(sc).mod(1), 0).r.add(
+      0.5
+    )
 
   let density = sampleGrain(0.1)
   density = density.mul(sampleGrain(0.05, 1))
@@ -89,15 +95,12 @@ scene.value.add(volumetricMesh)
 
 const torusKnot = new Mesh(
   new TorusKnotGeometry(0.8, 0.3, 100, 16),
-  new MeshStandardMaterial({ color: 0xffffff, side: DoubleSide }),
+  new MeshStandardMaterial({ color: 0xffffff, side: DoubleSide })
 )
 torusKnot.castShadow = true
 scene.value.add(torusKnot)
 
-const floor = new Mesh(
-  new PlaneGeometry(100, 100),
-  new MeshStandardMaterial({ color: 0xffffff }),
-)
+const floor = new Mesh(new PlaneGeometry(100, 100), new MeshStandardMaterial({ color: 0xffffff }))
 floor.rotation.x = -Math.PI / 2
 floor.position.y = -3
 floor.receiveShadow = true
@@ -155,7 +158,7 @@ const pane = new Pane()
 
 const params = {
   resolution: volumetricPass.getResolutionScale(),
-  denoise: true,
+  denoise: true
 }
 
 const rayFolder = pane.addFolder({ title: 'Ray Marching' })
@@ -167,10 +170,15 @@ rayFolder.addBinding(volumetricMaterial, 'steps', {
   min: 2,
   max: 16,
   step: 1,
-  label: 'step count',
+  label: 'step count'
 })
 
-rayFolder.addBinding(denoiseStrength, 'value', { min: 0, max: 1, step: 0.01, label: 'denoise strength' })
+rayFolder.addBinding(denoiseStrength, 'value', {
+  min: 0,
+  max: 1,
+  step: 0.01,
+  label: 'denoise strength'
+})
 
 rayFolder.addBinding(params, 'denoise', { label: 'denoise' }).on('change', ({ value }) => {
   const volumetric = value ? blurredVolumetricPass : volumetricPass
@@ -181,7 +189,11 @@ rayFolder.addBinding(params, 'denoise', { label: 'denoise' }).on('change', ({ va
 const lightFolder = pane.addFolder({ title: 'Lighting / Scene' })
 lightFolder.addBinding(pointLight, 'intensity', { min: 0, max: 6, label: 'point intensity' })
 lightFolder.addBinding(spotLight, 'intensity', { min: 0, max: 200, label: 'spot intensity' })
-lightFolder.addBinding(volumetricLightingIntensity, 'value', { min: 0, max: 2, label: 'fog intensity' })
+lightFolder.addBinding(volumetricLightingIntensity, 'value', {
+  min: 0,
+  max: 2,
+  label: 'fog intensity'
+})
 lightFolder.addBinding(smokeAmount, 'value', { min: 0, max: 3, label: 'smoke amount' })
 
 // -------------------------------------------------- Loop
@@ -219,4 +231,3 @@ onBeforeUnmount(() => {
   <!-- scene built imperatively; this group is a required placeholder -->
   <TresGroup />
 </template>
-

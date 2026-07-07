@@ -18,9 +18,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      meta:{
-      },
-      component: Home,
+      meta: {},
+      component: Home
     },
     generateRoute('template', 'Playground', ''),
     generateRoute('CartesianCoords', 'Playground', ''),
@@ -32,7 +31,7 @@ const router = createRouter({
     ...complex(),
     ...random_demos(),
     ...noc(),
-    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
   ]
 })
 

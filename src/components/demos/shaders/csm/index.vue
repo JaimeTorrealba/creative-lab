@@ -1,21 +1,18 @@
 <script setup>
-import { shallowRef } from "vue";
-import { useLoop } from "@tresjs/core";
-import { useTexture, Environment, CustomShaderMaterial } from "@tresjs/cientos";
-import { EquirectangularReflectionMapping, MeshPhysicalMaterial } from "three";
-import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader";
-import vertex from "./vertex.glsl";
+import { shallowRef } from 'vue'
+import { useLoop } from '@tresjs/core'
+import { useTexture, Environment, CustomShaderMaterial } from '@tresjs/cientos'
+import { EquirectangularReflectionMapping, MeshPhysicalMaterial } from 'three'
+import { HDRLoader } from 'three/examples/jsm/loaders/HDRLoader'
+import vertex from './vertex.glsl'
 
-const { state: normalMap } = useTexture("/textures/glassMorphismNormal.jpg");
+const { state: normalMap } = useTexture('/textures/glassMorphismNormal.jpg')
 
-const hdrEquirect = await new HDRLoader().load(
-  "/textures/empty_warehouse_01_2k.hdr",
-  () => {
-    hdrEquirect.mapping = EquirectangularReflectionMapping;
-  }
-);
+const hdrEquirect = await new HDRLoader().load('/textures/empty_warehouse_01_2k.hdr', () => {
+  hdrEquirect.mapping = EquirectangularReflectionMapping
+})
 
-const dropRef = shallowRef();
+const dropRef = shallowRef()
 
 const waterMaterial = {
   baseMaterial: MeshPhysicalMaterial,
@@ -27,21 +24,21 @@ const waterMaterial = {
   envMapIntensity: 1.5,
   vertexShader: vertex,
   uniforms: {
-    uTime: { value: 0 },
-  },
-};
+    uTime: { value: 0 }
+  }
+}
 
-const { onBeforeRender } = useLoop();
+const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ delta }) => {
   if (dropRef.value) {
-    dropRef.value.material.uniforms.uTime.value += delta;
+    dropRef.value.material.uniforms.uTime.value += delta
   }
-});
+})
 </script>
 <template>
   <Environment files="/textures/empty_warehouse_01_2k.hdr" :background="true" />
-  <TresMesh ref="dropRef" :position="[-0, 0, 0]" >
+  <TresMesh ref="dropRef" :position="[-0, 0, 0]">
     <TresIcosahedronGeometry :args="[1, 10]" />
     <CustomShaderMaterial v-bind="waterMaterial" />
   </TresMesh>

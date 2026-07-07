@@ -1,27 +1,27 @@
 <script setup>
-import { computed, watchEffect } from "vue";
-import { TresCanvas } from "@tresjs/core";
-import { useTexture } from "@tresjs/cientos";
-import { Vector2 } from "three";
-import { useWindowSize, useMouse, watchOnce } from "@vueuse/core";
+import { computed, watchEffect } from 'vue'
+import { TresCanvas } from '@tresjs/core'
+import { useTexture } from '@tresjs/cientos'
+import { Vector2 } from 'three'
+import { useWindowSize, useMouse, watchOnce } from '@vueuse/core'
 
-const { state: imgToShader, isLoading } = useTexture( "/images/imgToShader.jpg" );
+const { state: imgToShader, isLoading } = useTexture('/images/imgToShader.jpg')
 
 watchOnce(isLoading, (value) => {
   if (!value) {
-    imgShader.uniforms.uImage.value = imgToShader.value;
+    imgShader.uniforms.uImage.value = imgToShader.value
   }
-});
+})
 
-const { width, height } = useWindowSize();
-const { x, y } = useMouse();
-const fov = computed(() => 2 * Math.atan(height.value / 2 / 600) * (180 / Math.PI));
-const aspect = computed(() => width.value / height.value);
+const { width, height } = useWindowSize()
+const { x, y } = useMouse()
+const fov = computed(() => 2 * Math.atan(height.value / 2 / 600) * (180 / Math.PI))
+const aspect = computed(() => width.value / height.value)
 
 const shader = {
   uniforms: {
     uTime: { value: 0 },
-    uResolution: { value: new Vector2(width.value, height.value) },
+    uResolution: { value: new Vector2(width.value, height.value) }
   },
   vertexShader: `
   uniform float uTime;
@@ -40,14 +40,14 @@ const shader = {
 
     gl_FragColor = vec4(col,1.0);
     }
-  `,
-};
+  `
+}
 const imgShader = {
   uniforms: {
     uTime: { value: 0 },
     uResolution: { value: new Vector2(width.value, height.value) },
     uHover: { value: new Vector2(0.5, 0.5) },
-    uImage: { value: null },
+    uImage: { value: null }
   },
   vertexShader: `
   uniform float uTime;
@@ -75,21 +75,21 @@ const imgShader = {
       //img.r *= uHover.x;
       gl_FragColor = img;
     }
-  `,
-};
+  `
+}
 
 watchEffect(() => {
-  shader.uniforms.uResolution.value = new Vector2(width.value, height.value);
-  x.value = (x.value / width.value) * 2 - 1;
-  y.value = -(y.value / height.value) * 2 + 1;
-});
+  shader.uniforms.uResolution.value = new Vector2(width.value, height.value)
+  x.value = (x.value / width.value) * 2 - 1
+  y.value = -(y.value / height.value) * 2 + 1
+})
 const updateUniforms = (ev) => {
-  ev.object.material.uniforms.uHover.value = ev.intersection.uv;
-};
+  ev.object.material.uniforms.uHover.value = ev.intersection.uv
+}
 
 const onLoop = ({ elapsed }) => {
-  shader.uniforms.uTime.value = elapsed;
-};
+  shader.uniforms.uTime.value = elapsed
+}
 
 const onReady = (e) => {
   // TODO: this should disappear when the bug is fixed
@@ -133,12 +133,11 @@ const onReady = (e) => {
       <div class="column text-container">
         <h1 class="has-text-centered is-title is-size-2 my-4F">Is not responsive yet</h1>
         <p class="px-4 text-subtitle-1">
-          Hover over the image and see, the whole three.js scene is actually under the
-          page.
+          Hover over the image and see, the whole three.js scene is actually under the page.
         </p>
         <p class="px-4 text-subtitle-1">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla eligendi soluta
-          voluptate facere molestiae consequatur.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla eligendi soluta voluptate
+          facere molestiae consequatur.
         </p>
       </div>
       <div class="column image-container">
@@ -167,10 +166,10 @@ const onReady = (e) => {
 }
 .text-container {
   min-height: 100vh;
-  display:grid;
+  display: grid;
   place-content: center;
   position: relative;
-  z-index:10
+  z-index: 10;
 }
 .img {
   display: none;

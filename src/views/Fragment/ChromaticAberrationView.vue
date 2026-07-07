@@ -3,7 +3,7 @@ import { TresCanvas } from '@tresjs/core'
 import TheExperience from '@/components/demos/fragment/chromatic-aberration/index.vue'
 
 const gl = {
-  clearColor: '#111',
+  clearColor: '#111'
 }
 </script>
 <template>

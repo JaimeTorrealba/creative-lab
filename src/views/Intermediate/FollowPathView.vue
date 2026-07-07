@@ -1,74 +1,68 @@
 <script setup>
-import { shallowRef } from "vue";
-import { TresCanvas } from "@tresjs/core";
-import { useGLTF, OrbitControls } from "@tresjs/cientos";
-import {
-  Vector3,
-  LineLoop,
-  BufferGeometry,
-  LineBasicMaterial,
-  CatmullRomCurve3,
-} from "three";
-import { Flow } from "three/examples/jsm/modifiers/CurveModifier.js";
-import transformSVGPath from "@/components/external/transformSVGPath/TSP.js";
-import { watchOnce } from "@vueuse/core";
+import { shallowRef } from 'vue'
+import { TresCanvas } from '@tresjs/core'
+import { useGLTF, OrbitControls } from '@tresjs/cientos'
+import { Vector3, LineLoop, BufferGeometry, LineBasicMaterial, CatmullRomCurve3 } from 'three'
+import { Flow } from 'three/examples/jsm/modifiers/CurveModifier.js'
+import transformSVGPath from '@/components/external/transformSVGPath/TSP.js'
+import { watchOnce } from '@vueuse/core'
 
-let pointsCount = 1000;
-let flow;
-const canvasRef = shallowRef(null);
+let pointsCount = 1000
+let flow
+const canvasRef = shallowRef(null)
 
 const { state: snakeModel, isLoading } = useGLTF(
-  "/models/snake_tiger_keelback_rhabdophis_tigrinus.glb"
-);
+  '/models/snake_tiger_keelback_rhabdophis_tigrinus.glb'
+)
 // snakeModel.scale.set(1,0.1,0.1)
 // snakeModel.rotation.set(Math.PI , 0,0)
 
 watchOnce(isLoading, (value) => {
   if (!value) {
-    const pathToFollow = document.getElementById("toPath");
-    const originalPoints = getCenteredSvgPoints(pathToFollow, 0.1);
-    showLineFromPoints(originalPoints, 0xff0000);
-    const snakeCurve = new CatmullRomCurve3(originalPoints, true);
-    followPoints(snakeCurve);
+    const pathToFollow = document.getElementById('toPath')
+    const originalPoints = getCenteredSvgPoints(pathToFollow, 0.1)
+    showLineFromPoints(originalPoints, 0xff0000)
+    const snakeCurve = new CatmullRomCurve3(originalPoints, true)
+    followPoints(snakeCurve)
   }
-});
+})
 
 // METHODS
 const getCenteredSvgPoints = (svg, scale) => {
-  const viewBox = svg.getAttribute("viewBox").split(" ");
-  const width = parseFloat(viewBox[2]);
-  const height = parseFloat(viewBox[3]);
-  const path = svg.querySelector("path").getAttribute("d");
-  const shape = transformSVGPath(path);
+  const viewBox = svg.getAttribute('viewBox').split(' ')
+  const width = parseFloat(viewBox[2])
+  const height = parseFloat(viewBox[3])
+  const path = svg.querySelector('path').getAttribute('d')
+  const shape = transformSVGPath(path)
   const points = shape.getPoints(pointsCount).map((points) => {
     // center origin path
-    let v = new Vector3(points.x - width / 2, 0, points.y - height / 2);
-    v = v.multiplyScalar(scale);
-    return v;
-  });
-  return points;
-};
+    let v = new Vector3(points.x - width / 2, 0, points.y - height / 2)
+    v = v.multiplyScalar(scale)
+    return v
+  })
+  return points
+}
 const showLineFromPoints = (points, color) => {
   const line = new LineLoop(
     new BufferGeometry().setFromPoints(points),
     new LineBasicMaterial({ color })
-  );
-  const { context } = canvasRef.value;
+  )
+  const { context } = canvasRef.value
   line.geometry.center()
-  context.scene.value.add(line);
-};
+  context.scene.value.add(line)
+}
 const followPoints = (snakeCurve) => {
-  flow = new Flow(snakeModel.value.scene);
-  flow.updateCurve(0, snakeCurve);
-  const { context } = canvasRef.value;
-  context.scene.value.add(flow.object3D);
-};
+  flow = new Flow(snakeModel.value.scene)
+  flow.updateCurve(0, snakeCurve)
+  const { context } = canvasRef.value
+  context.scene.value.add(flow.object3D)
+}
 
 const onLoop = () => {
   if (flow) {
-    flow.moveAlongCurve(-0.001);
+    flow.moveAlongCurve(-0.001)
   }
-};
+}
 </script>
 <template>
   <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" id="toPath">

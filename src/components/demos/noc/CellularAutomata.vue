@@ -12,13 +12,16 @@ const options = reactive({
   rule: 90,
   cellSize: 8,
   stepsPerFrame: 1,
-  color: '#e0e0ff',
+  color: '#e0e0ff'
 })
 
 let cellGeometry = new PlaneGeometry(options.cellSize, options.cellSize)
 const cellMaterial = new MeshBasicMaterial({ color: options.color })
 
-let cells = [], generation = 0, maxGenerations = 0, cols = 0
+let cells = [],
+  generation = 0,
+  maxGenerations = 0,
+  cols = 0
 
 function computeRuleBit(ruleNumber, l, m, r) {
   return (ruleNumber >> ((l << 2) | (m << 1) | r)) & 1
@@ -37,15 +40,18 @@ function restart() {
   generation = 0
 }
 
-watch(() => options.color, (val) => cellMaterial.color.set(val))
+watch(
+  () => options.color,
+  (val) => cellMaterial.color.set(val)
+)
 
 onMounted(() => restart())
 
 const pane = new Pane()
-pane.addBinding(options, 'rule',          { min: 0, max: 255, step: 1, label: 'Rule (0–255)' })
-pane.addBinding(options, 'cellSize',      { min: 4, max: 20,  step: 1, label: 'Cell Size (px)' })
-pane.addBinding(options, 'stepsPerFrame', { min: 1, max: 10,  step: 1, label: 'Speed' })
-pane.addBinding(options, 'color',                                        { label: 'Cell Color' })
+pane.addBinding(options, 'rule', { min: 0, max: 255, step: 1, label: 'Rule (0–255)' })
+pane.addBinding(options, 'cellSize', { min: 4, max: 20, step: 1, label: 'Cell Size (px)' })
+pane.addBinding(options, 'stepsPerFrame', { min: 1, max: 10, step: 1, label: 'Speed' })
+pane.addBinding(options, 'color', { label: 'Cell Color' })
 pane.addButton({ title: 'Restart' }).on('click', restart)
 
 onUnmounted(() => {

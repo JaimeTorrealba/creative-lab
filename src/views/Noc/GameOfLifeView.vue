@@ -5,9 +5,9 @@ import { computed } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 
 const { width, height } = useWindowSize()
-const left   = computed(() => -width.value  / 2)
-const right  = computed(() =>  width.value  / 2)
-const top    = computed(() =>  height.value / 2)
+const left = computed(() => -width.value / 2)
+const right = computed(() => width.value / 2)
+const top = computed(() => height.value / 2)
 const bottom = computed(() => -height.value / 2)
 </script>
 

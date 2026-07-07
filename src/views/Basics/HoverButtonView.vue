@@ -1,7 +1,7 @@
 <script setup>
-import { shallowRef, ref, watch } from 'vue';
+import { shallowRef, ref, watch } from 'vue'
 import { TresCanvas, vLog } from '@tresjs/core'
-import { Environment  } from '@tresjs/cientos'
+import { Environment } from '@tresjs/cientos'
 import { gsap } from 'gsap'
 import { useElementSize } from '@vueuse/core'
 
@@ -20,7 +20,7 @@ const onReady = (e) => {
   e.renderer.instance.setClearAlpha(0)
 }
 
-watch(width, value => {
+watch(width, (value) => {
   cameraRef.value.aspect = value / height.value
   cameraRef.value.updateProjectionMatrix()
 })
@@ -57,32 +57,52 @@ const shrink = () => {
   gsap.to(coneRef.value.position, { x: -3, y: 0, z: 0, duration: icoDuration })
   gsap.to(coneRef.value.rotation, { z: 0, duration: icoDuration })
 }
-
 </script>
 <template>
   <div class="fullScreen">
     <div class="wrapper" ref="wrapperRef" @mouseenter="grow" @mouseleave="shrink">
       <button class="button"><span class="button-text">Play</span></button>
-      <TresCanvas :alpha="true" ref="canvasRef" class="canvas"  @ready="(e) => onReady(e)">
+      <TresCanvas :alpha="true" ref="canvasRef" class="canvas" @ready="(e) => onReady(e)">
         <TresPerspectiveCamera ref="cameraRef" :position="[0, 0, 5]" />
         <Suspense>
           <Environment preset="city" />
         </Suspense>
         <TresMesh ref="sphereRef" :scale="0">
           <TresSphereGeometry :args="[1, 32]" />
-          <TresMeshStandardMaterial :color="0xff004b" :roughness="0" :metalness="1" :envMapIntensity="0.05" v-log />
+          <TresMeshStandardMaterial
+            :color="0xff004b"
+            :roughness="0"
+            :metalness="1"
+            :envMapIntensity="0.05"
+            v-log
+          />
         </TresMesh>
         <TresMesh ref="torusRef" :scale="0">
           <TresTorusGeometry :args="[0.75, 0.35]" />
-          <TresMeshStandardMaterial :color="0x9EC2F4" :roughness="0" :metalness="1" :envMapIntensity="0.5" />
+          <TresMeshStandardMaterial
+            :color="0x9ec2f4"
+            :roughness="0"
+            :metalness="1"
+            :envMapIntensity="0.5"
+          />
         </TresMesh>
         <TresMesh ref="icoRef" :position="[3, 0, 0]" :scale="0">
           <TresIcosahedronGeometry :args="[1, 0]" />
-          <TresMeshStandardMaterial :color="0x9EC2F4" :roughness="0" :metalness="1" :envMapIntensity="0.5" />
+          <TresMeshStandardMaterial
+            :color="0x9ec2f4"
+            :roughness="0"
+            :metalness="1"
+            :envMapIntensity="0.5"
+          />
         </TresMesh>
         <TresMesh ref="coneRef" :position="[-3, 0, 0]" :scale="0">
           <TresConeGeometry :args="[0.55, 1.5]" />
-          <TresMeshStandardMaterial :color="0xff004b" :roughness="0" :metalness="1" :envMapIntensity="0.5" />
+          <TresMeshStandardMaterial
+            :color="0xff004b"
+            :roughness="0"
+            :metalness="1"
+            :envMapIntensity="0.5"
+          />
         </TresMesh>
         <TresDirectionalLight :position="[-3, 2, 0]" :intensity="4" />
         <TresAmbientLight :intensity="40" />
@@ -98,7 +118,7 @@ const shrink = () => {
   width: 245px;
 
   .button {
-    background-color: #9EC2F4;
+    background-color: #9ec2f4;
     padding: 1rem 4rem;
     border-radius: 1rem;
     transition: all 0.4s ease-in-out;

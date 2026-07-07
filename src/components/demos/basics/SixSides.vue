@@ -1,10 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useVideoTexture } from '@tresjs/cientos'
-import { MeshBasicMaterial, BoxGeometry, MultiplyOperation  } from 'three'
-import { createMultiMaterialObject } from 'three/addons/utils/SceneUtils.js';
+import { MeshBasicMaterial, BoxGeometry, MultiplyOperation } from 'three'
+import { createMultiMaterialObject } from 'three/addons/utils/SceneUtils.js'
 
-const exampleVideo = 'https://raw.githubusercontent.com/Tresjs/assets/main/textures/video-textures/useVideoTexture.mp4'
+const exampleVideo =
+  'https://raw.githubusercontent.com/Tresjs/assets/main/textures/video-textures/useVideoTexture.mp4'
 const texture = ref()
 texture.value = await useVideoTexture(exampleVideo)
 
@@ -23,7 +24,7 @@ materials.map((material) => {
 const cube = createMultiMaterialObject(new BoxGeometry(1, 1, 1), materials)
 
 cube.children[0].position.y = 0.001
-cube.children[0].scale.set(0.999,1, 0.999)
+cube.children[0].scale.set(0.999, 1, 0.999)
 
 cube.children[1].position.x = 0.001
 cube.children[1].scale.set(1, 0.999, 0.999)
@@ -41,8 +42,8 @@ cube.children[5].position.y = -0.001
 cube.children[5].scale.set(0.999, 1, 0.999)
 </script>
 <template>
-    <primitive :object="cube" />
-    <TresGridHelper :size="100" :divisions="100" :position="[0, -2, 0]" />
-    <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
-    <TresAmbientLight />
+  <primitive :object="cube" />
+  <TresGridHelper :size="100" :divisions="100" :position="[0, -2, 0]" />
+  <TresDirectionalLight :position="[0, 2, 4]" :intensity="2" />
+  <TresAmbientLight />
 </template>

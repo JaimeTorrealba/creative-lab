@@ -1,34 +1,34 @@
 <script setup>
-import { shallowRef, computed } from "vue";
-import { useLoop } from "@tresjs/core";
-import { OrbitControls, TransformControls, useGLTF } from "@tresjs/cientos";
-import { watchOnce } from "@vueuse/core";
-import { useBasicCollision } from "../../../utils/useBasicCollision";
+import { shallowRef, computed } from 'vue'
+import { useLoop } from '@tresjs/core'
+import { OrbitControls, TransformControls, useGLTF } from '@tresjs/cientos'
+import { watchOnce } from '@vueuse/core'
+import { useBasicCollision } from '../../../utils/useBasicCollision'
 
-const greenBox = shallowRef(null);
-const redSphere = shallowRef(null);
-const blueBox = shallowRef(null);
-const check = shallowRef(null);
+const greenBox = shallowRef(null)
+const redSphere = shallowRef(null)
+const blueBox = shallowRef(null)
+const check = shallowRef(null)
 
-const { state: _model, isLoading } = useGLTF("/models/PixelArt Medieval Sword.glb");
+const { state: _model, isLoading } = useGLTF('/models/PixelArt Medieval Sword.glb')
 
-const modelNode = computed(() => _model.value?.scene);
+const modelNode = computed(() => _model.value?.scene)
 watchOnce(isLoading, (loading) => {
   if (!loading) {
-    check.value = useBasicCollision([greenBox, blueBox, redSphere, modelNode.value]);
+    check.value = useBasicCollision([greenBox, blueBox, redSphere, modelNode.value])
   }
-});
+})
 
-const { onBeforeRender } = useLoop();
+const { onBeforeRender } = useLoop()
 
 onBeforeRender(() => {
-  if (!check.value || !greenBox.value) return;
-  const result = check.value.check();
+  if (!check.value || !greenBox.value) return
+  const result = check.value.check()
   if (result.length) {
-    console.log("jaime ~ onBeforeRender ~ result:", result[0].name);
-    console.log("jaime ~ onBeforeRender ~ result:", result[1].name);
+    console.log('jaime ~ onBeforeRender ~ result:', result[0].name)
+    console.log('jaime ~ onBeforeRender ~ result:', result[1].name)
   }
-});
+})
 </script>
 <template>
   <OrbitControls make-default />

@@ -3,8 +3,7 @@ import { Text3D } from '@tresjs/cientos'
 import { shallowRef } from 'vue'
 import { useLoop } from '@tresjs/core'
 
-const fontPath =
-  "https://raw.githubusercontent.com/Tresjs/assets/main/fonts/FiraCodeRegular.json";
+const fontPath = 'https://raw.githubusercontent.com/Tresjs/assets/main/fonts/FiraCodeRegular.json'
 
 const textGroupRef = shallowRef()
 

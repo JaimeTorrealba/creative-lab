@@ -1,51 +1,49 @@
 <script setup>
-import { ref, toRefs, onMounted, onBeforeUnmount, computed } from "vue";
+import { ref, toRefs, onMounted, onBeforeUnmount, computed } from 'vue'
 
 const props = defineProps({
   data: {
     type: Object,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-const { data } = toRefs(props);
+const { data } = toRefs(props)
 
-const mediaRef = ref(null);
-const shouldLoad = ref(false);
-const mediaSrc = ref(undefined);
-let observer;
+const mediaRef = ref(null)
+const shouldLoad = ref(false)
+const mediaSrc = ref(undefined)
+let observer
 
-const isVideo = computed(() => props.data.meta.img?.endsWith('.mp4'));
+const isVideo = computed(() => props.data.meta.img?.endsWith('.mp4'))
 
 onMounted(() => {
-  if (!("IntersectionObserver" in window)) {
-    shouldLoad.value = true;
-    mediaSrc.value = props.data.meta.img;
-    return;
+  if (!('IntersectionObserver' in window)) {
+    shouldLoad.value = true
+    mediaSrc.value = props.data.meta.img
+    return
   }
 
   observer = new IntersectionObserver(
     (entries) => {
-      const isVisible = entries.some((entry) => entry.isIntersecting);
+      const isVisible = entries.some((entry) => entry.isIntersecting)
       if (isVisible) {
-        shouldLoad.value = true;
-        mediaSrc.value = props.data.meta.img;
-        observer.disconnect();
+        shouldLoad.value = true
+        mediaSrc.value = props.data.meta.img
+        observer.disconnect()
       }
     },
     { threshold: 0.01 }
-  );
+  )
 
   if (mediaRef.value) {
-    observer.observe(mediaRef.value);
+    observer.observe(mediaRef.value)
   }
-});
+})
 
 onBeforeUnmount(() => {
-  observer?.disconnect();
-});
-
-
+  observer?.disconnect()
+})
 </script>
 <template>
   <router-link :to="data.path">
@@ -77,7 +75,9 @@ onBeforeUnmount(() => {
       />
       <div class="tag-wrapper">
         <div class="tags mb-0">
-          <span v-for="tag in data.meta.tags" :key="tag" class="tag is-info is-light">{{ tag }}</span>
+          <span v-for="tag in data.meta.tags" :key="tag" class="tag is-info is-light">{{
+            tag
+          }}</span>
         </div>
       </div>
       <div

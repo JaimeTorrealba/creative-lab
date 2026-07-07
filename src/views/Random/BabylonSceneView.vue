@@ -22,7 +22,7 @@ onMounted(async () => {
     PBRMaterial,
     Texture,
     ShaderMaterial,
-    Effect,
+    Effect
   } = await import('@babylonjs/core')
 
   const el = canvas.value
@@ -36,7 +36,7 @@ onMounted(async () => {
   // you'd catch and fall back to `new Engine(el)` for WebGL 2.
   engine = new WebGPUEngine(el, {
     antialias: true,
-    adaptToDeviceRatio: true, // respects devicePixelRatio for sharp output on HiDPI screens
+    adaptToDeviceRatio: true // respects devicePixelRatio for sharp output on HiDPI screens
   })
   await engine.initAsync()
 
@@ -62,7 +62,7 @@ onMounted(async () => {
   const camera = new ArcRotateCamera('cam', -Math.PI / 4, Math.PI / 3.2, 16, Vector3.Zero(), scene)
   camera.lowerRadiusLimit = 5
   camera.upperRadiusLimit = 40
-  camera.wheelPrecision = 50   // slower zoom on mouse wheel
+  camera.wheelPrecision = 50 // slower zoom on mouse wheel
   // attachControl wires pointer/touch events to the canvas for interactive orbit
   camera.attachControl(el, true)
 
@@ -72,32 +72,42 @@ onMounted(async () => {
   // Direction is the "sky" axis — light comes from above.
   const hemi = new HemisphericLight('hemi', new Vector3(0, 1, 0), scene)
   hemi.intensity = 0.5
-  hemi.diffuse = new Color3(0.25, 0.35, 0.75)    // cool blue sky
+  hemi.diffuse = new Color3(0.25, 0.35, 0.75) // cool blue sky
   hemi.groundColor = new Color3(0.08, 0.06, 0.04) // warm dark ground bounce
 
   // DirectionalLight = a parallel sun-like light with no falloff.
   const dirLight = new DirectionalLight('sun', new Vector3(-1, -2, -1).normalize(), scene)
   dirLight.position = new Vector3(10, 15, 10)
   dirLight.intensity = 4.0
-  dirLight.diffuse = new Color3(1.0, 0.88, 0.65)  // warm golden sunlight
+  dirLight.diffuse = new Color3(1.0, 0.88, 0.65) // warm golden sunlight
 
   // ─── 5. GROUND (PBR + TEXTURES) ───────────────────────────────────────────
   // CreateGround builds a flat XZ-plane. More subdivisions = smoother normal mapping.
-  const ground = MeshBuilder.CreateGround('ground', { width: 22, height: 22, subdivisions: 10 }, scene)
+  const ground = MeshBuilder.CreateGround(
+    'ground',
+    { width: 22, height: 22, subdivisions: 10 },
+    scene
+  )
 
   // PBRMaterial = Babylon's physically-based material.
   // It uses the same roughness/metallic (GGX) model as Three.js MeshStandardMaterial.
   const groundMat = new PBRMaterial('groundMat', scene)
 
   // albedoTexture  → the "base color" map (what the surface looks like in flat light)
-  groundMat.albedoTexture = new Texture('/textures/floor_textures/Ground_Wet_002_basecolor.jpg', scene)
+  groundMat.albedoTexture = new Texture(
+    '/textures/floor_textures/Ground_Wet_002_basecolor.jpg',
+    scene
+  )
   // bumpTexture    → normal map — perturbs surface normals to fake surface detail
   groundMat.bumpTexture = new Texture('/textures/floor_textures/Ground_Wet_002_normal.jpg', scene)
   // ambientTexture → pre-baked ambient occlusion — darkens crevices and contact shadows
-  groundMat.ambientTexture = new Texture('/textures/floor_textures/Ground_Wet_002_ambientOcclusion.jpg', scene)
+  groundMat.ambientTexture = new Texture(
+    '/textures/floor_textures/Ground_Wet_002_ambientOcclusion.jpg',
+    scene
+  )
 
   // Tile the textures 4× across the 22-unit plane so they don't look stretched
-  ;[groundMat.albedoTexture, groundMat.bumpTexture, groundMat.ambientTexture].forEach(tex => {
+  ;[groundMat.albedoTexture, groundMat.bumpTexture, groundMat.ambientTexture].forEach((tex) => {
     tex.uScale = 4
     tex.vScale = 4
   })
@@ -210,7 +220,7 @@ onMounted(async () => {
   // 'sphere' in the third arg matches 'sphereVertex/FragmentShader' in ShadersStore.
   const sphereMat = new ShaderMaterial('sphereMat', scene, 'sphere', {
     attributes: ['position', 'normal'],
-    uniforms: ['worldViewProjection', 'world', 'uTime', 'uLightDir', 'uCameraPos'],
+    uniforms: ['worldViewProjection', 'world', 'uTime', 'uLightDir', 'uCameraPos']
   })
   sphere.material = sphereMat
 
@@ -218,7 +228,7 @@ onMounted(async () => {
   // registerBeforeRender fires once per frame before the scene is drawn.
   // We use it to push new uniform values to the sphere shader.
   scene.registerBeforeRender(() => {
-    const t = performance.now() / 1000  // elapsed time in seconds
+    const t = performance.now() / 1000 // elapsed time in seconds
 
     sphereMat.setFloat('uTime', t)
     // dirLight.direction points FROM source TOWARD scene — negate for "toward light"
@@ -253,7 +263,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div style="width: 100%; height: 100vh; background: #0a0a14;">
-    <canvas ref="canvas" style="display: block; width: 100%; height: 100%;" />
+  <div style="width: 100%; height: 100vh; background: #0a0a14">
+    <canvas ref="canvas" style="display: block; width: 100%; height: 100%" />
   </div>
 </template>

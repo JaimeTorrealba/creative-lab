@@ -130,11 +130,7 @@ onBeforeRender(({ elapsed }) => {
   clutterShader.uniforms.uTime.value = elapsed
 })
 
-const rockPosition = (rock) => [
-  rock.x,
-  terrainHeight(rock.x, rock.z) + rock.radius * 0.2,
-  rock.z
-]
+const rockPosition = (rock) => [rock.x, terrainHeight(rock.x, rock.z) + rock.radius * 0.2, rock.z]
 </script>
 <template>
   <TresMesh :geometry="terrainGeometry">
@@ -146,12 +142,7 @@ const rockPosition = (rock) => [
     />
   </TresMesh>
 
-  <TresMesh
-    v-for="(rock, i) in ROCKS"
-    :key="i"
-    :position="rockPosition(rock)"
-    :scale="[1, 0.7, 1]"
-  >
+  <TresMesh v-for="(rock, i) in ROCKS" :key="i" :position="rockPosition(rock)" :scale="[1, 0.7, 1]">
     <TresIcosahedronGeometry :args="[rock.radius, 1]" />
     <TresMeshStandardMaterial color="#78716a" :roughness="0.95" :flat-shading="true" />
   </TresMesh>

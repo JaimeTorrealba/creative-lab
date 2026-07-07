@@ -3,8 +3,14 @@ import { useLoop } from '@tresjs/core'
 import { useWindowSize } from '@vueuse/core'
 import {
   Vector2,
-  InstancedMesh, ConeGeometry, MeshLambertMaterial, Object3D,
-  BufferGeometry, Float32BufferAttribute, LineSegments, LineBasicMaterial,
+  InstancedMesh,
+  ConeGeometry,
+  MeshLambertMaterial,
+  Object3D,
+  BufferGeometry,
+  Float32BufferAttribute,
+  LineSegments,
+  LineBasicMaterial
 } from 'three'
 import { createNoise2D } from 'simplex-noise'
 import { shallowRef, reactive, onUnmounted } from 'vue'
@@ -17,7 +23,7 @@ const options = reactive({
   resolution: 40,
   maxspeed: 3,
   maxforce: 0.1,
-  showField: false,
+  showField: false
 })
 
 // ── FlowField ─────────────────────────────────────────────────────────────────
@@ -95,10 +101,7 @@ class Vehicle {
   }
 
   updateWorldPosition() {
-    this.worldPosition.set(
-      this.position.x - width.value / 2,
-      height.value / 2 - this.position.y
-    )
+    this.worldPosition.set(this.position.x - width.value / 2, height.value / 2 - this.position.y)
   }
 }
 

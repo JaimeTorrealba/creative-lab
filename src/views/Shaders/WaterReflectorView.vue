@@ -5,7 +5,14 @@ import TheExperience from '@/components/demos/shaders/water-reflector/index.vue'
 </script>
 <template>
   <TresCanvas window-size clear-color="#111" ref="canvasRef">
-    <TresPerspectiveCamera :position="[0, 5, 10]" :fov="45" :aspect="1" :near="0.1" :far="1000" :look-at="[0, 0, 0]" />
+    <TresPerspectiveCamera
+      :position="[0, 5, 10]"
+      :fov="45"
+      :aspect="1"
+      :near="0.1"
+      :far="1000"
+      :look-at="[0, 0, 0]"
+    />
     <OrbitControls />
     <Stars />
     <Suspense>

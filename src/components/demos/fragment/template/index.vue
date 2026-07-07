@@ -5,7 +5,7 @@ import { useWindowSize } from '@vueuse/core'
 import { Vector2 } from 'three'
 import fragment from './fragment.glsl'
 
-const { width, height } = useWindowSize();
+const { width, height } = useWindowSize()
 
 const shader = {
   fragmentShader: fragment,
@@ -16,16 +16,16 @@ const shader = {
       value: new Vector2(window.innerWidth, window.innerHeight)
     }
   },
-  transparent: true,
+  transparent: true
 }
 
 watchEffect(() => {
-    // Resize Observer
+  // Resize Observer
   shader.uniforms.uResolution.value = new Vector2(width.value, height.value)
 })
 
 const updateUniforms = (ev) => {
-    // Mouse Observer
+  // Mouse Observer
   ev.object.material.uniforms.uHover.value = ev.uv
 }
 
@@ -36,8 +36,8 @@ onBeforeRender(({ elapsed }) => {
 })
 </script>
 <template>
-    <TresMesh @pointer-move="(ev) => updateUniforms(ev)">
-        <TresPlaneGeometry :args="[2, 2]" />
-        <TresShaderMaterial v-bind="shader" />
-      </TresMesh>
+  <TresMesh @pointer-move="(ev) => updateUniforms(ev)">
+    <TresPlaneGeometry :args="[2, 2]" />
+    <TresShaderMaterial v-bind="shader" />
+  </TresMesh>
 </template>

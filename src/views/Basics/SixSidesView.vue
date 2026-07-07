@@ -1,9 +1,7 @@
 <script setup>
-
 import { TresCanvas } from '@tresjs/core'
 import { CameraControls } from '@tresjs/cientos'
 import TheExperience from '@/components/demos/basics/SixSides.vue'
-
 </script>
 <template>
   <TresCanvas window-size clear-color="#111">

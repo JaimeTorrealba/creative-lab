@@ -19,7 +19,7 @@ watch(isLoading, (value) => {
       value: 0,
       duration: 1.2,
       ease: 'power2.out',
-      delay: 0.2,
+      delay: 0.2
     })
   }
 })
@@ -34,10 +34,10 @@ const shader = {
     uMouseEnter: { value: 1 },
     uMouseOverPos: { value: new Vector2(0.5, 0.9) },
     uStrength: { value: params.strength },
-    uRadius: { value: params.radius },
+    uRadius: { value: params.radius }
   },
   vertexShader: vertex,
-  fragmentShader: fragment,
+  fragmentShader: fragment
 }
 
 watch(width, () => {
@@ -53,7 +53,7 @@ const blurTexture = () => {
   gsap.to(shader.uniforms.uMouseEnter, {
     value: 1,
     duration: 0.5,
-    ease: 'power2.out',
+    ease: 'power2.out'
   })
 }
 
@@ -61,7 +61,7 @@ const revealTexture = () => {
   gsap.to(shader.uniforms.uMouseEnter, {
     value: 0,
     duration: 0.5,
-    ease: 'power2.out',
+    ease: 'power2.out'
   })
 }
 
@@ -69,10 +69,14 @@ let pane
 
 onMounted(() => {
   pane = new Pane()
-  pane.addBinding(params, 'strength', { min: 0.001, max: 0.05, step: 0.001 })
-    .on('change', ({ value }) => { shader.uniforms.uStrength.value = value })
-  pane.addBinding(params, 'radius', { min: 5, max: 60, step: 1 })
-    .on('change', ({ value }) => { shader.uniforms.uRadius.value = value })
+  pane
+    .addBinding(params, 'strength', { min: 0.001, max: 0.05, step: 0.001 })
+    .on('change', ({ value }) => {
+      shader.uniforms.uStrength.value = value
+    })
+  pane.addBinding(params, 'radius', { min: 5, max: 60, step: 1 }).on('change', ({ value }) => {
+    shader.uniforms.uRadius.value = value
+  })
 })
 
 onUnmounted(() => pane?.dispose())

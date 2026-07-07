@@ -1,5 +1,5 @@
 <script setup>
-import Loader from "@/components/Loader.vue";
+import Loader from '@/components/Loader.vue'
 </script>
 <template>
   <component :is="$route.meta.layout || 'div'">
@@ -16,9 +16,9 @@ import Loader from "@/components/Loader.vue";
 
 <style lang="scss">
 @font-face {
-  font-family: "CascadiaCode";
+  font-family: 'CascadiaCode';
   font-display: swap;
-  src: local("CascadiaCode"), url("./assets/fonts/CascadiaCode.woff2") format("truetype");
+  src: local('CascadiaCode'), url('./assets/fonts/CascadiaCode.woff2') format('truetype');
 }
 .tp-dfwv {
   z-index: 9999 !important;
@@ -29,7 +29,7 @@ body {
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: "CascadiaCode";
+  font-family: 'CascadiaCode';
 }
 #app {
   width: 100%;

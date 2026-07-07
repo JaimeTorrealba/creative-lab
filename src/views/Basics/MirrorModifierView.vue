@@ -1,12 +1,11 @@
 <script setup>
 import { TresCanvas } from '@tresjs/core'
-import { OrbitControls, Stats } from '@tresjs/cientos';
+import { OrbitControls, Stats } from '@tresjs/cientos'
 import TheExperience from '@/components/demos/basics/mirror-modifier/index.vue'
-
 </script>
 <template>
   <TresCanvas window-size clear-color="#333" ref="canvasRef">
-    <TresPerspectiveCamera :position="[0, 3, 7]"  :look-at="[0, 0, 0]" />
+    <TresPerspectiveCamera :position="[0, 3, 7]" :look-at="[0, 0, 0]" />
     <OrbitControls make-default />
     <Stats />
     <Suspense>

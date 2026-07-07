@@ -102,16 +102,8 @@ const HEALTHY_TINT = [1.0, 1.0, 1.0]
 const DRY_TINT = [1.05, 0.9, 0.55]
 
 function buildLayerGeometry(options) {
-  const {
-    seed,
-    regions,
-    density,
-    baseWidth,
-    baseHeight,
-    minNormalY,
-    stiffnessMin,
-    stiffnessMax
-  } = options
+  const { seed, regions, density, baseWidth, baseHeight, minNormalY, stiffnessMin, stiffnessMax } =
+    options
   const rand = alea(seed)
 
   const positions = []

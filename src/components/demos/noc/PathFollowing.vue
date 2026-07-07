@@ -3,9 +3,11 @@ import { useLoop } from '@tresjs/core'
 import { useWindowSize } from '@vueuse/core'
 import {
   Vector2,
-  BufferGeometry, Float32BufferAttribute,
-  Line, LineBasicMaterial,
-  LineSegments,
+  BufferGeometry,
+  Float32BufferAttribute,
+  Line,
+  LineBasicMaterial,
+  LineSegments
 } from 'three'
 import { shallowRef, reactive, onUnmounted } from 'vue'
 import { Pane } from 'tweakpane'
@@ -17,7 +19,7 @@ const options = reactive({
   maxforce: 0.15,
   lookAhead: 50,
   pathRadius: 40,
-  showDebug: false,
+  showDebug: false
 })
 
 // ── Geometry helpers ──────────────────────────────────────────────────────────
@@ -31,7 +33,7 @@ function toWorld(sx, sy) {
 
 class Path {
   constructor(points) {
-    this.points = points  // Vector2[] in screen space
+    this.points = points // Vector2[] in screen space
     this.radius = options.pathRadius
   }
 }
@@ -40,12 +42,12 @@ function generatePath() {
   const m = width.value * 0.06
   const ry = () => height.value * (0.15 + Math.random() * 0.7)
   return new Path([
-    new Vector2(m,                   height.value * 0.50),
-    new Vector2(width.value * 0.22,  ry()),
-    new Vector2(width.value * 0.42,  ry()),
-    new Vector2(width.value * 0.62,  ry()),
-    new Vector2(width.value * 0.80,  ry()),
-    new Vector2(width.value - m,     height.value * 0.50),
+    new Vector2(m, height.value * 0.5),
+    new Vector2(width.value * 0.22, ry()),
+    new Vector2(width.value * 0.42, ry()),
+    new Vector2(width.value * 0.62, ry()),
+    new Vector2(width.value * 0.8, ry()),
+    new Vector2(width.value - m, height.value * 0.5)
   ])
 }
 
@@ -77,9 +79,7 @@ class Vehicle {
   }
 
   follow(path) {
-    const future = this.position.clone().add(
-      this.velocity.clone().setLength(options.lookAhead)
-    )
+    const future = this.position.clone().add(this.velocity.clone().setLength(options.lookAhead))
     this.debugFuture.copy(future)
 
     let target = null
@@ -99,7 +99,7 @@ class Vehicle {
         worldRecord = d
         // When clamped to the end of this segment, steer into the next one
         const nextB = path.points[i + 2]
-        const dir = (t >= 1 && nextB) ? nextB.clone().sub(b) : ab
+        const dir = t >= 1 && nextB ? nextB.clone().sub(b) : ab
         target = projected.clone().add(dir.clone().setLength(options.lookAhead))
       }
     }
@@ -128,10 +128,7 @@ class Vehicle {
   }
 
   updateWorldPosition() {
-    this.worldPosition.set(
-      this.position.x - width.value / 2,
-      height.value / 2 - this.position.y
-    )
+    this.worldPosition.set(this.position.x - width.value / 2, height.value / 2 - this.position.y)
   }
 }
 
@@ -190,13 +187,15 @@ const targetRef = shallowRef(null)
 // ── Tweakpane ─────────────────────────────────────────────────────────────────
 
 const pane = new Pane()
-pane.addBinding(options, 'maxspeed',   { min: 1, max: 10,  step: 0.1,  label: 'Max Speed' })
-pane.addBinding(options, 'maxforce',   { min: 0.01, max: 0.5, step: 0.01, label: 'Max Force' })
-pane.addBinding(options, 'lookAhead',  { min: 10, max: 150, step: 5,    label: 'Look Ahead' })
-pane.addBinding(options, 'pathRadius', { min: 10, max: 120, step: 5,    label: 'Path Radius' }).on('change', ({ value }) => {
-  path.radius = value
-  buildPathGeometry(path)
-})
+pane.addBinding(options, 'maxspeed', { min: 1, max: 10, step: 0.1, label: 'Max Speed' })
+pane.addBinding(options, 'maxforce', { min: 0.01, max: 0.5, step: 0.01, label: 'Max Force' })
+pane.addBinding(options, 'lookAhead', { min: 10, max: 150, step: 5, label: 'Look Ahead' })
+pane
+  .addBinding(options, 'pathRadius', { min: 10, max: 120, step: 5, label: 'Path Radius' })
+  .on('change', ({ value }) => {
+    path.radius = value
+    buildPathGeometry(path)
+  })
 pane.addBinding(options, 'showDebug', { label: 'Show Debug' })
 pane.addButton({ title: 'New Path' }).on('click', () => {
   path = generatePath()

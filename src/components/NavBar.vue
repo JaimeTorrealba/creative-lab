@@ -1,19 +1,17 @@
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
-import { useRouter } from "vue-router";
-import { BLACK_LIST_PATHS } from "../utils";
+import { computed, onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { BLACK_LIST_PATHS } from '../utils'
 
-const emit = defineEmits(["searchResult"]);
+const emit = defineEmits(['searchResult'])
 
-const router = useRouter();
-const search = ref("");
-const activeTags = ref(new Set());
+const router = useRouter()
+const search = ref('')
+const activeTags = ref(new Set())
 const showUntagged = ref(false)
 
-const allRoutes = computed(() => router.options.routes);
-const filteredRoutes = allRoutes.value.filter(
-  (route) => !BLACK_LIST_PATHS.includes(route.path)
-);
+const allRoutes = computed(() => router.options.routes)
+const filteredRoutes = allRoutes.value.filter((route) => !BLACK_LIST_PATHS.includes(route.path))
 
 const availableTags = computed(() => {
   const tags = new Set()
@@ -34,7 +32,7 @@ const applyFilters = () => {
     const q = search.value.toLowerCase()
     result = result.filter((r) => r.name.toLowerCase().includes(q))
   }
-  emit("searchResult", result)
+  emit('searchResult', result)
 }
 
 const toggleTag = (tag) => {
@@ -55,7 +53,7 @@ watch(search, () => applyFilters())
 
 onMounted(() => {
   applyFilters()
-});
+})
 </script>
 <template>
   <nav class="sticky-bar has-background-light" role="navigation" aria-label="main navigation">

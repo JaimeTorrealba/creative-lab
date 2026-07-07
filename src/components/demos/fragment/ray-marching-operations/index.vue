@@ -31,7 +31,7 @@ const shader = {
       value: new Vector2(window.innerWidth, window.innerHeight)
     }
   },
-  transparent: true,
+  transparent: true
 }
 
 watchEffect(() => {
@@ -39,10 +39,10 @@ watchEffect(() => {
 })
 
 const updateUniforms = (ev) => {
-  const newUv = new Vector2( ev.uv.x * 16 - 8, ev.uv.y * 16 - 10)
+  const newUv = new Vector2(ev.uv.x * 16 - 8, ev.uv.y * 16 - 10)
 
-   ev.object.material.uniforms.uHover.value = newUv
- }
+  ev.object.material.uniforms.uHover.value = newUv
+}
 
 const { onBeforeRender } = useLoop()
 
@@ -51,8 +51,8 @@ onBeforeRender(({ elapsed }) => {
 })
 </script>
 <template>
-    <TresMesh @pointermove="(ev) => updateUniforms(ev)">
-        <TresPlaneGeometry :args="[2, 2]" />
-        <TresShaderMaterial v-bind="shader" />
-      </TresMesh>
+  <TresMesh @pointermove="(ev) => updateUniforms(ev)">
+    <TresPlaneGeometry :args="[2, 2]" />
+    <TresShaderMaterial v-bind="shader" />
+  </TresMesh>
 </template>

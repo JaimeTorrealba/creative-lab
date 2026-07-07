@@ -1,6 +1,6 @@
 <script setup>
-import { TresCanvas } from "@tresjs/core";
-import TheExperience from "@/components/demos/shaders/action-lines/index.vue";
+import { TresCanvas } from '@tresjs/core'
+import TheExperience from '@/components/demos/shaders/action-lines/index.vue'
 </script>
 <template>
   <TresCanvas antialias clear-color="teal">

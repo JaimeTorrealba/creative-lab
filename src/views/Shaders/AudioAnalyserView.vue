@@ -2,7 +2,6 @@
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import TheExperience from '@/components/demos/shaders/audio-analyser/index.vue'
-
 </script>
 <template>
   <TresCanvas window-size clear-color="#111">

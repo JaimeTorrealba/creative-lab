@@ -7,22 +7,22 @@ const basic_routes = [
     basedOn: 'https://readyplayer.me/'
   },
   {
-    name: 'BoneTweaks',
+    name: 'BoneTweaks'
   },
   {
-    name: 'CameraFollowPath',
+    name: 'CameraFollowPath'
   },
   {
-    name: 'ChangedPivot',
+    name: 'ChangedPivot'
   },
   {
-    name: 'ClickFace',
+    name: 'ClickFace'
   },
   {
-    name: 'CloudLight',
+    name: 'CloudLight'
   },
   {
-    name: 'Collision',
+    name: 'Collision'
   },
   {
     name: 'ControlsCurve'
@@ -40,7 +40,7 @@ const basic_routes = [
     basedOn: 'https://youtu.be/0ZW3xrFhY3w?si=QkvzEikyeuv6H1Mb'
   },
   {
-    name: 'Earth',
+    name: 'Earth'
   },
   // {
   //   name: 'Fbos',
@@ -49,13 +49,13 @@ const basic_routes = [
   {
     name: 'Gaea',
     img: '/thumbnails/Basics/Gaea.jpg',
-    tags: [TAGS.NATURE],
+    tags: [TAGS.NATURE]
   },
   {
-    name: 'Guide',
+    name: 'Guide'
   },
   {
-    name: 'DynamicComponent',
+    name: 'DynamicComponent'
   },
   {
     name: 'LabeledGeometry',
@@ -66,17 +66,17 @@ const basic_routes = [
     tags: [TAGS.WEBGPU]
   },
   {
-    name: 'LightProbes',
+    name: 'LightProbes'
   },
   {
     name: 'MaterialX',
     tags: [TAGS.WEBGPU]
   },
   {
-    name: 'MeshLine',
+    name: 'MeshLine'
   },
   {
-    name: 'MirrorModifier',
+    name: 'MirrorModifier'
   },
   {
     name: 'Nebula',
@@ -87,12 +87,12 @@ const basic_routes = [
     basedOn: 'https://www.youtube.com/watch?v=qlfh_rv6khY'
   },
   {
-    name: 'Quaternions',
+    name: 'Quaternions'
   },
   {
     name: 'RandomPoints',
     basedOn: 'https://www.youtube.com/live/JaXb-hH2BIg?feature=share',
-    img: '/thumbnails/Basics/RandomPoints.jpg',
+    img: '/thumbnails/Basics/RandomPoints.jpg'
   },
   {
     name: 'Scatter',
@@ -103,40 +103,43 @@ const basic_routes = [
     basedOn: 'https://youtu.be/oQbfy8QP8Lc?si=mIsjZpQHHS5WFNUG'
   },
   {
-    name: 'SixSides',
+    name: 'SixSides'
   },
   {
-    name: 'SphericalCoords',
+    name: 'SphericalCoords'
   },
   {
-    name: 'TextureBombing',
+    name: 'TextureBombing'
   },
   {
-    name: 'Transition',
+    name: 'Transition'
   },
   {
     name: 'WorldCreator',
     img: '/thumbnails/Basics/WorldCreator.jpg',
-    tags: [TAGS.NATURE],
+    tags: [TAGS.NATURE]
   },
   {
     name: 'PamCanvas',
-    tags: [TAGS.HTML],
+    tags: [TAGS.HTML]
   },
   {
     name: 'HoverButton',
     basedOn: 'https://dribbble.com/shots/11386939-Play-with-Magic-Motion',
-    tags: [TAGS.HTML],
+    tags: [TAGS.HTML]
   },
   {
     name: 'Carousel3D',
-    tags: [TAGS.HTML],
+    tags: [TAGS.HTML]
   }
 ].sort((a, b) => a.name.localeCompare(b.name))
 
 export const basic = () => {
   return basic_routes.map((route) => {
     const tags = [TAGS.BASIC, ...(route.tags ?? [])]
-    return generateRoute(route.name, 'Basics', route.basedOn, { tags, ...(route.img ? { img: route.img } : {}) })
+    return generateRoute(route.name, 'Basics', route.basedOn, {
+      tags,
+      ...(route.img ? { img: route.img } : {})
+    })
   })
 }

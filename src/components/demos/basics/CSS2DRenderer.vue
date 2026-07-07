@@ -4,7 +4,6 @@ import { useLoop, useTres } from '@tresjs/core'
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js'
 import { useWindowSize } from '@vueuse/core'
 
-
 const { scene, camera } = useTres()
 const { width, height } = useWindowSize()
 const labelRenderer = new CSS2DRenderer()
@@ -34,12 +33,12 @@ watch(
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(() => {
-    labelRenderer.render(scene.value, camera.value)
+  labelRenderer.render(scene.value, camera.value)
 })
 </script>
 <template>
-    <TresMesh :scale="0.25" >
-        <TresBoxGeometry :args="[1, 1, 1]" />
-        <TresMeshBasicMaterial :color="0x00ff00" />
-      </TresMesh>
+  <TresMesh :scale="0.25">
+    <TresBoxGeometry :args="[1, 1, 1]" />
+    <TresMeshBasicMaterial :color="0x00ff00" />
+  </TresMesh>
 </template>

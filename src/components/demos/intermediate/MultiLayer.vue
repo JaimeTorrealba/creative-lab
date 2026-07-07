@@ -1,108 +1,108 @@
 <script setup>
-import { ref, reactive, onUnmounted } from "vue";
-import { useLoop } from "@tresjs/core";
-import { useTextures } from "@tresjs/cientos";
-import { RepeatWrapping } from "three";
-import { Pane } from "tweakpane";
-import { watchOnce } from "@vueuse/core";
+import { ref, reactive, onUnmounted } from 'vue'
+import { useLoop } from '@tresjs/core'
+import { useTextures } from '@tresjs/cientos'
+import { RepeatWrapping } from 'three'
+import { Pane } from 'tweakpane'
+import { watchOnce } from '@vueuse/core'
 
 const { textures, isLoading } = useTextures([
-  "/images/Parallax_Forest/01_Mist.png",
-  "/images/Parallax_Forest/02_Bushes.png",
-  "/images/Parallax_Forest/04_Forest.png",
-  "/images/Parallax_Forest/06_Forest.png",
-  "/images/Parallax_Forest/09_Forest.png",
-]);
+  '/images/Parallax_Forest/01_Mist.png',
+  '/images/Parallax_Forest/02_Bushes.png',
+  '/images/Parallax_Forest/04_Forest.png',
+  '/images/Parallax_Forest/06_Forest.png',
+  '/images/Parallax_Forest/09_Forest.png'
+])
 
 const materialBase = {
-  color: "#ffffff",
+  color: '#ffffff',
   transparent: true,
-  map: null,
-};
+  map: null
+}
 
 const bushMaterial = ref({
-  ...materialBase,
-});
+  ...materialBase
+})
 const bushMaterial2 = ref({
-  ...materialBase,
-});
+  ...materialBase
+})
 const MistMaterial = ref({
-  ...materialBase,
-});
+  ...materialBase
+})
 const ForestMaterial = ref({
-  ...materialBase,
-});
+  ...materialBase
+})
 const ForestMaterial2 = ref({
-  ...materialBase,
-});
+  ...materialBase
+})
 watchOnce(isLoading, (v) => {
   if (!v) {
     textures.value.forEach((texture) => {
-      texture.wrapS = RepeatWrapping;
-      texture.wrapT = RepeatWrapping;
-    });
+      texture.wrapS = RepeatWrapping
+      texture.wrapT = RepeatWrapping
+    })
 
-    MistMaterial.value.map = textures.value[0];
-    bushMaterial.value.map = textures.value[1];
-    ForestMaterial.value.map = textures.value[2];
-    ForestMaterial2.value.map = textures.value[3];
-    bushMaterial2.value.map = textures.value[4];
+    MistMaterial.value.map = textures.value[0]
+    bushMaterial.value.map = textures.value[1]
+    ForestMaterial.value.map = textures.value[2]
+    ForestMaterial2.value.map = textures.value[3]
+    bushMaterial2.value.map = textures.value[4]
   }
-});
+})
 
 const options = reactive({
   speed: 0.1,
   forestZPosition: -0.11,
   forest2ZPosition: -0.12,
-  bushZPosition: -0.13,
-});
+  bushZPosition: -0.13
+})
 
-const pane = new Pane();
+const pane = new Pane()
 
-pane.addBinding(options, "speed", {
-  label: "Speed",
+pane.addBinding(options, 'speed', {
+  label: 'Speed',
   min: -2,
   max: 2,
-  step: 0.01,
-});
+  step: 0.01
+})
 
-pane.addBinding(options, "forestZPosition", {
-  label: "Forest Z Position",
+pane.addBinding(options, 'forestZPosition', {
+  label: 'Forest Z Position',
   min: -0.2,
   max: 0.2,
-  step: 0.01,
-});
+  step: 0.01
+})
 
-pane.addBinding(options, "forest2ZPosition", {
-  label: "Forest 2 Z Position",
+pane.addBinding(options, 'forest2ZPosition', {
+  label: 'Forest 2 Z Position',
   min: -0.2,
   max: 0.2,
-  step: 0.01,
-});
+  step: 0.01
+})
 
-pane.addBinding(options, "bushZPosition", {
-  label: "Bush Z Position",
+pane.addBinding(options, 'bushZPosition', {
+  label: 'Bush Z Position',
   min: -0.2,
   max: 0.2,
-  step: 0.01,
-});
+  step: 0.01
+})
 
-const bushesRef = ref(null);
-const forestRef = ref(null);
-const forest2Ref = ref(null);
-const bushRef = ref(null);
+const bushesRef = ref(null)
+const forestRef = ref(null)
+const forest2Ref = ref(null)
+const bushRef = ref(null)
 
 onUnmounted(() => pane?.dispose())
 
-const { onBeforeRender } = useLoop();
+const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ elapsed }) => {
-  if (isLoading.value) return;
-  bushesRef.value.material.map.offset.x = elapsed * options.speed;
-  forestRef.value.material.map.offset.x = elapsed * options.speed * 0.5;
-  forest2Ref.value.material.map.offset.x = elapsed * options.speed * 0.2;
-  bushRef.value.material.map.offset.x = elapsed * options.speed * 0.1;
-});
+  if (isLoading.value) return
+  bushesRef.value.material.map.offset.x = elapsed * options.speed
+  forestRef.value.material.map.offset.x = elapsed * options.speed * 0.5
+  forest2Ref.value.material.map.offset.x = elapsed * options.speed * 0.2
+  bushRef.value.material.map.offset.x = elapsed * options.speed * 0.1
+})
 </script>
 <template>
   <TresGroup v-if="!isLoading">

@@ -1,56 +1,56 @@
 <script setup>
-import { shallowRef, watch, computed, onUnmounted } from "vue";
-import { useLoop } from "@tresjs/core";
-import { useGLTF, CustomShaderMaterial } from "@tresjs/cientos";
-import { Pane } from "tweakpane";
+import { shallowRef, watch, computed, onUnmounted } from 'vue'
+import { useLoop } from '@tresjs/core'
+import { useGLTF, CustomShaderMaterial } from '@tresjs/cientos'
+import { Pane } from 'tweakpane'
 import {
   DoubleSide,
   MeshStandardMaterial,
   MeshDepthMaterial,
   RGBADepthPacking,
-  Uniform,
-} from "three";
-import fragment from "./fragment.glsl";
-import vertex from "./vertex.glsl";
+  Uniform
+} from 'three'
+import fragment from './fragment.glsl'
+import vertex from './vertex.glsl'
 
 // patch map not working
 const patchMap = {
   csm_Slice: {
-    "*": `
+    '*': `
       #include <colorspace_fragment>
         if(!gl_FrontFacing){ 
         gl_FragColor = vec4(0.75, 0.15, 0.3, 1.0);
         }
-        `,
-  },
-};
+        `
+  }
+}
 const uniforms = {
   uSliceStart: new Uniform(1.75),
-  uSliceArc: new Uniform(1.25),
-};
+  uSliceArc: new Uniform(1.25)
+}
 
-const pane = new Pane();
-pane.addBinding(uniforms.uSliceStart, "value", {
+const pane = new Pane()
+pane.addBinding(uniforms.uSliceStart, 'value', {
   min: -Math.PI,
   max: Math.PI,
   step: 0.01,
-  label: "Slice Start",
-});
-pane.addBinding(uniforms.uSliceArc, "value", {
+  label: 'Slice Start'
+})
+pane.addBinding(uniforms.uSliceArc, 'value', {
   min: 0,
   max: Math.PI * 2,
   step: 0.01,
-  label: "Slice Arc",
-});
+  label: 'Slice Arc'
+})
 
-const csmMaterialRef = shallowRef();
-const csmDepthMaterialRef = shallowRef();
+const csmMaterialRef = shallowRef()
+const csmDepthMaterialRef = shallowRef()
 const material = new MeshStandardMaterial({
   metalness: 0.5,
   roughness: 0.25,
   envMapIntensity: 0.5,
-  color: "#858080",
-});
+  color: '#858080'
+})
 
 const slicedMaterial = {
   // CSM materials
@@ -63,9 +63,9 @@ const slicedMaterial = {
   metalness: 0.5,
   roughness: 0.25,
   envMapIntensity: 0.5,
-  color: "#858080",
-  side: DoubleSide,
-};
+  color: '#858080',
+  side: DoubleSide
+}
 const slicedDepthMaterial = {
   // CSM materials
   baseMaterial: MeshDepthMaterial,
@@ -74,42 +74,42 @@ const slicedDepthMaterial = {
   uniforms: uniforms,
   patchMap: patchMap,
   // standard material
-  depthPacking: RGBADepthPacking,
-};
+  depthPacking: RGBADepthPacking
+}
 
-const { state, isLoading } = useGLTF("/models/gears.glb", {
+const { state, isLoading } = useGLTF('/models/gears.glb', {
   draco: true,
   traverse: (child) => {
     if (child.isMesh) {
-      if (child.name === "outerHull") {
-        child.material = csmMaterialRef.value.instance;
-        child.customDepthMaterial = csmDepthMaterialRef.value.instance;
+      if (child.name === 'outerHull') {
+        child.material = csmMaterialRef.value.instance
+        child.customDepthMaterial = csmDepthMaterialRef.value.instance
       } else {
-        child.material = material;
+        child.material = material
       }
-      child.castShadow = true;
-      child.receiveShadow = true;
+      child.castShadow = true
+      child.receiveShadow = true
     }
-  },
-});
+  }
+})
 
-const model = computed(() => state.value.scene);
+const model = computed(() => state.value.scene)
 
 watch(isLoading, (newVal) => {
   if (!newVal) {
-    console.log("GLTF Model Loaded:", model.value);
+    console.log('GLTF Model Loaded:', model.value)
   }
-});
+})
 
 onUnmounted(() => pane?.dispose())
 
-const { onBeforeRender } = useLoop();
+const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ elapsed }) => {
   if (!isLoading.value) {
-    state.value.scene.rotation.y = elapsed * 0.1;
+    state.value.scene.rotation.y = elapsed * 0.1
   }
-});
+})
 </script>
 <template>
   <primitive v-if="!isLoading" :object="state.scene" />

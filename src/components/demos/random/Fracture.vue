@@ -4,8 +4,8 @@ import { Pane } from 'tweakpane'
 
 const canvas = ref(null)
 let animId = null
-let ctx    = null
-let pane   = null
+let ctx = null
+let pane = null
 
 // ── Canvas resolution ─────────────────────────────────────────────────────────
 const SIZE = 800
@@ -23,51 +23,51 @@ const SIZE = 800
 //   6. After every round of steps, each alive tip may spawn a child that grows
 //      roughly perpendicular — creating the branching crack pattern.
 const params = {
-  speed:              3,      // simulation steps per animation frame
+  speed: 3, // simulation steps per animation frame
 
   // ── Attractor sources ────────────────────────────────────────────────────────
-  numSources:      3000,      // number of attractor points scattered in the canvas
-  minSourceSpacing: 0.010,   // minimum distance between two attractor points (Poisson-disk)
+  numSources: 3000, // number of attractor points scattered in the canvas
+  minSourceSpacing: 0.01, // minimum distance between two attractor points (Poisson-disk)
 
   // ── Seeding ───────────────────────────────────────────────────────────────────
-  numInitialCracks:   5,     // how many root fractures to start with
+  numInitialCracks: 5, // how many root fractures to start with
 
   // ── Fracture growth ──────────────────────────────────────────────────────────
-  fieldOfVision:    0.10,    // radius in which a fracture searches for attractors
-  forwardBias:      0.50,    // cosine threshold – attractors behind this angle are ignored
-                             // (0 = any direction, 1 = only exactly ahead)
-  stepSize:         0.005,   // distance the tip advances per simulation step
-  speedDecay:       0.997,   // each step: speed ×= speedDecay  (< 1 → energy fades)
+  fieldOfVision: 0.1, // radius in which a fracture searches for attractors
+  forwardBias: 0.5, // cosine threshold – attractors behind this angle are ignored
+  // (0 = any direction, 1 = only exactly ahead)
+  stepSize: 0.005, // distance the tip advances per simulation step
+  speedDecay: 0.997, // each step: speed ×= speedDecay  (< 1 → energy fades)
 
   // ── Spawning ─────────────────────────────────────────────────────────────────
   // After all alive fractures step, each tip has a chance to fork a child.
   // Probability = currentSpeed × spawnRate, so fast/fresh tips fork more.
-  spawnRate:        0.25,    // base probability of spawning per alive tip per step
-  spawnAngleSpread: 0.60,    // angular randomness around the 90° turn (radians)
-  childSpeedRatio:  0.85,    // child's initial speed as a fraction of parent's current speed
+  spawnRate: 0.25, // base probability of spawning per alive tip per step
+  spawnAngleSpread: 0.6, // angular randomness around the 90° turn (radians)
+  childSpeedRatio: 0.85, // child's initial speed as a fraction of parent's current speed
 
   // ── Collision ─────────────────────────────────────────────────────────────────
   // collisionRadius MUST be < stepSize so a fracture never collides with itself.
-  collisionRadius:  0.004,   // proximity to an existing crack that causes termination
+  collisionRadius: 0.004, // proximity to an existing crack that causes termination
 
   // ── Render ────────────────────────────────────────────────────────────────────
-  bgColor:    '#111118',
-  crackColor: '#b8d0ee',
+  bgColor: '#111118',
+  crackColor: '#b8d0ee'
 }
 
 // ── Spatial-hash constants ────────────────────────────────────────────────────
 // Cell sizes chosen so that the 3-cell neighbourhood always covers the query radius.
-const SRC_CELL = 0.05    // source grid cell (should be ≤ fieldOfVision)
-const COL_CELL = 0.01    // collision grid cell (should be > collisionRadius)
+const SRC_CELL = 0.05 // source grid cell (should be ≤ fieldOfVision)
+const COL_CELL = 0.01 // collision grid cell (should be > collisionRadius)
 
 // ── Simulation state ──────────────────────────────────────────────────────────
-let sources       = []   // [[x, y], …] attractor points
-let sourceGrid    = {}   // spatial hash: key → [[x, y], …]
+let sources = [] // [[x, y], …] attractor points
+let sourceGrid = {} // spatial hash: key → [[x, y], …]
 
-let aliveFractures = []  // fractures that are still growing
+let aliveFractures = [] // fractures that are still growing
 // (dead fractures are dropped after their last segment is drawn incrementally)
 
-let collisionGrid  = {}  // spatial hash of all visited crack points for collision tests
+let collisionGrid = {} // spatial hash of all visited crack points for collision tests
 
 // ── Source grid ───────────────────────────────────────────────────────────────
 function buildSourceGrid() {
@@ -81,10 +81,10 @@ function buildSourceGrid() {
 
 // All attractor points within `radius` of (x, y)
 function sourcesNear(x, y, radius) {
-  const out  = []
+  const out = []
   const span = Math.ceil(radius / SRC_CELL) + 1
-  const cx   = Math.floor(x / SRC_CELL)
-  const cy   = Math.floor(y / SRC_CELL)
+  const cx = Math.floor(x / SRC_CELL)
+  const cy = Math.floor(y / SRC_CELL)
   for (let dx = -span; dx <= span; dx++) {
     for (let dy = -span; dy <= span; dy++) {
       const pts = sourceGrid[`${cx + dx},${cy + dy}`]
@@ -108,8 +108,8 @@ function registerCrackPoint(x, y) {
 // True if (x, y) lands within `radius` of any existing crack point.
 function hitsCrack(x, y, radius) {
   const span = Math.ceil(radius / COL_CELL) + 1
-  const cx   = Math.floor(x / COL_CELL)
-  const cy   = Math.floor(y / COL_CELL)
+  const cx = Math.floor(x / COL_CELL)
+  const cy = Math.floor(y / COL_CELL)
   for (let dx = -span; dx <= span; dx++) {
     for (let dy = -span; dy <= span; dy++) {
       const pts = collisionGrid[`${cx + dx},${cy + dy}`]
@@ -127,8 +127,8 @@ function hitsCrack(x, y, radius) {
 // existing points.  A per-cell grid makes each rejection test O(1).
 function distributeSourcesDarts(num, minDist) {
   const result = []
-  const grid   = {}
-  const cell   = minDist
+  const grid = {}
+  const cell = minDist
 
   function tooClose(x, y) {
     const cx = Math.floor(x / cell)
@@ -171,20 +171,22 @@ function hexToRgba(hex, alpha) {
 }
 
 function drawCrackSegment(x1, y1, x2, y2) {
-  const x1s = x1 * SIZE, y1s = y1 * SIZE
-  const x2s = x2 * SIZE, y2s = y2 * SIZE
+  const x1s = x1 * SIZE,
+    y1s = y1 * SIZE
+  const x2s = x2 * SIZE,
+    y2s = y2 * SIZE
 
   // Halo pass – wide and very faint
-  ctx.strokeStyle = hexToRgba(params.crackColor, 0.10)
-  ctx.lineWidth   = 4.0
+  ctx.strokeStyle = hexToRgba(params.crackColor, 0.1)
+  ctx.lineWidth = 4.0
   ctx.beginPath()
   ctx.moveTo(x1s, y1s)
   ctx.lineTo(x2s, y2s)
   ctx.stroke()
 
   // Core pass – thin and nearly opaque
-  ctx.strokeStyle = hexToRgba(params.crackColor, 0.90)
-  ctx.lineWidth   = 0.8
+  ctx.strokeStyle = hexToRgba(params.crackColor, 0.9)
+  ctx.lineWidth = 0.8
   ctx.beginPath()
   ctx.moveTo(x1s, y1s)
   ctx.lineTo(x2s, y2s)
@@ -219,13 +221,13 @@ function stepFracture(f) {
   //    Filtering out behind-us attractors keeps growth directional.
   const forwardDirs = []
   for (const [sx, sy] of nearby) {
-    const ex   = sx - cx
-    const ey   = sy - cy
+    const ex = sx - cx
+    const ey = sy - cy
     const dist = Math.hypot(ex, ey)
     if (dist < 1e-9) continue
     const dot = (fwdX * ex + fwdY * ey) / dist
     if (dot > params.forwardBias) {
-      forwardDirs.push([ex / dist, ey / dist])  // unit vector toward attractor
+      forwardDirs.push([ex / dist, ey / dist]) // unit vector toward attractor
     }
   }
 
@@ -238,16 +240,20 @@ function stepFracture(f) {
   // 4. Average all attractor directions → new growth unit vector.
   //    This is the core of the algorithm from the original Python code
   //    (masked_diff / masked_nrm summed and normalised).
-  let sumX = 0, sumY = 0
-  for (const [vx, vy] of forwardDirs) { sumX += vx; sumY += vy }
-  const magn  = Math.hypot(sumX, sumY)
+  let sumX = 0,
+    sumY = 0
+  for (const [vx, vy] of forwardDirs) {
+    sumX += vx
+    sumY += vy
+  }
+  const magn = Math.hypot(sumX, sumY)
   const newDx = sumX / magn
   const newDy = sumY / magn
 
   // 5. Advance tip one step
   const newX = cx + newDx * params.stepSize
   const newY = cy + newDy * params.stepSize
-  f.angle    = Math.atan2(newDy, newDx)
+  f.angle = Math.atan2(newDy, newDx)
 
   // 6. Die if tip left the canvas
   if (newX < 0 || newX > 1 || newY < 0 || newY > 1) {
@@ -279,7 +285,7 @@ function stepFracture(f) {
 // small angular randomness added.  It inherits a fraction of the parent's speed.
 // High-speed (fresh, near the seed) fractures spawn more often, creating the
 // characteristic density gradient of real glass cracks.
-const MAX_FRACTURES = 2000   // safety cap so the demo doesn't run forever
+const MAX_FRACTURES = 2000 // safety cap so the demo doesn't run forever
 
 function spawnFromFronts() {
   const toAdd = []
@@ -289,9 +295,10 @@ function spawnFromFronts() {
     // Probability = currentSpeed × spawnRate
     if (Math.random() > f.speed * params.spawnRate) continue
 
-    const [tx, ty]  = f.tip
-    const side       = Math.random() < 0.5 ? 1 : -1
-    const childAngle = f.angle + side * (Math.PI / 2) + (Math.random() - 0.5) * params.spawnAngleSpread
+    const [tx, ty] = f.tip
+    const side = Math.random() < 0.5 ? 1 : -1
+    const childAngle =
+      f.angle + side * (Math.PI / 2) + (Math.random() - 0.5) * params.spawnAngleSpread
     const childSpeed = f.speed * params.childSpeedRatio
 
     toAdd.push(createFracture(tx, ty, childAngle, childSpeed))
@@ -305,7 +312,7 @@ function spawnFromFronts() {
 // 3. Then surviving tips get a chance to spawn children.
 function step() {
   if (!ctx) return
-  ctx.lineCap  = 'round'
+  ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
 
   const surviving = []
@@ -326,13 +333,13 @@ function init() {
 
   // Reset all fracture and collision state
   aliveFractures = []
-  collisionGrid  = {}
+  collisionGrid = {}
 
   // Seed root fractures at random positions inside the central half of the canvas.
   // Random angles simulate multiple simultaneous impact sites (like dropped glass).
   for (let i = 0; i < params.numInitialCracks; i++) {
-    const x     = 0.25 + Math.random() * 0.5
-    const y     = 0.25 + Math.random() * 0.5
+    const x = 0.25 + Math.random() * 0.5
+    const y = 0.25 + Math.random() * 0.5
     const angle = Math.random() * Math.PI * 2
     aliveFractures.push(createFracture(x, y, angle, 1.0))
     // Register the seed position so later fractures can collide with it
@@ -359,7 +366,7 @@ function startLoop() {
     if (aliveFractures.length > 0) {
       animId = requestAnimationFrame(loop)
     } else {
-      animId = null  // simulation finished naturally
+      animId = null // simulation finished naturally
     }
   }
   animId = requestAnimationFrame(loop)
@@ -367,8 +374,8 @@ function startLoop() {
 
 // ── Lifecycle ──────────────────────────────────────────────────────────────────
 onMounted(() => {
-  const el  = canvas.value
-  el.width  = SIZE
+  const el = canvas.value
+  el.width = SIZE
   el.height = SIZE
   ctx = el.getContext('2d')
 
@@ -382,28 +389,83 @@ onMounted(() => {
   pane = new Pane({ title: 'Fracture' })
 
   const simFolder = pane.addFolder({ title: 'Simulation' })
-  simFolder.addBinding(params, 'speed',             { min: 1,     max: 20,    step: 1,      label: 'Steps per frame' })
-  simFolder.addBinding(params, 'numSources',        { min: 500,   max: 8000,  step: 100,    label: 'Attractor sources' })
-  simFolder.addBinding(params, 'minSourceSpacing',  { min: 0.004, max: 0.05,  step: 0.001,  label: 'Min source spacing' })
-  simFolder.addBinding(params, 'numInitialCracks',  { min: 1,     max: 20,    step: 1,      label: 'Seed fractures' })
+  simFolder.addBinding(params, 'speed', { min: 1, max: 20, step: 1, label: 'Steps per frame' })
+  simFolder.addBinding(params, 'numSources', {
+    min: 500,
+    max: 8000,
+    step: 100,
+    label: 'Attractor sources'
+  })
+  simFolder.addBinding(params, 'minSourceSpacing', {
+    min: 0.004,
+    max: 0.05,
+    step: 0.001,
+    label: 'Min source spacing'
+  })
+  simFolder.addBinding(params, 'numInitialCracks', {
+    min: 1,
+    max: 20,
+    step: 1,
+    label: 'Seed fractures'
+  })
 
   const growthFolder = pane.addFolder({ title: 'Growth' })
-  growthFolder.addBinding(params, 'fieldOfVision',  { min: 0.02,  max: 0.30,  step: 0.005,  label: 'Field of vision' })
-  growthFolder.addBinding(params, 'forwardBias',    { min: -0.5,  max: 0.99,  step: 0.01,   label: 'Forward bias' })
-  growthFolder.addBinding(params, 'stepSize',       { min: 0.003, max: 0.015, step: 0.001,  label: 'Step size' })
-  growthFolder.addBinding(params, 'speedDecay',     { min: 0.980, max: 1.000, step: 0.0005, label: 'Speed decay' })
+  growthFolder.addBinding(params, 'fieldOfVision', {
+    min: 0.02,
+    max: 0.3,
+    step: 0.005,
+    label: 'Field of vision'
+  })
+  growthFolder.addBinding(params, 'forwardBias', {
+    min: -0.5,
+    max: 0.99,
+    step: 0.01,
+    label: 'Forward bias'
+  })
+  growthFolder.addBinding(params, 'stepSize', {
+    min: 0.003,
+    max: 0.015,
+    step: 0.001,
+    label: 'Step size'
+  })
+  growthFolder.addBinding(params, 'speedDecay', {
+    min: 0.98,
+    max: 1.0,
+    step: 0.0005,
+    label: 'Speed decay'
+  })
 
   const spawnFolder = pane.addFolder({ title: 'Spawning' })
-  spawnFolder.addBinding(params, 'spawnRate',        { min: 0.01, max: 1.00,         step: 0.01,  label: 'Spawn rate' })
-  spawnFolder.addBinding(params, 'spawnAngleSpread', { min: 0.00, max: Math.PI / 2,  step: 0.05,  label: 'Angle spread (rad)' })
-  spawnFolder.addBinding(params, 'childSpeedRatio',  { min: 0.50, max: 1.00,         step: 0.01,  label: 'Child speed ratio' })
+  spawnFolder.addBinding(params, 'spawnRate', {
+    min: 0.01,
+    max: 1.0,
+    step: 0.01,
+    label: 'Spawn rate'
+  })
+  spawnFolder.addBinding(params, 'spawnAngleSpread', {
+    min: 0.0,
+    max: Math.PI / 2,
+    step: 0.05,
+    label: 'Angle spread (rad)'
+  })
+  spawnFolder.addBinding(params, 'childSpeedRatio', {
+    min: 0.5,
+    max: 1.0,
+    step: 0.01,
+    label: 'Child speed ratio'
+  })
 
   const collisionFolder = pane.addFolder({ title: 'Collision' })
-  collisionFolder.addBinding(params, 'collisionRadius', { min: 0.001, max: 0.010, step: 0.001, label: 'Collision radius' })
+  collisionFolder.addBinding(params, 'collisionRadius', {
+    min: 0.001,
+    max: 0.01,
+    step: 0.001,
+    label: 'Collision radius'
+  })
 
   const renderFolder = pane.addFolder({ title: 'Render' })
   renderFolder.addBinding(params, 'crackColor', { label: 'Crack colour' })
-  renderFolder.addBinding(params, 'bgColor',    { label: 'Background' })
+  renderFolder.addBinding(params, 'bgColor', { label: 'Background' })
 
   pane.addButton({ title: 'Reset' }).on('click', reset)
 })

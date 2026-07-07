@@ -49,10 +49,7 @@ class Vehicle {
   }
 
   updateWorldPosition() {
-    this.worldPosition.set(
-      this.position.x - width.value / 2,
-      height.value / 2 - this.position.y
-    )
+    this.worldPosition.set(this.position.x - width.value / 2, height.value / 2 - this.position.y)
   }
 }
 

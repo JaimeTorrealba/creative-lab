@@ -9,7 +9,7 @@ const gl = {
   shadows: false,
   alpha: false,
   shadowMapType: BasicShadowMap,
-  toneMapping: NoToneMapping,
+  toneMapping: NoToneMapping
 }
 </script>
 
