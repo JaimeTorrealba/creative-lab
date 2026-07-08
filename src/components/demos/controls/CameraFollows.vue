@@ -1,9 +1,9 @@
 <script setup>
-import { watchEffect, ref, computed } from 'vue'
+import { watch, ref, computed, onUnmounted } from 'vue'
 import { useLoop, useTres } from '@tresjs/core'
 import { useGLTF, useAnimations } from '@tresjs/cientos'
 import { useMagicKeys, watchOnce } from '@vueuse/core'
-import { Quaternion, Vector3 } from 'three'
+import { LoopOnce, Quaternion, Vector3 } from 'three'
 
 const { state, isLoading } = useGLTF('/models/footman/source/Footman_RIG.glb')
 
@@ -15,6 +15,13 @@ watchOnce(isLoading, (v) => {
   if (!v) {
     currentAction.value = actions.Idle
     currentAction.value?.play()
+    actions.SwordAndShieldSlash.setLoop(LoopOnce, 1)
+    actions.SwordAndShieldSlash.clampWhenFinished = true
+    mixer.value.addEventListener('finished', (e) => {
+      if (e.action !== actions.SwordAndShieldSlash) return
+      waitForAnimation.value = false
+    })
+    if (hasPressed.value) changeAnimation(actions.SwordAndShieldRun)
   }
 })
 
@@ -31,35 +38,28 @@ const { camera } = useTres()
 const currentAction = ref(null)
 
 const changeAnimation = (action) => {
-  if (!currentAction.value) return
-  currentAction.value?.fadeOut(fadeDuration)
+  if (!action || !currentAction.value || currentAction.value === action) return
+  currentAction.value.fadeOut(fadeDuration)
   action.reset().fadeIn(fadeDuration).play()
   currentAction.value = action
-  if (action === actions.SwordAndShieldSlash) {
-    mixer.value.addEventListener('loop', () => {
-      changeAnimation(actions.Idle)
-      waitForAnimation.value = false
-    })
-  }
 }
 
 //KEYS
 const { w, s, a, d } = useMagicKeys()
 const hasPressed = computed(() => w.value || s.value || a.value || d.value)
 const waitForAnimation = ref(false)
-watchEffect(() => {
-  if (hasPressed.value) {
-    changeAnimation(actions.SwordAndShieldRun)
-  }
-  if (!hasPressed.value && !waitForAnimation.value) {
-    changeAnimation(actions.Idle)
-  }
+watch([hasPressed, waitForAnimation], ([pressed, waiting]) => {
+  if (waiting) return
+  changeAnimation(pressed ? actions.SwordAndShieldRun : actions.Idle)
 })
 
-document.addEventListener('click', () => {
+const onDocumentClick = () => {
+  if (isLoading.value || waitForAnimation.value) return
   waitForAnimation.value = true
   changeAnimation(actions.SwordAndShieldSlash)
-})
+}
+document.addEventListener('click', onDocumentClick)
+onUnmounted(() => document.removeEventListener('click', onDocumentClick))
 
 const onMovement = (delta) => {
   const frameDecceleration = new Vector3(
@@ -151,7 +151,6 @@ const thirdPersonCamera = (elapsed, model3D, camera) => {
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ delta, elapsed }) => {
-  mixer.value.update(delta * 0.5)
   if (model.value && camera.value) {
     onMovement(delta * 0.5)
     thirdPersonCamera(elapsed, model.value, camera.value)

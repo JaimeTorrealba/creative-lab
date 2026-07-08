@@ -26,6 +26,10 @@ const controls_routes = [
   {
     name: 'ThirdPerson',
     basedOn: 'https://youtu.be/C3s0UHpwlf8?si=JdxnmkFwgAxoOdk7'
+  },
+  {
+    name: 'WorldWalker',
+    basedOn: 'https://github.com/Tresjs/rapier'
   }
 ]
 

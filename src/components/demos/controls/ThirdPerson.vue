@@ -1,22 +1,29 @@
 <script setup>
-import { watchEffect, ref, shallowRef, computed } from 'vue'
+import { watch, ref, shallowRef, computed, onUnmounted } from 'vue'
 import { useLoop, useTres } from '@tresjs/core'
 import { OrbitControls, useGLTF, useAnimations } from '@tresjs/cientos'
 import { useMagicKeys, watchOnce } from '@vueuse/core'
-import { Quaternion, Vector3 } from 'three'
+import { LoopOnce, Quaternion, Vector3 } from 'three'
 
 const { state, isLoading } = useGLTF('/models/footman/source/Footman_RIG.glb')
-
-watchOnce(isLoading, (v) => {
-  if (!v) {
-    currentAction.value = actions.Idle
-    currentAction.value.play()
-  }
-})
 
 const animations = computed(() => state.value?.animations || [])
 const model = computed(() => state?.value?.scene)
 const { actions, mixer } = useAnimations(animations, model)
+
+watchOnce(isLoading, (v) => {
+  if (!v) {
+    currentAction.value = actions.Idle
+    currentAction.value?.play()
+    actions.SwordAndShieldSlash.setLoop(LoopOnce, 1)
+    actions.SwordAndShieldSlash.clampWhenFinished = true
+    mixer.value.addEventListener('finished', (e) => {
+      if (e.action !== actions.SwordAndShieldSlash) return
+      waitForAnimation.value = false
+    })
+    if (hasPressed.value) changeAnimation(actions.SwordAndShieldRun)
+  }
+})
 
 //constants
 const fadeDuration = 0.2
@@ -32,34 +39,28 @@ const orbitControlsRef = shallowRef()
 const currentAction = ref()
 
 const changeAnimation = (action) => {
+  if (!action || !currentAction.value || currentAction.value === action) return
   currentAction.value.fadeOut(fadeDuration)
   action.reset().fadeIn(fadeDuration).play()
   currentAction.value = action
-  if (action === actions.SwordAndShieldSlash) {
-    mixer.value.addEventListener('loop', () => {
-      changeAnimation(actions.Idle)
-      waitForAnimation.value = false
-    })
-  }
 }
 
 //KEYS
 const { w, s, a, d } = useMagicKeys()
 const hasPressed = computed(() => w.value || s.value || a.value || d.value)
 const waitForAnimation = ref(false)
-watchEffect(() => {
-  if (hasPressed.value && !isLoading.value) {
-    changeAnimation(actions.SwordAndShieldRun)
-  }
-  if (!hasPressed.value && !waitForAnimation.value && !isLoading.value) {
-    changeAnimation(actions.Idle)
-  }
+watch([hasPressed, waitForAnimation], ([pressed, waiting]) => {
+  if (waiting) return
+  changeAnimation(pressed ? actions.SwordAndShieldRun : actions.Idle)
 })
 
-document.addEventListener('click', () => {
+const onDocumentClick = () => {
+  if (isLoading.value || waitForAnimation.value) return
   waitForAnimation.value = true
   changeAnimation(actions.SwordAndShieldSlash)
-})
+}
+document.addEventListener('click', onDocumentClick)
+onUnmounted(() => document.removeEventListener('click', onDocumentClick))
 
 const updateCamera = (camera, delta) => {
   const angleYCameraDirection = Math.atan2(
@@ -148,7 +149,6 @@ const updateCameraTarget = (moveX, moveZ) => {
 const { onBeforeRender } = useLoop()
 
 onBeforeRender(({ delta }) => {
-  mixer.value.update(delta * 0.5)
   orbitControlsRef.value.instance.update()
   if (camera.value && orbitControlsRef.value && hasPressed.value) {
     updateCamera(camera.value, delta)
