@@ -79,6 +79,10 @@ const basic_routes = [
     name: 'MirrorModifier'
   },
   {
+    name: 'N8aoRoom',
+    basedOn: 'https://github.com/N8python/n8ao'
+  },
+  {
     name: 'Nebula',
     basedOn: 'https://youtu.be/5f5wwQb22tE'
   },

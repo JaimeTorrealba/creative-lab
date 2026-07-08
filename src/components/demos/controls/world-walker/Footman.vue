@@ -1,28 +1,22 @@
 <script setup>
-import { watch, ref, shallowRef, computed, onUnmounted } from 'vue'
+import { watch, ref, shallowRef, computed } from 'vue'
 import { useLoop, useTres } from '@tresjs/core'
 import { OrbitControls, useGLTF, useAnimations } from '@tresjs/cientos'
 import { RigidBody, CapsuleCollider } from '@tresjs/rapier'
 import { useMagicKeys, watchOnce } from '@vueuse/core'
-import { LoopOnce, Quaternion, Vector3 } from 'three'
+import { Quaternion, Vector3 } from 'three'
 import { HEIGHT_SCALE } from './constants'
 
 const { state, isLoading } = useGLTF('/models/footman/source/Footman_RIG.glb')
 
 const animations = computed(() => state.value?.animations || [])
 const model = computed(() => state?.value?.scene)
-const { actions, mixer } = useAnimations(animations, model)
+const { actions } = useAnimations(animations, model)
 
 watchOnce(isLoading, (v) => {
   if (!v) {
     currentAction.value = actions.Idle
     currentAction.value?.play()
-    actions.SwordAndShieldSlash.setLoop(LoopOnce, 1)
-    actions.SwordAndShieldSlash.clampWhenFinished = true
-    mixer.value.addEventListener('finished', (e) => {
-      if (e.action !== actions.SwordAndShieldSlash) return
-      waitForAnimation.value = false
-    })
     if (hasPressed.value) changeAnimation(actions.SwordAndShieldRun)
   }
 })
@@ -53,19 +47,9 @@ const changeAnimation = (action) => {
 //KEYS
 const { w, s, a, d } = useMagicKeys()
 const hasPressed = computed(() => w.value || s.value || a.value || d.value)
-const waitForAnimation = ref(false)
-watch([hasPressed, waitForAnimation], ([pressed, waiting]) => {
-  if (waiting) return
+watch(hasPressed, (pressed) => {
   changeAnimation(pressed ? actions.SwordAndShieldRun : actions.Idle)
 })
-
-const onClick = () => {
-  if (isLoading.value || waitForAnimation.value) return
-  waitForAnimation.value = true
-  changeAnimation(actions.SwordAndShieldSlash)
-}
-document.addEventListener('click', onClick)
-onUnmounted(() => document.removeEventListener('click', onClick))
 
 const moveBody = (body, position) => {
   const angleYCameraDirection = Math.atan2(

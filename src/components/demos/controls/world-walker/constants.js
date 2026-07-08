@@ -1,3 +1,3 @@
-export const TERRAIN_SIZE = 120
-export const HEIGHT_SCALE = 16
-export const HEIGHTFIELD_ROWS = 128
+export const TERRAIN_SIZE = 240
+export const HEIGHT_SCALE = 32
+export const HEIGHTFIELD_ROWS = 256
