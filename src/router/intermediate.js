@@ -35,6 +35,13 @@ const intermediate_routes = [
     name: 'InfiniteTube'
   },
   {
+    name: 'KochCurve',
+    description:
+      'The Koch curve fractal built with recursive segment subdivision, growing generation by generation with animated bumps. Iterations, speed, angle and snowflake mode are tweakable.',
+    basedOn: 'https://natureofcode.com/fractals/#the-koch-curve',
+    tags: [TAGS.NOC]
+  },
+  {
     name: 'Electricity',
     basedOn: 'https://www.youtube.com/watch?v=fezzkdjHoiI',
     tags: [TAGS.NATURE]
