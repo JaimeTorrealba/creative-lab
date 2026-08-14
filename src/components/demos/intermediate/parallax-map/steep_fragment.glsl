@@ -6,15 +6,13 @@ uniform vec3 uViewPos;
 
 varying vec2 vUv;
 varying vec3 vViewDir;
-varying vec3 vNormal;
-  // varying tangent/bitangent ...
+varying vec3 vTanLightVec;
 
 // Steep parallax mapping (layered height traversal) kept minimal.
 vec2 parallaxSteep(vec2 uv, vec3 viewDir) {
-  // viewDir assumed roughly in tangent-like space; we just use its xy.
-  vec3 N = normalize(vNormal);
+  // viewDir is tangent space, so its xy is a uv offset and its z is N dot V.
   vec3 V = normalize(viewDir);
-  float ndotv = max(dot(N, V), 0.0);
+  float ndotv = max(V.z, 0.0);
   float numLayers = mix(8.0, 32.0, 1.0 - ndotv); // more layers at grazing angles
 
   float layerDepth = 1.0 / numLayers;
@@ -54,9 +52,12 @@ void main() {
   vec3 normalTex = texture2D(uNormalMap, uvParallax).rgb * 2.0 - 1.0; // [0,1] -> [-1,1]
   normalTex = normalize(normalTex);
 
-  // Simplest possible diffuse using interpolated normal as a crude "light" reference
-  float diffuse = max(dot(normalTex, normalize(vNormal)), 0.0);
+  // Tangent-space diffuse against the scene light
+  float diffuse = max(dot(normalTex, normalize(vTanLightVec)), 0.0);
   vec3 color = albedo * (0.2 + 0.8 * diffuse); // add a tiny ambient so it isn't all black
 
   gl_FragColor = vec4(color, 1.0);
+
+  #include <tonemapping_fragment>
+  #include <colorspace_fragment>
 }

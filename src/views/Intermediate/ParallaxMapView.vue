@@ -9,11 +9,13 @@ const gl = {
 </script>
 <template>
   <TresCanvas v-bind="gl" window-size>
-    <TresPerspectiveCamera :position="[0, 3, 3]" :look-at="[0, 0, 0]" />
+    <TresPerspectiveCamera :position="[0, 4, 6.5]" :look-at="[0, 0, 0]" />
     <Suspense>
       <TheExperience />
     </Suspense>
     <OrbitControls />
-    <TresAmbientLight :intensity="2.5" />
+    <!-- Only the plain plane reads scene lights; 0.6 here plus 2.5 on the directional light
+         reproduces the 0.2 + 0.8 * diffuse the five shader planes hard-code. -->
+    <TresAmbientLight :intensity="0.6" />
   </TresCanvas>
 </template>

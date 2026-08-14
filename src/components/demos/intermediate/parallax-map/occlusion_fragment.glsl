@@ -5,14 +5,13 @@ uniform float uHeightScale;
 uniform vec3 uViewPos; // (not used directly but kept for consistency)
 
 varying vec2 vUv;
-varying vec3 vViewDir; // view dir in whatever space vertex provided
-varying vec3 vNormal;
+varying vec3 vViewDir; // tangent space: xy is a uv offset, z is N dot V
+varying vec3 vTanLightVec;
 
 // Parallax Occlusion Mapping (layered + small binary refinement)
 vec2 parallaxOcclusion(vec2 uv, vec3 viewDir) {
-    vec3 N = normalize(vNormal);
     vec3 V = normalize(viewDir);
-    float ndotv = max(dot(N, V), 0.0);
+    float ndotv = max(V.z, 0.0);
     float numLayers = mix(16.0, 48.0, 1.0 - ndotv); // more layers at grazing angles
     float layerDepth = 1.0 / numLayers;
     float currentLayerDepth = 0.0;
@@ -61,8 +60,11 @@ void main() {
     vec3 normalTex = texture2D(uNormalMap, uvParallax).rgb * 2.0 - 1.0;
     normalTex = normalize(normalTex);
 
-    float diffuse = max(dot(normalTex, normalize(vNormal)), 0.0);
+    float diffuse = max(dot(normalTex, normalize(vTanLightVec)), 0.0);
     vec3 color = albedo * (0.2 + 0.8 * diffuse);
 
     gl_FragColor = vec4(color, 1.0);
+
+    #include <tonemapping_fragment>
+    #include <colorspace_fragment>
 }

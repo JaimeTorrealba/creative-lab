@@ -1,10 +1,13 @@
 <script setup>
 import vertex from './vertex.glsl'
 import fragment from './fragment.glsl'
+import skyVertex from './skyVertex.glsl'
+import skyFragment from './skyFragment.glsl'
 import { useLoop } from '@tresjs/core'
 import { useTexture } from '@tresjs/cientos'
-import { Color, DoubleSide, RepeatWrapping, Vector2, Vector3 } from 'three'
-import { reactive, shallowRef, onUnmounted } from 'vue'
+import { EffectComposerPmndrs, BloomPmndrs } from '@tresjs/post-processing'
+import { BackSide, Color, DoubleSide, RepeatWrapping, Vector2, Vector3 } from 'three'
+import { reactive, shallowRef, onUnmounted, watch } from 'vue'
 import { watchOnce } from '@vueuse/core'
 import { Pane } from 'tweakpane'
 import {
@@ -53,6 +56,21 @@ const clutterShader = {
   depthWrite: true
 }
 
+const skyShader = {
+  vertexShader: skyVertex,
+  fragmentShader: skyFragment,
+  uniforms: {
+    uHorizonColor: { value: new Color('#cfe0ea') },
+    uZenithColor: { value: new Color('#7ba7cc') },
+    uSunColor: { value: new Color('#fff3d6') },
+    uSunDir: { value: lightDir },
+    uSunIntensity: { value: 3 }
+  },
+  side: BackSide,
+  depthWrite: false,
+  transparent: false
+}
+
 const terrainGeometry = buildTerrainGeometry()
 const grassGeometry = shallowRef(buildGrassGeometry())
 const clutterGeometry = shallowRef(buildClutterGeometry())
@@ -98,6 +116,30 @@ const params = reactive({
   showClutter: true
 })
 
+const sky = reactive({
+  sunIntensity: 3,
+  horizonColor: '#cfe0ea',
+  zenithColor: '#7ba7cc',
+  sunColor: '#fff3d6'
+})
+
+const glow = reactive({
+  enabled: true,
+  intensity: 0.8,
+  threshold: 0.5,
+  smoothing: 0.35,
+  radius: 0.85
+})
+
+// BloomPmndrs has no radius prop in v3.4.0, so it has to be poked onto the effect itself
+const bloomRef = shallowRef()
+const applyRadius = () => {
+  const exposed = bloomRef.value?.effect
+  const effect = exposed?.value ?? exposed
+  if (effect?.mipmapBlurPass) effect.mipmapBlurPass.radius = glow.radius
+}
+watch(bloomRef, applyRadius)
+
 const pane = new Pane()
 onUnmounted(() => pane?.dispose())
 
@@ -124,6 +166,27 @@ pane.addButton({ title: 'Replant' }).on('click', () => {
   grassGeometry.value = buildGrassGeometry(params.density)
 })
 
+const glowFolder = pane.addFolder({ title: 'Glow' })
+glowFolder.addBinding(glow, 'enabled')
+glowFolder.addBinding(glow, 'intensity', { min: 0, max: 3, step: 0.01 })
+glowFolder.addBinding(glow, 'threshold', { min: 0, max: 1, step: 0.01 })
+glowFolder.addBinding(glow, 'smoothing', { min: 0, max: 1, step: 0.01 })
+glowFolder.addBinding(glow, 'radius', { min: 0, max: 1, step: 0.01 }).on('change', applyRadius)
+
+const skyFolder = pane.addFolder({ title: 'Sky', expanded: false })
+skyFolder.addBinding(sky, 'sunIntensity', { min: 0, max: 8, step: 0.1 }).on('change', (ev) => {
+  skyShader.uniforms.uSunIntensity.value = ev.value
+})
+skyFolder.addBinding(sky, 'horizonColor').on('change', (ev) => {
+  skyShader.uniforms.uHorizonColor.value.set(ev.value)
+})
+skyFolder.addBinding(sky, 'zenithColor').on('change', (ev) => {
+  skyShader.uniforms.uZenithColor.value.set(ev.value)
+})
+skyFolder.addBinding(sky, 'sunColor').on('change', (ev) => {
+  skyShader.uniforms.uSunColor.value.set(ev.value)
+})
+
 const { onBeforeRender } = useLoop()
 onBeforeRender(({ elapsed }) => {
   grassShader.uniforms.uTime.value = elapsed
@@ -133,6 +196,23 @@ onBeforeRender(({ elapsed }) => {
 const rockPosition = (rock) => [rock.x, terrainHeight(rock.x, rock.z) + rock.radius * 0.2, rock.z]
 </script>
 <template>
+  <Suspense>
+    <EffectComposerPmndrs v-if="glow.enabled" :multisampling="4" disable-normal-pass>
+      <BloomPmndrs
+        ref="bloomRef"
+        :intensity="glow.intensity"
+        :luminance-threshold="glow.threshold"
+        :luminance-smoothing="glow.smoothing"
+        mipmap-blur
+      />
+    </EffectComposerPmndrs>
+  </Suspense>
+
+  <TresMesh>
+    <TresSphereGeometry :args="[90, 32, 16]" />
+    <TresShaderMaterial v-bind="skyShader" />
+  </TresMesh>
+
   <TresMesh :geometry="terrainGeometry">
     <TresMeshStandardMaterial
       :map="groundColor"

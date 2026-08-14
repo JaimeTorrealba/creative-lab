@@ -14,5 +14,9 @@ void main() {
   // screen-door dissolve: alpha test only, noise-gated coverage shrinks with distance
   if (tex.a * (1.0 - vFade * (0.5 + noise)) < uAlphaCut) discard;
 
+  // vLight is already linear (Color uniforms), so the atlas has to be decoded to match
+  tex.rgb = pow(tex.rgb, vec3(2.2));
+
   gl_FragColor = vec4(tex.rgb * vLight, 1.0);
+  #include <colorspace_fragment>
 }

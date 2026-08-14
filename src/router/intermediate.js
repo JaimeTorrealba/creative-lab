@@ -104,7 +104,9 @@ const intermediate_routes = [
   },
   {
     name: 'ParallaxMap',
-    tags: [TAGS.FRAGMENT]
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems2/part-i-geometric-complexity/chapter-8-pixel-displacement-mapping-distance-functions',
+    tags: [TAGS.FRAGMENT, TAGS.GPU_GEMS]
   },
   {
     name: 'HtmlMix',
