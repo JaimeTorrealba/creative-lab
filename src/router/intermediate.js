@@ -109,6 +109,14 @@ const intermediate_routes = [
     tags: [TAGS.FRAGMENT, TAGS.GPU_GEMS]
   },
   {
+    name: 'TileBasedTexture',
+    description:
+      'Wang tiles from GPU Gems 2 ch.12: a non-periodic tiling drawn from a generated 16-tile atlas, with the tile for each cell coming either from a precomputed indirection texture (12.4) or from a per-fragment hash.',
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems2/part-ii-shading-lighting-and-shadows/chapter-12-tile-based-texture-mapping',
+    tags: [TAGS.FRAGMENT, TAGS.GPU_GEMS]
+  },
+  {
     name: 'HtmlMix',
     tags: [TAGS.HTML]
   }
