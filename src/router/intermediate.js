@@ -3,6 +3,14 @@ import { TAGS } from '../utils/constants'
 
 const intermediate_routes = [
   {
+    name: 'AdaptiveTessellation',
+    description:
+      'GPU Gems 2 ch.7: a periodic Catmull-Clark control mesh read as bicubic patches, each tessellated to a level chosen by a screen-space flatness test that also accounts for displacement, stitched at T-junctions to stay watertight.',
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems2/part-i-geometric-complexity/chapter-7-adaptive-tessellation-subdivision-surfaces',
+      tags: [TAGS.GPU_GEMS]
+  },
+  {
     name: 'BetterFog',
     description:
       "The four fog techniques from iquilez's article: distance, sun scattering, extinction/inscattering and analytic height-based fog, applied to a heightmap terrain in a custom shader.",
