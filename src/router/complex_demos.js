@@ -3,6 +3,14 @@ import { TAGS } from '../utils/constants'
 
 const complex_routes = [
   {
+    name: 'BlueprintSketchy',
+    description:
+      'GPU Gems 2 ch.15: the scene depth-peeled into layers, each layer edge-detected from its normal and depth buffers, then either blended together as blueprint line work that shows the gears through the hull, or perturbed by two different turbulence uncertainty matrices for a sketchy drawing.',
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems2/part-ii-shading-lighting-and-shadows/chapter-15-blueprint-rendering-and-sketchy',
+    tags: [TAGS.GPU_GEMS]
+  },
+  {
     name: 'EffectiveWater',
     basedOn:
       'https://developer.nvidia.com/gpugems/gpugems/part-i-natural-effects/chapter-1-effective-water-simulation-physical-models',
