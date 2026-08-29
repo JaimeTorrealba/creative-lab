@@ -14,6 +14,7 @@ const data = ref()
 const allRoutes = computed(() => router.options.routes)
 const filteredRoutes = allRoutes.value.filter((route) => !BLACK_LIST_PATHS.includes(route.path))
 data.value = filteredRoutes
+const demoCount = filteredRoutes.length
 
 const updateSearch = (value) => {
   data.value = value
@@ -21,10 +22,14 @@ const updateSearch = (value) => {
 </script>
 <template>
   <h1 class="has-text-centered has-text-light is-size-1 mt-6">Welcome to my creative lab</h1>
-  <h2 class="is-size-4 has-text-centered py-4 max_subtitle_size has-text-light">
+  <h2 class="is-size-4 has-text-centered py-4 has-text-light">Currently <span class="has-text-success">
+    {{ demoCount }}
+  </span>
+   demos</h2>
+  <h3 class="is-size-4 has-text-centered py-4 max_subtitle_size has-text-light">
     All the code is free, take what you like, and if you have questions please contact me, also you
     can give me a github start if this repo have help you :D
-  </h2>
+  </h3>
   <section class="is-flex is-justify-content-center pb-6">
     <RRSS />
   </section>
