@@ -11,6 +11,14 @@ const complex_routes = [
     tags: [TAGS.GPU_GEMS]
   },
   {
+    name: 'DynamicAmbientOcclusion',
+    description:
+      'GPU Gems 2 ch.14: every vertex becomes an oriented disk, and accessibility is solved on the GPU each frame as a sum of disk-to-disk form factors, corrected over a second pass for double shadowing, then gathered again through the radiance form factor for colour bleeding and a bent normal.',
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems2/part-ii-shading-lighting-and-shadows/chapter-14-dynamic-ambient-occlusion-and',
+    tags: [TAGS.GPU_GEMS]
+  },
+  {
     name: 'EffectiveWater',
     basedOn:
       'https://developer.nvidia.com/gpugems/gpugems/part-i-natural-effects/chapter-1-effective-water-simulation-physical-models',
