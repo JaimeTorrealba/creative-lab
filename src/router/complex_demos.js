@@ -64,6 +64,14 @@ const complex_routes = [
     tags: [TAGS.NATURE]
   },
   {
+    name: 'VertexTextureWater',
+    description:
+      'GPU Gems 2 ch.18: the wave height is sampled in the vertex shader from a tiling height map instead of solved from wave math, and it displaces a radial grid that re-centres on the camera every frame, so tessellation falls off with distance for free. Only the two largest octaves displace; the two finer ones survive as normals.',
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems2/part-ii-shading-lighting-and-shadows/chapter-18-using-vertex-texture-displacement',
+    tags: [TAGS.NATURE, TAGS.GPU_GEMS]
+  },
+  {
     name: 'VideoFromImages'
   },
   {
