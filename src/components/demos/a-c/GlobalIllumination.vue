@@ -10,10 +10,9 @@ import {
   velocity,
   add,
   vec4,
-  directionToColor,
-  colorToDirection,
-  sample,
-  uniform
+  packNormalToRGB,
+  unpackRGBToNormal,
+  sample
 } from 'three/tsl'
 import { ssgi } from 'three/addons/tsl/display/SSGINode.js'
 import { traa } from 'three/addons/tsl/display/TRAANode.js'
@@ -30,12 +29,13 @@ scenePass.setMRT(
   mrt({
     output: output,
     diffuseColor: diffuseColor,
-    normal: directionToColor(normalView),
+    normal: packNormalToRGB(normalView),
     velocity: velocity
   })
 )
 
 const colorNode = scenePass.getTextureNode('output')
+const diffuseNode = scenePass.getTextureNode('diffuseColor')
 const depthNode = scenePass.getTextureNode('depth')
 const normalNode = scenePass.getTextureNode('normal')
 const velocityNode = scenePass.getTextureNode('velocity')
@@ -46,14 +46,18 @@ diffuseTexture.type = THREE.UnsignedByteType
 const normalTexture = scenePass.getTexture('normal')
 normalTexture.type = THREE.UnsignedByteType
 
-const sceneNormal = sample((uv) => colorToDirection(normalNode.sample(uv)))
+const sceneNormal = sample((uv) => unpackRGBToNormal(normalNode.sample(uv)))
 
 const giPass = ssgi(colorNode, depthNode, sceneNormal, camera.value)
 giPass.sliceCount.value = 2
 giPass.stepCount.value = 8
 
-const giIntensity = uniform(1.2)
-const composite = vec4(add(colorNode.rgb, giPass.rgb.mul(giIntensity)), colorNode.a)
+// AO multiplies the lit image, GI is modulated by albedo so bounced light picks up
+// the colour of the surface it came off.
+const ao = giPass.getAONode()
+const gi = giPass.getGINode()
+
+const composite = vec4(add(colorNode.rgb.mul(ao), diffuseNode.rgb.mul(gi.rgb)), colorNode.a)
 composite.name = 'Composite'
 
 const traaPass = traa(composite, depthNode, velocityNode, camera.value)
@@ -69,10 +73,16 @@ render((notifySuccess) => {
 const pane = new Pane()
 const ssgiFolder = pane.addFolder({ title: 'SSGI' })
 
-ssgiFolder.addBinding(giIntensity, 'value', {
+ssgiFolder.addBinding(giPass.giIntensity, 'value', {
   label: 'GI intensity',
   min: 0,
-  max: 3,
+  max: 30,
+  step: 0.5
+})
+ssgiFolder.addBinding(giPass.aoIntensity, 'value', {
+  label: 'AO intensity',
+  min: 0,
+  max: 2,
   step: 0.05
 })
 ssgiFolder.addBinding(giPass.sliceCount, 'value', {

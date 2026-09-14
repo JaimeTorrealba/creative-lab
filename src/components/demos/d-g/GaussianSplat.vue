@@ -1,19 +1,23 @@
 <script setup>
-import { useTres } from '@tresjs/core'
 import { shallowRef } from 'vue'
-import { SparkRenderer, SplatMesh } from '@sparkjsdev/spark'
+import { useLoop } from '@tresjs/core'
+import { SPZLoader } from 'three/addons/loaders/SPZLoader.js'
+import { GaussianSplat } from 'three/addons/objects/GaussianSplat.js'
 
-const { renderer } = useTres()
+const geometry = await new SPZLoader().loadAsync('/splats/San_Jer_nimo_el_Real_Facade.spz')
 
-const spark = shallowRef(new SparkRenderer({ renderer }))
-const splatMesh = shallowRef(new SplatMesh({ url: '/splats/San_Jer_nimo_el_Real_Facade.spz' }))
-splatMesh.value.rotation.x = Math.PI
+const splat = shallowRef(new GaussianSplat(geometry, { autoSort: false }))
+splat.value.rotation.x = Math.PI
+
+const { onBeforeRender } = useLoop()
+onBeforeRender(({ renderer, camera }) => {
+  if (!camera.value) return
+  splat.value.updateSort(renderer, camera.value)
+  splat.value.updateSphericalHarmonics(renderer, camera.value)
+})
 </script>
 
 <template>
-  <primitive :object="spark" />
-  <primitive :object="splatMesh" />
-  <TresMesh>
-    <TresSphereGeometry :args="[1, 16]" />
-  </TresMesh>
+  <primitive :object="splat" />
+  <TresAxesHelper :args="[1]" />
 </template>
