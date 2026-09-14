@@ -10,14 +10,13 @@ const __dirname = path.dirname(__filename);
 // Get arguments
 const args = process.argv.slice(2);
 
-if (args.length < 2) {
-  console.error('Usage: pnpm demo <section> <name>');
-  console.error('Example: pnpm demo intermediate MyDemo');
+if (args.length < 1) {
+  console.error('Usage: pnpm new-demo <name>');
+  console.error('Example: pnpm new-demo MyDemo');
   process.exit(1);
 }
 
-const section = args[0];
-const name = args[1];
+const name = args[0];
 
 // Convert name to PascalCase
 const toPascalCase = (str) => {
@@ -28,36 +27,36 @@ const toPascalCase = (str) => {
 
 const pascalName = toPascalCase(name);
 
-// Section mappings
-const sectionMap = {
-  basic: { router: 'basic.js', viewFolder: 'Basics', componentFolder: 'basics' },
-  complex: { router: 'complex_demos.js', viewFolder: 'Complex', componentFolder: 'complex' },
-  controls: { router: 'controls_demos.js', viewFolder: 'Controls', componentFolder: 'controls' },
-  intermediate: { router: 'intermediate.js', viewFolder: 'Intermediate', componentFolder: 'intermediate' },
-  shaders: { router: 'shaders.js', viewFolder: 'Shaders', componentFolder: 'shaders' },
-  fragment: { router: 'fragment.js', viewFolder: 'Fragment', componentFolder: 'fragment' },
-  random: { router: 'random.js', viewFolder: 'Random', componentFolder: 'random' }
+// Bucket lookup — must stay in sync with src/utils/routesUtils.js
+const BUCKETS = [
+  { folder: 'A-C', letters: 'ABC' },
+  { folder: 'D-G', letters: 'DEFG' },
+  { folder: 'H-N', letters: 'HIJKLMN' },
+  { folder: 'O-S', letters: 'OPQRS' },
+  { folder: 'T-Z', letters: 'TUVWXYZ' }
+];
+
+const getBucket = (demoName) => {
+  const firstLetter = demoName.charAt(0).toLocaleUpperCase();
+  const bucket = BUCKETS.find(({ letters }) => letters.includes(firstLetter));
+  return bucket.folder;
 };
 
-if (!sectionMap[section]) {
-  console.error(`Invalid section: ${section}`);
-  console.error(`Available sections: ${Object.keys(sectionMap).join(', ')}`);
-  process.exit(1);
-}
-
-const { router: routerFile, viewFolder, componentFolder } = sectionMap[section];
+const bucket = getBucket(pascalName);
+const bucketLower = bucket.toLowerCase();
+const routerFile = `${bucketLower}.js`;
 
 // Define paths
 const projectRoot = path.join(__dirname, '..');
-const viewPath = path.join(projectRoot, 'src', 'views', viewFolder, `${pascalName}View.vue`);
-const componentPath = path.join(projectRoot, 'src', 'components', 'demos', componentFolder, `${pascalName}.vue`);
+const viewPath = path.join(projectRoot, 'src', 'views', bucket, `${pascalName}View.vue`);
+const componentPath = path.join(projectRoot, 'src', 'components', 'demos', bucketLower, `${pascalName}.vue`);
 const routerPath = path.join(projectRoot, 'src', 'router', routerFile);
 
 // Create View template
 const viewTemplate = `<script setup>
 import { TresCanvas } from "@tresjs/core";
 import { OrbitControls } from "@tresjs/cientos";
-import TheExperience from "@/components/demos/${componentFolder}/${pascalName}.vue";
+import TheExperience from "@/components/demos/${bucketLower}/${pascalName}.vue";
 </script>
 <template>
     <TresCanvas window-size clear-color="#111">
@@ -86,12 +85,12 @@ const createFile = (filePath, content) => {
     console.error(`File already exists: ${filePath}`);
     return false;
   }
-  
+
   const dir = path.dirname(filePath);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
-  
+
   fs.writeFileSync(filePath, content, 'utf8');
   console.log(`✓ Created: ${filePath}`);
   return true;
@@ -100,7 +99,7 @@ const createFile = (filePath, content) => {
 // Function to add route entry
 const addRouteEntry = (routerPath, name) => {
   let content = fs.readFileSync(routerPath, 'utf8');
-  
+
   // Find the routes array. Prefer *_routes, but fall back to any const array = [
   let arrayMatch = content.match(/const\s+\w+_routes\s*=\s*\[/);
   if (!arrayMatch) {
@@ -110,31 +109,31 @@ const addRouteEntry = (routerPath, name) => {
     console.error('Could not find routes array in router file');
     return false;
   }
-  
+
   const newEntry = `  {
     name: '${name}'
   },`;
-  
+
   // Parse existing routes to maintain alphabetical order
   const routesRegex = /{\s*name:\s*['"]([^'"]+)['"]/g;
   const routes = [];
   let match;
-  
+
   while ((match = routesRegex.exec(content)) !== null) {
     routes.push(match[1]);
   }
-  
+
   // Check if route already exists
   if (routes.includes(name)) {
     console.error(`Route '${name}' already exists in ${routerFile}`);
     return false;
   }
-  
+
   // Find insertion point (alphabetical order)
   routes.push(name);
   routes.sort();
   const insertIndex = routes.indexOf(name);
-  
+
   // Find the actual position in the file
   if (insertIndex === 0) {
     // Insert at the beginning
@@ -145,7 +144,7 @@ const addRouteEntry = (routerPath, name) => {
     const previousRoute = routes[insertIndex - 1];
     const previousRouteRegex = new RegExp(`{\\s*name:\\s*['"]${previousRoute.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}['"][^}]*}\\s*,`, 's');
     const previousMatch = previousRouteRegex.exec(content);
-    
+
     if (previousMatch) {
       const insertPosition = previousMatch.index + previousMatch[0].length;
       content = content.slice(0, insertPosition) + '\n' + newEntry + content.slice(insertPosition);
@@ -155,14 +154,14 @@ const addRouteEntry = (routerPath, name) => {
       content = content.slice(0, closingBracketIndex) + newEntry + '\n' + content.slice(closingBracketIndex);
     }
   }
-  
+
   fs.writeFileSync(routerPath, content, 'utf8');
   console.log(`✓ Added route entry to: ${routerFile}`);
   return true;
 };
 
 // Create files
-console.log(`\nCreating demo: ${pascalName} in section: ${section}\n`);
+console.log(`\nCreating demo: ${pascalName} in bucket: ${bucket}\n`);
 
 const viewCreated = createFile(viewPath, viewTemplate);
 const componentCreated = createFile(componentPath, componentTemplate);

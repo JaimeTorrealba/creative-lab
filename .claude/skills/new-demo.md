@@ -2,26 +2,28 @@
 
 Scaffold a new demo in the creative-lab project using the `pnpm new-demo` generator.
 
-## Sections
+## Buckets
 
-Valid sections: `basic`, `complex`, `controls`, `intermediate`, `shaders`, `fragment`, `random`
+Demos live in one of 5 alphabet-range folders, derived automatically from the demo's
+name — `A-C`, `D-G`, `H-N`, `O-S`, `T-Z`. There is nothing to choose; the generator and
+`generateRoute()` both compute the bucket from the first letter of the name.
 
 ## Instructions
 
-The user may invoke this as `/new-demo` with optional args like `/new-demo intermediate MyDemo` or just `/new-demo`.
+The user may invoke this as `/new-demo` with an optional arg like `/new-demo MyDemo` or
+just `/new-demo`.
 
-1. **Parse args** — split `$args` on whitespace. First token is section, second is demo name.
-   - If section is missing or invalid, ask the user: "Which section? (basic / complex / controls / intermediate / shaders / fragment / random)"
-   - If demo name is missing, ask the user: "What should the demo be called? (PascalCase, e.g. BouncingBall)"
+1. **Parse args** — `$args` is the demo name.
+   - If the demo name is missing, ask the user: "What should the demo be called? (PascalCase, e.g. BouncingBall)"
 
 2. **Run the generator**:
 
 ```bash
-pnpm new-demo <section> <DemoName>
+pnpm new-demo <DemoName>
 ```
 
 3. **Report what was created** — list the three paths the script printed (View, component, router entry).
 
 4. **Remind the user of the two manual steps**:
-   - Open the router file (`src/router/<section>.js`) and fill in the `description` field (and optionally `basedOn`) for the new entry.
-   - Drop a GIF thumbnail at `public/gifs/<Section>/<Name>.gif`.
+   - Open the router file the entry landed in (`src/router/<bucket-lower>.js`, e.g. `d-g.js`) and fill in `basedOn` (and `tags`) for the new entry.
+   - Drop a thumbnail at `public/thumbnails/<Bucket>/<Name>.mp4` (e.g. `public/thumbnails/D-G/MyDemo.mp4`).

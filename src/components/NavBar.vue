@@ -9,6 +9,9 @@ const router = useRouter()
 const search = ref('')
 const activeTags = ref(new Set())
 const showUntagged = ref(false)
+const showFilters = ref(false)
+
+const activeFilterCount = computed(() => (showUntagged.value ? 1 : activeTags.value.size))
 
 const allRoutes = computed(() => router.options.routes)
 const filteredRoutes = allRoutes.value.filter((route) => !BLACK_LIST_PATHS.includes(route.path))
@@ -58,15 +61,35 @@ onMounted(() => {
 <template>
   <nav class="sticky-bar has-background-light" role="navigation" aria-label="main navigation">
     <div class="bar-inner px-4">
-      <input
-        class="input is-medium search-input"
-        type="text"
-        id="search"
-        name="search"
-        placeholder="Search"
-        v-model="search"
-      />
-      <div class="tags-row" v-if="availableTags.size > 0">
+      <div class="search-row">
+        <input
+          class="input is-medium search-input"
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Search"
+          v-model="search"
+        />
+        <button
+          class="button is-medium filters-toggle"
+          :class="activeFilterCount > 0 ? 'is-info' : ''"
+          type="button"
+          aria-controls="tag-filters"
+          :aria-expanded="showFilters"
+          @click="showFilters = !showFilters"
+        >
+          <span>Filters</span>
+          <span v-if="activeFilterCount > 0" class="tag is-light is-rounded ml-2">
+            {{ activeFilterCount }}
+          </span>
+        </button>
+      </div>
+      <div
+        id="tag-filters"
+        class="tags-row"
+        :class="{ 'is-collapsed': !showFilters }"
+        v-if="availableTags.size > 0"
+      >
         <span
           v-for="tag in availableTags"
           :key="tag"
@@ -103,9 +126,20 @@ onMounted(() => {
   padding-bottom: 0.75rem;
 }
 
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
 .search-input {
   flex-shrink: 0;
   width: 220px;
+}
+
+.filters-toggle {
+  display: none;
 }
 
 .tags-row {
@@ -118,5 +152,32 @@ onMounted(() => {
 .tag-badge {
   transition: background-color 0.15s, color 0.15s;
   user-select: none;
+}
+
+@media screen and (max-width: 768px) {
+  .bar-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .search-row {
+    width: 100%;
+  }
+  .search-input {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+  .filters-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+  .tags-row {
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  .tags-row.is-collapsed {
+    display: none;
+  }
 }
 </style>

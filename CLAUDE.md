@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-A personal 3D graphics playground built with Vue 3 + TresJS (Three.js wrapper). It hosts 121+ interactive WebGL demos organized by difficulty, each with a thumbnail, description, and GitHub source link. The primary workflow is adding new demos.
+A personal 3D graphics playground built with Vue 3 + TresJS (Three.js wrapper). It hosts 150+ interactive WebGL demos organized into 5 alphabet-range folders (`A-C`, `D-G`, `H-N`, `O-S`, `T-Z`, keyed off the demo's name), each with a thumbnail, description, and GitHub source link. The primary workflow is adding new demos.
 
 ## Tech Stack
 
@@ -27,7 +27,7 @@ pnpm build            # production build → dist/
 pnpm preview          # preview production build
 pnpm lint             # ESLint --fix (.vue/.js)
 pnpm format           # Prettier (src/ only)
-pnpm new-demo <section> <Name>        # scaffold a new demo (see below)
+pnpm new-demo <Name>                  # scaffold a new demo (see below)
 ```
 
 > **Claude: never run dev/build/lint/format/test commands** — the user runs them. See Architecture Notes.
@@ -37,32 +37,33 @@ pnpm new-demo <section> <Name>        # scaffold a new demo (see below)
 ### 1. Use the generator
 
 ```bash
-pnpm new-demo basics BouncingBall
+pnpm new-demo BouncingBall
 ```
 
-This creates three files:
-- `src/views/Basics/BouncingBallView.vue` — canvas wrapper
-- `src/components/demos/basics/BouncingBall.vue` — scene content
-- Updates `src/router/basic.js` — adds a route metadata entry (alphabetically sorted)
+The bucket is derived automatically from the first letter of the name — no section to
+choose. `BouncingBall` starts with `B`, so it lands in bucket `A-C`. This creates three files:
+- `src/views/A-C/BouncingBallView.vue` — canvas wrapper
+- `src/components/demos/a-c/BouncingBall.vue` — scene content
+- Updates `src/router/a-c.js` — adds a route metadata entry (alphabetically sorted)
 
-Sections: `basic`, `intermediate`, `shaders`, `complex`, `controls`, `fragment`, `noc`, `random`
+Buckets: `A-C`, `D-G`, `H-N`, `O-S`, `T-Z` (folder names uppercase, component folders lowercase — `a-c`, `d-g`, `h-n`, `o-s`, `t-z`).
 
 ### 2. Fill in the route metadata
 
-In `src/router/{section}.js`, the generator adds a skeleton entry. Fill in `description` and `basedOn`:
+In `src/router/{bucket-lower}.js`, the generator adds a skeleton entry. Fill in `basedOn` and `tags`:
 
 ```js
 {
   name: 'BouncingBall',
-  description: 'A sphere bouncing with a physically-based material and GSAP easing.',
   basedOn: 'https://tresjs.org/examples/...',   // source or inspiration URL
-  // link: 'https://custom-link.com',           // optional override; auto-generated if omitted
+  tags: [TAGS.NATURE]                            // optional
+  // img: '/thumbnails/A-C/BouncingBall.jpg',    // optional override; auto-generated .mp4 path used if omitted
 }
 ```
 
 ### 3. Add a thumbnail
 
-Drop a GIF at `public/gifs/{Section}/{Name}.gif` (e.g., `public/gifs/Basics/BouncingBall.gif`). The route system references this path automatically.
+Drop an MP4 at `public/thumbnails/{Bucket}/{Name}.mp4` (e.g., `public/thumbnails/A-C/BouncingBall.mp4`). The route system references this path automatically.
 
 ---
 
@@ -70,11 +71,11 @@ Drop a GIF at `public/gifs/{Section}/{Name}.gif` (e.g., `public/gifs/Basics/Boun
 
 | Item | Convention | Example |
 |------|-----------|---------|
-| Demo component | `{name}/index.vue` in `src/components/demos/{section}/` (kebab-case folder) | `bouncing-ball/index.vue` |
-| View (canvas wrapper) | `{Name}View.vue` in `src/views/{Section}/` | `BouncingBallView.vue` |
-| Section folder (components) | lowercase | `basics/`, `shaders/` |
-| Section folder (views) | PascalCase | `Basics/`, `Shaders/` |
-| Demo-specific shaders | `src/components/demos/{section}/{name}/vertex.glsl` + `fragment.glsl` (same folder as `index.vue`) | |
+| Demo component | `{name}/index.vue` in `src/components/demos/{bucket-lower}/` (kebab-case folder) — or a flat `{Name}.vue` file, whichever the demo already uses | `bouncing-ball/index.vue` |
+| View (canvas wrapper) | `{Name}View.vue` in `src/views/{Bucket}/` | `BouncingBallView.vue` |
+| Bucket folder (components) | lowercase | `a-c/`, `d-g/`, `h-n/`, `o-s/`, `t-z/` |
+| Bucket folder (views, thumbnails) | uppercase | `A-C/`, `D-G/`, `H-N/`, `O-S/`, `T-Z/` |
+| Demo-specific shaders | `src/components/demos/{bucket-lower}/{name}/vertex.glsl` + `fragment.glsl` (same folder as `index.vue`) | |
 | Shared shader utils | `src/components/shaders/SHARED/` | `noise2D.glsl` |
 
 Always name components with two words when required by Vue (exceptions are whitelisted in `.eslintrc.cjs`).
@@ -88,7 +89,7 @@ Always name components with two words when required by Vue (exceptions are white
 ```vue
 <script setup>
 import { OrbitControls } from '@tresjs/cientos'
-import BouncingBall from '@/components/demos/basics/bouncing-ball/index.vue'
+import BouncingBall from '@/components/demos/a-c/bouncing-ball/index.vue'
 </script>
 
 <template>
@@ -204,7 +205,7 @@ onUnmounted(() => pane?.dispose())
 - **Dynamic layouts**: `App.vue` uses `<component :is="$route.meta.layout">`. Demo routes use `defaultLayout` (floating toolbar with home/source/description icons). `HomeView` uses a plain `div`.
 - **Route auto-generation**: `generateRoute()` in `src/utils/routesUtils.js` derives path, image URL, and GitHub source link from a metadata object. Avoid hand-crafting route objects.
 - **Performance**: Use `shallowRef()` for Three.js objects, not `ref()`, to avoid deep reactivity overhead.
-- **Assets**: Models → `public/models/`, textures → `public/textures/{category}/`, thumbnails → `public/gifs/{Section}/`.
+- **Assets**: Models → `public/models/`, textures → `public/textures/{category}/`, thumbnails → `public/thumbnails/{Bucket}/`.
 - **No TypeScript**: The project uses plain `.js` and `.vue` with no tsconfig. Do not introduce TypeScript.
 - **No test suite**: There are no unit or e2e tests. Do not add a test runner.
 - **No command verification**: Never run `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm format`, or any test command — not even to verify a change works. The user runs these themselves. Import/structure correctness is sufficient.
