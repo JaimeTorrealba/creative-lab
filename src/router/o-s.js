@@ -120,6 +120,10 @@ const o_s_routes = [
     tags: [TAGS.BASIC]
   },
   {
+    name: 'SkinnedPoints',
+    tags: [TAGS.PARTICLES, TAGS.BASIC]
+  },
+  {
     name: 'SlicedModel',
     tags: [TAGS.THREEJS_JOURNEY]
   },
