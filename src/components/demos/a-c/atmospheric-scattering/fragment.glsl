@@ -1,5 +1,10 @@
-uniform vec3 uSunDir;
-uniform float uSunIntensity;
+// sun plus up to two moons. Every extra light re-runs the inner light march, so this is the
+// knob that decides the shader's cost.
+#define MAX_LIGHTS 3
+
+uniform vec3 uLightDir[MAX_LIGHTS];
+uniform vec3 uLightColor[MAX_LIGHTS];
+uniform int uLightCount;
 uniform vec3 uRayleighCoeff;
 uniform float uMieCoeff;
 uniform float uMieG;
@@ -32,9 +37,9 @@ vec2 raySphere(vec3 ro, vec3 rd, float radius) {
 }
 
 // single-scattering integral from GPU Gems 2 ch.16: march the view ray through the
-// atmosphere shell, and at each sample march a second ray toward the sun to gather the
-// optical depth that attenuates sunlight before it reaches that point.
-vec3 scatter(vec3 ro, vec3 rd, vec3 sunDir) {
+// atmosphere shell, and at each sample march a second ray toward each light to gather the
+// optical depth that attenuates it before it reaches that point.
+vec3 scatter(vec3 ro, vec3 rd) {
   vec2 atmosphere = raySphere(ro, rd, uAtmosphereRadius);
   if (atmosphere.x > atmosphere.y) return vec3(0.0);
 
@@ -54,16 +59,29 @@ vec3 scatter(vec3 ro, vec3 rd, vec3 sunDir) {
   float below = closest - near;
   float above = far - closest;
 
-  float mu = dot(rd, sunDir);
-  float muSq = mu * mu;
   float g = uMieG;
   float gSq = g * g;
-  float phaseR = 3.0 / (16.0 * PI) * (1.0 + muSq);
-  float phaseM = 3.0 / (8.0 * PI) * ((1.0 - gSq) * (muSq + 1.0)) /
-    (pow(1.0 + gSq - 2.0 * mu * g, 1.5) * (2.0 + gSq));
 
-  vec3 totalR = vec3(0.0);
-  vec3 totalM = vec3(0.0);
+  // the phases depend only on the view ray and a light direction, both fixed for this fragment,
+  // so they are hoisted out of the march entirely — what the primary loop pays per extra light
+  // is the shadow test and the eight-step light march, not this.
+  float phaseR[MAX_LIGHTS];
+  float phaseM[MAX_LIGHTS];
+  vec3 totalR[MAX_LIGHTS];
+  vec3 totalM[MAX_LIGHTS];
+
+  for (int l = 0; l < MAX_LIGHTS; l++) {
+    float mu = dot(rd, uLightDir[l]);
+    float muSq = mu * mu;
+    phaseR[l] = 3.0 / (16.0 * PI) * (1.0 + muSq);
+    phaseM[l] = 3.0 / (8.0 * PI) * ((1.0 - gSq) * (muSq + 1.0)) /
+      (pow(1.0 + gSq - 2.0 * mu * g, 1.5) * (2.0 + gSq));
+    totalR[l] = vec3(0.0);
+    totalM[l] = vec3(0.0);
+  }
+
+  // the view-ray optical depth is shared by every light, which is the whole reason a second
+  // and third source are affordable here
   float viewOdR = 0.0;
   float viewOdM = 0.0;
 
@@ -84,34 +102,48 @@ vec3 scatter(vec3 ro, vec3 rd, vec3 sunDir) {
     viewOdR += odR;
     viewOdM += odM;
 
-    // samples behind the planet relative to the sun get no direct light at all,
-    // which is what carves the terminator into the atmospheric rim
-    vec2 shadow = raySphere(samplePos, sunDir, uPlanetRadius);
-    if (shadow.x <= shadow.y && shadow.y > 0.0) continue;
+    for (int l = 0; l < MAX_LIGHTS; l++) {
+      if (l < uLightCount) {
+        vec3 lightDir = uLightDir[l];
 
-    float lightFar = raySphere(samplePos, sunDir, uAtmosphereRadius).y;
-    float lightSegment = lightFar / float(LIGHT_STEPS);
-    float lightOdR = 0.0;
-    float lightOdM = 0.0;
-    float lt = 0.0;
+        // samples behind the planet relative to this light get none of it at all, which is what
+        // carves the terminator into the rim — and gives each moon its own
+        vec2 shadow = raySphere(samplePos, lightDir, uPlanetRadius);
+        if (shadow.x > shadow.y || shadow.y <= 0.0) {
+          float lightFar = raySphere(samplePos, lightDir, uAtmosphereRadius).y;
+          float lightSegment = lightFar / float(LIGHT_STEPS);
+          float lightOdR = 0.0;
+          float lightOdM = 0.0;
+          float lt = 0.0;
 
-    for (int j = 0; j < LIGHT_STEPS; j++) {
-      vec3 lightPos = samplePos + sunDir * (lt + lightSegment * 0.5);
-      float lightHeight = length(lightPos) - uPlanetRadius;
-      lightOdR += exp(-lightHeight / uRayleighScaleHeight) * lightSegment;
-      lightOdM += exp(-lightHeight / uMieScaleHeight) * lightSegment;
-      lt += lightSegment;
+          for (int j = 0; j < LIGHT_STEPS; j++) {
+            vec3 lightPos = samplePos + lightDir * (lt + lightSegment * 0.5);
+            float lightHeight = length(lightPos) - uPlanetRadius;
+            lightOdR += exp(-lightHeight / uRayleighScaleHeight) * lightSegment;
+            lightOdM += exp(-lightHeight / uMieScaleHeight) * lightSegment;
+            lt += lightSegment;
+          }
+
+          // Mie extinction runs slightly higher than its scattering coefficient
+          vec3 tau = uRayleighCoeff * (viewOdR + lightOdR) + uMieCoeff * 1.1 * (viewOdM + lightOdM);
+          vec3 attenuation = exp(-tau);
+
+          totalR[l] += odR * attenuation;
+          totalM[l] += odM * attenuation;
+        }
+      }
     }
-
-    // Mie extinction runs slightly higher than its scattering coefficient
-    vec3 tau = uRayleighCoeff * (viewOdR + lightOdR) + uMieCoeff * 1.1 * (viewOdM + lightOdM);
-    vec3 attenuation = exp(-tau);
-
-    totalR += odR * attenuation;
-    totalM += odM * attenuation;
   }
 
-  return uSunIntensity * (phaseR * uRayleighCoeff * totalR + phaseM * uMieCoeff * totalM);
+  vec3 color = vec3(0.0);
+  for (int l = 0; l < MAX_LIGHTS; l++) {
+    if (l < uLightCount) {
+      color += uLightColor[l] *
+        (phaseR[l] * uRayleighCoeff * totalR[l] + phaseM[l] * uMieCoeff * totalM[l]);
+    }
+  }
+
+  return color;
 }
 
 void main() {
@@ -120,7 +152,7 @@ void main() {
   vec3 rd = normalize(vWorldPos - cameraPosition);
   vec3 ro = cameraPosition * uPlanetRadius;
 
-  vec3 color = scatter(ro, rd, normalize(uSunDir));
+  vec3 color = scatter(ro, rd);
   color = 1.0 - exp(-uExposure * color);
 
   gl_FragColor = vec4(color, 1.0);
