@@ -36,6 +36,12 @@ const t_z_routes = [
     tags: [TAGS.GPU_GEMS]
   },
   {
+    name: 'UnderwaterHair',
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/chapter-23-hair-animation-and-rendering-nalu-demo',
+    tags: [TAGS.GPU_GEMS, TAGS.NATURE]
+  },
+  {
     name: 'VehicleSeparation',
     basedOn: 'https://natureofcode.com/autonomous-agents/#example-59-separation',
     tags: [TAGS.NOC]
