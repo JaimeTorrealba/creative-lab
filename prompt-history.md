@@ -30,3 +30,6 @@
 
    is kind of working BUT the hair is jumping like crazy too sudden when the demo start or when
    you move the ball.... can you open a chrome instance and fix this
+
+2. [@HairDemo.mp4](file:///C:/Users/Jaime/Downloads/HairDemo.mp4) change the name and add it to
+   the thumbnails
