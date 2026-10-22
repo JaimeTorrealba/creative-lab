@@ -85,8 +85,15 @@ const o_s_routes = [
     tags: [TAGS.FRAGMENT, TAGS.RAYMARCH]
   },
   {
-    name: 'RayTracing',
-    tags: [TAGS.FRAGMENT, TAGS.RAYTRACE]
+    name: 'RayTracingWeekend',
+    basedOn: 'https://raytracing.github.io/books/RayTracingInOneWeekend.html',
+    img: '/thumbnails/O-S/RayTracingWeekend.jpg',
+    tags: [TAGS.RAYTRACE, TAGS.WEBGPU]
+  },
+  {
+    name: 'RayTracingWeekendRealtime',
+    basedOn: 'https://raytracing.github.io/books/RayTracingInOneWeekend.html#wherenext?/afinalrender',
+    tags: [TAGS.RAYTRACE, TAGS.WEBGPU]
   },
   {
     name: 'Ribbon',
