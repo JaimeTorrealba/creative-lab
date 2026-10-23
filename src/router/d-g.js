@@ -4,7 +4,8 @@ import { TAGS } from '../utils/constants'
 const d_g_routes = [
   {
     name: 'DestroyGeometry',
-    basedOn: 'https://www.youtube.com/live/frgmk0Wu76A?feature=share'
+    basedOn: 'https://www.youtube.com/live/frgmk0Wu76A?feature=share',
+    tags: [TAGS.GEOMETRY]
   },
   {
     name: 'DifferentialLattice',
@@ -15,7 +16,10 @@ const d_g_routes = [
     name: 'Displacement',
     tags: [TAGS.FRAGMENT]
   },
-  { name: 'Dissolve' },
+  {
+    name: 'Dissolve',
+    tags: [TAGS.IMAGE_FX]
+  },
   {
     name: 'DissolveTsl',
     tags: [TAGS.WEBGPU]
@@ -79,7 +83,8 @@ const d_g_routes = [
   },
   {
     name: 'FollowPath',
-    basedOn: 'https://youtu.be/NH4rSzHLCp4'
+    basedOn: 'https://youtu.be/NH4rSzHLCp4',
+    tags: [TAGS.GEOMETRY]
   },
   {
     name: 'Forces',
@@ -109,19 +114,13 @@ const d_g_routes = [
     basedOn: 'https://natureofcode.com/cellular-automata/#the-game-of-life',
     tags: [TAGS.NOC]
   },
-  { name: 'GaussianSplat' },
+  {
+    name: 'GaussianSplat',
+    tags: [TAGS.WEBGPU]
+  },
   {
     name: 'GenerativeTree',
     tags: [TAGS.RANDOM]
-  },
-  {
-    name: 'Glass',
-    basedOn:
-      'https://tympanus.net/codrops/2021/10/27/creating-the-effect-of-transparent-glass-and-plastic-in-three-js/'
-  },
-  {
-    name: 'Glow',
-    basedOn: 'https://stemkoski.github.io/Three.js/Shader-Glow.html'
   },
   {
     name: 'GPGPUFlowField',
@@ -129,7 +128,8 @@ const d_g_routes = [
     tags: [TAGS.PARTICLES, TAGS.THREEJS_JOURNEY]
   },
   {
-    name: 'GratingDiffraction'
+    name: 'GratingDiffraction',
+    tags: [TAGS.WEBGPU]
   },
   {
     name: 'Guide',

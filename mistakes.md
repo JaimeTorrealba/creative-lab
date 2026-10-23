@@ -162,3 +162,23 @@ dependency; `@tweakpane/plugin-essentials` (already installed) has an FPS graph.
 
 **Lesson:** never add a dependency without asking first. Before proposing one, check
 `package.json` for something already installed that covers the need.
+
+## 2026-10-23 — Per-file `git log` to date demos was slow and useless
+
+Ran `git log --diff-filter=A` per demo to judge "too old". It took >2 min (repo carries large
+MP4s) and every file reported 2026-09-14 — the alphabet-bucket move commit, which re-adds every
+view/component. Creation dates are masked by that move.
+
+**Lesson:** to date demos here, use `git log --follow` on a single file only when needed, or judge
+age from the code itself (old API usage, leftover `console.log`, commented-out code).
+
+## 2026-10-23 — Assumed WebGPU readback rows start at the bottom
+
+In the Deno harness for the Pawpawsaurus volume I flipped rows from
+`readRenderTargetPixelsAsync` (WebGL habit), so the skull looked upside down and I almost
+"fixed" correct code. WebGPU textures have a top-left origin; a red marker cube placed at +Y
+showed up at the bottom and exposed it.
+
+**Lesson:** when judging orientation from a headless render, put a known marker in the scene
+before trusting the image. Also repeated the 2026-10-22 escape mistake (`'\n'` inside a `sed`
+replacement); use the Edit tool for anything with escapes.

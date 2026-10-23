@@ -28,17 +28,12 @@ const h_n_routes = [
   {
     name: 'ImageReveal',
     basedOn:
-      'https://tympanus.net/codrops/2024/12/02/how-to-code-a-shader-based-reveal-effect-with-react-three-fiber-glsl/'
+      'https://tympanus.net/codrops/2024/12/02/how-to-code-a-shader-based-reveal-effect-with-react-three-fiber-glsl/',
+    tags: [TAGS.IMAGE_FX]
   },
   {
-    name: 'InfiniteTube'
-  },
-  {
-    name: 'InstanceMesh'
-  },
-  {
-    name: 'InstanceMesh2',
-    basedOn: 'https://github.com/agargaro/instanced-mesh'
+    name: 'InfiniteTube',
+    tags: [TAGS.BASIC]
   },
   {
     name: 'InteriorPlane',
@@ -83,7 +78,8 @@ const h_n_routes = [
   },
   {
     name: 'Minecraft',
-    basedOn: 'https://youtu.be/tsOTCn0nROI?si=DY32m9v2Vl3jhQqy'
+    basedOn: 'https://youtu.be/tsOTCn0nROI?si=DY32m9v2Vl3jhQqy',
+    tags: [TAGS.GEOMETRY]
   },
   {
     name: 'MirrorModifier',
@@ -94,18 +90,17 @@ const h_n_routes = [
     tags: [TAGS.PARTICLES, TAGS.THREEJS_JOURNEY]
   },
   {
-    name: 'MouseReveal'
-  },
-  {
     name: 'Mover',
     basedOn: 'https://natureofcode.com/vectors/#motion-with-vectors',
     tags: [TAGS.NOC]
   },
   {
-    name: 'MultiCamera'
+    name: 'MultiCamera',
+    tags: [TAGS.BASIC]
   },
   {
-    name: 'MultiLayer'
+    name: 'MultiLayer',
+    tags: [TAGS.IMAGE_FX]
   },
   {
     name: 'N8aoRoom',

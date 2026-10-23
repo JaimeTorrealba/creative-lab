@@ -26,10 +26,6 @@ const t_z_routes = [
     tags: [TAGS.BASIC]
   },
   {
-    name: 'TwoScenes',
-    basedOn: 'https://youtu.be/3qa-nFgFRBE?si=sqxg1c4q80QV1ibW'
-  },
-  {
     name: 'UberLight',
     basedOn:
       'https://developer.nvidia.com/gpugems/gpugems/part-ii-lighting-and-shadows/chapter-10-cinematic-lighting',
@@ -58,7 +54,8 @@ const t_z_routes = [
     tags: [TAGS.NATURE, TAGS.GPU_GEMS]
   },
   {
-    name: 'VideoFromImages'
+    name: 'VideoFromImages',
+    tags: [TAGS.IMAGE_FX]
   },
   {
     name: 'VirtualBotany',
@@ -91,10 +88,8 @@ const t_z_routes = [
   },
   {
     name: 'Voxel',
-    basedOn: 'https://tympanus.net/codrops/2023/03/28/turning-3d-models-to-voxel-art-with-three-js/'
-  },
-  {
-    name: 'VueXYZ'
+    basedOn: 'https://tympanus.net/codrops/2023/03/28/turning-3d-models-to-voxel-art-with-three-js/',
+    tags: [TAGS.GEOMETRY]
   },
   {
     name: 'VulcanFire',

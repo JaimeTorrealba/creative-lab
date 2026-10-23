@@ -2,7 +2,6 @@ import { generateRoute } from '../utils'
 import { TAGS } from '../utils/constants'
 
 const a_c_routes = [
-  { name: 'ActionLines' },
   {
     name: 'AdaptiveTessellation',
     basedOn:
@@ -20,7 +19,6 @@ const a_c_routes = [
     basedOn: 'https://natureofcode.com/forces/#gravitational-attraction',
     tags: [TAGS.NOC]
   },
-  { name: 'AudioAnalyser' },
   {
     name: 'Avatar',
     basedOn: 'https://readyplayer.me/',
@@ -58,10 +56,6 @@ const a_c_routes = [
   {
     name: 'BoneTweaks',
     tags: [TAGS.BASIC]
-  },
-  {
-    name: 'Bubble',
-    basedOn: 'https://stemkoski.github.io/Three.js/Bubble.html'
   },
   {
     name: 'CameraFollowPath',
@@ -133,7 +127,6 @@ const a_c_routes = [
     basedOn: 'https://github.com/gkjohnson/three-bvh-csg',
     tags: [TAGS.BASIC]
   },
-  { name: 'CSM' },
   {
     name: 'CSS2DRenderer',
     basedOn: 'https://youtu.be/0ZW3xrFhY3w?si=QkvzEikyeuv6H1Mb',

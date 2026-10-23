@@ -1,43 +1,87 @@
 <script setup>
-import { shallowRef, reactive } from 'vue'
-import vertex from './vertex.glsl'
-import fragment from './fragment.glsl'
-import { Vector3 } from 'three'
+import { onBeforeUnmount } from 'vue'
+import { useLoop, useTres } from '@tresjs/core'
+import { Group } from 'three/webgpu'
+import { createDataMaskNode, createDiffractionNode, createDiffractionUniforms } from './diffraction'
+import { createDisc } from './disc'
+import { createLabelTexture } from './label'
+import { createStudio } from './studio'
+import { createGratingPane, DISC_PRESETS } from './pane'
 
-const discRef = shallowRef()
+const params = {
+  preset: 'CD (aluminium)',
+  tint: DISC_PRESETS['CD (aluminium)'].tint,
+  orbitLight: true,
+  orbitSpeed: 0.35,
+  orbitRadius: 1.4,
+  lightColor: '#fff4e6',
+  wobble: true,
+  spinSpeed: 0.6
+}
 
-const uniforms = reactive({
-  uLightDir: { value: new Vector3(1.5, 2.5, 2).normalize() }
+const { renderer, scene } = useTres()
+const { onBeforeRender } = useLoop()
+
+// TresCanvas initializes WebGPU asynchronously; PMREM needs the backend ready
+await renderer.init()
+
+const uniforms = createDiffractionUniforms()
+const labelTexture = createLabelTexture()
+const dataMaskNode = createDataMaskNode(uniforms)
+const { spin, disposeDisc } = createDisc({
+  uniforms,
+  diffractionNode: createDiffractionNode(uniforms, dataMaskNode),
+  dataMaskNode,
+  labelTexture
+})
+const wobble = new Group()
+wobble.add(spin)
+
+const { light, marker, fill, disposeStudio } = createStudio({
+  renderer,
+  scene: scene.value,
+  uniforms
+})
+
+const setLightColor = (value) => {
+  uniforms.lightColor.value.set(value)
+  light.color.set(value)
+  marker.material.color.set(value)
+}
+setLightColor(params.lightColor)
+
+const pane = createGratingPane({ uniforms, params, onLightColorChange: setLightColor })
+
+let orbitAngle = 0.6
+const updateLight = (delta) => {
+  if (params.orbitLight) orbitAngle += params.orbitSpeed * delta
+  const radius = params.orbitRadius
+  light.position.set(Math.cos(orbitAngle) * radius, Math.sin(orbitAngle) * radius * 0.8, 1.6)
+  uniforms.lightPosition.value.copy(light.position)
+}
+
+const updateDisc = (delta, elapsed) => {
+  spin.rotation.z -= params.spinSpeed * delta
+  if (!params.wobble) return
+  wobble.rotation.x = Math.sin(elapsed * 0.31) * 0.28
+  wobble.rotation.y = Math.sin(elapsed * 0.23 + 1.2) * 0.4
+}
+
+onBeforeRender(({ delta, elapsed }) => {
+  updateLight(delta)
+  updateDisc(delta, elapsed)
+})
+
+onBeforeUnmount(() => {
+  pane.dispose()
+  disposeDisc()
+  disposeStudio()
+  labelTexture.dispose()
 })
 </script>
 
 <template>
-  <TresGroup :rotation="[0.4, 0, 0]">
-    <!-- Main iridescent disc surface (both sides) -->
-    <TresMesh ref="discRef">
-      <TresRingGeometry :args="[0.18, 1.2, 256, 4]" />
-      <TresShaderMaterial
-        :vertex-shader="vertex"
-        :fragment-shader="fragment"
-        :uniforms="uniforms"
-        :side="2"
-      />
-    </TresMesh>
-
-    <!-- Centre hub — white plastic ring -->
-    <TresMesh>
-      <TresRingGeometry :args="[0.06, 0.18, 64]" />
-      <TresMeshStandardMaterial color="#dde0ee" :metalness="0.05" :roughness="0.5" :side="2" />
-    </TresMesh>
-
-    <!-- Centre hole -->
-    <TresMesh :position="[0, 0, 0.001]">
-      <TresCircleGeometry :args="[0.06, 32]" />
-      <TresMeshStandardMaterial color="#0a0a10" :roughness="0.3" :side="2" />
-    </TresMesh>
-  </TresGroup>
-
-  <TresDirectionalLight :position="[1.5, 2.5, 2]" :intensity="4" color="#fff6e8" />
-  <TresDirectionalLight :position="[-2, -1, 1.5]" :intensity="1" color="#b0c8ff" />
-  <TresAmbientLight :intensity="0.25" />
+  <primitive :object="wobble" />
+  <primitive :object="light" />
+  <primitive :object="fill" />
 </template>

@@ -92,3 +92,45 @@
 5. ok put this one on the raytracing thumbnail [pasted screenshot of the RayTracingWeekend gallery]
    And this one on the ray tracing real-time thumbnail (change the name accordengly for both)
    [@raytracing.mp4](file:///C:/Users/Jaime/Downloads/raytracing.mp4)
+
+## Volume rendering demo planning — 2026-10-23 10:00
+
+1. I want to create a new demo based on:
+   https://observablehq.com/@mroehlig/3d-volume-rendering-with-webgl-three-js-solution is
+   basically a volume texture rendering, can you answer these questions before implementation?
+
+   what type of data does this need to work?
+
+   Can it work with any data?
+
+   Can you create the data
+
+2. I would like the "pawpawsaurus" from the Klacansky's "Open SciVis Datasets", can you create a
+   new demo based on it please and the code provided on the article before, if possible make it
+   with webGPU and threejs (or tres.js)
+
+## Untagged demos cleanup, new tags and GratingDiffraction WebGPU port — 2026-10-23 11:00
+
+1. Can you search on this repo, for the demos that are untagged, make some suggestions about
+   possible new tags, put them on an existing tag, list them here (only name) and/or to be deleted
+   (unworked or too old)
+
+2. Thanks let's delete: AudioAnalyser, CSM, InstanceMesh and InstanceMesh2, TwoScenes, VueXYZ,
+   Bubble, Glass, Glow, ActionLines, MouseReveal
+
+   Let's add the tags suggested here
+   Fragment: ShaderStar
+   Basic: RandomMovement, MultiCamera, StencilMask, InfiniteTube
+   WebGPU: GaussianSplat
+
+   Let's add a new tags
+   Geometry: DestroyGeometry, Ribbon, FollowPath, Minecraft, Voxel
+   Image FX: Dissolve, ImageReveal, MultiLayer, VideoFromImages
+
+   Let's migrate GratingDiffraction to webGPU (try improving the overall look and feel) and add it
+   to webGPU tag
+
+3. [@VolumeTexture.mp4](file:///C:/Users/Jaime/Downloads/VolumeTexture.mp4) Add it to the
+   thumbnail, btw change the name of the demo it should be "VolumeTexture"
+
+4. Can you stage only the file that this demo touched please

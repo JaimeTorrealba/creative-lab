@@ -60,7 +60,8 @@ const o_s_routes = [
   },
   {
     name: 'RandomMovement',
-    basedOn: 'https://skfb.ly/ZsMz'
+    basedOn: 'https://skfb.ly/ZsMz',
+    tags: [TAGS.BASIC]
   },
   {
     name: 'RandomPoints',
@@ -97,7 +98,8 @@ const o_s_routes = [
   },
   {
     name: 'Ribbon',
-    basedOn: 'https://www.youtube.com/watch?v=87J8EhKMH6c'
+    basedOn: 'https://www.youtube.com/watch?v=87J8EhKMH6c',
+    tags: [TAGS.GEOMETRY]
   },
   {
     name: 'Rinnegan',
@@ -116,7 +118,8 @@ const o_s_routes = [
   },
   {
     name: 'ShaderStar',
-    basedOn: 'https://www.youtube.com/live/3krH52AhPqk?feature=share'
+    basedOn: 'https://www.youtube.com/live/3krH52AhPqk?feature=share',
+    tags: [TAGS.FRAGMENT]
   },
   {
     name: 'SimonGrass',
@@ -158,7 +161,8 @@ const o_s_routes = [
     tags: [TAGS.CONTROLS]
   },
   {
-    name: 'StencilMask'
+    name: 'StencilMask',
+    tags: [TAGS.BASIC]
   }
 ]
 

@@ -1,14 +1,24 @@
 <script setup>
+import { toValue } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
-import TheExperience from '@/components/demos/d-g/grating-diffraction/index.vue'
+import { WebGPURenderer } from 'three/webgpu'
+import GratingDiffraction from '@/components/demos/d-g/grating-diffraction/index.vue'
+
+// WebGPURenderer falls back to WebGL 2 when WebGPU is unavailable
+const createRenderer = (ctx) =>
+  new WebGPURenderer({
+    canvas: toValue(ctx.canvas),
+    antialias: true
+  })
 </script>
+
 <template>
-  <TresCanvas window-size clear-color="#333">
-    <TresPerspectiveCamera :position="[0, 0.8, 3.5]" />
-    <OrbitControls />
+  <TresCanvas window-size clear-color="#040409" :renderer="createRenderer">
+    <TresPerspectiveCamera :position="[0, 0.3, 3.2]" :args="[40, undefined, 0.05, 50]" />
+    <OrbitControls enable-damping :min-distance="1.2" :max-distance="8" />
     <Suspense>
-      <TheExperience />
+      <GratingDiffraction />
     </Suspense>
   </TresCanvas>
 </template>
