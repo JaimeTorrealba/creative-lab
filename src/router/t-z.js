@@ -72,6 +72,11 @@ const t_z_routes = [
     tags: [TAGS.VOLUMETRICS]
   },
   {
+    name: 'VolumeTexture',
+    basedOn: 'https://observablehq.com/@mroehlig/3d-volume-rendering-with-webgl-three-js-solution',
+    tags: [TAGS.WEBGPU, TAGS.VOLUMETRICS, TAGS.RAYMARCH]
+  },
+  {
     name: 'Volumetric',
     tags: [TAGS.VOLUMETRICS]
   },
