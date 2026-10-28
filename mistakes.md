@@ -182,3 +182,13 @@ showed up at the bottom and exposed it.
 **Lesson:** when judging orientation from a headless render, put a known marker in the scene
 before trusting the image. Also repeated the 2026-10-22 escape mistake (`'\n'` inside a `sed`
 replacement); use the Edit tool for anything with escapes.
+
+## 2026-10-28 — Stale atomic counters when a measured batch is frustum-culled
+
+In MipmapLevelMeasurement the counter buffer is reset on the CPU (`array.fill(0)` +
+`needsUpdate`), but three only uploads a storage attribute when a draw binds it. If every chunk in
+a round-robin batch was off-screen, nothing bound the buffer, so the readback would have returned
+the previous batch's counts. Caught on review before running.
+
+**Lesson:** a storage buffer reset that relies on `needsUpdate` needs a draw/compute that binds it
+every cycle; set `frustumCulled = false` on the measuring meshes (or clear with a compute pass).

@@ -134,3 +134,15 @@
    thumbnail, btw change the name of the demo it should be "VolumeTexture"
 
 4. Can you stage only the file that this demo touched please
+
+## Mipmap Level Measurement demo planning (GPU Gems 2 ch. 28) — 2026-10-28 00:00
+
+1. Let's discuss about what would be the best way to implement this as a demos:
+   https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/chapter-28-mipmap-level-measurement
+   (before coding come with the grilling skill) I got the idea but not the actual implementation
+
+2. ask in prompt checking the answer not in text....
+
+3. Explain the tweakpanel to me I barely understand it
+
+4. [@MipmapMeasurement.mp4](file:///C:/Users/Jaime/Downloads/MipmapMeasurement.mp4) Add the video to the thumbanil

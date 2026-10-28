@@ -82,6 +82,12 @@ const h_n_routes = [
     tags: [TAGS.GEOMETRY]
   },
   {
+    name: 'MipmapLevelMeasurement',
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/chapter-28-mipmap-level-measurement',
+    tags: [TAGS.GPU_GEMS, TAGS.WEBGPU]
+  },
+  {
     name: 'MirrorModifier',
     tags: [TAGS.BASIC]
   },
