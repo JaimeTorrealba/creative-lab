@@ -3,6 +3,7 @@ export const TAGS = Object.freeze({
   CONTROLS: 'Controls',
   FRAGMENT: 'Fragment',
   GEOMETRY: 'Geometry',
+  GPGPU: 'GPGPU',
   GPU_GEMS: 'GPUGems',
   HTML: 'HTML',
   IMAGE_FX: 'Image FX',

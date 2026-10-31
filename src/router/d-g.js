@@ -18,15 +18,23 @@ const d_g_routes = [
   },
   {
     name: 'Dissolve',
+    basedOn: 'https://github.com/JatinChopra/emissive-dissolve-effect',
     tags: [TAGS.IMAGE_FX]
   },
   {
     name: 'DissolveTsl',
+    basedOn: 'https://github.com/JatinChopra/emissive-dissolve-effect',
     tags: [TAGS.WEBGPU]
   },
   {
     name: 'DissolveWGSL',
+    basedOn: 'https://github.com/JatinChopra/emissive-dissolve-effect',
     tags: [TAGS.WEBGPU]
+  },
+  {
+    name: 'DreamyParticles',
+    basedOn: 'https://github.com/DGFX/codrops-dreamy-particles',
+    tags: [TAGS.GPGPU, TAGS.PARTICLES]
   },
   {
     name: 'DynamicAmbientOcclusion',
@@ -125,11 +133,16 @@ const d_g_routes = [
   {
     name: 'GPGPUFlowField',
     basedOn: 'https://threejs-journey.com/',
-    tags: [TAGS.PARTICLES, TAGS.THREEJS_JOURNEY]
+    tags: [TAGS.GPGPU, TAGS.PARTICLES, TAGS.THREEJS_JOURNEY]
   },
   {
     name: 'GratingDiffraction',
     tags: [TAGS.WEBGPU]
+  },
+  {
+    name: 'GridDeformation',
+    basedOn: 'https://github.com/J0SUKE/grid-deformation-effect',
+    tags: [TAGS.GPGPU, TAGS.IMAGE_FX]
   },
   {
     name: 'Guide',

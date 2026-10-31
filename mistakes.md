@@ -192,3 +192,40 @@ the previous batch's counts. Caught on review before running.
 
 **Lesson:** a storage buffer reset that relies on `needsUpdate` needs a draw/compute that binds it
 every cycle; set `frustumCulled = false` on the measuring meshes (or clear with a compute pass).
+
+## 2026-10-31 — Used `git rm` to delete a replaced file, which staged it
+
+Replacing `t-z/Voxel.vue` with a `voxel/` folder, I deleted the old file with `git rm`, which
+also stages the deletion. The user does all git operations by hand, and another session was
+editing the repo at the same time. I unstaged it with `git reset -- <file>`.
+
+**Lesson:** delete files with plain `rm`, never `git rm`. Leave the index exactly as the user
+left it.
+
+## 2026-10-31 — Appended to prompt-history.md without reading its tail first
+
+Another session was appending to the same log at the same time. I added my second prompt with
+`cat >>`, so it landed under that session's newest heading, and its earlier prompts had already
+landed under mine. I regrouped them by hand.
+
+**Lesson:** read the tail of a shared log right before appending, and insert under your own
+session heading instead of appending to the end of the file.
+
+## 2026-10-31 — Repeated the `git rm` mistake while mistakes.md was being updated in parallel
+
+I read mistakes.md at the start of the Dissolve session, before a parallel session logged the
+`git rm` lesson, then used `git rm` to remove the superseded `dissolve/fragment.glsl` and staged
+it. Unstaged with `git reset -- <path>`.
+
+**Lesson:** with other sessions active, re-read the tail of mistakes.md before any git or file
+deletion step, not only at the start of the session.
+
+## 2026-10-31 — Compared a float32 shader against a float64 JS reference at `floor()` edges
+
+To check the WGSL simplex port I diffed it against a plain JS transcription of the GLSL and got a
+max error of 1.29 — which looked like a broken port. The port was fine: `floor(p * (1/7) * (1/7))`
+lands exactly on integers for multiples of 49, and f32 vs f64 rounding flips the floor there.
+Wrapping those products in `Math.fround` dropped the error to 8e-4.
+
+**Lesson:** when validating GPU code against a CPU reference, emulate f32 (`Math.fround`) at every
+`floor`/`fract`/`mod` input, or compare statistics instead of exact values.

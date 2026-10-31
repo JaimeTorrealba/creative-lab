@@ -27,6 +27,11 @@ const o_s_routes = [
     tags: [TAGS.NOC]
   },
   {
+    name: 'PencilLines',
+    basedOn: 'https://github.com/mayacoda/pencil-lines',
+    tags: [TAGS.IMAGE_FX]
+  },
+  {
     name: 'Pendulum',
     basedOn: 'https://natureofcode.com/oscillation/#example-311-swinging-pendulum',
     tags: [TAGS.NOC]

@@ -146,3 +146,49 @@
 3. Explain the tweakpanel to me I barely understand it
 
 4. [@MipmapMeasurement.mp4](file:///C:/Users/Jaime/Downloads/MipmapMeasurement.mp4) Add the video to the thumbanil
+
+## GridDeformation GPGPU demo — 2026-10-31 12:00
+
+1. Create a new demo basedOn: https://github.com/J0SUKE/grid-deformation-effect
+
+   this use gpgpu, fot eh deformation, add a new tag called "gpgpu". use one of the existing image
+   on the repo. do it with tres.js and do not forget to add some tweakpanel
+
+2. small one there is an old demo call gpgpuFlowField add it the new gpgpu tag please
+
+3. [@Jaime bboy JT; 31 Oct, 20 23.mp4](file:///C:/Users/Jaime/Downloads/Jaime%20bboy%20JT;%2031%20Oct,%2020%2023.mp4)
+   This is the video thumbnail of the new gridDeformation (remember to match the name)
+
+## DreamyParticles GPGPU demo — 2026-10-31 21:00
+
+1. Create a new demo based on: https://github.com/DGFX/codrops-dreamy-particles
+
+   use a model we got already, gpgpu tag
+
+## Voxel demo fix (port of Codrops voxel art tutorial) — 2026-10-31 20:15
+
+1. I got a voxel demo already that convert object on voxels, but is not working quite well can you
+   check the original example and fix it?
+
+   https://github.com/uuuulala/Threejs-voxel-art-tutorial/
+
+2. Remove the models, use primitives or models we got already on the repo
+
+## Emissive dissolve upgrade (particles + bloom) for Dissolve, DissolveTsl, DissolveWGSL — 2026-10-31 20:30
+
+1. I got some dissolve demos already, one wit webgl and one with webGPU. but they are not as polish
+   as this, mine dont' have particles or post processing. can you add them
+
+   https://github.com/JatinChopra/emissive-dissolve-effect
+
+## PencilLines post-processing demo — 2026-10-31 22:00
+
+1. Create a new demo based on: https://github.com/mayacoda/pencil-lines
+
+2. beautiful only low the strengh of the motion bloom at 0.2 please
+
+3. [@Jaime bboy JT; 31 Oct, 20 35.mp4](file:///C:/Users/Jaime/Downloads/Jaime%20bboy%20JT;%2031%20Oct,%2020%2035.mp4)
+   This is the thumbnail
+
+2. [@Jaime bboy JT; 31 Oct, 20 37.mp4](file:///C:/Users/Jaime/Downloads/Jaime%20bboy%20JT;%2031%20Oct,%2020%2037.mp4)
+   This is the thumbnail
