@@ -1,7 +1,8 @@
 <script setup>
-import { watch, onUnmounted } from 'vue'
+import { watch, onUnmounted, shallowRef } from 'vue'
+import { useLoop, useTres } from '@tresjs/core'
 import { useTexture } from '@tresjs/cientos'
-import { MeshStandardNodeMaterial, RepeatWrapping, LinearFilter } from 'three/webgpu'
+import { Color, MeshStandardNodeMaterial, RepeatWrapping, LinearFilter } from 'three/webgpu'
 import {
   uniform,
   texture,
@@ -18,10 +19,21 @@ import {
   uv
 } from 'three/tsl'
 import { Pane } from 'tweakpane'
+import {
+  createGpuEdgeParticles,
+  createParticleUniforms
+} from '../dissolve-shared/gpuEdgeParticles'
+import { createEmissiveBloom } from '../dissolve-shared/gpuEmissiveBloom'
+import { addGlowBindings } from '../dissolve-shared/glowPane'
 
 const uBorderSize = uniform(0.03)
 const uAlphaThreshold = uniform(0.5)
 const uTextureScale = uniform(1.0)
+const uGlowColor = uniform(new Color().setRGB(0.15, 0.15, 0.96))
+const uGlowIntensity = uniform(3)
+const uBloomStrength = uniform(1.2)
+const particleUniforms = createParticleUniforms()
+const particles = shallowRef()
 const material = new MeshStandardNodeMaterial()
 
 const { state: colorTex } = useTexture('/textures/8k_earth_daymap.jpg')
@@ -45,7 +57,22 @@ watch(tex, (_tex) => {
     const color2 = colorMap.rgb
     const finalColor = vec4(mix(color1, color2, mask), alpha)
     material.colorNode = finalColor
+    material.emissiveNode = uGlowColor.mul(uGlowIntensity).mul(alpha).mul(mask.oneMinus())
     material.transparent = true
+    // Discard dissolved fragments so they don't write depth over the sparks behind them
+    material.alphaTest = 0.5
+
+    particles.value = createGpuEdgeParticles({
+      count: 20000,
+      particles: particleUniforms,
+      borderAt: (spawnUv) => {
+        const noise = texture(_tex, spawnUv.mul(uTextureScale)).r
+        const pastBorder = step(add(uAlphaThreshold, uBorderSize), noise)
+        return step(uAlphaThreshold, noise).mul(pastBorder.oneMinus())
+      },
+      glowColor: uGlowColor,
+      glowIntensity: uGlowIntensity
+    })
   }
 })
 
@@ -70,10 +97,37 @@ pane.addBinding(uTextureScale, 'value', {
   label: 'texture scale'
 })
 
-onUnmounted(() => pane?.dispose())
+addGlowBindings(pane, {
+  glowColor: uGlowColor,
+  glowIntensity: uGlowIntensity,
+  particles: particleUniforms
+}).addBinding(uBloomStrength, 'value', { label: 'bloom', min: 0, max: 5 })
+
+const { renderer, scene, camera } = useTres()
+let bloom
+const { render } = useLoop()
+render((notifySuccess) => {
+  if (camera.value) {
+    bloom ??= createEmissiveBloom({
+      renderer,
+      scene: scene.value,
+      camera: camera.value,
+      strength: uBloomStrength
+    })
+    bloom.pipeline.render()
+  }
+  notifySuccess()
+})
+
+onUnmounted(() => {
+  pane?.dispose()
+  particles.value?.dispose()
+  bloom?.dispose()
+})
 </script>
 <template>
   <TresMesh v-if="!isLoading" :material="material">
     <TresIcosahedronGeometry :args="[1, 64]" />
   </TresMesh>
+  <primitive v-if="particles" :object="particles.sprite" />
 </template>

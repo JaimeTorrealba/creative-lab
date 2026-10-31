@@ -17,15 +17,20 @@ import { createSphereSpawns } from './sphereSpawns'
 const toInstanced = (array, itemSize) =>
   instancedBufferAttribute(new InstancedBufferAttribute(array, itemSize))
 
+export const createParticleUniforms = () => ({
+  size: uniform(30),
+  speed: uniform(0.6),
+  distance: uniform(0.6)
+})
+
 // Sparks live on a looping age, so no simulation is needed: each one flies outward from its
 // spawn point and is only drawn while that spawn point sits on the burning border.
 // `borderAt(uv)` must return 1 on the border and 0 elsewhere.
-export const createGpuEdgeParticles = ({ count, borderAt, glowColor, glowIntensity }) => {
+export const createGpuEdgeParticles = ({ count, particles, borderAt, glowColor, glowIntensity }) => {
   const spawns = createSphereSpawns(count)
   const spawnPosition = toInstanced(spawns.positions, 3)
   const spawnUv = toInstanced(spawns.uvs, 2)
   const seed = toInstanced(spawns.seeds, 1)
-  const particles = { size: uniform(30), speed: uniform(0.6), distance: uniform(0.6) }
 
   const age = time.mul(particles.speed).add(seed).fract()
   const fade = age.oneMinus()
@@ -53,5 +58,5 @@ export const createGpuEdgeParticles = ({ count, borderAt, glowColor, glowIntensi
   sprite.count = count
   sprite.frustumCulled = false
 
-  return { sprite, particles, dispose: () => material.dispose() }
+  return { sprite, dispose: () => material.dispose() }
 }

@@ -1,9 +1,13 @@
 <script setup>
 import { watch, reactive, onUnmounted } from 'vue'
+import { useLoop, useTres } from '@tresjs/core'
 import { useTexture } from '@tresjs/cientos'
+import { EffectComposerPmndrs, BloomPmndrs } from '@tresjs/post-processing'
 import fragment from './fragment.glsl'
-import { LinearFilter, RepeatWrapping } from 'three'
+import { Color, LinearFilter, RepeatWrapping } from 'three'
 import { Pane } from 'tweakpane'
+import { createEdgeParticles } from './edgeParticles'
+import { addGlowBindings } from '../dissolve-shared/glowPane'
 
 const options = reactive({
   alphaThreshold: 0.5,
@@ -29,7 +33,9 @@ const shader = {
     uTexture: { value: texture },
     uAlphaThreshold: { value: options.alphaThreshold },
     uBorderSize: { value: options.borderSize },
-    uTextureScale: { value: options.textureScale }
+    uTextureScale: { value: options.textureScale },
+    uGlowColor: { value: new Color().setRGB(0.15, 0.15, 0.96) },
+    uGlowIntensity: { value: 6 }
   },
   vertexShader: /* glsl */ `
     varying vec2 vUv;
@@ -43,7 +49,43 @@ const shader = {
   // side: DoubleSide,
 }
 
-onUnmounted(() => pane?.dispose())
+const particleUniforms = {
+  uTime: { value: 0 },
+  uPixelRatio: { value: 1 },
+  uParticleSize: { value: 30 },
+  uParticleSpeed: { value: 0.6 },
+  uParticleDistance: { value: 0.6 }
+}
+const particles = createEdgeParticles({
+  count: 20000,
+  uniforms: { ...shader.uniforms, ...particleUniforms }
+})
+
+const bloom = reactive({ intensity: 1.5, threshold: 0.9 })
+
+const glowFolder = addGlowBindings(pane, {
+  glowColor: shader.uniforms.uGlowColor,
+  glowIntensity: shader.uniforms.uGlowIntensity,
+  particles: {
+    size: particleUniforms.uParticleSize,
+    speed: particleUniforms.uParticleSpeed,
+    distance: particleUniforms.uParticleDistance
+  }
+})
+glowFolder.addBinding(bloom, 'intensity', { label: 'bloom', min: 0, max: 5 })
+glowFolder.addBinding(bloom, 'threshold', { label: 'bloom threshold', min: 0, max: 2 })
+
+const { renderer } = useTres()
+const { onBeforeRender } = useLoop()
+onBeforeRender(({ elapsed }) => {
+  particleUniforms.uTime.value = elapsed
+  particleUniforms.uPixelRatio.value = renderer.getPixelRatio()
+})
+
+onUnmounted(() => {
+  pane?.dispose()
+  particles.dispose()
+})
 
 watch(texture, (_tex) => {
   if (_tex) {
@@ -59,4 +101,15 @@ watch(texture, (_tex) => {
     <TresIcosahedronGeometry :args="[1, 64]" />
     <TresShaderMaterial v-bind="shader" />
   </TresMesh>
+  <primitive v-if="!isLoading" :object="particles.points" />
+  <Suspense>
+    <EffectComposerPmndrs>
+      <BloomPmndrs
+        :intensity="bloom.intensity"
+        :luminance-threshold="bloom.threshold"
+        :luminance-smoothing="0.1"
+        mipmap-blur
+      />
+    </EffectComposerPmndrs>
+  </Suspense>
 </template>

@@ -174,12 +174,17 @@
 
 2. Remove the models, use primitives or models we got already on the repo
 
-## Emissive dissolve upgrade (particles + bloom) for Dissolve, DissolveTsl, DissolveWGSL — 2026-10-31 20:30
+## Dissolve demos: augment with edge particles + bloom (not a port) — 2026-10-31 20:30
 
 1. I got some dissolve demos already, one wit webgl and one with webGPU. but they are not as polish
    as this, mine dont' have particles or post processing. can you add them
 
    https://github.com/JatinChopra/emissive-dissolve-effect
+
+2. I'm really sorry this is my bad prompt . you copy and paste all the code. no no I don't need it
+   to be exact. I have a demo running and the idea wasnot replace it but to augment it adding the
+   particles and the post processing. can you go back bring the earth, remove all the assets that
+   you added and just augmenting this please
 
 ## PencilLines post-processing demo — 2026-10-31 22:00
 

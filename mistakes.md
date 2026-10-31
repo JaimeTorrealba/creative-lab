@@ -229,3 +229,21 @@ Wrapping those products in `Math.fround` dropped the error to 8e-4.
 
 **Lesson:** when validating GPU code against a CPU reference, emulate f32 (`Math.fround`) at every
 `floor`/`fract`/`mod` input, or compare statistics instead of exact values.
+
+## 2026-10-31 — Replaced the Dissolve demos instead of augmenting them
+
+Asked to "add particles and post processing" to the existing dissolve demos with a reference repo
+as inspiration, I ported the whole reference (new geometries, cubemap, metal material, 9 MB of
+assets) and threw away the user's earth texture and perlin-UV dissolve. The user wanted their
+demos kept and only the two features added.
+
+**Lesson:** "my X doesn't have A or B, can you add them" means keep X and add A and B. Treat a
+linked reference as a source of technique, not a spec to port, unless asked for a port.
+
+## 2026-10-31 — Trusted a read of PolyhedronGeometry's UV code without checking the output
+
+I derived spark UVs from `azimuth`/`inclination` as read in the source and would have shipped a
+V-flipped mapping (sparks on the wrong hemisphere). Comparing the formula against the real `uv`
+attribute of a generated geometry caught it: `v = atan2(y, r)/π + 0.5`, not `atan2(-y, r)`.
+
+**Lesson:** when re-deriving data a library generates, diff against the library's actual output.
