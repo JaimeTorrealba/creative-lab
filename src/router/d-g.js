@@ -32,6 +32,11 @@ const d_g_routes = [
     tags: [TAGS.WEBGPU]
   },
   {
+    name: 'DivineFire',
+    basedOn: 'https://simonschreibt.de/gat/divine-fire/',
+    tags: [TAGS.FRAGMENT]
+  },
+  {
     name: 'DreamyParticles',
     basedOn: 'https://github.com/DGFX/codrops-dreamy-particles',
     tags: [TAGS.GPGPU, TAGS.PARTICLES]

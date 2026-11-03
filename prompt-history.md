@@ -197,3 +197,18 @@
 
 2. [@Jaime bboy JT; 31 Oct, 20 37.mp4](file:///C:/Users/Jaime/Downloads/Jaime%20bboy%20JT;%2031%20Oct,%2020%2037.mp4)
    This is the thumbnail
+
+## Divine Fire overlay-mesh burning effect demo — 2026-11-03 12:00
+
+1. Can you see, read and undertand this tech? before any coding just tell me what you see, how you
+   would implement it in threejs
+   https://simonschreibt.de/gat/divine-fire/
+
+2. ok create a new demo, apply this effect in a rehusable way so we can create a scene with 4
+   meshes, a box a sphere a jaimeAvatar and an ant
+
+   Put the in a 2 by 2 layout on the z axis
+
+   for the trigger use the tweakpane, in conjuntion with any other property you find usefull here
+
+3. [@DivideFire.mp4](file:///C:/Users/Jaime/Downloads/DivideFire.mp4) thumbnail
