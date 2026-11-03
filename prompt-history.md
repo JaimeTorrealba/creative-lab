@@ -212,3 +212,13 @@
    for the trigger use the tweakpane, in conjuntion with any other property you find usefull here
 
 3. [@DivideFire.mp4](file:///C:/Users/Jaime/Downloads/DivideFire.mp4) thumbnail
+
+## Rapier cloth simulation demo — 2026-11-03 18:00
+
+1. We got tres/rapier right, can you create a very simple cloth simulation? how would you do that?
+
+   In my mind there is a ball, and the cloth fall to the ball (the cloth is located above the ball)
+
+2. I think we can update tres/rapier
+
+3. [@ClothSimulation.mp4](file:///C:/Users/Jaime/Downloads/ClothSimulation.mp4) Thumbnail

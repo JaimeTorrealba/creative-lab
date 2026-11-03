@@ -20,7 +20,7 @@
     "@tresjs/cientos": "^5.4.0",
     "@tresjs/core": "^5.5.0",
     "@tresjs/post-processing": "^3.4.0",
-    "@tresjs/rapier": "1.0.0-alpha.0",
+    "@tresjs/rapier": "1.2.1",
     "@tweakpane/plugin-essentials": "^0.2.1",
     "@vueuse/core": "10.9.0",
     "alea": "^1.0.1",

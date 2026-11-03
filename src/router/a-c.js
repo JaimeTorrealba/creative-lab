@@ -102,6 +102,11 @@ const a_c_routes = [
     tags: [TAGS.BASIC]
   },
   {
+    name: 'ClothSimulation',
+    basedOn: 'https://rapier.rs/docs/user_guides/javascript/joints',
+    tags: [TAGS.BASIC]
+  },
+  {
     name: 'CloudLight',
     tags: [TAGS.BASIC]
   },
