@@ -222,3 +222,18 @@
 2. I think we can update tres/rapier
 
 3. [@ClothSimulation.mp4](file:///C:/Users/Jaime/Downloads/ClothSimulation.mp4) Thumbnail
+
+## Procedural lizard video analysis — 2026-11-04 22:26
+
+1. Can you see the video and understand this?
+   https://www.reddit.com/r/IndieDev/comments/1nft3h1/procedural_lizard_in_10_steps/
+
+   WHat you undertand, whad you see? how would you do that on threejs?
+
+## Smart rockets genetic algorithm demo — 2026-11-10 12:00
+
+1. Create a new demo for "the nature of code" with it's tag, basedOn
+   https://natureofcode.com/genetic-algorithms/#evolving-forces-smart-rockets I want a result
+   similar to the example 9.2
+
+2. [@SmartRockets.mp4](file:///C:/Users/Jaime/Downloads/SmartRockets.mp4) Your thumbnail please

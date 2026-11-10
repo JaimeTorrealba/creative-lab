@@ -247,3 +247,11 @@ V-flipped mapping (sparks on the wrong hemisphere). Comparing the formula agains
 attribute of a generated geometry caught it: `v = atan2(y, r)/π + 0.5`, not `atan2(-y, r)`.
 
 **Lesson:** when re-deriving data a library generates, diff against the library's actual output.
+
+## 2026-11-04 — Tried a Reddit mirror after Reddit blocked the fetch
+
+The user's Reddit link carried a JS challenge and WebFetch was refused on www and old.reddit. I then
+tried a redlib mirror to read the same page, which was denied as bot-check circumvention.
+
+**Lesson:** when a site blocks automated access, don't route around it with a mirror. Use sources
+that are openly available and ask the user to share the content (a video file or screenshots).

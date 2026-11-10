@@ -148,6 +148,11 @@ const o_s_routes = [
     tags: [TAGS.FRAGMENT]
   },
   {
+    name: 'SmartRockets',
+    basedOn: 'https://natureofcode.com/genetic-algorithms/#evolving-forces-smart-rockets',
+    tags: [TAGS.NOC]
+  },
+  {
     name: 'SnapDrag',
     tags: [TAGS.CONTROLS]
   },
