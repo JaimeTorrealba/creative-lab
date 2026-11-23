@@ -267,3 +267,28 @@ noticed the mismatch and shipped anyway, only mentioning it as a "may break late
 **Lesson:** when research shows the library's feature check and the current spec disagree, treat
 it as a blocker. Code for both API shapes (the WICG examples show the fallback order) instead
 of noting the risk.
+
+## 2026-11-23 — Converted hex albedos to linear twice
+
+For the HighQualityGI Cornell box I wrote `new Color(hex).convertSRGBToLinear()` for the vertex
+albedo attribute. With `ColorManagement` enabled (the default since r152), `Color.set('#hex')`
+already converts sRGB to the linear working space, so the extra call would have darkened every
+wall. I caught it while wiring the light colour, which goes through the same `set()` path.
+
+**Lesson:** in three r152+, `new Color('#hex')` is already linear. Only call
+`convertSRGBToLinear()` on values that bypass ColorManagement (raw numbers from a buffer or JSON).
+
+## 2026-11-23 — Constant shadow bias on a 150° perspective shadow map
+
+The HighQualityGI panel light uses a single 1024² shadow map with a 150° FOV and a fixed 0.01
+distance bias. On the tall box's sides the light arrives at ~80° from the normal, so one shadow
+texel (~0.011 units there) spans ~0.075 of depth — seven times the bias. That causes acne: static
+stripes that don't go away after the GI converges. The user spotted them as "lines on the box".
+
+The PCF kernel made it worse: taps 4 texels away on that slanted face are ~0.2 off in depth.
+(I also first claimed off-axis texels grow by 1/cos²; they shrink. Perspective maps oversample
+their edges, so the footprint is at most distance × texel angle.)
+
+**Lesson:** for PCF on a wide shadow map, compare each tap against the receiver plane's depth
+at that texel centre (exact on flat faces), plus a small normal offset sized in texels for curved
+ones. Never use a constant bias, and check the worst grazing face before calling shadows done.

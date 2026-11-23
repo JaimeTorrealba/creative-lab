@@ -7,7 +7,10 @@ const h_n_routes = [
     tags: [TAGS.NATURE]
   },
   {
-    name: 'HighQualityGI'
+    name: 'HighQualityGI',
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems2/part-v-image-oriented-computing/chapter-38-high-quality-global-illumination',
+    tags: [TAGS.GPU_GEMS]
   },
   {
     name: 'HoverButton',

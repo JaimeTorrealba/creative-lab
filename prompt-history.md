@@ -269,3 +269,16 @@
    implement this using threejs in realtime (even with less FPS what do you think?
 
    Do not forget tweakpane) anti-aliasing is not necessary on this ocassion.
+
+2. it flicks quite a lot, how to reduce it? (make no code changes just tell me which parameter
+   should I tweak)
+
+3. Let's add the anti-aliasing
+
+4. I still see lines, where it shouldn't why is that? I got lines for example on the box (quite
+   visible) even when the scene is not flickering anymore, do you want to open an instance of
+   chrome and see them?
+
+5. yes is exactly that, shadow acne. fix it please
+
+6. [@GI.mp4](file:///C:/Users/Jaime/Downloads/GI.mp4) Here is the thumbnail
