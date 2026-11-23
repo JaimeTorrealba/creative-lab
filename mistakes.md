@@ -255,3 +255,15 @@ tried a redlib mirror to read the same page, which was denied as bot-check circu
 
 **Lesson:** when a site blocks automated access, don't route around it with a mirror. Use sources
 that are openly available and ask the user to share the content (a video file or screenshots).
+
+## 2026-11-17 — Relied on three's HTMLTexture after reading that the spec had renamed the API
+
+While researching html-in-canvas I read the WICG README, which already described
+`content="drawable"`, the `drawable` attribute and `texElementSubImage2D`. three r186's
+`HTMLTexture` only enters its upload branch when `texElementImage2D` exists, so on a current
+Chrome it silently did nothing — the page element was never even appended to the canvas. I
+noticed the mismatch and shipped anyway, only mentioning it as a "may break later" caveat.
+
+**Lesson:** when research shows the library's feature check and the current spec disagree, treat
+it as a blocker. Code for both API shapes (the WICG examples show the fallback order) instead
+of noting the risk.

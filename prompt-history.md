@@ -237,3 +237,25 @@
    similar to the example 9.2
 
 2. [@SmartRockets.mp4](file:///C:/Users/Jaime/Downloads/SmartRockets.mp4) Your thumbnail please
+
+## HTML-in-canvas invert split demo — 2026-11-17 12:00
+
+1. Create a new demo, random tag. using html-in-canvas, the new experimental browser API with
+   threejs.
+
+   For the demo I want a very simple, generic navbar, hero section (title, description, img) no
+   scroll use all the height of the viewport but no more and very important use only black an
+   white colour, no grey no other colour just black and white.
+
+   The effect is defined as: I want a division bar, from one side show the normal colours and from
+   the other side the invert version of the colour, this division var is vertical and is
+   controlled by the mouse. in order to do this we should use the html-in-canvas so the side
+   actually runs normal DOM elements, no custom meshes or anything like that.
+
+2. I don't get it. I can see the canvas, and the division, but I can see any of the text or the
+   simple page, why is that? I got the flac active and the elements on the devtools doesn't show
+   any element like a title, or navbar, etc
+
+3. Perfect thanks, last detail can we rotate the line a little just to be a little vertical
+
+4. [@InvertSplit.mp4](file:///C:/Users/Jaime/Downloads/InvertSplit.mp4) add the thumnail

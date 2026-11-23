@@ -41,6 +41,11 @@ const h_n_routes = [
     tags: [TAGS.FRAGMENT]
   },
   {
+    name: 'InvertSplit',
+    basedOn: 'https://github.com/WICG/html-in-canvas',
+    tags: [TAGS.RANDOM, TAGS.HTML]
+  },
+  {
     name: 'JackknifeTransmittanceCloud',
     basedOn: 'https://momentsingraphics.de/SiggraphAsia2025.html',
     tags: [TAGS.NATURE]
