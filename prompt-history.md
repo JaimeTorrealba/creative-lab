@@ -259,3 +259,13 @@
 3. Perfect thanks, last detail can we rotate the line a little just to be a little vertical
 
 4. [@InvertSplit.mp4](file:///C:/Users/Jaime/Downloads/InvertSplit.mp4) add the thumnail
+
+## GPU Gems 2 ch.38 real-time global illumination demo — 2026-11-23 12:00
+
+1. Create a new demo under, gpugems tag. based and following code of:
+   https://developer.nvidia.com/gpugems/gpugems2/part-v-image-oriented-computing/chapter-38-high-quality-global-illumination
+
+   this chapter prescribe, originally an offline GI. maybe with this new generations of GPU we can
+   implement this using threejs in realtime (even with less FPS what do you think?
+
+   Do not forget tweakpane) anti-aliasing is not necessary on this ocassion.

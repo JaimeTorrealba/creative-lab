@@ -7,6 +7,9 @@ const h_n_routes = [
     tags: [TAGS.NATURE]
   },
   {
+    name: 'HighQualityGI'
+  },
+  {
     name: 'HoverButton',
     basedOn: 'https://dribbble.com/shots/11386939-Play-with-Magic-Motion',
     tags: [TAGS.BASIC, TAGS.HTML]
