@@ -319,3 +319,15 @@ had two `THREE.WebGLProgram: Shader Error` entries, found in the first minute of
 **Lesson:** join GLSL chunks with `'\n'` (`joinShaderChunks` in `octree-textures/octree/index.js`). When a
 WebGL demo shows nothing, read the browser console yourself (ask first) before theorising;
 "no errors" from a user can mean they did not see them.
+
+## 2026-11-24 — Per-element stop threshold that scaled with element count (ProgressiveRadiosity)
+
+I first stopped the solver once no shooting element had more than `0.0002 × emitted power`.
+A CPU reference solve of the same scene showed that at the default 6,600 elements it halted at
+**23 % unshot energy** after 239 shots: splitting the scene into more elements shrinks every
+element's power, so a per-element threshold quits earlier the finer the mesh. I had picked the
+number without running it at the default resolution.
+
+**Lesson:** a convergence criterion must be invariant to the discretisation, here the total unshot
+energy as a fraction of the emitted energy. Before committing a tolerance or stop value, run a
+cheap CPU reference at the default settings and print where it actually stops.

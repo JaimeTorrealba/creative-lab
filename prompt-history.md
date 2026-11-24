@@ -300,3 +300,12 @@
 4. ok let's merge it having the donuts as based. rain should be off by default
 
 5. [@Octree.mp4](file:///C:/Users/Jaime/Downloads/Octree.mp4) thumbnail
+
+## GPU Gems 2 ch.39 progressive refinement radiosity demo — 2026-11-24 10:00
+
+1. Create a new demo based on:
+   https://developer.nvidia.com/gpugems/gpugems2/part-v-image-oriented-computing/chapter-39-global-illumination-using-progressive
+
+   use tweakpane, this needs to be realtime,
+
+2. [@ProgressiveRadiosity.mp4](file:///C:/Users/Jaime/Downloads/ProgressiveRadiosity.mp4) thumbnail

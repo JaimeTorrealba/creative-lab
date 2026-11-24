@@ -66,6 +66,12 @@ const o_s_routes = [
     tags: [TAGS.BASIC]
   },
   {
+    name: 'ProgressiveRadiosity',
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems2/part-v-image-oriented-computing/chapter-39-global-illumination-using-progressive',
+    tags: [TAGS.GPU_GEMS, TAGS.GPGPU]
+  },
+  {
     name: 'Quaternions',
     tags: [TAGS.BASIC]
   },
