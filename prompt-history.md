@@ -282,3 +282,21 @@
 5. yes is exactly that, shadow acne. fix it please
 
 6. [@GI.mp4](file:///C:/Users/Jaime/Downloads/GI.mp4) Here is the thumbnail
+
+## GPU Gems 2 ch.37 octree textures: paint + liquid on a donut — 2026-11-23 15:10
+
+1. Create a 2 new demos. they are related maybe we can share some logic, based on octree
+   https://developer.nvidia.com/gpugems/gpugems2/part-v-image-oriented-computing/chapter-37-octree-textures-gpu
+
+   1) paint demo with a texture exporter, for this let's just have a box
+   2) simulation liquid on texture, for this let's do it on a donut
+
+   Do not forget tweakpane
+
+2. The octreeLiquid demo is not working, no errors but nothing appears on screen
+
+3. Now that I see the demo, defiently we can merge them they are very similar right? what do you think?
+
+4. ok let's merge it having the donuts as based. rain should be off by default
+
+5. [@Octree.mp4](file:///C:/Users/Jaime/Downloads/Octree.mp4) thumbnail

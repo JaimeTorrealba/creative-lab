@@ -292,3 +292,30 @@ their edges, so the footprint is at most distance × texel angle.)
 **Lesson:** for PCF on a wide shadow map, compare each tap against the receiver plane's depth
 at that texel centre (exact on flat faces), plus a small normal offset sized in texels for curved
 ones. Never use a constant bias, and check the worst grazing face before calling shadows done.
+
+## 2026-11-23 — Flattened integer cell keys alias outside the grid (OctreeLiquid)
+
+The neighbour tables look leaves up by `x + R·(y + R·z)`. For a neighbour offset that leaves the
+grid (`x = -1`), that key equals the key of the real cell `(R-1, y-1, z)`, so a border leaf would
+have been wired to a leaf on the opposite side of the domain. Caught on review before running;
+the torus never touches the border, so no test would have shown it.
+
+**Lesson:** any flattened index of a neighbour offset needs an explicit bounds check first.
+Also: verify the tables with a symmetry test (j ∈ N(i) at offset o ⇒ i ∈ N(j) at −o); it is
+cheap and catches ordering mistakes between the JS and GLSL offset lists too.
+
+## 2026-11-23 — Concatenated vite-plugin-glsl imports with `+` (OctreeLiquid blank)
+
+`liquidLeaf + octreeLookup + liquidFragment` and `flowCommon + fragmentShader` compiled to
+`}#define MAX_SOURCES 8` and a `#define OCTREE_LEAF_VALUE(...)` line that swallowed the next
+chunk's `uniform` declaration: vite-plugin-glsl strips comments and the trailing newline of every
+imported chunk. The donut never drew. OctreePaint only worked because its seams happened to
+fall between `}` and `uniform`. My "hand review" of the shaders read each file on its own,
+never the joined string the GPU actually gets.
+
+The user reported "no errors", and I spent a round reasoning statically. The console actually
+had two `THREE.WebGLProgram: Shader Error` entries, found in the first minute of looking.
+
+**Lesson:** join GLSL chunks with `'\n'` (`joinShaderChunks` in `octree-textures/octree/index.js`). When a
+WebGL demo shows nothing, read the browser console yourself (ask first) before theorising;
+"no errors" from a user can mean they did not see them.

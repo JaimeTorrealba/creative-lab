@@ -3,6 +3,12 @@ import { TAGS } from '../utils/constants'
 
 const o_s_routes = [
   {
+    name: 'OctreeTextures',
+    basedOn:
+      'https://developer.nvidia.com/gpugems/gpugems2/part-v-image-oriented-computing/chapter-37-octree-textures-gpu',
+    tags: [TAGS.GPU_GEMS, TAGS.GPGPU]
+  },
+  {
     name: 'PamCanvas',
     tags: [TAGS.BASIC, TAGS.HTML]
   },
